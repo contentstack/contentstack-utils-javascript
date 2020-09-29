@@ -1,0 +1,45 @@
+{
+  "name": "@contentstack/utils",
+  "version": "1.0.0",
+  "description": "Contentstack utilities for Javascript",
+  "main": "dist/lib/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "Contentstack",
+    "contentstack",
+    "contentstack javascript",
+    "Contentstack javascript"
+  ],
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "test:badges": "npm run test && jest-coverage-badges --output ./badges",
+    "test:debug": "jest --watchAll --config jestconfig.json --runInBand",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "generate:docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --readme README.md --verbose"
+  },
+  "author": "Contentstack",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.13",
+    "eslint": "^7.9.0",
+    "jest": "^26.4.2",
+    "jest-coverage-badges": "^1.1.2",
+    "jest-html-reporters": "^2.0.4",
+    "jsdoc": "^3.6.5",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.3.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.0.2"
+  }
+}

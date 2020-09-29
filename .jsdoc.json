@@ -1,0 +1,26 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc"]
+    },
+    "source": {
+        "include": ["src"],
+        "excludePattern": "(node_modules/|jsdocs)"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": true
+    },
+    "opts": {
+        "destination": "./jsdocs/",
+        "encoding": "utf8",
+        "private": true,
+        "recurse": true,
+        "template": "./node_modules/docdash",
+        "sort": false
+    },
+    "docdash": {
+        "static": true,
+        "sort": false
+    }
+}
