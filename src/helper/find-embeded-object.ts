@@ -1,7 +1,7 @@
 import { ContentTypeEntry, Entry } from '../Models/entry-model';
 import { AssetModel } from '../Models/asset-model';
 import { RenderOption, RenderObject, RenderContentType } from '../options/index';
-import { EmbeddedAsset, EmbeddedEntry, EmbedTagModel } from '../Models/embeddec-object-model';
+import { EmbeddedAsset, EmbeddedEntry, EmbedAttributes } from '../Models/embeddec-object-model';
 import { defaultOptions } from '../options/default-options';
 import ASSET from '../embedded-types/asset';
 
@@ -26,7 +26,7 @@ export function findEmbeddedAsset(uid: string, embeddedAssets: AssetModel[] = []
   });
 }
 
-export function findEmbeddedObjects(object: EmbedTagModel, entry: Entry): (ContentTypeEntry | AssetModel)[] {
+export function findEmbeddedObjects(object: EmbedAttributes, entry: Entry): (ContentTypeEntry | AssetModel)[] {
   if (object && object !== undefined && entry && entry !== undefined) {
     if (object.type === 'entry') {
       const embeddedEntry = object as EmbeddedEntry;
@@ -44,7 +44,7 @@ export function findEmbeddedObjects(object: EmbedTagModel, entry: Entry): (Conte
 }
 
 export function findRenderString(
-  object: EmbedTagModel,
+  object: EmbedAttributes,
   renderModel: ContentTypeEntry | AssetModel,
   renderOptions?: RenderOption,
 ): string {
