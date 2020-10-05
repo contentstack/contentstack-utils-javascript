@@ -1,7 +1,7 @@
 import { ContentTypeEntry, Entry } from '../Models/entry-model';
 import { AssetModel } from '../Models/asset-model';
 import { RenderOption, RenderObject, RenderContentType } from '../options/index';
-import { EmbeddedAsset, EmbeddedEntry, EmbedAttributes } from '../Models/embeddec-object-model';
+import { EmbeddedAsset, EmbeddedEntry, EmbedAttributes } from '../Models/embed-attributes-model';
 import { defaultOptions } from '../options/default-options';
 import ASSET from '../embedded-types/asset';
 

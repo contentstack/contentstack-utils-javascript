@@ -1,5 +1,5 @@
 import { elementToJson } from '../helper/html-to-json';
-import { EmbedAttributes } from '../Models/embeddec-object-model';
+import { EmbedAttributes } from '../Models/embed-attributes-model';
 import { parse } from 'node-html-parser';
 const frameflag = 'documentfragmentcontainer';
 
