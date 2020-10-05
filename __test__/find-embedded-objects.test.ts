@@ -67,15 +67,15 @@ describe('Embedded object render from content', () => {
         renderString = findRenderString(assetDownloadJson as unknown as EmbedTagModel, undefined)
         expect(renderString).toEqual('')
         renderString = findRenderString(assetDownloadJson as unknown as EmbedTagModel, entryEmbeddedAssets._embedded_assets[0], undefined)
-        expect(renderString).toEqual('<a href=\"/v3/assets/blt333/blt44asset/dummy.pdf\">{{title}}</a>')
+        expect(renderString).toEqual('<a href=\"/v3/assets/blt333/blt44asset/dummy.pdf\"> {{title}}\n</a>')
         renderString = findRenderString(assetDownloadJson as unknown as EmbedTagModel, entryEmbeddedAssets._embedded_assets[0], { [ENTRY.BLOCK]: () => ''})
-        expect(renderString).toEqual('<a href=\"/v3/assets/blt333/blt44asset/dummy.pdf\">{{title}}</a>')
+        expect(renderString).toEqual('<a href=\"/v3/assets/blt333/blt44asset/dummy.pdf\"> {{title}}\n</a>')
         done()
     }) 
 
     it('Find Render string from default renderOption', done => {
         let renderString = findRenderString(assetDownloadJson as unknown as EmbedTagModel, entryEmbeddedAssets._embedded_assets[0])
-        expect(renderString).toEqual('<a href=\"/v3/assets/blt333/blt44asset/dummy.pdf\">{{title}}</a>')
+        expect(renderString).toEqual('<a href=\"/v3/assets/blt333/blt44asset/dummy.pdf\"> {{title}}\n</a>')
         renderString = findRenderString(entryRichTextJson as unknown as EmbedTagModel, entryEmbeddedEntries._embedded_entries[0])
         expect(renderString).toEqual('<div><p>Update this title</p><p>Content type: <span>content_block</span></p></div>')
         done()

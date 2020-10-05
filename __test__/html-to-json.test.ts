@@ -1,5 +1,5 @@
 import { elementToJson } from '../src/helper/html-to-json';
-import { assetDisplayJson, assetDownloadJson } from './mock/embedded-object-mock';
+import { assetDisplayJson, assetDownloadJson, assetDisplayLink, assetDisplayLinkJson } from './mock/embedded-object-mock';
 import { parse } from 'node-html-parser';
 import { entryBlock,
     entryInline,
@@ -30,6 +30,7 @@ describe('HTML To JSON test', () => {
     it('HTML to JSON asset figure tag test', done => {
         expect(elementToJson(parse(assetDownload))).toEqual({ figure: assetDownloadJson })
         expect(elementToJson(parse(assetDisplay))).toEqual({ figure: assetDisplayJson })
+        expect(elementToJson(parse(assetDisplayLink))).toEqual({ figure: assetDisplayLinkJson })
         done()
     })
     it('HTML to JSON false tag test', done => {
