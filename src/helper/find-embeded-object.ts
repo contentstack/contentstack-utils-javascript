@@ -3,6 +3,7 @@ import { AssetModel } from '../Models/asset-model';
 import { RenderOption, RenderObject, RenderContentType } from '../options/index';
 import { EmbeddedAsset, EmbeddedEntry, EmbedTagModel } from '../Models/embeddec-object-model';
 import { defaultOptions } from '../options/default-options';
+import ASSET from '../embedded-types/asset';
 
 // This function will find Embedded object present in string
 export function findEmbeddedEntry(
@@ -51,10 +52,10 @@ export function findRenderString(
     return '';
   }
   let text = null
-  if ((object as EmbeddedEntry).a && (object as EmbeddedEntry).a["#text"]) {
-    text = (object as EmbeddedEntry).a["#text"]
-  } else if ((object as EmbeddedEntry).img && (object as EmbeddedEntry).img.alt) {
-    text = (object as EmbeddedEntry).img.alt
+  if (object["sys-style-type"] !== ASSET.DISPLAYABLE && (object as EmbeddedEntry)["#text"]) {
+    text = (object as EmbeddedEntry)["#text"]
+  } else if ((object as EmbeddedEntry).alt) {
+    text = (object as EmbeddedEntry).alt
   }
   if (renderOptions && renderOptions[object['sys-style-type']] !== undefined) {
     const renderFunction = renderOptions[object['sys-style-type']] as RenderObject;
