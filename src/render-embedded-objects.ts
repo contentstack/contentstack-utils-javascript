@@ -1,6 +1,6 @@
 import './extensions'
 import { Options } from './options';
-import { EmbedAttributes } from './Models/embeddec-object-model';
+import { EmbedAttributes } from './Models/embed-attributes-model';
 import { findEmbeddedObjects, findRenderString } from './helper/find-embeded-object';
 import { HTMLElement } from 'node-html-parser';
 
