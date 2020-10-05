@@ -51,12 +51,7 @@ export function findRenderString(
   if ((!renderModel && renderModel === undefined) || (!object && object === undefined)) {
     return '';
   }
-  let text = null
-  if (object["sys-style-type"] !== ASSET.DISPLAYABLE && (object as EmbeddedEntry)["#text"]) {
-    text = (object as EmbeddedEntry)["#text"]
-  } else if ((object as EmbeddedEntry).alt) {
-    text = (object as EmbeddedEntry).alt
-  }
+  
   if (renderOptions && renderOptions[object['sys-style-type']] !== undefined) {
     const renderFunction = renderOptions[object['sys-style-type']] as RenderObject;
 
@@ -65,11 +60,11 @@ export function findRenderString(
       typeof renderFunction !== 'function' &&
       renderFunction[(object as EmbeddedEntry)['data-sys-content-type-uid']] !== undefined
     ) {
-      return (renderFunction as RenderContentType)[(object as EmbeddedEntry)['data-sys-content-type-uid']](renderModel, text);
+      return (renderFunction as RenderContentType)[(object as EmbeddedEntry)['data-sys-content-type-uid']](renderModel, object);
     } else if (typeof renderFunction === 'function') {
-      return renderFunction(renderModel, text);
+      return renderFunction(renderModel, object);
     }
   }
-  const defaultRenderFunction = defaultOptions[object['sys-style-type']] as RenderObject;
-  return defaultRenderFunction(renderModel, text);
+  const defaultRenderFunction = defaultOptions[object['sys-style-type']] as RenderObject;  
+  return defaultRenderFunction(renderModel, object);
 }
