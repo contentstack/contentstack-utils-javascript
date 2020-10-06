@@ -15,14 +15,14 @@ import {
     assetDownloadJson,
     assetDisplayJson
 } from './mock/embedded-object-mock';
-import { EmbedAttributes } from '../src/Models/embed-attributes-model';
+import { Attributes } from '../src/Models/embed-attributes-model';
 
 const NoHTML = 'non html string'
 
 describe('String extension for each embedded Object ', () => {
     it('Find Embedded object function with undefined string test', done => {
         expect.assertions(0)
-        makeFindEmbedd(undefined, (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(undefined, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(undefined)
             expect(object).toEqual({})
         })
@@ -30,11 +30,11 @@ describe('String extension for each embedded Object ', () => {
     })
     it('Find Embedded object function with no Embedded contents test', done => {
         expect.assertions(0)
-        makeFindEmbedd('', (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd('', (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(undefined)
             expect(object).toEqual({})
         })
-        makeFindEmbedd(NoHTML, (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(NoHTML, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(undefined)
             expect(object).toEqual({})
         })
@@ -43,7 +43,7 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded object function with Embedded contents no child test', done => {
         expect.assertions(2)
-        makeFindEmbedd(noChildNode, (embTag: string, object: EmbedAttributes) => {            
+        makeFindEmbedd(noChildNode, (embTag: string, object: Attributes) => {            
             expect(embTag).toEqual(noChildNode)
             expect(object).toEqual(noChildNodeJson)
         })
@@ -52,15 +52,15 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded entry function with Embedded contents test', done => {
         expect.assertions(6)
-        makeFindEmbedd(entryLink, (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(entryLink, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(entryLink)
             expect(object).toEqual(entryLinkJson)
         })
-        makeFindEmbedd(entryInline, (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(entryInline, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(entryInline)
             expect(object).toEqual(entryInlineJson)
         })
-        makeFindEmbedd(entryBlock, (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(entryBlock, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(entryBlock)
             expect(object).toEqual(entryBlockJson)
         })
@@ -69,12 +69,12 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded assets function with Embedded contents test', done => {
         expect.assertions(4)
-        makeFindEmbedd(assetDownload, (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(assetDownload, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(assetDownload)
             expect(object).toEqual(assetDownloadJson)
         })
 
-        makeFindEmbedd(assetDisplay, (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(assetDisplay, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(assetDisplay)
             expect(object).toEqual(assetDisplayJson)
         })
@@ -83,7 +83,7 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded multiple object Link and Inline test', done => {
         expect.assertions(2)
-        makeFindEmbedd(` ${entryLink} ${entryInline}`,  (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(` ${entryLink} ${entryInline}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else {
@@ -95,7 +95,7 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded multiple object Block, Link and Inline test', done => {
         expect.assertions(3)
-        makeFindEmbedd(` ${entryBlock} ${entryLink} ${entryInline}`,  (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(` ${entryBlock} ${entryLink} ${entryInline}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else if (embTag === entryBlock) {
@@ -109,7 +109,7 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded multiple object Download and Display test', done => {
         expect.assertions(2)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload}`,  (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(` ${assetDisplay} ${assetDownload}`,  (embTag: string, object: Attributes) => {
             if (embTag === assetDownload) {
                 expect(object).toEqual(assetDownloadJson)
             }else {
@@ -121,7 +121,7 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded multiple object Download , Link and Display test', done => {
         expect.assertions(3)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload}  ${entryLink}`,  (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(` ${assetDisplay} ${assetDownload}  ${entryLink}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else if (embTag === assetDisplay) {
@@ -135,7 +135,7 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded multiple object Download, Display, Link and Inline test', done => {
         expect.assertions(4)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload} ${entryLink} ${entryInline}`,  (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(` ${assetDisplay} ${assetDownload} ${entryLink} ${entryInline}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else if (embTag === assetDisplay) {
@@ -151,7 +151,7 @@ describe('String extension for each embedded Object ', () => {
 
     it('Find Embedded multiple object Download, Display, Block, Link and Inline test', done => {
         expect.assertions(5)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload} ${entryLink} ${entryInline} ${entryBlock}`,  (embTag: string, object: EmbedAttributes) => {
+        makeFindEmbedd(` ${assetDisplay} ${assetDownload} ${entryLink} ${entryInline} ${entryBlock}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else if (embTag === assetDisplay) {
@@ -168,6 +168,6 @@ describe('String extension for each embedded Object ', () => {
     })
 })
 
-function makeFindEmbedd(content: string = '', callback: (embedTag: string, object: EmbedAttributes) => void) {
+function makeFindEmbedd(content: string = '', callback: (embedTag: string, object: Attributes) => void) {
     content.forEachEmbeddedObject(callback)
 }

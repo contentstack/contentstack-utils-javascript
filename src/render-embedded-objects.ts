@@ -1,6 +1,6 @@
 import './extensions'
 import { Options } from './options';
-import { EmbedAttributes } from './Models/embed-attributes-model';
+import { Attributes } from './Models/embed-attributes-model';
 import { findEmbeddedObjects, findRenderString } from './helper/find-embeded-object';
 import { HTMLElement } from 'node-html-parser';
 
@@ -13,7 +13,7 @@ export function renderContent(content: (string | string[]), options: Options): (
     // render content of type string
     if (typeof content === 'string') {
         let contentToReplace = content
-        content.forEachEmbeddedObject((embededObjectTag: string, object: EmbedAttributes) => {
+        content.forEachEmbeddedObject((embededObjectTag: string, object: Attributes) => {
             contentToReplace = findAndReplaceEmbeddedObject(
                 contentToReplace,
                 embededObjectTag, 
@@ -30,7 +30,7 @@ export function renderContent(content: (string | string[]), options: Options): (
             resultContent.push('')
         }else {
             let contentToReplace = element
-            element.forEachEmbeddedObject((embededObjectTag: string, object: EmbedAttributes) => {
+            element.forEachEmbeddedObject((embededObjectTag: string, object: Attributes) => {
                 contentToReplace = findAndReplaceEmbeddedObject(
                     contentToReplace,
                     embededObjectTag, 
@@ -43,7 +43,7 @@ export function renderContent(content: (string | string[]), options: Options): (
     return resultContent
 }
 
-function findAndReplaceEmbeddedObject(content:string, embededObjectTag: string, object: EmbedAttributes, option: Options): string {    
+function findAndReplaceEmbeddedObject(content:string, embededObjectTag: string, object: Attributes, option: Options): string {    
     const embeddedObjects = findEmbeddedObjects(object, option.entry)
     const renderString = findRenderString(object, embeddedObjects[0], option.renderOption)
     return content.replace(embededObjectTag, renderString)

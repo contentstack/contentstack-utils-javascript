@@ -122,7 +122,7 @@ export const entryEmbeddedEntries =  {
             _content_type_uid: 'content_block'
           }
         ],
-        rich_text_editor: '<figure class="embedded-entry inline-entry" data-sys-entry-uid="blttitleuid" data-sys-entry-locale="en-us" data-sys-content-type-uid="content_block" sys-style-type="inline" type="entry"></figure>',
+        rich_text_editor: '<figure class="embedded-entry inline-entry" data-sys-entry-uid="blttitleuid" data-sys-entry-locale="en-us" data-sys-content-type-uid="content_block" sys-style-type="inline" type="entry"> asfsaf </figure>',
       },
       {
         title: 'updated title',

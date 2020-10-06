@@ -1,8 +1,8 @@
 import { Entry, ContentTypeEntry } from '../Models/entry-model';
 import { AssetModel } from '../Models/asset-model';
-import { EmbedAttributes } from '../Models/embed-attributes-model';
+import { Attributes } from '../Models/embed-attributes-model';
 
-export type RenderObject = (object: ContentTypeEntry | AssetModel, embedAttributes: EmbedAttributes) => string;
+export type RenderObject = (object: ContentTypeEntry | AssetModel, embedAttributes: Attributes) => string;
 
 export interface RenderOption {
   [embedType: string]: RenderObject | RenderContentType;

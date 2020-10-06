@@ -9,7 +9,7 @@ import { assetContentBlank,
     assetContentonlyFileNameAndURL, 
     assetContentonlyTitle, 
     assetContentonlyTitleAndUrl } from './mock/asset-mock';
-import { EmbedAttributes } from '../src/Models/embed-attributes-model';
+import { Attributes } from '../src/Models/embed-attributes-model';
 
 const linkText = "linkText"
 const entryBlockFunction: RenderObject = defaultOptions[ENTRY.BLOCK] as RenderObject
@@ -19,9 +19,9 @@ const entryLinkFunction: RenderObject = defaultOptions[ENTRY.LINK] as RenderObje
 const assetDownloadFunction: RenderObject = defaultOptions[ASSET.DOWNLOADABLE] as RenderObject
 const assetDisplaableFunction: RenderObject = defaultOptions[ASSET.DISPLAYABLE] as RenderObject
 
-const embedAttributes = {} as EmbedAttributes
+const embedAttributes = {} as Attributes
 
-const embedAttributesText = { '#text': linkText, alt: linkText } as unknown as EmbedAttributes
+const embedAttributesText = { '#text': linkText, alt: linkText } as unknown as Attributes
 
 describe('Default Option test', () => {
     it('Default options Entry with only uid test', done => {
