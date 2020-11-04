@@ -5,21 +5,15 @@ export interface EntryModel {
   [propName: string]: any;
 }
 
+export interface EmbedModel<T> {
+  [path: string]: T[]
+}
+
 export interface ContentTypeEntry extends EntryModel {
   _content_type_uid: string;
 }
 
-export interface EmbeddedEntries extends EntryModel {
-  _embedded_entries: ContentTypeEntry[];
+export interface Entry extends EntryModel {
+  _embedded_assets?: EmbedModel<AssetModel>;
+  _embedded_entries?: EmbedModel<ContentTypeEntry>;
 }
-
-export interface EmbeddedAssets extends EntryModel {
-  _embedded_assets: AssetModel[];
-}
-
-export interface EmbeddedObjets extends EntryModel {
-  _embedded_assets: AssetModel[];
-  _embedded_entries: ContentTypeEntry[];
-}
-
-export type Entry = EmbeddedEntries | EmbeddedAssets | EmbeddedObjets;

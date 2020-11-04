@@ -12,7 +12,7 @@ export interface RenderContentType {
   [contentTypeUid: string]: RenderObject;
 }
 
-export interface Options {
+export interface Option {
   entry: Entry;
   renderOption?: RenderOption;
 }

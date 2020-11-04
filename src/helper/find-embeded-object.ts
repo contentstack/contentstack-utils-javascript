@@ -3,7 +3,6 @@ import { AssetModel } from '../Models/asset-model';
 import { RenderOption, RenderObject, RenderContentType } from '../options/index';
 import { EmbeddedAsset, EmbeddedEntry, Attributes } from '../Models/embed-attributes-model';
 import { defaultOptions } from '../options/default-options';
-import ASSET from '../embedded-types/asset';
 
 // This function will find Embedded object present in string
 export function findEmbeddedEntry(
@@ -33,11 +32,11 @@ export function findEmbeddedObjects(object: Attributes, entry: Entry): (ContentT
       return findEmbeddedEntry(
         embeddedEntry['data-sys-entry-uid'],
         embeddedEntry['data-sys-content-type-uid'],
-        entry._embedded_entries,
+        Object.values(entry._embedded_entries || []).reduce((accumulator, value) => accumulator.concat(value), []),
       );
     } else {
       const embeddedAsset = object as EmbeddedAsset;
-      return findEmbeddedAsset(embeddedAsset['data-sys-asset-uid'], entry._embedded_assets);
+      return findEmbeddedAsset(embeddedAsset['data-sys-asset-uid'], Object.values(entry._embedded_assets || []).reduce((accumulator, value) => accumulator.concat(value), []),);
     }
   }
   return [];
@@ -61,6 +60,12 @@ export function findRenderString(
       renderFunction[(object as EmbeddedEntry)['data-sys-content-type-uid']] !== undefined
     ) {
       return (renderFunction as RenderContentType)[(object as EmbeddedEntry)['data-sys-content-type-uid']](renderModel, object);
+    } else if (
+      (object as EmbeddedEntry)['data-sys-content-type-uid'] !== undefined &&
+      typeof renderFunction !== 'function' &&
+      (renderFunction as RenderContentType).$default !== undefined
+    ) {
+      return (renderFunction as RenderContentType).$all(renderModel, object);
     } else if (typeof renderFunction === 'function') {
       return renderFunction(renderModel, object);
     }

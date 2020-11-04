@@ -1,10 +1,49 @@
 import './extensions'
-import { Options } from './options';
+import { Option, RenderOption } from './options';
 import { Attributes } from './Models/embed-attributes-model';
 import { findEmbeddedObjects, findRenderString } from './helper/find-embeded-object';
-import { HTMLElement } from 'node-html-parser';
+import { Entry } from './Models/entry-model';
+/**
+ * 
+ * @param {Entry| Entry[]} entry - Objects that contains RTE with embedded objects
+ * @param {string[]} keyPaths - Key paths for RTE contents in Entry object
+ * @param {RenderOption?} renderOption -  Optional render options to render content
+ */
+export function render(option: { 
+    entry: Entry| Entry[],
+    renderOption?: RenderOption,
+    paths?: string[]
+}) {
+    function findAndRender (entry: Entry) {
+        if (!option.paths || option.paths.length === 0) {
+            Object.keys({ 
+                ...entry._embedded_assets,
+                ...entry._embedded_entries
+            }).forEach((path) => {
+                entry[path] = renderContent(entry[path], { entry, renderOption: option.renderOption })
+            })
+        } else {
+            option.paths.forEach((path) => {
+                entry[path] = renderContent(entry[path], { entry, renderOption: option.renderOption })
+            })
+        }
+    }
+    if (option.entry instanceof Array) {
+        option.entry.forEach((entry) => {
+            findAndRender(entry)
+        })
+    }else {
+        findAndRender(option.entry as Entry)
+    }
+}
 
-export function renderContent(content: (string | string[]), options: Options): (string| string[]) {
+/**
+ * 
+ * @param {string | string[]} content - RTE content to render 
+ * @param {Entry} options.entry - Entry object containing embedded objects
+ * @param {RenderOption?} options.renderOption - Optional render options to render content
+ */
+export function renderContent(content: (string | string[]), option: Option): (string| string[]) {
     // return blank if content not present
     if (!content || content === undefined) {
         return ''
@@ -18,7 +57,7 @@ export function renderContent(content: (string | string[]), options: Options): (
                 contentToReplace,
                 embededObjectTag, 
                 object, 
-                options)
+                option)
         })
         return contentToReplace
     }
@@ -35,7 +74,7 @@ export function renderContent(content: (string | string[]), options: Options): (
                     contentToReplace,
                     embededObjectTag, 
                     object, 
-                    options)            
+                    option)            
             })
             resultContent.push(contentToReplace)
         }
@@ -43,7 +82,7 @@ export function renderContent(content: (string | string[]), options: Options): (
     return resultContent
 }
 
-function findAndReplaceEmbeddedObject(content:string, embededObjectTag: string, object: Attributes, option: Options): string {    
+function findAndReplaceEmbeddedObject(content:string, embededObjectTag: string, object: Attributes, option: Option): string {    
     const embeddedObjects = findEmbeddedObjects(object, option.entry)
     const renderString = findRenderString(object, embeddedObjects[0], option.renderOption)
     return content.replace(embededObjectTag, renderString)
