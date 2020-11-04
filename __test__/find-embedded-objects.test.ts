@@ -5,8 +5,6 @@ import { assetDisplayJson } from './mock/embedded-object-mock';
 import { Attributes } from '../src/Models/embed-attributes-model';
 import { findEmbeddedEntry, findEmbeddedAsset, findRenderString, findEmbeddedObjects } from '../src/helper/find-embeded-object';
 import ENTRY from '../src/embedded-types/entry';
-import ASSET from '../src/embedded-types/asset';
-import { Asset } from '../../contentstack-javascript/index';
 describe('Embedded object render from content', () => {
     it('Find Embedded Entry no matching uids with blank embedded Entry test', done => {
         expect(makeFindEntry()).toEqual([])
