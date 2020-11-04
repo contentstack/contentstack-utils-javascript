@@ -65,7 +65,7 @@ export function findRenderString(
       typeof renderFunction !== 'function' &&
       (renderFunction as RenderContentType).$default !== undefined
     ) {
-      return (renderFunction as RenderContentType).$all(renderModel, object);
+      return (renderFunction as RenderContentType).$default(renderModel, object);
     } else if (typeof renderFunction === 'function') {
       return renderFunction(renderModel, object);
     }

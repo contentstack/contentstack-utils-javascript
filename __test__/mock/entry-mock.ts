@@ -99,6 +99,20 @@ export const entryEmbeddedAssets = {
     }
   }
 
+
+export const entryAssetEmbedBlank = {
+  title: 'one',
+  url: '/one',
+  rich_text_editor: '<p>&nbsp;</p>\n<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.asset/v3/assets/dummy.pdf" data-sys-asset-uid="blt44asset" data-sys-asset-filename="dummy.pdf" data-sys-asset-contenttype="application/pdf" type="asset" sys-style-type="display"></figure>\n<img data-image="236uaymkloww" src="https://contentstack.image/v3/assets/blt333/c/5f47707a1cef380a7a669416/html5.png" data-sys-asset-uid="blt222" alt="html5.png">\n<p></p>\n<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.image/v3/assets/blt333/blt9844/5f3f6fdbdcb41a4ad11f845f/svg-logo-text.png" data-sys-asset-uid="blt9844" data-sys-asset-filename="svg-logo-text.png" data-sys-asset-contenttype="image/png" type="asset" sys-style-type="display"></figure>',
+  locale: 'en-us',
+  uid: 'blt88jn',
+  created_by: 'bltcreate',
+  updated_by: 'bltcreate',
+  created_at: '2020-08-13T06:18:18.989Z',
+  updated_at: '2020-08-31T06:06:31.258Z',
+  markdown: '',
+}
+
 export const entryEmbeddedEntries =  {
     title: 'entry and assets',
     url: '/entry-and-assets',

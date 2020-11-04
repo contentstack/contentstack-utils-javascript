@@ -1,4 +1,5 @@
 import { Option } from '../src/options/index';
+import { embeddedObjectDefaultRender, embeddedAssetWithNoAssetObject } from './mock/render-options';
 import { 
     renderContent, 
     render 
@@ -41,6 +42,19 @@ describe('Embedded object render from content', () => {
         const entry = Object.assign({}, entryMultilevelEmbed)
         render({entry, paths:['rich_text_editor', 'rte'], renderOption: embeddedObjectWithMultiRenderOption.renderOption})
         expect(entry.rich_text_editor).toEqual(entryMultipleRichText)
+        expect(entry.rte).toEqual(entrymultipleRTERenderOption)
+        done()
+    })
+
+    it('Render Simple Entry with $default in renderOption', done => {
+        const entry = Object.assign({}, entryMultilevelEmbed)
+        render({entry, paths:['rich_text_editor', 'rte'], renderOption: embeddedObjectDefaultRender.renderOption})
+        expect(entry.rich_text_editor).toEqual(`<div>
+            <div>updated title</div>
+            <div><img src="/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png" alt="svg-logo-text.png" />
+            </div>
+<p></p>
+<img src="/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png" alt="svg-logo-text.png" />`)
         expect(entry.rte).toEqual(entrymultipleRTERenderOption)
         done()
     })
@@ -153,6 +167,7 @@ describe('Embedded object render from content', () => {
 
     it('Render Function with Embedded Asset with Options test', done => {
         expect(makeRenderFunction(assetDisplay, embeddedAssetWithNoRenderOption)).toEqual('')
+        expect(makeRenderFunction(assetDisplay, embeddedAssetWithNoAssetObject)).toEqual('')
         done()
     })
 
