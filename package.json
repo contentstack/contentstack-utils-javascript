@@ -2,7 +2,7 @@
   "name": "@contentstack/utils",
   "version": "1.0.0",
   "description": "Contentstack utilities for Javascript",
-  "main": "dist/lib/index.js",
+  "main": "dist/index.es.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -17,7 +17,8 @@
     "test": "jest --config jestconfig.json",
     "test:badges": "npm run test && jest-coverage-badges --output ./badges",
     "test:debug": "jest --watchAll --config jestconfig.json --runInBand",
-    "build": "tsc",
+    "prebuild": "rimraf dist",
+    "build": "tsc && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
@@ -37,9 +38,27 @@
     "jest-html-reporters": "^2.0.4",
     "jsdoc": "^3.6.5",
     "prettier": "^2.1.2",
+    "rollup": "^2.32.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-typescript2": "^0.28.0",
     "ts-jest": "^26.3.0",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "node-html-parser": "^1.4.2"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

@@ -3,7 +3,7 @@ import ASSET from '../embedded-types/asset';
 export interface Attributes {
   class: string,
   type: 'entry' | 'asset';
-  'sys-style-type': ENTRY.BLOCK | ENTRY.INLINE | ENTRY.LINK | ASSET.DISPLAYABLE | ASSET.DOWNLOADABLE;
+  'sys-style-type': ENTRY.BLOCK | ENTRY.INLINE | ENTRY.LINK | ASSET.DISPLAYABLE;
   [key: string]: any;
 }
 

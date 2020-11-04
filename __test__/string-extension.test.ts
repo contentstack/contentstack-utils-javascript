@@ -5,14 +5,12 @@ import {
     entryLink,
     noChildNode,
     assetDisplay,
-    assetDownload
 } from './mock/embedded-object-mock';    
 import { 
     noChildNodeJson,
     entryLinkJson,
     entryInlineJson,
     entryBlockJson,
-    assetDownloadJson,
     assetDisplayJson
 } from './mock/embedded-object-mock';
 import { Attributes } from '../src/Models/embed-attributes-model';
@@ -68,12 +66,7 @@ describe('String extension for each embedded Object ', () => {
     })
 
     it('Find Embedded assets function with Embedded contents test', done => {
-        expect.assertions(4)
-        makeFindEmbedd(assetDownload, (embTag: string, object: Attributes) => {
-            expect(embTag).toEqual(assetDownload)
-            expect(object).toEqual(assetDownloadJson)
-        })
-
+        expect.assertions(2)
         makeFindEmbedd(assetDisplay, (embTag: string, object: Attributes) => {
             expect(embTag).toEqual(assetDisplay)
             expect(object).toEqual(assetDisplayJson)
@@ -107,51 +100,35 @@ describe('String extension for each embedded Object ', () => {
         done()
     })
 
-    it('Find Embedded multiple object Download and Display test', done => {
+    it('Find Embedded multiple object Link and Display test', done => {
         expect.assertions(2)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload}`,  (embTag: string, object: Attributes) => {
-            if (embTag === assetDownload) {
-                expect(object).toEqual(assetDownloadJson)
-            }else {
-                expect(object).toEqual(assetDisplayJson)
-            }
-        })
-        done()
-    })
-
-    it('Find Embedded multiple object Download , Link and Display test', done => {
-        expect.assertions(3)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload}  ${entryLink}`,  (embTag: string, object: Attributes) => {
+        makeFindEmbedd(` ${assetDisplay} ${entryLink}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else if (embTag === assetDisplay) {
                 expect(object).toEqual(assetDisplayJson)
-            }else{
-                expect(object).toEqual(assetDownloadJson)
             }
         })
         done()
     })
 
-    it('Find Embedded multiple object Download, Display, Link and Inline test', done => {
-        expect.assertions(4)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload} ${entryLink} ${entryInline}`,  (embTag: string, object: Attributes) => {
+    it('Find Embedded multiple object Display, Link and Inline test', done => {
+        expect.assertions(3)
+        makeFindEmbedd(` ${assetDisplay} ${entryLink} ${entryInline}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else if (embTag === assetDisplay) {
                 expect(object).toEqual(assetDisplayJson)
             }else if (embTag === entryInline){
                 expect(object).toEqual(entryInlineJson)
-            }else {
-                expect(object).toEqual(assetDownloadJson)
             }
         })
         done()
     })
 
-    it('Find Embedded multiple object Download, Display, Block, Link and Inline test', done => {
-        expect.assertions(5)
-        makeFindEmbedd(` ${assetDisplay} ${assetDownload} ${entryLink} ${entryInline} ${entryBlock}`,  (embTag: string, object: Attributes) => {
+    it('Find Embedded multiple object Display, Block, Link and Inline test', done => {
+        expect.assertions(4)
+        makeFindEmbedd(` ${assetDisplay} ${entryLink} ${entryInline} ${entryBlock}`,  (embTag: string, object: Attributes) => {
             if (embTag === entryLink) {
                 expect(object).toEqual(entryLinkJson)
             }else if (embTag === assetDisplay) {
@@ -160,8 +137,6 @@ describe('String extension for each embedded Object ', () => {
                 expect(object).toEqual(entryBlockJson)
             }else if (embTag === entryInline){
                 expect(object).toEqual(entryInlineJson)
-            }else {
-                expect(object).toEqual(assetDownloadJson)
             }
         })
         done()

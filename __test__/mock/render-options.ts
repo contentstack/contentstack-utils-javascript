@@ -1,31 +1,30 @@
-import { Options } from "../../src/options";
+import { Option } from "../../src/options";
 import { entryEmbeddedAssets, entryEmbeddedObject, entryEmbeddedEntries } from './entry-mock';
 import ENTRY from '../../src/embedded-types/entry';
 import ASSET from '../../src/embedded-types/asset';
 import { renderContent } from "../../src/render-embedded-objects";
 import { Entry } from "../../src/Models/entry-model";
 
-export const embeddedAssetWithNoRenderOption: Options = {
+export const embeddedAssetWithNoRenderOption: Option = {
     entry: entryEmbeddedAssets,
 }
 
-export const embeddedEntriesWithNoRenderOption: Options = {
+export const embeddedEntriesWithNoRenderOption: Option = {
     entry: entryEmbeddedEntries,
 }
 
-export const embeddedObjectWithNoRenderOption: Options = {
+export const embeddedObjectWithNoRenderOption: Option = {
     entry: entryEmbeddedObject,
 }
 
-export const embeddedAssetWithRenderOption: Options = {
+export const embeddedAssetWithRenderOption: Option = {
     entry: entryEmbeddedAssets,
     renderOption: {
         [ASSET.DISPLAYABLE]:  (asset) => `<img src=\"${asset.url}\" alt=\"Alternet Text\" />`,
-        [ASSET.DOWNLOADABLE]: (asset) => `<a href=\"${asset.url}\"> ${asset.filename}</a>`
     }
 }
 
-export const embeddedEntriesWithRenderOption: Options = {
+export const embeddedEntriesWithRenderOption: Option = {
     entry: entryEmbeddedEntries,
     renderOption: {
         [ENTRY.BLOCK]:  {
@@ -37,7 +36,7 @@ export const embeddedEntriesWithRenderOption: Options = {
     }
 }
 
-export const embeddedObjectWithRenderOption: Options = {
+export const embeddedObjectWithRenderOption: Option = {
     entry: entryEmbeddedObject,
     renderOption: {
         [ENTRY.BLOCK]:  {
@@ -48,7 +47,7 @@ export const embeddedObjectWithRenderOption: Options = {
         }
     }
 }
-export const embeddedObjectWithMultiRenderOption: Options = {
+export const embeddedObjectWithMultiRenderOption: Option = {
     entry: entryEmbeddedObject,
     renderOption: {
         [ENTRY.BLOCK]:  {

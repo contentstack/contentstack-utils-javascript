@@ -1,15 +1,3 @@
-export const assetDownload = `<figure class="embedded-asset" type="asset" data-sys-asset-uid="blt55f6d8cbd7e03a1f" style="display:inline;" sys-style-type="download" data-sys-field-uid="title" href="{{url}}"> {{title}}
-</figure>`
-export const assetDownloadJson = { 
-  type: 'asset',
-  class: "embedded-asset",
-  'data-sys-asset-uid': 'blt55f6d8cbd7e03a1f',
-  style: 'display:inline;',
-  'sys-style-type': 'download',
-  'data-sys-field-uid': 'title',
-  href: '{{url}}',
-  '#text': ' {{title}}\n' 
-}
 export const assetDisplay = `<figure class="embedded-asset" alt="{{object.title}}" data-redactor-type="embed" data-sys-asset-filelink="{{url}}" data-sys-asset-filename="Cuvier-67_Autruche_d_Afrique.jpg" data-sys-asset-contenttype="image/png" type="asset" data-sys-asset-uid="blt55f6d8cbd7e03a1f" style="display:inline;" sys-style-type="display">
 </figure>`
 export const assetDisplayJson = { 
