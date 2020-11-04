@@ -1,0 +1,14 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Converage-Commenter-CI
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Code coverage commenter
+      uses: raulanatol/jest-coverage-comment-action@v1.0.0
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        jest-command: 'npm run jest-ci'
