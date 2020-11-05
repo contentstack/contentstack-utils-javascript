@@ -3,6 +3,7 @@ import { Option, RenderOption } from './options';
 import { Attributes } from './Models/embed-attributes-model';
 import { findEmbeddedObjects, findRenderString } from './helper/find-embeded-object';
 import { Entry } from './Models/entry-model';
+import { findRenderContent } from './helper/find-render-content';
 /**
  * 
  * @param {Entry| Entry[]} entry - Objects that contains RTE with embedded objects
@@ -14,20 +15,28 @@ export function render(option: {
     renderOption?: RenderOption,
     paths?: string[]
 }) {
+
+    function findContent(path: string, entry: Entry) {
+        findRenderContent(path, entry, (content) => {
+            return renderContent(content, { entry, renderOption: option.renderOption })
+        })
+    }
+
     function findAndRender (entry: Entry) {
         if (!option.paths || option.paths.length === 0) {
             Object.keys({ 
                 ...entry._embedded_assets,
                 ...entry._embedded_entries
             }).forEach((path) => {
-                entry[path] = renderContent(entry[path], { entry, renderOption: option.renderOption })
+                findContent(path, entry)
             })
         } else {
             option.paths.forEach((path) => {
-                entry[path] = renderContent(entry[path], { entry, renderOption: option.renderOption })
+                findContent(path, entry)
             })
         }
     }
+
     if (option.entry instanceof Array) {
         option.entry.forEach((entry) => {
             findAndRender(entry)
