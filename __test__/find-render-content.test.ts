@@ -13,7 +13,7 @@ describe('Find Render content test', () => {
 
     it('blank path path test', done => {
         expect.assertions(0)
-        findContent('', (content: string) => {
+        findContent('', (content: string| string[]) => {
             expect(content).toEqual(undefined)
             return content
         })
@@ -21,17 +21,16 @@ describe('Find Render content test', () => {
     })
 
     it('Simple String path test', done => {
-        findContent('rich_text_editor', (content: string) => {
+        findContent('rich_text_editor', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.rich_text_editor)
             return 'New Content'
         })
         expect(entryMultipleContent.rich_text_editor).toEqual('New Content')
-
         done()
     })
 
     it('Array String path test', done => {
-        findContent('rich_text_editor_multiple', (content: string) => {
+        findContent('rich_text_editor_multiple', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.rich_text_editor_multiple)
             return content
         })
@@ -39,7 +38,7 @@ describe('Find Render content test', () => {
     })
 
     it('Global Field String path test', done => {
-        findContent('global_rich.rich_text_editor', (content: string) => {
+        findContent('global_rich.rich_text_editor', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich.rich_text_editor)
             return content
         })
@@ -47,7 +46,7 @@ describe('Find Render content test', () => {
     })
 
     it('Global Field Array String path test', done => {
-        findContent('global_rich.rich_text_editor_multiple', (content: string) => {
+        findContent('global_rich.rich_text_editor_multiple', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich.rich_text_editor_multiple)
             return content
         })
@@ -55,7 +54,7 @@ describe('Find Render content test', () => {
     })
 
     it('Global Field Group String path test', done => {
-        findContent('global_rich.group.rich_text_editor', (content: string) => {
+        findContent('global_rich.group.rich_text_editor', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich.group.rich_text_editor)
             return content
         })
@@ -63,7 +62,7 @@ describe('Find Render content test', () => {
     })
 
     it('Global Field Group Array String path test', done => {
-        findContent('global_rich.group.rich_text_editor_multiple', (content: string) => {
+        findContent('global_rich.group.rich_text_editor_multiple', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich.group.rich_text_editor_multiple)
             return content
         })
@@ -71,7 +70,7 @@ describe('Find Render content test', () => {
     })
 
     it('Global Field modular block String path test', done => {
-        findContent('global_rich.modular_blocks.rich_in_modular.rich_text_editor', (content: string) => {
+        findContent('global_rich.modular_blocks.rich_in_modular.rich_text_editor', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich.modular_blocks[0].rich_in_modular.rich_text_editor)
             return content
         })
@@ -79,7 +78,7 @@ describe('Find Render content test', () => {
     })
 
     it('Global Field modular block Array String path test', done => {
-        findContent('global_rich.modular_blocks.rich_in_modular.rich_text_editor_multiple', (content: string) => {
+        findContent('global_rich.modular_blocks.rich_in_modular.rich_text_editor_multiple', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich.modular_blocks[0].rich_in_modular.rich_text_editor_multiple)
             return content
         })
@@ -87,7 +86,7 @@ describe('Find Render content test', () => {
     })
 
     it('Multiple Global Field String path test', done => {
-        findContent('global_rich_multiple.rich_text_editor', (content: string) => {
+        findContent('global_rich_multiple.rich_text_editor', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich_multiple[0].rich_text_editor)
             return content
         })
@@ -95,7 +94,7 @@ describe('Find Render content test', () => {
     })
 
     it('Multiple Global Field Array String path test', done => {
-        findContent('global_rich_multiple.rich_text_editor_multiple', (content: string) => {
+        findContent('global_rich_multiple.rich_text_editor_multiple', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich_multiple[0].rich_text_editor_multiple)
             return content
         })
@@ -103,7 +102,7 @@ describe('Find Render content test', () => {
     })
 
     it('Multiple Global Field Group String path test', done => {
-        findContent('global_rich_multiple.group.rich_text_editor', (content: string) => {
+        findContent('global_rich_multiple.group.rich_text_editor', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich_multiple[0].group.rich_text_editor)
             return content
         })
@@ -111,7 +110,7 @@ describe('Find Render content test', () => {
     })
 
     it('Multiple Global Field Group Array String path test', done => {
-        findContent('global_rich_multiple.group.rich_text_editor_multiple', (content: string) => {
+        findContent('global_rich_multiple.group.rich_text_editor_multiple', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich_multiple[0].group.rich_text_editor_multiple)
             return content
         })
@@ -119,7 +118,7 @@ describe('Find Render content test', () => {
     })
 
     it('Multiple Global Field modular block String path test', done => {
-        findContent('global_rich_multiple.modular_blocks.rich_in_modular.rich_text_editor', (content: string) => {
+        findContent('global_rich_multiple.modular_blocks.rich_in_modular.rich_text_editor', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich_multiple[0].modular_blocks[0].rich_in_modular.rich_text_editor)
             return content
         })
@@ -127,7 +126,7 @@ describe('Find Render content test', () => {
     })
 
     it('Multiple Global Field modular block Array String path test', done => {
-        findContent('global_rich_multiple.modular_blocks.rich_in_modular.rich_text_editor_multiple', (content: string) => {
+        findContent('global_rich_multiple.modular_blocks.rich_in_modular.rich_text_editor_multiple', (content: string| string[]) => {
             expect(content).toEqual(entryMultipleContent.global_rich_multiple[0].modular_blocks[0].rich_in_modular.rich_text_editor_multiple)
             return content
         })
@@ -136,6 +135,6 @@ describe('Find Render content test', () => {
 })
 
 
-function findContent(path: string, renders: (content: string) => string) {
+function findContent(path: string, renders: (content: string| string[]) => string| string[]) {
     findRenderContent(path, entryMultipleContent, renders)
 }
