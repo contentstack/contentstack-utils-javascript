@@ -1,16 +1,16 @@
-import ASSET from "../src/embedded-types/asset"
-import ENTRY from "../src/embedded-types/entry"
+import StyleType from "../src/embedded-types/style-type"
 
 describe('Embedded types test', () => {
   it('Embedded Asset type test', done => {
-      expect(ASSET.DISPLAYABLE).toEqual('display')
+      expect(StyleType.DISPLAY).toEqual('display')
+      expect(StyleType.DOWNLOAD).toEqual('download')
       done()
   })
 
   it('Embedded Entry type test', done => {
-    expect(ENTRY.BLOCK).toEqual('block')
-    expect(ENTRY.INLINE).toEqual('inline')
-    expect(ENTRY.LINK).toEqual('link')
+    expect(StyleType.BLOCK).toEqual('block')
+    expect(StyleType.INLINE).toEqual('inline')
+    expect(StyleType.LINK).toEqual('link')
     done()
   })
 })

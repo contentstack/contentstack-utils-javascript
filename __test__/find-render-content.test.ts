@@ -1,6 +1,5 @@
 import { findRenderContent, getContent } from '../src/helper/find-render-content';
 import { entryMultipleContent } from './mock/entry-multiple-rich-text-content';
-import { render } from '../src/render-embedded-objects';
 
 describe('Find Render content test', () => {
 
@@ -132,8 +131,103 @@ describe('Find Render content test', () => {
         })
         done()
     })
-})
 
+    it('Group String path test', done => {
+        findContent('group.rich_text_editor', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.group.rich_text_editor)
+            return content
+        })
+        done()
+    })
+
+    it('Group Array String path test', done => {
+        findContent('group.rich_text_editor_multiple', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.group.rich_text_editor_multiple)
+            return content
+        })
+        done()
+    })
+
+    it('modular blocks String path test', done => {
+        findContent('modular_blocks.rich_text_editor', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.group.rich_text_editor)
+            return content
+        })
+        done()
+    })
+
+    it('modular blocks Array String path test', done => {
+        findContent('modular_blocks.rich_text_editor_multiple', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.group.rich_text_editor_multiple)
+            return content
+        })
+        done()
+    })
+
+    it('Modular RTE Block String path test', done => {
+        findContent('modular_blocks.rich_text_inmodular.rich_text_editor', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[0].rich_text_inmodular.rich_text_editor)
+            return content
+        })
+        done()
+    })
+
+    it('Modular RTE Block Array String path test', done => {
+        findContent('modular_blocks.rich_text_inmodular.rich_text_editor_multiple', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[0].rich_text_inmodular.rich_text_editor_multiple)
+            return content
+        })
+        done()
+    })
+
+    it('Modular Global field Block String path test', done => {
+        findContent('modular_blocks.global_modular.rich_text_editor', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[1].global_modular.rich_text_editor)
+            return content
+        })
+        done()
+    })
+
+    it('Modular Global field Block Array String path test', done => {
+        findContent('modular_blocks.global_modular.rich_text_editor_multiple', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[1].global_modular.rich_text_editor_multiple)
+            return content
+        })
+        done()
+    })
+
+    it('Modular Global field Block group String path test', done => {
+        findContent('modular_blocks.global_modular.group.rich_text_editor', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[1].global_modular.group.rich_text_editor)
+            return content
+        })
+        done()
+    })
+
+    it('Modular Global field Block group Array String path test', done => {
+        findContent('modular_blocks.global_modular.group.rich_text_editor_multiple', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[1].global_modular.group.rich_text_editor_multiple)
+            return content
+        })
+        done()
+    })
+
+    it('Modular Global field Block Modular String path test', done => {
+        findContent('modular_blocks.global_modular.modular_blocks.rich_in_modular.rich_text_editor', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[1].global_modular.modular_blocks[0].rich_in_modular.rich_text_editor)
+            return content
+        })
+        done()
+    })
+
+    it('Modular Global field Block Modular Array String path test', done => {
+        findContent('modular_blocks.global_modular.modular_blocks.rich_in_modular.rich_text_editor_multiple', (content: string| string[]) => {
+            expect(content).toEqual(entryMultipleContent.modular_blocks[1].global_modular.modular_blocks[0].rich_in_modular.rich_text_editor_multiple)
+            return content
+        })
+        done()
+    })
+})
 
 function findContent(path: string, renders: (content: string| string[]) => string| string[]) {
     findRenderContent(path, entryMultipleContent, renders)

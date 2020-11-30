@@ -1,17 +1,5 @@
-import { Option, RenderContentType, RenderOption, RenderObject } from './options/index';
-import { AssetModel } from './Models/asset-model';
-import { Entry, EntryModel, ContentTypeEntry } from './Models/entry-model';
-
-export { default as ENTRY } from './embedded-types/entry';
-export { default as ASSET } from './embedded-types/asset';
-export {
-  Option as Options,
-  RenderContentType,
-  RenderObject,
-  RenderOption,
-  AssetModel,
-  Entry,
-  EntryModel,
-  ContentTypeEntry
-};
+export { Option, RenderContentType, RenderOption, RenderObject } from './options/index';
+export { EntryEmbedable, EmbeddedObject as EntryModel, EmbeddedContentTypeUid as ContentTypeEntry } from './Models/embedded-object';
+export { Metadata } from './Models/metadata-model';
+export { default as StyleType } from './embedded-types/style-type';
 export { render, renderContent } from './render-embedded-objects';

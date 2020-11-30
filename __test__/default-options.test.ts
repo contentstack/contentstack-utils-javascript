@@ -1,5 +1,4 @@
-import ASSET from '../src/embedded-types/asset';
-import ENTRY from '../src/embedded-types/entry';
+import StyleType from '../src/embedded-types/style-type';
 import { defaultOptions } from '../src/options/default-options';
 import { entryContentBlank, entryContentURL, entryContentTitle, entryContentTitleURL } from './mock/entry-mock';
 import { RenderObject } from '../src/options/index';
@@ -9,18 +8,18 @@ import { assetContentBlank,
     assetContentonlyFileNameAndURL, 
     assetContentonlyTitle, 
     assetContentonlyTitleAndUrl } from './mock/asset-mock';
-import { Attributes } from '../src/Models/embed-attributes-model';
+import { Metadata, Attributes } from '../src/Models/metadata-model';
 
 const linkText = "linkText"
-const entryBlockFunction: RenderObject = defaultOptions[ENTRY.BLOCK] as RenderObject
-const entryInlineFunction: RenderObject = defaultOptions[ENTRY.INLINE] as RenderObject
-const entryLinkFunction: RenderObject = defaultOptions[ENTRY.LINK] as RenderObject
+const entryBlockFunction: RenderObject = defaultOptions[StyleType.BLOCK] as RenderObject
+const entryInlineFunction: RenderObject = defaultOptions[StyleType.INLINE] as RenderObject
+const entryLinkFunction: RenderObject = defaultOptions[StyleType.LINK] as RenderObject
 
-const assetDisplaableFunction: RenderObject = defaultOptions[ASSET.DISPLAYABLE] as RenderObject
+const assetDisplaableFunction: RenderObject = defaultOptions[StyleType.DISPLAY] as RenderObject
 
-const embedAttributes = {} as Attributes
+const embedAttributes = { attributes: {} } as Metadata
 
-const embedAttributesText = { '#text': linkText, alt: linkText } as unknown as Attributes
+const embedAttributesText = { text: linkText, attributes: { alt: linkText } } as unknown as Metadata
 
 describe('Default Option test', () => {
     it('Default options Entry with only uid test', done => {

@@ -1,16 +1,16 @@
 import { elementToJson } from '../helper/html-to-json';
-import { Attributes } from '../Models/embed-attributes-model';
+import { EntryAttributes, AssetAttributes, Metadata, createMetadata, Attributes } from '../Models/metadata-model';
 import { parse } from 'node-html-parser';
 const frameflag = 'documentfragmentcontainer';
 
 declare global {
   interface String {
-    forEachEmbeddedObject(callbackfn: (embededObjectTag: string, object: Attributes) => void): void;
+    forEachEmbeddedObject(callbackfn: (embededObjectTag: string, object: Metadata) => void): void;
   }
 }
 
 String.prototype.forEachEmbeddedObject = function (
-  callbackfn: (embededObjectTag: string, object: Attributes) => void,
+  callbackfn: (embededObjectTag: string, object: Metadata) => void,
 ): void {
 
   const str = `<${frameflag}>${this.toString()}</${frameflag}>`;
@@ -18,10 +18,10 @@ String.prototype.forEachEmbeddedObject = function (
   const embeddedEntries = root.querySelectorAll(".embedded-entry")
   
   embeddedEntries.forEach((element) => {    
-    callbackfn(element.outerHTML, elementToJson(element) as Attributes)
+    callbackfn(element.outerHTML, createMetadata(elementToJson(element) as Attributes))
   })
   const embeddedAsset = root.querySelectorAll(".embedded-asset")
   embeddedAsset.forEach((element) => {
-    callbackfn(element.outerHTML, elementToJson(element) as Attributes)
+    callbackfn(element.outerHTML, createMetadata(elementToJson(element) as Attributes))
   })
 };

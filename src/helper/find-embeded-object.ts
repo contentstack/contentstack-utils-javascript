@@ -1,15 +1,14 @@
-import { ContentTypeEntry, Entry } from '../Models/entry-model';
-import { AssetModel } from '../Models/asset-model';
+import { EmbeddedContentTypeUid, EntryEmbedable, EmbeddedObject } from '../Models/embedded-object';
 import { RenderOption, RenderObject, RenderContentType } from '../options/index';
-import { EmbeddedAsset, EmbeddedEntry, Attributes } from '../Models/embed-attributes-model';
+import { AssetAttributes, EntryAttributes, Metadata } from '../Models/metadata-model';
 import { defaultOptions } from '../options/default-options';
 
 // This function will find Embedded object present in string
 export function findEmbeddedEntry(
   uid: string,
   contentTypeUid: string,
-  embeddedEntries: ContentTypeEntry[] = [],
-): ContentTypeEntry[] {
+  embeddedEntries: EmbeddedContentTypeUid[] = [],
+): EmbeddedContentTypeUid[] {
   return embeddedEntries.filter((entry) => {
     if (entry.uid === uid && entry._content_type_uid === contentTypeUid) {
       return entry;
@@ -17,7 +16,7 @@ export function findEmbeddedEntry(
   });
 }
 
-export function findEmbeddedAsset(uid: string, embeddedAssets: AssetModel[] = []): AssetModel[] {
+export function findEmbeddedAsset(uid: string, embeddedAssets: EmbeddedObject[] = []): EmbeddedObject[] {
   return embeddedAssets.filter((asset) => {
     if (asset.uid === uid) {
       return asset;
@@ -25,51 +24,51 @@ export function findEmbeddedAsset(uid: string, embeddedAssets: AssetModel[] = []
   });
 }
 
-export function findEmbeddedObjects(object: Attributes, entry: Entry): (ContentTypeEntry | AssetModel)[] {
+export function findEmbeddedObjects(object: Metadata, entry: EntryEmbedable): (EmbeddedContentTypeUid | EmbeddedObject)[] {
   if (object && object !== undefined && entry && entry !== undefined) {
-    if (object.type === 'entry') {
-      const embeddedEntry = object as EmbeddedEntry;
+    if (object.itemType === 'entry') {
+      const embeddedEntry = object.attributes as EntryAttributes;
       return findEmbeddedEntry(
-        embeddedEntry['data-sys-entry-uid'],
-        embeddedEntry['data-sys-content-type-uid'],
+        object.itemUid,
+        object.contentTypeUid,
         Object.values(entry._embedded_entries || []).reduce((accumulator, value) => accumulator.concat(value), []),
       );
     } else {
-      const embeddedAsset = object as EmbeddedAsset;
-      return findEmbeddedAsset(embeddedAsset['data-sys-asset-uid'], Object.values(entry._embedded_assets || []).reduce((accumulator, value) => accumulator.concat(value), []),);
+      const embeddedAsset = object.attributes as AssetAttributes;
+      return findEmbeddedAsset(object.itemUid, Object.values(entry._embedded_assets || []).reduce((accumulator, value) => accumulator.concat(value), []),);
     }
   }
   return [];
 }
 
 export function findRenderString(
-  object: Attributes,
-  renderModel: ContentTypeEntry | AssetModel,
+  metadata: Metadata,
+  renderModel: EmbeddedContentTypeUid | EmbeddedObject,
   renderOptions?: RenderOption,
 ): string {
-  if ((!renderModel && renderModel === undefined) || (!object && object === undefined)) {
+  if ((!renderModel && renderModel === undefined) || (!metadata && metadata === undefined)) {
     return '';
   }
   
-  if (renderOptions && renderOptions[object['sys-style-type']] !== undefined) {
-    const renderFunction = renderOptions[object['sys-style-type']] as RenderObject;
+  if (renderOptions && renderOptions[metadata.styleType] !== undefined) {
+    const renderFunction = renderOptions[metadata.styleType] as RenderObject;
 
     if (
-      (object as EmbeddedEntry)['data-sys-content-type-uid'] !== undefined &&
+      (metadata.attributes as EntryAttributes)['data-sys-content-type-uid'] !== undefined &&
       typeof renderFunction !== 'function' &&
-      renderFunction[(object as EmbeddedEntry)['data-sys-content-type-uid']] !== undefined
+      renderFunction[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']] !== undefined
     ) {
-      return (renderFunction as RenderContentType)[(object as EmbeddedEntry)['data-sys-content-type-uid']](renderModel, object);
+      return (renderFunction as RenderContentType)[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']](renderModel, metadata);
     } else if (
-      (object as EmbeddedEntry)['data-sys-content-type-uid'] !== undefined &&
+      (metadata.attributes as EntryAttributes)['data-sys-content-type-uid'] !== undefined &&
       typeof renderFunction !== 'function' &&
       (renderFunction as RenderContentType).$default !== undefined
     ) {
-      return (renderFunction as RenderContentType).$default(renderModel, object);
+      return (renderFunction as RenderContentType).$default(renderModel, metadata);
     } else if (typeof renderFunction === 'function') {
-      return renderFunction(renderModel, object);
+      return renderFunction(renderModel, metadata);
     }
   }
-  const defaultRenderFunction = defaultOptions[object['sys-style-type']] as RenderObject;  
-  return defaultRenderFunction(renderModel, object);
+  const defaultRenderFunction = defaultOptions[metadata.styleType] as RenderObject;  
+  return defaultRenderFunction(renderModel, metadata);
 }

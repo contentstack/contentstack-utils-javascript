@@ -14,7 +14,7 @@
     "Contentstack javascript"
   ],
   "scripts": {
-    "test": "jest --config jestconfig.json",
+    "test": "jest --config jestconfig.json ",
     "test:badges": "npm run test && jest-coverage-badges --output ./badges",
     "test:debug": "jest --watchAll --config jestconfig.json --runInBand",
     "prebuild": "rimraf dist",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "8.1.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "node-html-parser": "^1.4.2"
