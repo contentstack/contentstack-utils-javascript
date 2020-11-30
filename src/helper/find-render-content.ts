@@ -1,5 +1,5 @@
-import { Entry } from '../Models/entry-model';
-export function findRenderContent (keyPaths: string, entry: Entry, render: (content: string| string[]) => (string| string[])){
+import { EntryEmbedable } from '../Models/embedded-object';
+export function findRenderContent (keyPaths: string, entry: EntryEmbedable, render: (content: string| string[]) => (string| string[])){
      getContent(keyPaths.split("."), entry, render)
 }
 

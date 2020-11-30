@@ -1,8 +1,7 @@
-import { Entry, ContentTypeEntry } from '../Models/entry-model';
-import { AssetModel } from '../Models/asset-model';
-import { Attributes } from '../Models/embed-attributes-model';
+import { EntryEmbedable, EmbeddedContentTypeUid, EmbeddedObject } from '../Models/embedded-object';
+import { Metadata } from '../Models/metadata-model';
 
-export type RenderObject = (object: ContentTypeEntry | AssetModel, embedAttributes: Attributes) => string;
+export type RenderObject = (object: EmbeddedContentTypeUid | EmbeddedObject, metadata: Metadata) => string;
 
 export interface RenderOption {
   [embedType: string]: RenderObject | RenderContentType;
@@ -13,6 +12,6 @@ export interface RenderContentType {
 }
 
 export interface Option {
-  entry: Entry;
+  entry: EntryEmbedable;
   renderOption?: RenderOption;
 }
