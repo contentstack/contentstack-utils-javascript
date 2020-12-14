@@ -16,6 +16,7 @@ const entryInlineFunction: RenderObject = defaultOptions[StyleType.INLINE] as Re
 const entryLinkFunction: RenderObject = defaultOptions[StyleType.LINK] as RenderObject
 
 const assetDisplaableFunction: RenderObject = defaultOptions[StyleType.DISPLAY] as RenderObject
+const assetDownloadFunction: RenderObject = defaultOptions[StyleType.DOWNLOAD] as RenderObject
 
 const embedAttributes = { attributes: {} } as Metadata
 
@@ -52,32 +53,38 @@ describe('Default Option test', () => {
 
     it('Default options Asset with only uid test', done => {
         expect(assetDisplaableFunction(assetContentBlank, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentBlank.uid}" />`)
+        expect(assetDownloadFunction(assetContentBlank, embedAttributes)).toEqual(`<a href="undefined\">${assetContentBlank.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid and url test', done => {
         expect(assetDisplaableFunction(assetContentUrl, embedAttributes)).toEqual(`<img src="${assetContentUrl.url}" alt="${assetContentUrl.uid}" />`)
+        expect(assetDownloadFunction(assetContentUrl, embedAttributes)).toEqual(`<a href="${assetContentUrl.url}">${assetContentUrl.uid}</a>`)
         done()
     })
 
 
     it('Default options Asset with uid and filename test', done => {
         expect(assetDisplaableFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentonlyFileName.filename}" />`)
+        expect(assetDownloadFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<a href="undefined">${assetContentonlyFileName.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid, url and filename test', done => {
         expect(assetDisplaableFunction(assetContentonlyFileNameAndURL, embedAttributes)).toEqual(`<img src="${assetContentonlyFileNameAndURL.url}" alt="${assetContentonlyFileNameAndURL.filename}" />`)
+        expect(assetDownloadFunction(assetContentonlyFileNameAndURL, embedAttributes)).toEqual(`<a href="${assetContentonlyFileNameAndURL.url}">${assetContentonlyFileNameAndURL.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid and title test', done => {
         expect(assetDisplaableFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentonlyTitle.title}" />`)
+        expect(assetDownloadFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<a href="undefined">${assetContentonlyTitle.title || assetContentonlyTitle.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid, url and filename test', done => {
         expect(assetDisplaableFunction(assetContentonlyTitleAndUrl, embedAttributes)).toEqual(`<img src="${assetContentonlyTitleAndUrl.url}" alt="${assetContentonlyTitleAndUrl.title}" />`)
+        expect(assetDownloadFunction(assetContentonlyTitleAndUrl, embedAttributes)).toEqual(`<a href="${assetContentonlyTitleAndUrl.url}">${assetContentonlyTitleAndUrl.title || assetContentonlyTitleAndUrl.uid}</a>`)
         done()
     })
 
@@ -88,6 +95,7 @@ describe('Default Option test', () => {
         expect(entryLinkFunction(entryContentTitleURL, embedAttributesText)).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
 
         expect(assetDisplaableFunction(assetContentBlank, embedAttributesText)).toEqual(`<img src="undefined" alt="${linkText}" />`)
+        expect(assetDownloadFunction(assetContentBlank, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
         done()
     })
 })

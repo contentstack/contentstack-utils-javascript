@@ -165,6 +165,13 @@ describe('Embedded object render from content', () => {
         done()
     })
 
+    it('Render Function with Embedded Entry with no items Options', done => {
+        expect(makeRenderFunction(entryBlock, embeddedAssetWithNoAssetObject)).toEqual('')
+        expect(makeRenderFunction(entryLink, embeddedAssetWithNoAssetObject)).toEqual('')
+        expect(makeRenderFunction(entryInline, embeddedAssetWithNoAssetObject)).toEqual('')
+        done()
+    })
+
     it('Render Function with Embedded Asset with Options test', done => {
         expect(makeRenderFunction(assetDisplay, embeddedAssetWithNoRenderOption)).toEqual('')
         expect(makeRenderFunction(assetDisplay, embeddedAssetWithNoAssetObject)).toEqual('')

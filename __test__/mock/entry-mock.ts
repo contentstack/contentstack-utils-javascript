@@ -66,9 +66,10 @@ export const entryEmbeddedAssets = {
     created_at: '2020-08-13T06:18:18.989Z',
     updated_at: '2020-08-31T06:06:31.258Z',
     markdown: '',
-    _embedded_assets: {
+    _embedded_items: {
       rich_text_editor: [
         {
+          _content_type_uid: 'asset',
           uid: 'blt44asset',
           created_at: '2020-08-19T09:13:32.785Z',
           updated_at: '2020-08-19T09:13:32.785Z',
@@ -82,6 +83,7 @@ export const entryEmbeddedAssets = {
           title: 'dummy.pdf'
         },
         {
+          _content_type_uid: 'asset',
           uid: 'blt9844',
           created_at: '2020-08-19T09:13:05.864Z',
           updated_at: '2020-09-10T09:35:28.393Z',
@@ -98,7 +100,6 @@ export const entryEmbeddedAssets = {
       ]
     }
   }
-
 
 export const entryAssetEmbedBlank = {
   title: 'one',
@@ -121,7 +122,7 @@ export const entryEmbeddedEntries =  {
     _in_progress: false,
     uid: 'blt88jn',
     rte: '<figure class="embedded-entry block-entry" data-sys-entry-uid="blttitleuid" data-sys-entry-locale="en-us" data-sys-content-type-uid="content_block" sys-style-type="block" type="entry"></figure>\n<figure class="embedded-entry inline-entry" data-sys-entry-uid="bltemmbedEntryUID" data-sys-entry-locale="en-us" data-sys-content-type-uid="embeddedrte" sys-style-type="inline" type="entry"></figure>\n<p></p>',
-    _embedded_entries: {
+    _embedded_items: {
       rich_text_editor: [
         {
           title: 'Update this title',
@@ -132,7 +133,7 @@ export const entryEmbeddedEntries =  {
           _version: 5,
           _in_progress: false,
           multi_line: '',
-          _embedded_entries: {
+          _embedded_items: {
             rich_text_editor: [
               {
                 uid: 'blttitleuid',
@@ -151,10 +152,11 @@ export const entryEmbeddedEntries =  {
           uid: 'blttitleUpdateUID',
           _content_type_uid: 'embeddedrte',
           _in_progress: false,
-          _embedded_assets: {
+          _embedded_items: {
             rich_text_editor: [
               {
-                uid: 'bltassetUID'
+                uid: 'bltassetUID',
+                _content_type_uid: 'asset',
               }
             ]
           }
@@ -168,7 +170,7 @@ export const entryEmbeddedEntries =  {
           uid: 'bltemmbedEntryUID',
           _content_type_uid: 'embeddedrte',
           _in_progress: false,
-          _embedded_entries: {
+          _embedded_items: {
             rich_text_editor: [
               {
                 uid: 'blt1234CtUID',
@@ -177,20 +179,36 @@ export const entryEmbeddedEntries =  {
               {
                 uid: 'blt1234CtUID',
                 _content_type_uid: '1234'
-              }
-            ]
-          },
-          _embedded_assets: {
-            rich_text_editor: 
-            [
+              },
               {
-                uid: 'blt1234AssetUID'
+                uid: 'blt1234AssetUID',
+                _content_type_uid: 'asset'
               }
             ]
           }
+        },
+        {
+          uid: 'bltassetEmbuid',
+          _content_type_uid: 'asset',
+          content_type: 'image/png',
+          file_size: '36743',
+          filename: 'svg-logo-text.png',
+          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
+          title: 'svg-logo-text.png',
+          description: ''
         }
       ],
       rte: [
+        {
+          uid: 'bltassetEmbuid',
+          content_type: 'image/png',
+          _content_type_uid: 'asset',
+          file_size: '36743',
+          filename: 'svg-logo-text.png',
+          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
+          title: 'svg-logo-text.png',
+          description: ''
+        },
         {
           title: 'Update this title',
           url: '',
@@ -200,7 +218,7 @@ export const entryEmbeddedEntries =  {
           _version: 5,
           _in_progress: false,
           multi_line: '',
-          _embedded_entries: {
+          _embedded_items: {
             rich_text_editor: [
               {
                 uid: 'blttitleuid',
@@ -219,11 +237,12 @@ export const entryEmbeddedEntries =  {
           uid: 'blttitleUpdateUID',
           _content_type_uid: 'embeddedrte',
           _in_progress: false,
-          _embedded_assets: { 
+          _embedded_items: { 
             rich_text_editor:
             [
               {
-                uid: 'bltassetUID'
+                uid: 'bltassetUID',
+                _content_type_uid: 'asset'
               }
             ]
           }
@@ -237,7 +256,7 @@ export const entryEmbeddedEntries =  {
           uid: 'bltemmbedEntryUID',
           _content_type_uid: 'embeddedrte',
           _in_progress: false,
-          _embedded_entries: {
+          _embedded_items: {
             rich_text_editor:[
               {
                 uid: 'blt1234CtUID',
@@ -246,41 +265,13 @@ export const entryEmbeddedEntries =  {
               {
                 uid: 'blt1234CtUID',
                 _content_type_uid: '1234'
-              }
-            ]
-          },
-          _embedded_assets: {
-            rich_text_editor: 
-            [
+              },
               {
-                uid: 'blt1234AssetUID'
+                uid: 'blt1234AssetUID',
+                _content_type_uid: 'asset'
               }
             ]
           }
-        }
-      ]
-    },
-    _embedded_assets: {
-      rich_text_editor: [
-        {
-          uid: 'bltassetEmbuid',
-          content_type: 'image/png',
-          file_size: '36743',
-          filename: 'svg-logo-text.png',
-          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
-          title: 'svg-logo-text.png',
-          description: ''
-        }
-      ],
-      rte: [
-        {
-          uid: 'bltassetEmbuid',
-          content_type: 'image/png',
-          file_size: '36743',
-          filename: 'svg-logo-text.png',
-          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
-          title: 'svg-logo-text.png',
-          description: ''
         }
       ]
     }
@@ -294,8 +285,18 @@ export const entryEmbeddedObject =  {
     _in_progress: false,
     uid: 'blt88jn',
     rte: '<figure class="embedded-entry block-entry" data-sys-entry-uid="blttitleuid" data-sys-entry-locale="en-us" data-sys-content-type-uid="content_block" sys-style-type="block" type="entry"></figure>\n<figure class="embedded-entry inline-entry" data-sys-entry-uid="bltemmbedEntryUID" data-sys-entry-locale="en-us" data-sys-content-type-uid="embeddedrte" sys-style-type="inline" type="entry"></figure>\n<p></p>',
-    _embedded_entries: {
+    _embedded_items: {
       rich_text_editor: [
+        {
+          uid: 'bltassetEmbuid',
+          content_type: 'image/png',
+          file_size: '36743',
+          filename: 'svg-logo-text.png',
+          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
+          title: 'svg-logo-text.png',
+          description: '',
+          _content_type_uid: 'asset',
+        },
       {
         title: 'Update this title',
         url: '',
@@ -305,7 +306,7 @@ export const entryEmbeddedObject =  {
         _version: 5,
         _in_progress: false,
         multi_line: '',
-        _embedded_entries: {
+        _embedded_items: {
           rich_text_editor: [
             {
               uid: 'blttitleuid',
@@ -324,11 +325,12 @@ export const entryEmbeddedObject =  {
         uid: 'blttitleUpdateUID',
         _content_type_uid: 'embeddedrte',
         _in_progress: false,
-        _embedded_assets: {
+        _embedded_items: {
           rich_text_editor: 
           [
             {
-              uid: 'bltassetUID'
+              uid: 'bltassetUID',
+              _content_type_uid: 'asset'
             }
           ]
         }
@@ -342,7 +344,7 @@ export const entryEmbeddedObject =  {
         uid: 'bltemmbedEntryUID',
         _content_type_uid: 'embeddedrte',
         _in_progress: false,
-        _embedded_entries: {
+        _embedded_items: {
           rich_text_editor: [
             {
               uid: 'blt1234CtUID',
@@ -351,14 +353,10 @@ export const entryEmbeddedObject =  {
             {
               uid: 'blt1234CtUID',
               _content_type_uid: '1234'
-            }
-          ]
-        },
-        _embedded_assets: {
-          rich_text_editor:
-          [
+            },
             {
-              uid: 'blt1234AssetUID'
+              uid: 'blt1234AssetUID',
+              _content_type_uid: 'asset'
             }
           ]
         }
@@ -374,7 +372,7 @@ export const entryEmbeddedObject =  {
         _version: 5,
         _in_progress: false,
         multi_line: '',
-        _embedded_entries: {
+        _embedded_items: {
           rich_text_editor:[
             {
               uid: 'blttitleuid',
@@ -393,11 +391,12 @@ export const entryEmbeddedObject =  {
         uid: 'blttitleUpdateUID',
         _content_type_uid: 'embeddedrte',
         _in_progress: false,
-        _embedded_assets: {
+        _embedded_items: {
           rich_text_editor: 
           [
             {
-              uid: 'bltassetUID'
+              uid: 'bltassetUID',
+              _content_type_uid: 'asset',
             }
           ]
         }
@@ -411,7 +410,7 @@ export const entryEmbeddedObject =  {
         uid: 'bltemmbedEntryUID',
         _content_type_uid: 'embeddedrte',
         _in_progress: false,
-        _embedded_entries: {
+        _embedded_items: {
           rich_text_editor:[
             {
               uid: 'blt1234CtUID',
@@ -420,33 +419,17 @@ export const entryEmbeddedObject =  {
             {
               uid: 'blt1234CtUID',
               _content_type_uid: '1234'
-            }
-          ]
-        },
-        _embedded_assets: {
-          rich_text_editor:[
+            },
             {
-              uid: 'blt1234AssetUID'
+              uid: 'blt1234AssetUID',
+              _content_type_uid: 'asset'
             }
           ]
         }
       }
     ]
-  },
-    _embedded_assets: {
-      rich_text_editor: [
-        {
-          uid: 'bltassetEmbuid',
-          content_type: 'image/png',
-          file_size: '36743',
-          filename: 'svg-logo-text.png',
-          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
-          title: 'svg-logo-text.png',
-          description: ''
-        }
-      ]
-    }
   }
+}
 export const entryMultilevelEmbed =  {
     title: 'entry and assets',
     url: '/entry-and-assets',
@@ -455,8 +438,18 @@ export const entryMultilevelEmbed =  {
     _in_progress: false,
     uid: 'blt88jn',
     rte: '<figure class="embedded-entry block-entry" data-sys-entry-uid="blttitleuid" data-sys-entry-locale="en-us" data-sys-content-type-uid="content_block" sys-style-type="block" type="entry"></figure>\n<figure class="embedded-entry inline-entry" data-sys-entry-uid="bltemmbedEntryUID" data-sys-entry-locale="en-us" data-sys-content-type-uid="embeddedrte" sys-style-type="inline" type="entry"></figure>\n<p></p>',
-    _embedded_entries: {
+    _embedded_items: {
       rich_text_editor: [
+        {
+          uid: 'bltassetEmbuid',
+          content_type: 'image/png',
+          file_size: '36743',
+          filename: 'svg-logo-text.png',
+          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
+          title: 'svg-logo-text.png',
+          description: '',
+          _content_type_uid: 'asset',
+        },
         {
           title: 'Update this title',
           url: '',
@@ -466,7 +459,7 @@ export const entryMultilevelEmbed =  {
           _version: 5,
           _in_progress: false,
           multi_line: '',
-          _embedded_entries: {
+          _embedded_items: {
             rich_text_editor: [
               {
                 uid: 'blttitleuid',
@@ -481,16 +474,14 @@ export const entryMultilevelEmbed =  {
           rich_text_editor: [
             '<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.image/v3/assets/blturl/bltassetUID/5f4dee15f4b7a40acfb622dc/DIABETICDIET-800x600.jpg" data-sys-asset-uid="bltassetUID" data-sys-asset-filename="DIABETICDIET-800x600.jpg" data-sys-asset-contenttype="image/jpeg" type="asset" sys-style-type="display"></figure>'
           ],
-
-
           locale: 'en-us',
           uid: 'blttitleUpdateUID',
           _content_type_uid: 'embeddedrte',
-
           _in_progress: false,
-          _embedded_assets: {
+          _embedded_items: {
             rich_text_editor:[
               {
+                _content_type_uid: 'asset',
                 uid: 'bltassetUID',
                 content_type: 'image/png',
                 file_size: '36743',
@@ -511,7 +502,7 @@ export const entryMultilevelEmbed =  {
           uid: 'bltemmbedEntryUID',
           _content_type_uid: 'embeddedrte',
           _in_progress: false,
-          _embedded_entries: {
+          _embedded_items: {
             rich_text_editor:[
               {
                 uid: 'blt1234CtUID',
@@ -520,19 +511,26 @@ export const entryMultilevelEmbed =  {
               {
                 uid: 'blt1234CtUID',
                 _content_type_uid: '1234'
+              },
+              {
+                uid: 'blt1234AssetUID',
+                _content_type_uid: 'asset'
               }
             ]
           },
-          _embedded_assets: {
-              rich_text_editor: [
-              {
-                uid: 'blt1234AssetUID'
-              }
-            ]
-          }
         }
       ],
       rte: [
+        {
+          uid: 'bltassetEmbuid',
+          content_type: 'image/png',
+          _content_type_uid: 'asset',
+          file_size: '36743',
+          filename: 'svg-logo-text.png',
+          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
+          title: 'svg-logo-text.png',
+          description: ''
+        },
         {
           title: 'Update this title',
           url: '',
@@ -542,7 +540,7 @@ export const entryMultilevelEmbed =  {
           _version: 5,
           _in_progress: false,
           multi_line: '',
-          _embedded_entries: {
+          _embedded_items: {
             rich_text_editor:[
               {
                 uid: 'blttitleuid',
@@ -561,7 +559,7 @@ export const entryMultilevelEmbed =  {
           uid: 'blttitleUpdateUID',
           _content_type_uid: 'embeddedrte',
           _in_progress: false,
-          _embedded_assets: {
+          _embedded_items: {
             rich_text_editor:[
               {
                 uid: 'bltassetUID',
@@ -570,7 +568,8 @@ export const entryMultilevelEmbed =  {
                 filename: 'svg-logo-text.png',
                 url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
                 title: 'svg-logo-text.png',
-                description: ''
+                description: '',
+                _content_type_uid: 'asset',
               }
             ]
           }
@@ -584,7 +583,7 @@ export const entryMultilevelEmbed =  {
           uid: 'bltemmbedEntryUID',
           _content_type_uid: 'embeddedrte',
           _in_progress: false,
-          _embedded_entries: {
+          _embedded_items: {
               rich_text_editor: [
               {
                 uid: 'blt1234CtUID',
@@ -593,43 +592,16 @@ export const entryMultilevelEmbed =  {
               {
                 uid: 'blt1234CtUID',
                 _content_type_uid: '1234'
-              }
-            ]
-          },
-          _embedded_assets: {
-              rich_text_editor:[
+              },
               {
-                uid: 'blt1234AssetUID'
+                uid: 'blt1234AssetUID',
+                _content_type_uid: 'asset',
               }
             ]
           }
         }
       ]
     },
-    _embedded_assets: {
-      rich_text_editor: [
-        {
-          uid: 'bltassetEmbuid',
-          content_type: 'image/png',
-          file_size: '36743',
-          filename: 'svg-logo-text.png',
-          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
-          title: 'svg-logo-text.png',
-          description: ''
-        }
-      ],
-      rte: [
-        {
-          uid: 'bltassetEmbuid',
-          content_type: 'image/png',
-          file_size: '36743',
-          filename: 'svg-logo-text.png',
-          url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
-          title: 'svg-logo-text.png',
-          description: ''
-        }
-      ]
-    }
   }
 
 export const entryAssetRichText = `<p>&nbsp;</p>

@@ -1,7 +1,7 @@
-import { EntryEmbedable, EmbeddedContentTypeUid, EmbeddedObject } from '../Models/embedded-object';
+import { EntryEmbedable, EmbeddedObject } from '../Models/embedded-object';
 import { Metadata } from '../Models/metadata-model';
 
-export type RenderObject = (object: EmbeddedContentTypeUid | EmbeddedObject, metadata: Metadata) => string;
+export type RenderObject = (object: EmbeddedObject, metadata: Metadata) => string;
 
 export interface RenderOption {
   [embedType: string]: RenderObject | RenderContentType;

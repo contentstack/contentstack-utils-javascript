@@ -3,7 +3,7 @@ export const entryMultipleContent =  {
     "locale": "en-us",
     "uid": "bltcb70aa8425b4676c",
     "ACL": {},
-    "_embedded_assets": {
+    "_embedded_items": {
         "global_rich.modular_blocks.rich_in_modular.rich_text_editor": [
             {
                 "uid": "blt7324a68403ee7281",
@@ -13,7 +13,8 @@ export const entryMultipleContent =  {
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
-                
+                "_content_type_uid": "asset",
+
                 "filename": "11.jpg",
                 "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
                 
@@ -38,7 +39,8 @@ export const entryMultipleContent =  {
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
-                
+                "_content_type_uid": "0_solve",
+
                 "filename": "11.jpg",
                 "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
                 
@@ -63,7 +65,8 @@ export const entryMultipleContent =  {
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
-                
+                "_content_type_uid": "0_solve",
+
                 "filename": "11.jpg",
                 "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
                 
@@ -88,7 +91,8 @@ export const entryMultipleContent =  {
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
-                
+                "_content_type_uid": "0_solve",
+
                 "filename": "11.jpg",
                 "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
                 
@@ -104,56 +108,6 @@ export const entryMultipleContent =  {
                 }
             }
         ],
-        "rich_text_editor": [
-            {
-                "uid": "blt120a5a04d91c9466",
-                "created_at": "2020-05-13T05:33:10.496Z",
-                "updated_at": "2020-05-13T05:33:10.496Z",
-                "created_by": "blt10ead621ea074461",
-                "updated_by": "blt10ead621ea074461",
-                "content_type": "image/png",
-                "file_size": "59014",
-                
-                "filename": "iphone-mockup.png",
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt120a5a04d91c9466/5ebb86965a68ad069038b729/iphone-mockup.png",
-                "ACL": {},
-                "_version": 1,
-                "title": "iphone-mockup.png",
-                "publish_details": {
-                    "environment": "bltbe240fa93baafa15",
-                    "locale": "en-us",
-                    "time": "2020-10-07T12:51:11.012Z",
-                    "user": "blt7cf74ca069442cc6"
-                }
-            }
-        ],
-        "global_rich_multiple.modular_blocks.rich_in_modular.rich_text_editor_multiple": [
-            {
-                "uid": "blt7324a68403ee7281",
-                "created_at": "2020-10-12T06:18:43.815Z",
-                "updated_at": "2020-10-20T13:31:48.635Z",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "bltcd8cc4e3db7b72f1",
-                "content_type": "image/jpeg",
-                "file_size": "11773",
-                
-                "filename": "11.jpg",
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
-                
-                
-                "_version": 2,
-                "title": "11.jpg",
-                "description": "dddd",
-                "publish_details": {
-                    "environment": "bltbe240fa93baafa15",
-                    "locale": "en-us",
-                    "time": "2020-10-28T12:11:09.538Z",
-                    "user": "blt702565fb0d35107f"
-                }
-            }
-        ]
-    },
-    "_embedded_entries": {
         "rich_text_editor": [
             {
                 "title": "Manish New entry",
@@ -211,6 +165,54 @@ export const entryMultipleContent =  {
                     "locale": "en-us",
                     "time": "2020-09-30T06:27:30.470Z",
                     "user": "blte75599b1e529fa3a"
+                }
+            },
+            {
+                "uid": "blt120a5a04d91c9466",
+                "created_at": "2020-05-13T05:33:10.496Z",
+                "updated_at": "2020-05-13T05:33:10.496Z",
+                "created_by": "blt10ead621ea074461",
+                "updated_by": "blt10ead621ea074461",
+                "content_type": "image/png",
+                "file_size": "59014",
+                "_content_type_uid": "0_solve",
+
+                "filename": "iphone-mockup.png",
+                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt120a5a04d91c9466/5ebb86965a68ad069038b729/iphone-mockup.png",
+                "ACL": {},
+                "_version": 1,
+                "title": "iphone-mockup.png",
+                "publish_details": {
+                    "environment": "bltbe240fa93baafa15",
+                    "locale": "en-us",
+                    "time": "2020-10-07T12:51:11.012Z",
+                    "user": "blt7cf74ca069442cc6"
+                }
+            }
+        ],
+        "global_rich_multiple.modular_blocks.rich_in_modular.rich_text_editor_multiple": [
+            {
+                "uid": "blt7324a68403ee7281",
+                "created_at": "2020-10-12T06:18:43.815Z",
+                "updated_at": "2020-10-20T13:31:48.635Z",
+                "created_by": "blt7cf74ca069442cc6",
+                "updated_by": "bltcd8cc4e3db7b72f1",
+                "content_type": "image/jpeg",
+                "file_size": "11773",
+                "_content_type_uid": "0_solve",
+
+                "filename": "11.jpg",
+                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                
+                
+                "_version": 2,
+                "title": "11.jpg",
+                "description": "dddd",
+                "publish_details": {
+                    "environment": "bltbe240fa93baafa15",
+                    "locale": "en-us",
+                    "time": "2020-10-28T12:11:09.538Z",
+                    "user": "blt702565fb0d35107f"
                 }
             }
         ],
@@ -281,9 +283,6 @@ export const entryMultipleContent =  {
                 "single_line": "",
                 "multi_line": "",
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
-                
-               
-                
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
                 "created_by": "blt7cf74ca069442cc6",
@@ -291,9 +290,8 @@ export const entryMultipleContent =  {
                 "created_at": "2020-09-30T14:34:30.401Z",
                 "updated_at": "2020-09-30T14:35:57.483Z",
                 "_content_type_uid": "0_solve",
-                
                 "_version": 4,
-                "_embedded_entries": [
+                "_embedded_items": [
                     {
                         "uid": "blt1c9e75e3608f8c6b",
                         "_content_type_uid": "0_solve"
@@ -358,6 +356,7 @@ export const entryMultipleContent =  {
                 "_content_type_uid": "00_suraj_final"
             }
         ],
+
         "modular_blocks.global_modular.rich_text_editor_multiple": [
             {
                 "title": "Entry 001 123",
@@ -365,9 +364,6 @@ export const entryMultipleContent =  {
                 "single_line": "",
                 "multi_line": "",
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
-                
-               
-                
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
                 "created_by": "blt7cf74ca069442cc6",
@@ -375,9 +371,8 @@ export const entryMultipleContent =  {
                 "created_at": "2020-09-30T14:34:30.401Z",
                 "updated_at": "2020-09-30T14:35:57.483Z",
                 "_content_type_uid": "0_solve",
-                
                 "_version": 4,
-                "_embedded_entries": [
+                "_embedded_items": [
                     {
                         "uid": "blt1c9e75e3608f8c6b",
                         "_content_type_uid": "0_solve"
@@ -414,7 +409,6 @@ export const entryMultipleContent =  {
                         }
                     }
                 ],
-                
                 "locale": "en-us",
                 "uid": "bltb9e1cfc94315f8eb",
                 "created_by": "blt7cf74ca069442cc6",
@@ -422,7 +416,6 @@ export const entryMultipleContent =  {
                 "created_at": "2020-01-08T06:18:21.759Z",
                 "updated_at": "2020-01-08T06:18:21.759Z",
                 "_content_type_uid": "00_copy_of_00_suraj",
-                
                 "_version": 1,
                 "_in_progress": false,
                 "publish_details": {
@@ -506,9 +499,6 @@ export const entryMultipleContent =  {
                 "single_line": "",
                 "multi_line": "",
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
-                
-               
-                
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
                 "created_by": "blt7cf74ca069442cc6",
@@ -516,9 +506,8 @@ export const entryMultipleContent =  {
                 "created_at": "2020-09-30T14:34:30.401Z",
                 "updated_at": "2020-09-30T14:35:57.483Z",
                 "_content_type_uid": "0_solve",
-                
                 "_version": 4,
-                "_embedded_entries": [
+                "_embedded_items": [
                     {
                         "uid": "blt1c9e75e3608f8c6b",
                         "_content_type_uid": "0_solve"
@@ -640,9 +629,6 @@ export const entryMultipleContent =  {
                 "single_line": "",
                 "multi_line": "",
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
-                
-               
-                
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
                 "created_by": "blt7cf74ca069442cc6",
@@ -652,7 +638,7 @@ export const entryMultipleContent =  {
                 "_content_type_uid": "0_solve",
                 
                 "_version": 4,
-                "_embedded_entries": [
+                "_embedded_items": [
                     {
                         "uid": "blt1c9e75e3608f8c6b",
                         "_content_type_uid": "0_solve"

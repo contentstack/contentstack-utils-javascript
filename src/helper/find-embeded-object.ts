@@ -1,4 +1,4 @@
-import { EmbeddedContentTypeUid, EntryEmbedable, EmbeddedObject } from '../Models/embedded-object';
+import { EntryEmbedable, EmbeddedObject } from '../Models/embedded-object';
 import { RenderOption, RenderObject, RenderContentType } from '../options/index';
 import { AssetAttributes, EntryAttributes, Metadata } from '../Models/metadata-model';
 import { defaultOptions } from '../options/default-options';
@@ -7,9 +7,9 @@ import { defaultOptions } from '../options/default-options';
 export function findEmbeddedEntry(
   uid: string,
   contentTypeUid: string,
-  embeddedEntries: EmbeddedContentTypeUid[] = [],
-): EmbeddedContentTypeUid[] {
-  return embeddedEntries.filter((entry) => {
+  embeddeditems: EmbeddedObject[] = [],
+): EmbeddedObject[] {
+  return embeddeditems.filter((entry) => {
     if (entry.uid === uid && entry._content_type_uid === contentTypeUid) {
       return entry;
     }
@@ -24,18 +24,18 @@ export function findEmbeddedAsset(uid: string, embeddedAssets: EmbeddedObject[] 
   });
 }
 
-export function findEmbeddedObjects(object: Metadata, entry: EntryEmbedable): (EmbeddedContentTypeUid | EmbeddedObject)[] {
+export function findEmbeddedObjects(object: Metadata, entry: EntryEmbedable): (EmbeddedObject)[] {
   if (object && object !== undefined && entry && entry !== undefined) {
     if (object.itemType === 'entry') {
       const embeddedEntry = object.attributes as EntryAttributes;
       return findEmbeddedEntry(
         object.itemUid,
         object.contentTypeUid,
-        Object.values(entry._embedded_entries || []).reduce((accumulator, value) => accumulator.concat(value), []),
+        Object.values(entry._embedded_items || []).reduce((accumulator, value) => accumulator.concat(value), []),
       );
     } else {
       const embeddedAsset = object.attributes as AssetAttributes;
-      return findEmbeddedAsset(object.itemUid, Object.values(entry._embedded_assets || []).reduce((accumulator, value) => accumulator.concat(value), []),);
+      return findEmbeddedAsset(object.itemUid, Object.values(entry._embedded_items|| []).reduce((accumulator, value) => accumulator.concat(value), []),);
     }
   }
   return [];
@@ -43,7 +43,7 @@ export function findEmbeddedObjects(object: Metadata, entry: EntryEmbedable): (E
 
 export function findRenderString(
   metadata: Metadata,
-  renderModel: EmbeddedContentTypeUid | EmbeddedObject,
+  renderModel: EmbeddedObject,
   renderOptions?: RenderOption,
 ): string {
   if ((!renderModel && renderModel === undefined) || (!metadata && metadata === undefined)) {
