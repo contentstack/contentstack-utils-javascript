@@ -69,7 +69,7 @@ export const entryEmbeddedAssets = {
     _embedded_items: {
       rich_text_editor: [
         {
-          _content_type_uid: 'asset',
+          _content_type_uid: 'sys_assets',
           uid: 'blt44asset',
           created_at: '2020-08-19T09:13:32.785Z',
           updated_at: '2020-08-19T09:13:32.785Z',
@@ -83,7 +83,7 @@ export const entryEmbeddedAssets = {
           title: 'dummy.pdf'
         },
         {
-          _content_type_uid: 'asset',
+          _content_type_uid: 'sys_assets',
           uid: 'blt9844',
           created_at: '2020-08-19T09:13:05.864Z',
           updated_at: '2020-09-10T09:35:28.393Z',
@@ -156,7 +156,7 @@ export const entryEmbeddedEntries =  {
             rich_text_editor: [
               {
                 uid: 'bltassetUID',
-                _content_type_uid: 'asset',
+                _content_type_uid: 'sys_assets',
               }
             ]
           }
@@ -182,14 +182,14 @@ export const entryEmbeddedEntries =  {
               },
               {
                 uid: 'blt1234AssetUID',
-                _content_type_uid: 'asset'
+                _content_type_uid: 'sys_assets'
               }
             ]
           }
         },
         {
           uid: 'bltassetEmbuid',
-          _content_type_uid: 'asset',
+          _content_type_uid: 'sys_assets',
           content_type: 'image/png',
           file_size: '36743',
           filename: 'svg-logo-text.png',
@@ -202,7 +202,7 @@ export const entryEmbeddedEntries =  {
         {
           uid: 'bltassetEmbuid',
           content_type: 'image/png',
-          _content_type_uid: 'asset',
+          _content_type_uid: 'sys_assets',
           file_size: '36743',
           filename: 'svg-logo-text.png',
           url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
@@ -242,7 +242,7 @@ export const entryEmbeddedEntries =  {
             [
               {
                 uid: 'bltassetUID',
-                _content_type_uid: 'asset'
+                _content_type_uid: 'sys_assets'
               }
             ]
           }
@@ -268,7 +268,7 @@ export const entryEmbeddedEntries =  {
               },
               {
                 uid: 'blt1234AssetUID',
-                _content_type_uid: 'asset'
+                _content_type_uid: 'sys_assets'
               }
             ]
           }
@@ -295,7 +295,7 @@ export const entryEmbeddedObject =  {
           url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
           title: 'svg-logo-text.png',
           description: '',
-          _content_type_uid: 'asset',
+          _content_type_uid: 'sys_assets',
         },
       {
         title: 'Update this title',
@@ -330,7 +330,7 @@ export const entryEmbeddedObject =  {
           [
             {
               uid: 'bltassetUID',
-              _content_type_uid: 'asset'
+              _content_type_uid: 'sys_assets'
             }
           ]
         }
@@ -356,7 +356,7 @@ export const entryEmbeddedObject =  {
             },
             {
               uid: 'blt1234AssetUID',
-              _content_type_uid: 'asset'
+              _content_type_uid: 'sys_assets'
             }
           ]
         }
@@ -396,7 +396,7 @@ export const entryEmbeddedObject =  {
           [
             {
               uid: 'bltassetUID',
-              _content_type_uid: 'asset',
+              _content_type_uid: 'sys_assets',
             }
           ]
         }
@@ -422,7 +422,7 @@ export const entryEmbeddedObject =  {
             },
             {
               uid: 'blt1234AssetUID',
-              _content_type_uid: 'asset'
+              _content_type_uid: 'sys_assets'
             }
           ]
         }
@@ -448,7 +448,7 @@ export const entryMultilevelEmbed =  {
           url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
           title: 'svg-logo-text.png',
           description: '',
-          _content_type_uid: 'asset',
+          _content_type_uid: 'sys_assets',
         },
         {
           title: 'Update this title',
@@ -481,7 +481,7 @@ export const entryMultilevelEmbed =  {
           _embedded_items: {
             rich_text_editor:[
               {
-                _content_type_uid: 'asset',
+                _content_type_uid: 'sys_assets',
                 uid: 'bltassetUID',
                 content_type: 'image/png',
                 file_size: '36743',
@@ -514,7 +514,7 @@ export const entryMultilevelEmbed =  {
               },
               {
                 uid: 'blt1234AssetUID',
-                _content_type_uid: 'asset'
+                _content_type_uid: 'sys_assets'
               }
             ]
           },
@@ -524,7 +524,7 @@ export const entryMultilevelEmbed =  {
         {
           uid: 'bltassetEmbuid',
           content_type: 'image/png',
-          _content_type_uid: 'asset',
+          _content_type_uid: 'sys_assets',
           file_size: '36743',
           filename: 'svg-logo-text.png',
           url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
@@ -569,7 +569,7 @@ export const entryMultilevelEmbed =  {
                 url: '/v3/assets/blturl/bltassetEmbuid/5f59f360d33e9a0a3571b707/svg-logo-text.png',
                 title: 'svg-logo-text.png',
                 description: '',
-                _content_type_uid: 'asset',
+                _content_type_uid: 'sys_assets',
               }
             ]
           }
@@ -595,7 +595,7 @@ export const entryMultilevelEmbed =  {
               },
               {
                 uid: 'blt1234AssetUID',
-                _content_type_uid: 'asset',
+                _content_type_uid: 'sys_assets',
               }
             ]
           }
