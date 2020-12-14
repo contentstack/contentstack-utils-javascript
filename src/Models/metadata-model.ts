@@ -12,7 +12,7 @@ export interface Attributes {
   type: 'entry' | 'asset',
   class: string,
   [key: string]: any,
-  'sys-style-type': StyleType
+  'sys-style-type': string
 }
 
 export interface EntryAttributes extends Attributes {
@@ -32,7 +32,7 @@ export function createMetadata(attribute: Attributes): Metadata {
     text: attribute['#text'],
     itemUid: attribute["data-sys-entry-uid"] || attribute["data-sys-asset-uid"],
     itemType: attribute.type,
-    styleType: attribute["sys-style-type"],
+    styleType: attribute["sys-style-type"] as StyleType,
     attributes: attribute,
     contentTypeUid: attribute["data-sys-content-type-uid"]
   }

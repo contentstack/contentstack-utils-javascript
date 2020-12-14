@@ -25,8 +25,7 @@ export function render(option: {
     function findAndRender (entry: EntryEmbedable) {
         if (!option.paths || option.paths.length === 0) {
             Object.keys({ 
-                ...entry._embedded_assets,
-                ...entry._embedded_entries
+                ...entry._embedded_items,
             }).forEach((path) => {
                 findContent(path, entry)
             })
