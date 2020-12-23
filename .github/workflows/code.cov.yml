@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Code coverage commenter
-      uses: raulanatol/jest-coverage-comment-action@v1.0.0
+      uses: raulanatol/jest-coverage-comment-action@v1.0.1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         jest-command: 'npm run jest-ci'
