@@ -73,19 +73,7 @@ export function renderContent(content: (string | string[]), option: Option): (st
     // render content of type array of string
     const resultContent: string[] = []
     content.forEach((element) => {
-        if (!element) {
-            resultContent.push('')
-        }else {
-            let contentToReplace = element
-            element.forEachEmbeddedObject((embededObjectTag: string, object: Metadata) => {
-                contentToReplace = findAndReplaceEmbeddedObject(
-                    contentToReplace,
-                    embededObjectTag, 
-                    object, 
-                    option)            
-            })
-            resultContent.push(contentToReplace)
-        }
+        resultContent.push(renderContent(element, option) as string)
     })
     return resultContent
 }
