@@ -7,7 +7,7 @@ import { findRenderContent } from './helper/find-render-content';
 /**
  * 
  * @param {EntryEmbedable| EntryEmbedable[]} entry - Objects that contains RTE with embedded objects
- * @param {string[]} keyPaths - Key paths for RTE contents in Entry object
+ * @param {string[]} paths - Key paths for RTE contents in Entry object
  * @param {RenderOption?} renderOption -  Optional render options to render content
  */
 export function render(option: { 
