@@ -13,6 +13,10 @@
     "contentstack javascript",
     "Contentstack javascript"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contentstack/contentstack-utils-javascript.git"
+  },
   "scripts": {
     "test": "jest --config jestconfig.json ",
     "test:badges": "npm run test && jest-coverage-badges --output ./badges",
