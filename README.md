@@ -70,9 +70,9 @@ To get an embedded item of a single entry, you need to provide the stack API key
 ```js
 import * as Contentstack from  'contentstack'  
 const stack = Contentstack.Stack({  
-									api_key: '<API_KEY>',  
-									delivery_token: '<ENVIRONMENT_SPECIFIC_DELIVERY_TOKEN>',  
-									environment: '<ENVIRONMENT>'})  
+        api_key: '<API_KEY>',  
+        delivery_token: '<ENVIRONMENT_SPECIFIC_DELIVERY_TOKEN>',  
+        environment: '<ENVIRONMENT>'})  
   
 stack.ContentType('<CONTENT_TYPE_UID>')  
 	 .Entry('<ENTRY_UID>')  
@@ -95,9 +95,9 @@ To get embedded items from multiple entries, you need to provide the content typ
 ```js
 import Contentstack from  'contentstack'  
 const stack = Contentstack.Stack({  
-									api_key: '<API_KEY>',  
-									delivery_token: '<ENVIRONMENT_SPECIFIC_DELIVERY_TOKEN>',  
-									environment: '<ENVIRONMENT>'})  
+        api_key: '<API_KEY>',  
+        delivery_token: '<ENVIRONMENT_SPECIFIC_DELIVERY_TOKEN>',  
+        environment: '<ENVIRONMENT>'})  
   
 stack.ContentType('<CONTENT_TYPE_UID>')  
 	 .Query()  
