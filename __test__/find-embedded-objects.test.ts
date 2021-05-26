@@ -1,8 +1,8 @@
-import { EmbeddedObject, EmbedModel } from '../src/Models/embedded-object'
+import { EmbeddedItem, EmbedModel } from '../src/Models/embedded-object'
 import { entryEmbeddedEntries, entryEmbeddedAssets, assetRichTextJson, entryRichTextJson } from './mock/entry-mock';
 import { assetDisplayJson } from './mock/embedded-object-mock';
 import { Attributes, createMetadata } from '../src/Models/metadata-model';
-import { findEmbeddedEntry, findEmbeddedAsset, findRenderString, findEmbeddedObjects } from '../src/helper/find-embeded-object';
+import { findEmbeddedEntry, findEmbeddedAsset, findRenderString, findEmbeddedItems } from '../src/helper/find-embeded-object';
 import StyleType from '../src/embedded-types/style-type';
 
 const assetRichTextMetadata = createMetadata(assetRichTextJson as unknown as Attributes)
@@ -33,29 +33,29 @@ describe('Embedded object render from content', () => {
     })
 
     it('Find Embedded Asset matching uids with embedded asset test', done => {
-        expect(makeFindAsset('', (reduceToArray(entryEmbeddedEntries._embedded_items) as EmbeddedObject[]))).toEqual([])
-        expect(makeFindAsset('blttuid', (reduceToArray(entryEmbeddedEntries._embedded_items) as EmbeddedObject[]))).toEqual([])
+        expect(makeFindAsset('', (reduceToArray(entryEmbeddedEntries._embedded_items) as EmbeddedItem[]))).toEqual([])
+        expect(makeFindAsset('blttuid', (reduceToArray(entryEmbeddedEntries._embedded_items) as EmbeddedItem[]))).toEqual([])
         done()
     })
 
     it('Find Embedded asset and entry matching contents test', done => {
         expect(makeFindEntry('blttitleuid', 'content_block', (reduceToArray(entryEmbeddedEntries._embedded_items)))).toEqual([entryEmbeddedEntries._embedded_items.rich_text_editor[0], entryEmbeddedEntries._embedded_items.rich_text_editor[0]])
-        expect(makeFindAsset('bltassetEmbuid', (reduceToArray(entryEmbeddedEntries._embedded_items) as EmbeddedObject[]))).toEqual([entryEmbeddedEntries._embedded_items.rich_text_editor[3], entryEmbeddedEntries._embedded_items.rich_text_editor[3]])
+        expect(makeFindAsset('bltassetEmbuid', (reduceToArray(entryEmbeddedEntries._embedded_items) as EmbeddedItem[]))).toEqual([entryEmbeddedEntries._embedded_items.rich_text_editor[3], entryEmbeddedEntries._embedded_items.rich_text_editor[3]])
         done()
     })
 
     it('Find EmbedObject from undefinded data test', done => {
-        let renderModels = findEmbeddedObjects(undefined, entryEmbeddedAssets)
+        let renderModels = findEmbeddedItems(undefined, entryEmbeddedAssets)
         expect(renderModels).toEqual([])
-        renderModels = findEmbeddedObjects(undefined, undefined)
+        renderModels = findEmbeddedItems(undefined, undefined)
         expect(renderModels).toEqual([])
         done()
     })
 
     it('Find EmbedObject from embed asset test', done => {
-        let renderModels = findEmbeddedObjects(assetRichTextMetadata, entryEmbeddedAssets)
+        let renderModels = findEmbeddedItems(assetRichTextMetadata, entryEmbeddedAssets)
         expect(renderModels).toEqual([entryEmbeddedAssets._embedded_items.rich_text_editor[0]])
-        renderModels = findEmbeddedObjects(entryRichTextMetadata, entryEmbeddedEntries)
+        renderModels = findEmbeddedItems(entryRichTextMetadata, entryEmbeddedEntries)
         expect(renderModels).toEqual([entryEmbeddedEntries._embedded_items.rich_text_editor[1], entryEmbeddedEntries._embedded_items.rich_text_editor[1]])
         done()
     })
@@ -80,7 +80,7 @@ describe('Embedded object render from content', () => {
 
     it('Find Render string from passed renderOption', done => {
         let renderString = findRenderString(entryRichTextMetadata, entryEmbeddedEntries._embedded_items.rich_text_editor[0], {
-            [StyleType.BLOCK]: (entry) => `<div><div>${entry.title || entry.uid}</div><div>Content type: <span>${entry._content_type_uid}</span></div></div>`
+            [StyleType.BLOCK]: ({item}) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
         })
         expect(renderString).toEqual('<div><div>Update this title</div><div>Content type: <span>content_block</span></div></div>')
 
@@ -88,7 +88,7 @@ describe('Embedded object render from content', () => {
             [StyleType.BLOCK]: 
             {
                 'embeddedrte':
-                (entry) => `<div>${entry.title || entry.uid}<div>Content type: <span>${entry._content_type_uid}</span></div></div>`
+                ({item}) => `<div>${item.title || item.uid}<div>Content type: <span>${item._content_type_uid}</span></div></div>`
             }
         })
         expect(renderString).toEqual('<div>Update this title<div>Content type: <span>content_block</span></div></div>')
@@ -97,7 +97,7 @@ describe('Embedded object render from content', () => {
             [StyleType.BLOCK]: 
             {
                 'content-type':
-                (entry) => `<div><div>${entry.title || entry.uid}</div><div>Content type: <span>${entry._content_type_uid}</span></div></div>`
+                ({item}) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
             }
         })
         expect(renderString).toEqual('<div><p>Update this title</p><p>Content type: <span>content_block</span></p></div>')
@@ -105,15 +105,15 @@ describe('Embedded object render from content', () => {
     })
 })
 
-function makeFindEntry(uid: string = '', contentTypeUid: string = '', embeddeditems?: EmbeddedObject[]) {
+function makeFindEntry(uid: string = '', contentTypeUid: string = '', embeddeditems?: EmbeddedItem[]) {
     return findEmbeddedEntry(uid, contentTypeUid, embeddeditems)
 }
 
-function makeFindAsset(uid: string = '', embeddedAssets?: EmbeddedObject[]) {
+function makeFindAsset(uid: string = '', embeddedAssets?: EmbeddedItem[]) {
     return findEmbeddedAsset(uid, embeddedAssets)
 }
 
-function reduceToArray (embedModel: EmbedModel<EmbeddedObject>): EmbeddedObject[]{
+function reduceToArray (embedModel: EmbedModel<EmbeddedItem>): EmbeddedItem[]{
     return Object.values(embedModel).reduce((accumulator, value) => accumulator.concat(value), [])
 }
 

@@ -1,7 +1,7 @@
 import StyleType from '../src/embedded-types/style-type';
 import { defaultOptions } from '../src/options/default-options';
 import { entryContentBlank, entryContentURL, entryContentTitle, entryContentTitleURL } from './mock/entry-mock';
-import { RenderObject } from '../src/options/index';
+import { RenderNode } from '../src/options/index';
 import { assetContentBlank, 
     assetContentUrl,
     assetContentonlyFileName, 
@@ -11,12 +11,12 @@ import { assetContentBlank,
 import { Metadata, Attributes } from '../src/Models/metadata-model';
 
 const linkText = "linkText"
-const entryBlockFunction: RenderObject = defaultOptions[StyleType.BLOCK] as RenderObject
-const entryInlineFunction: RenderObject = defaultOptions[StyleType.INLINE] as RenderObject
-const entryLinkFunction: RenderObject = defaultOptions[StyleType.LINK] as RenderObject
+const entryBlockFunction: RenderNode = defaultOptions[StyleType.BLOCK] as RenderNode
+const entryInlineFunction: RenderNode = defaultOptions[StyleType.INLINE] as RenderNode
+const entryLinkFunction: RenderNode = defaultOptions[StyleType.LINK] as RenderNode
 
-const assetDisplaableFunction: RenderObject = defaultOptions[StyleType.DISPLAY] as RenderObject
-const assetDownloadFunction: RenderObject = defaultOptions[StyleType.DOWNLOAD] as RenderObject
+const assetDisplaableFunction: RenderNode = defaultOptions[StyleType.DISPLAY] as RenderNode
+const assetDownloadFunction: RenderNode = defaultOptions[StyleType.DOWNLOAD] as RenderNode
 
 const embedAttributes = { attributes: {} } as Metadata
 
@@ -24,78 +24,78 @@ const embedAttributesText = { text: linkText, attributes: { alt: linkText } } as
 
 describe('Default Option test', () => {
     it('Default options Entry with only uid test', done => {
-        expect(entryBlockFunction(entryContentBlank, embedAttributes)).toEqual(`<div><p>${entryContentBlank.uid}</p><p>Content type: <span>${entryContentBlank._content_type_uid}</span></p></div>`)
-        expect(entryInlineFunction(entryContentBlank, embedAttributes)).toEqual(`<span>${entryContentBlank.uid}</span>`)
-        expect(entryLinkFunction(entryContentBlank, embedAttributes)).toEqual(`<a href="undefined">${entryContentBlank.uid}</a>`)
+        expect(entryBlockFunction({item:entryContentBlank, metadata: embedAttributes})).toEqual(`<div><p>${entryContentBlank.uid}</p><p>Content type: <span>${entryContentBlank._content_type_uid}</span></p></div>`)
+        expect(entryInlineFunction({item: entryContentBlank, metadata: embedAttributes })).toEqual(`<span>${entryContentBlank.uid}</span>`)
+        expect(entryLinkFunction({item: entryContentBlank, metadata: embedAttributes })).toEqual(`<a href="undefined">${entryContentBlank.uid}</a>`)
         done()
     })
 
     it('Default options Entry with uid, url test', done => {
-        expect(entryBlockFunction(entryContentURL, embedAttributes)).toEqual(`<div><p>${entryContentURL.uid}</p><p>Content type: <span>${entryContentURL._content_type_uid}</span></p></div>`)
-        expect(entryInlineFunction(entryContentURL, embedAttributes)).toEqual(`<span>${entryContentURL.uid}</span>`)
-        expect(entryLinkFunction(entryContentURL, embedAttributes)).toEqual(`<a href="${entryContentURL.url}">${entryContentURL.uid}</a>`)
+        expect(entryBlockFunction({item: entryContentURL, metadata: embedAttributes })).toEqual(`<div><p>${entryContentURL.uid}</p><p>Content type: <span>${entryContentURL._content_type_uid}</span></p></div>`)
+        expect(entryInlineFunction({item: entryContentURL, metadata: embedAttributes })).toEqual(`<span>${entryContentURL.uid}</span>`)
+        expect(entryLinkFunction({item: entryContentURL, metadata: embedAttributes })).toEqual(`<a href="${entryContentURL.url}">${entryContentURL.uid}</a>`)
         done()
     })
 
     it('Default options Entry with only uid, title test', done => {
-        expect(entryBlockFunction(entryContentTitle, embedAttributes)).toEqual(`<div><p>${entryContentTitle.title}</p><p>Content type: <span>${entryContentTitle._content_type_uid}</span></p></div>`)
-        expect(entryInlineFunction(entryContentTitle, embedAttributes)).toEqual(`<span>${entryContentTitle.title}</span>`)
-        expect(entryLinkFunction(entryContentTitle, embedAttributes)).toEqual(`<a href="undefined">${entryContentTitle.title}</a>`)
+        expect(entryBlockFunction({item: entryContentTitle, metadata: embedAttributes })).toEqual(`<div><p>${entryContentTitle.title}</p><p>Content type: <span>${entryContentTitle._content_type_uid}</span></p></div>`)
+        expect(entryInlineFunction({item: entryContentTitle, metadata: embedAttributes })).toEqual(`<span>${entryContentTitle.title}</span>`)
+        expect(entryLinkFunction({item: entryContentTitle, metadata: embedAttributes })).toEqual(`<a href="undefined">${entryContentTitle.title}</a>`)
         done()
     })
 
     it('Default options Entry with only uid, url, title test', done => {
-        expect(entryBlockFunction(entryContentTitleURL, embedAttributes)).toEqual(`<div><p>${entryContentTitleURL.title}</p><p>Content type: <span>${entryContentTitleURL._content_type_uid}</span></p></div>`)
-        expect(entryInlineFunction(entryContentTitleURL, embedAttributes)).toEqual(`<span>${entryContentTitleURL.title}</span>`)
-        expect(entryLinkFunction(entryContentTitleURL, embedAttributes)).toEqual(`<a href="${entryContentURL.url}">${entryContentTitleURL.title}</a>`)
+        expect(entryBlockFunction({item: entryContentTitleURL, metadata: embedAttributes })).toEqual(`<div><p>${entryContentTitleURL.title}</p><p>Content type: <span>${entryContentTitleURL._content_type_uid}</span></p></div>`)
+        expect(entryInlineFunction({item: entryContentTitleURL, metadata: embedAttributes })).toEqual(`<span>${entryContentTitleURL.title}</span>`)
+        expect(entryLinkFunction({item: entryContentTitleURL, metadata: embedAttributes })).toEqual(`<a href="${entryContentURL.url}">${entryContentTitleURL.title}</a>`)
         done()
     })
 
     it('Default options Asset with only uid test', done => {
-        expect(assetDisplaableFunction(assetContentBlank, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentBlank.uid}" />`)
-        expect(assetDownloadFunction(assetContentBlank, embedAttributes)).toEqual(`<a href="undefined\">${assetContentBlank.uid}</a>`)
+        expect(assetDisplaableFunction({item: assetContentBlank, metadata: embedAttributes })).toEqual(`<img src="undefined" alt="${assetContentBlank.uid}" />`)
+        expect(assetDownloadFunction({item: assetContentBlank, metadata: embedAttributes })).toEqual(`<a href="undefined\">${assetContentBlank.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid and url test', done => {
-        expect(assetDisplaableFunction(assetContentUrl, embedAttributes)).toEqual(`<img src="${assetContentUrl.url}" alt="${assetContentUrl.uid}" />`)
-        expect(assetDownloadFunction(assetContentUrl, embedAttributes)).toEqual(`<a href="${assetContentUrl.url}">${assetContentUrl.uid}</a>`)
+        expect(assetDisplaableFunction({item: assetContentUrl, metadata: embedAttributes })).toEqual(`<img src="${assetContentUrl.url}" alt="${assetContentUrl.uid}" />`)
+        expect(assetDownloadFunction({item: assetContentUrl, metadata: embedAttributes })).toEqual(`<a href="${assetContentUrl.url}">${assetContentUrl.uid}</a>`)
         done()
     })
 
 
     it('Default options Asset with uid and filename test', done => {
-        expect(assetDisplaableFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentonlyFileName.filename}" />`)
-        expect(assetDownloadFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<a href="undefined">${assetContentonlyFileName.uid}</a>`)
+        expect(assetDisplaableFunction({item: assetContentonlyFileName, metadata: embedAttributes })).toEqual(`<img src="undefined" alt="${assetContentonlyFileName.filename}" />`)
+        expect(assetDownloadFunction({item: assetContentonlyFileName, metadata: embedAttributes })).toEqual(`<a href="undefined">${assetContentonlyFileName.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid, url and filename test', done => {
-        expect(assetDisplaableFunction(assetContentonlyFileNameAndURL, embedAttributes)).toEqual(`<img src="${assetContentonlyFileNameAndURL.url}" alt="${assetContentonlyFileNameAndURL.filename}" />`)
-        expect(assetDownloadFunction(assetContentonlyFileNameAndURL, embedAttributes)).toEqual(`<a href="${assetContentonlyFileNameAndURL.url}">${assetContentonlyFileNameAndURL.uid}</a>`)
+        expect(assetDisplaableFunction({item: assetContentonlyFileNameAndURL, metadata: embedAttributes })).toEqual(`<img src="${assetContentonlyFileNameAndURL.url}" alt="${assetContentonlyFileNameAndURL.filename}" />`)
+        expect(assetDownloadFunction({item: assetContentonlyFileNameAndURL, metadata: embedAttributes })).toEqual(`<a href="${assetContentonlyFileNameAndURL.url}">${assetContentonlyFileNameAndURL.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid and title test', done => {
-        expect(assetDisplaableFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentonlyTitle.title}" />`)
-        expect(assetDownloadFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<a href="undefined">${assetContentonlyTitle.title || assetContentonlyTitle.uid}</a>`)
+        expect(assetDisplaableFunction({item: assetContentonlyTitle, metadata: embedAttributes })).toEqual(`<img src="undefined" alt="${assetContentonlyTitle.title}" />`)
+        expect(assetDownloadFunction({item: assetContentonlyTitle, metadata: embedAttributes })).toEqual(`<a href="undefined">${assetContentonlyTitle.title || assetContentonlyTitle.uid}</a>`)
         done()
     })
 
     it('Default options Asset with uid, url and filename test', done => {
-        expect(assetDisplaableFunction(assetContentonlyTitleAndUrl, embedAttributes)).toEqual(`<img src="${assetContentonlyTitleAndUrl.url}" alt="${assetContentonlyTitleAndUrl.title}" />`)
-        expect(assetDownloadFunction(assetContentonlyTitleAndUrl, embedAttributes)).toEqual(`<a href="${assetContentonlyTitleAndUrl.url}">${assetContentonlyTitleAndUrl.title || assetContentonlyTitleAndUrl.uid}</a>`)
+        expect(assetDisplaableFunction({item: assetContentonlyTitleAndUrl, metadata: embedAttributes })).toEqual(`<img src="${assetContentonlyTitleAndUrl.url}" alt="${assetContentonlyTitleAndUrl.title}" />`)
+        expect(assetDownloadFunction({item: assetContentonlyTitleAndUrl, metadata: embedAttributes })).toEqual(`<a href="${assetContentonlyTitleAndUrl.url}">${assetContentonlyTitleAndUrl.title || assetContentonlyTitleAndUrl.uid}</a>`)
         done()
     })
 
     it('Default options Link text test', done => {
-        expect(entryLinkFunction(entryContentTitle, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
-        expect(entryLinkFunction(entryContentURL, embedAttributesText)).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
-        expect(entryLinkFunction(entryContentBlank, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
-        expect(entryLinkFunction(entryContentTitleURL, embedAttributesText)).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
+        expect(entryLinkFunction({item: entryContentTitle, metadata: embedAttributesText })).toEqual(`<a href="undefined">${linkText}</a>`)
+        expect(entryLinkFunction({item: entryContentURL, metadata: embedAttributesText })).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
+        expect(entryLinkFunction({item: entryContentBlank, metadata: embedAttributesText })).toEqual(`<a href="undefined">${linkText}</a>`)
+        expect(entryLinkFunction({item: entryContentTitleURL, metadata: embedAttributesText })).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
 
-        expect(assetDisplaableFunction(assetContentBlank, embedAttributesText)).toEqual(`<img src="undefined" alt="${linkText}" />`)
-        expect(assetDownloadFunction(assetContentBlank, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
+        expect(assetDisplaableFunction({item: assetContentBlank, metadata: embedAttributesText })).toEqual(`<img src="undefined" alt="${linkText}" />`)
+        expect(assetDownloadFunction({item: assetContentBlank, metadata: embedAttributesText })).toEqual(`<a href="undefined">${linkText}</a>`)
         done()
     })
 })

@@ -277,7 +277,7 @@ export const entryEmbeddedEntries =  {
     }
   }
   
-export const entryEmbeddedObject =  {
+export const entryEmbeddedItem =  {
     title: 'entry and assets',
     url: '/entry-and-assets',
     rich_text_editor: '<figure class="embedded-entry block-entry" data-sys-entry-uid="blttitleUpdateUID" data-sys-entry-locale="en-us" data-sys-content-type-uid="embeddedrte" sys-style-type="block" type="entry"></figure>\n<p></p>\n<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.image/v3/assets/blturl/bltassetEmbuid/5f57ae45c83b840a87d92910/html5.png" data-sys-asset-uid="bltassetEmbuid" data-sys-asset-filename="svg-logo-text.png" data-sys-asset-contenttype="image/png" type="asset" sys-style-type="display"></figure>',
