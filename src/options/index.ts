@@ -1,14 +1,14 @@
-import { EntryEmbedable, EmbeddedObject } from '../Models/embedded-object';
+import { EntryEmbedable, EmbeddedItem } from '../Models/embedded-object';
 import { Metadata } from '../Models/metadata-model';
 
-export type RenderObject = (object: EmbeddedObject, metadata: Metadata) => string;
-
+export type RenderNode = (node: { item: EmbeddedItem, metadata: Metadata }) => string;
+export type RenderMark = (text: string) => string;
 export interface RenderOption {
-  [embedType: string]: RenderObject | RenderContentType;
+  [embedType: string]: RenderNode | RenderMark | RenderContentType;
 }
 
 export interface RenderContentType {
-  [contentTypeUid: string]: RenderObject;
+  [contentTypeUid: string]: RenderNode;
 }
 
 export interface Option {

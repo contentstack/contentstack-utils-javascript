@@ -18,7 +18,7 @@
     "url": "https://github.com/contentstack/contentstack-utils-javascript.git"
   },
   "scripts": {
-    "test": "jest --config jestconfig.json ",
+    "test": "jest --config jestconfig.json",
     "test:badges": "npm run test && jest-coverage-badges --output ./badges",
     "test:debug": "jest --watchAll --config jestconfig.json --runInBand",
     "prebuild": "rimraf dist",
