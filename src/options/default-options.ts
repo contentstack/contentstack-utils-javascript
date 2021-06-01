@@ -1,11 +1,12 @@
 import StyleType from '../embedded-types/style-type';
 import { RenderOption } from '.';
+import { Metadata } from '../Models/metadata-model';
 
 export const defaultOptions: RenderOption = {
-  [StyleType.BLOCK]: ({item}) =>
-    `<div><p>${item.title || item.uid}</p><p>Content type: <span>${item._content_type_uid}</span></p></div>`,
-  [StyleType.INLINE]: ({item}) => `<span>${item.title || item.uid}</span>`,
-  [StyleType.LINK]: ({item, metadata}) => `<a href="${item.url}">${metadata.text || item.title || item.uid}</a>`,
-  [StyleType.DISPLAY]: ({item, metadata}) => `<img src="${item.url}" alt="${metadata.attributes.alt || item.title || item.filename || item.uid}" />`,
-  [StyleType.DOWNLOAD]: ({item, metadata}) => `<a href="${item.url}">${metadata.text || item.title || item.uid}</a>`,
+  [StyleType.BLOCK]: (metadata: Metadata) =>
+    `<div><p>${metadata.item.title || metadata.item.uid}</p><p>Content type: <span>${metadata.item._content_type_uid}</span></p></div>`,
+  [StyleType.INLINE]: (metadata: Metadata) => `<span>${metadata.item.title || metadata.item.uid}</span>`,
+  [StyleType.LINK]: (metadata: Metadata) => `<a href="${metadata.item.url}">${metadata.text || metadata.item.title || metadata.item.uid}</a>`,
+  [StyleType.DISPLAY]: (metadata: Metadata) => `<img src="${metadata.item.url}" alt="${metadata.attributes.alt || metadata.item.title || metadata.item.filename || metadata.item.uid}" />`,
+  [StyleType.DOWNLOAD]: (metadata: Metadata) => `<a href="${metadata.item.url}">${metadata.text || metadata.item.title || metadata.item.uid}</a>`,
 };

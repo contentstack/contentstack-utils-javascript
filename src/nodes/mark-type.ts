@@ -3,10 +3,12 @@ enum MarkType {
     ITALIC = 'italic',
     UNDERLINE = 'underline',
 
-    STRIKETHROUGH = 'strikethrough',
-    INLINECODE = 'inlineCode',
+    STRIKE_THROUGH = 'strikethrough',
+    INLINE_CODE = 'inlineCode',
 
 
     SUBSCRIPT = 'subscript',
     SUPERSCRIPT = 'superscript'
 }
+
+export default MarkType

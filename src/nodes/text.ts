@@ -1,7 +1,6 @@
-import { Node } from "./node"
-import NodeType from "./node-type"
+import Node from "./node"
 
-export default class TextNode {
+export default class TextNode extends Node {
     bold?: boolean
     italic?: boolean
     underline?: boolean
@@ -11,4 +10,9 @@ export default class TextNode {
     subscript?: boolean
 
     text: string
+
+    constructor(text: string) {
+        super()
+        this.text = text
+    }
 }

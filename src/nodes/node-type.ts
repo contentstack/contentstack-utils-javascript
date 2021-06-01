@@ -1,7 +1,10 @@
 enum NodeType {
     DOCUMENT = 'doc',
     PARAGRAPH = 'p',
+    
     LINK = 'a',
+    IMAGE = 'img',
+    EMBED = 'embed',
 
     HEADING_1 = 'h1',
     HEADING_2 = 'h2',
@@ -27,7 +30,7 @@ enum NodeType {
     BLOCK_QUOTE = 'blockquote',
     CODE = 'code',
 
-    REFERENCE = 'reference',
+    TEXT = 'text'
 }
 
 export default NodeType;
