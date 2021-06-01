@@ -55,3 +55,24 @@ export function nodeToMetadata(attribute: Attributes, textNode: TextNode): Metad
   item: undefined
  }
 }
+
+export function attributeToString( attributes: Attributes):string {
+  let result = ''
+  for (const key in attributes) {
+    if (Object.prototype.hasOwnProperty.call(attributes, key)) {
+      let element = attributes[key];
+      if (typeof element === 'object') {
+        let elementString = ''
+        for (const elementKey in element) {
+          if (Object.prototype.hasOwnProperty.call(element, elementKey)) {
+            const value = element[elementKey];
+            elementString += `${elementKey}:${value}; `
+          }
+        }
+        element = elementString
+      }
+      result += ` ${key}="${element}"`
+    }
+  }
+  return result
+}
