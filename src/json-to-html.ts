@@ -108,7 +108,7 @@ export function referenceToHTML(node: Node,
     if (!entry) {
         return ''
     }
-    const metadata = nodeToMetadata(node.attrs, node.children.length > 0 ? node.children[0] as unknown as TextNode : undefined)
+    const metadata = nodeToMetadata(node.attrs, ((node.children && node.children.length > 0) ? node.children[0]: {}) as unknown as TextNode)
     metadata.item = findEmbeddedItems(metadata, entry)[0]
     return findRenderString(metadata, renderOption)
 }

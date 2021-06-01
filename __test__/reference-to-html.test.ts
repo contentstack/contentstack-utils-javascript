@@ -1,5 +1,6 @@
 import { referenceToHTML } from '../src/json-to-html'
 import Node from '../src/nodes/node'
+import NodeType from '../src/nodes/node-type'
 import { defaultOptions } from '../src/options/default-options'
 import { assetReferenceJson, embeddedAssetJsonEntry, embeddedEntryJsonEntry, entryReferenceBlockJson, entryReferenceInlineJson, entryReferenceLinkJson } from './mock/json-element-mock'
 import { embeddedAssetWithRenderOption, embeddedObjectDefaultRender, embeddedObjectWithRenderOption } from './mock/render-options'
@@ -11,6 +12,32 @@ describe('Reference Node To HTML', () => {
         const resultHTML = referenceToHTML(node, renderOption)
 
         expect(resultHTML).toEqual('')
+        done()
+    })
+
+    it('Should return blank for no children', done => {
+        const node = {
+            "uid": "4f7e333390a955de10c1c836",
+            "type": NodeType.REFERENCE,
+            "attrs": {
+                "display-type": "display",
+                "asset-uid": "blt44asset",
+                "content-type-uid": "sys_assets",
+                "asset-link": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "asset-name": "11.jpg",
+                "asset-type": "image/jpeg",
+                "type": "asset",
+                "class-name": "embedded-asset",
+                "width": 25.16914749661705,
+                "className": "dsd",
+                "id": "sdf"
+            }
+        }
+        const renderOption = {}
+
+        const resultHTML = referenceToHTML(node as unknown as Node, renderOption, embeddedAssetJsonEntry)
+
+        expect(resultHTML).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="dummy.pdf" />')
         done()
     })
 

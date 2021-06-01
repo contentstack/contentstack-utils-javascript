@@ -30,7 +30,8 @@ enum NodeType {
     BLOCK_QUOTE = 'blockquote',
     CODE = 'code',
 
-    TEXT = 'text'
+    TEXT = 'text',
+    REFERENCE = 'reference'
 }
 
 export default NodeType;
