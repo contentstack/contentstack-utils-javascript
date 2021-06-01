@@ -2,7 +2,7 @@ import { jsonToHTML } from '../src/json-to-html'
 import { embeddedAssetJsonEntry, plainEntry, plainJsonArrayEntry } from './mock/json-element-mock'
 import { embeddedAssetWithRenderOption } from './mock/render-options'
 
-describe('Node parser', () => {
+describe('Node parser plain content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
 
@@ -56,7 +56,9 @@ describe('Node parser', () => {
         expect(entry.rich_text_editor).toEqual(['<p>text</p>'])
         done()
     })
+})
 
+describe('Node parser reference content', () => {
     it('Should render reference asset to html from Entry',  done => {
         const entry = {...embeddedAssetJsonEntry}
 

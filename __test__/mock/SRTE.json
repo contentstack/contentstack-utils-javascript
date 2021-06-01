@@ -418,7 +418,8 @@
             "uid": "f3b1115552e74be3b646883c3e46e626",
             "type": "img",
             "attrs": {
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/bltb47f1aa5ae422cd1/5fa3bed7ff3c760959bedb6b/Donald.jog.png",
+                // TODO: to url
+                "src": "https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png",
                 "width": 33.69418132611637,
                 "height": "auto",
                 "redactor-attributes": {
@@ -610,7 +611,7 @@
                 "display-type": "asset",
                 "asset-uid": "blt7324a68403ee7281",
                 "content-type-uid": "sys_assets",
-                "asset-link": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "asset-link": "https://images.contentstack.com/v3/assets/blt77263d3e6b/blt73403ee7281/51807f919e0e4/11.jpg",
                 "asset-name": "11.jpg",
                 "asset-type": "image/jpeg",
                 "type": "asset",

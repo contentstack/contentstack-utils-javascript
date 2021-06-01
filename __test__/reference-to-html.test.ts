@@ -23,7 +23,7 @@ describe('Reference Node To HTML', () => {
                 "display-type": "display",
                 "asset-uid": "blt44asset",
                 "content-type-uid": "sys_assets",
-                "asset-link": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "asset-link": "https://images.contentstack.com/v3/assets/blt77263d3e6b/blt73403ee7281/51807f919e0e4/11.jpg",
                 "asset-name": "11.jpg",
                 "asset-type": "image/jpeg",
                 "type": "asset",
