@@ -26,7 +26,7 @@ describe('Default node render options', () => {
         let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(node,next)
         expect(renderString).toEqual('<a>text</a>')
         renderString = (defaultNodeOption[NodeType.IMAGE] as RenderNode)(node,next)
-        expect(renderString).toEqual('<img src="" />')
+        expect(renderString).toEqual('<img src="" />text')
         renderString = (defaultNodeOption[NodeType.EMBED] as RenderNode)(node,next)
         expect(renderString).toEqual('<iframe>text</iframe>')
         done()
