@@ -13,8 +13,8 @@ export const defaultNodeOption: RenderOption = {
     [NodeType.LINK]:(node: Node, next: Next) => {
          return `<a>${next(node.children)}</a>`
     },
-    [NodeType.LINK]:(node: Node, next: Next) => {
-        return `<a>${next(node.children)}</a>`
+    [NodeType.IMAGE]:(node: Node, next: Next) => {
+        return `<img src="" />${next(node.children)}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
         return `<iframe>${next(node.children)}</iframe>`
