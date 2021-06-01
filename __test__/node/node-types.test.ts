@@ -5,6 +5,10 @@ describe('Node Type Test', () => {
         expect(NodeType.DOCUMENT).toEqual('doc')
         expect(NodeType.PARAGRAPH).toEqual('p')
 
+        expect(NodeType.LINK).toEqual('a')
+        expect(NodeType.IMAGE).toEqual('img')
+        expect(NodeType.EMBED).toEqual('embed')
+
         expect(NodeType.HEADING_1).toEqual('h1')
         expect(NodeType.HEADING_2).toEqual('h2')
         expect(NodeType.HEADING_3).toEqual('h3')
@@ -29,7 +33,6 @@ describe('Node Type Test', () => {
         expect(NodeType.BLOCK_QUOTE).toEqual('blockquote')
         expect(NodeType.CODE).toEqual('code')
 
-        expect(NodeType.REFERENCE).toEqual('reference')
 
         done()
     })

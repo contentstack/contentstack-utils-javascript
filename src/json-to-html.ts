@@ -1,12 +1,15 @@
-import { RenderOption } from './options';
+import Node from './nodes/node';
+import TextNode from './nodes/text';
+import Document from './nodes/document';
+import MarkType from './nodes/mark-type';
+import { nodeToMetadata } from './Models/metadata-model';
 import { EntryEmbedable } from './Models/embedded-object';
 import { findRenderContent } from './helper/find-render-content';
-import Document from './nodes/document';
-import { defaultOptions } from './options/default-options';
+import { defaultNodeOption } from './options/default-node-options';
+import { Next, RenderMark, RenderNode, RenderOption } from './options';
+import { findEmbeddedItems, findRenderString } from './helper/find-embeded-object';
 
-export const defaultNodeOption: RenderOption = {
-
-}
+export type AnyNode = TextNode | Node;
 
 export function jsonToHTML(option: { 
     entry: EntryEmbedable| EntryEmbedable[],
@@ -65,21 +68,69 @@ function enumerateContents(
         })
         return result
     } 
-    return parseJsonToHTML(content)
-}
-
-export function parseJsonToHTML(
-    content: Document, 
-    entry?: EntryEmbedable,
-    renderOption?: RenderOption,
-): string {
-    // TODO: functionality to be added
-    const renderNode = {
+    const commonRenderOption = {
         ...defaultNodeOption,
-        ...defaultOptions,
         ...renderOption
     }
+    return nodeChildrenToHTML(content.children, commonRenderOption, entry)
+}
 
-    
-    return ''
+export function textNodeToHTML(node: TextNode, renderOption: RenderOption): string {
+    let text = node.text
+    if (node.superscript) {
+        text =  (renderOption[MarkType.SUPERSCRIPT] as RenderMark)(text)
+    }
+    if (node.subscript) {
+        text =  (renderOption[MarkType.SUBSCRIPT] as RenderMark)(text)
+    }
+    if (node.inlineCode) {
+        text =  (renderOption[MarkType.INLINE_CODE] as RenderMark)(text)
+    }
+    if (node.strikethrough) {
+        text =  (renderOption[MarkType.STRIKE_THROUGH] as RenderMark)(text)
+    }
+    if (node.underline) {
+        text =  (renderOption[MarkType.UNDERLINE] as RenderMark)(text)
+    }
+    if (node.italic) {
+        text =  (renderOption[MarkType.ITALIC] as RenderMark)(text)
+    }
+    if (node.bold) {
+        text =  (renderOption[MarkType.BOLD] as RenderMark)(text)
+    }
+    return text
+}
+
+export function referenceToHTML(node: Node, 
+    renderOption: RenderOption,
+    entry?: EntryEmbedable
+): string {
+    if (!entry) {
+        return ''
+    }
+    const metadata = nodeToMetadata(node.attrs, node.children.length > 0 ? node.children[0] as unknown as TextNode : undefined)
+    metadata.item = findEmbeddedItems(metadata, entry)[0]
+    return findRenderString(metadata, renderOption)
+}
+
+function nodeChildrenToHTML(nodes: AnyNode[], 
+    renderOption: RenderOption,
+    entry?: EntryEmbedable,
+    ): string {
+        return nodes.map<string>((node: AnyNode) => nodeToHTML(node, renderOption, entry)).join('')
+}
+
+function nodeToHTML(
+    node: AnyNode, 
+    renderOption: RenderOption,
+    entry?: EntryEmbedable,
+): string {    
+    if (!node.type) {
+        return textNodeToHTML(node as TextNode, renderOption)
+    }else if ((node.type as string) === 'reference') {
+        return referenceToHTML(node, renderOption, entry)
+    }else {
+        const next: Next = nodes => nodeChildrenToHTML(nodes, renderOption, entry)
+        return (renderOption[node.type] as RenderNode)(node, next)
+    }
 }

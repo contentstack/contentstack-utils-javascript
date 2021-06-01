@@ -1,18 +1,23 @@
 import StyleType from '../embedded-types/style-type';
+import TextNode from '../nodes/text';
+import { EmbeddedItem } from './embedded-object';
 export interface Metadata {
   text: string
-  itemUid: string
-  itemType: 'entry' | 'asset'
-  styleType: StyleType
   attributes: Attributes
+
+  itemUid: string | undefined
+  itemType: 'entry' | 'asset' | undefined
+  styleType: StyleType | undefined
   contentTypeUid: string | undefined
+
+  item: EmbeddedItem | undefined
 }
 
 export interface Attributes {
-  type: 'entry' | 'asset',
-  class: string,
+  type?: 'entry' | 'asset',
+  class?: string,
   [key: string]: any,
-  'sys-style-type': string,
+  'sys-style-type'?: string,
 }
 
 export interface EntryAttributes extends Attributes {
@@ -34,6 +39,19 @@ export function createMetadata(attribute: Attributes): Metadata {
     itemType: attribute.type,
     styleType: attribute["sys-style-type"] as StyleType,
     attributes: attribute,
-    contentTypeUid: attribute["data-sys-content-type-uid"]
+    contentTypeUid: attribute["data-sys-content-type-uid"],
+    item: undefined
   }
+}
+
+export function nodeToMetadata(attribute: Attributes, textNode: TextNode): Metadata {
+ return {
+  text: textNode.text,
+  itemUid: attribute["entry-uid"] || attribute["asset-uid"],
+  itemType: attribute.type,
+  styleType: attribute["display-type"] as StyleType,
+  attributes: attribute,
+  contentTypeUid: attribute["content-type-uid"],
+  item: undefined
+ }
 }

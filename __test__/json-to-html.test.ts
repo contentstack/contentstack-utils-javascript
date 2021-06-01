@@ -1,6 +1,6 @@
-import { jsonToHTML, parseJsonToHTML } from '../src/json-to-html'
-import Document from '../src/nodes/document'
-import { plainEntry, plainJsonArrayEntry } from './mock/json-element-mock'
+import { jsonToHTML } from '../src/json-to-html'
+import { embeddedAssetJsonEntry, plainEntry, plainJsonArrayEntry } from './mock/json-element-mock'
+import { embeddedAssetWithRenderOption } from './mock/render-options'
 
 describe('Node parser', () => {
     it('Should accept proper values', done => {
@@ -26,7 +26,7 @@ describe('Node parser', () => {
 
         jsonToHTML({entry, paths: ['rich_text_editor']})
 
-        expect(entry.rich_text_editor).toEqual('')
+        expect(entry.rich_text_editor).toEqual('<p>text</p>')
         done()
     })
 
@@ -35,7 +35,7 @@ describe('Node parser', () => {
 
         jsonToHTML({entry: [entry], paths: ['rich_text_editor']})
 
-        expect(entry.rich_text_editor).toEqual('')
+        expect(entry.rich_text_editor).toEqual('<p>text</p>')
         done()
     })
 
@@ -44,7 +44,7 @@ describe('Node parser', () => {
 
         jsonToHTML({entry, paths: ['rich_text_editor']})
 
-        expect(entry.rich_text_editor).toEqual([''])
+        expect(entry.rich_text_editor).toEqual(['<p>text</p>'])
         done()
     })
 
@@ -53,14 +53,47 @@ describe('Node parser', () => {
 
         jsonToHTML({entry: [entry], paths: ['rich_text_editor']})
 
-        expect(entry.rich_text_editor).toEqual([''])
+        expect(entry.rich_text_editor).toEqual(['<p>text</p>'])
         done()
     })
 
-    it('Should parse Json to HTML', done => {
-        const htmlString = parseJsonToHTML(plainEntry.rich_text_editor as Document)
+    it('Should render reference asset to html from Entry',  done => {
+        const entry = {...embeddedAssetJsonEntry}
 
-        expect(htmlString).toEqual('')
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
+
+        expect(entry.rich_text_editor).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="dummy.pdf" />')
+        expect(entry.rte).toEqual(['<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="dummy.pdf" />'])
+        done()
+    })
+
+    it('Should render reference asset to html from Entries',  done => {
+        const entry = [{ ...embeddedAssetJsonEntry }]
+
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
+
+        expect(entry[0].rich_text_editor).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="dummy.pdf" />')
+        expect(entry[0].rte).toEqual(['<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="dummy.pdf" />'])
+        done()
+    })
+
+    it('Should render reference asset to html from Entry with custom render option',  done => {
+        const entry = {...embeddedAssetJsonEntry}
+
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})
+
+        expect(entry.rich_text_editor).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="Alternet Text" />')
+        expect(entry.rte).toEqual(['<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="Alternet Text" />'])
+        done()
+    })
+
+    it('Should render reference asset to html from Entries with custom render option',  done => {
+        const entry = [{ ...embeddedAssetJsonEntry }]
+
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})
+
+        expect(entry[0].rich_text_editor).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="Alternet Text" />')
+        expect(entry[0].rte).toEqual(['<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="Alternet Text" />'])
         done()
     })
 })

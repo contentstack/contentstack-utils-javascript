@@ -1,7 +1,7 @@
 import { EmbeddedItem, EmbedModel } from '../src/Models/embedded-object'
 import { entryEmbeddedEntries, entryEmbeddedAssets, assetRichTextJson, entryRichTextJson } from './mock/entry-mock';
 import { assetDisplayJson } from './mock/embedded-object-mock';
-import { Attributes, createMetadata } from '../src/Models/metadata-model';
+import { Attributes, createMetadata, Metadata } from '../src/Models/metadata-model';
 import { findEmbeddedEntry, findEmbeddedAsset, findRenderString, findEmbeddedItems } from '../src/helper/find-embeded-object';
 import StyleType from '../src/embedded-types/style-type';
 
@@ -61,43 +61,57 @@ describe('Embedded object render from content', () => {
     })
 
     it('Find Render string from undefined objects test', done => {
-        const renderString = findRenderString(undefined, entryEmbeddedAssets._embedded_items.rich_text_editor[0])
+        const embMetadata: Metadata = {
+            itemType: undefined,
+            styleType: undefined,
+            text: '',
+            itemUid: undefined,
+            attributes : {},
+            contentTypeUid: undefined,
+            item: entryEmbeddedAssets._embedded_items.rich_text_editor[0]
+        }
+        const renderString = findRenderString(embMetadata)
         expect(renderString).toEqual('')
         done()
     }) 
 
     it('Find Render string from default renderOption', done => {
-        const renderString = findRenderString(entryRichTextMetadata, entryEmbeddedEntries._embedded_items.rich_text_editor[0])
+        entryRichTextMetadata.item = entryEmbeddedEntries._embedded_items.rich_text_editor[0]
+        const renderString = findRenderString(entryRichTextMetadata)
         expect(renderString).toEqual('<div><p>Update this title</p><p>Content type: <span>content_block</span></p></div>')
         done()
     })
 
     it('Find Render string from default renderOption with alternate text', done => {
-        const renderString = findRenderString(assetDisplayMetadata, entryEmbeddedAssets._embedded_items.rich_text_editor[0])
+        assetDisplayMetadata.item = entryEmbeddedAssets._embedded_items.rich_text_editor[0]
+        const renderString = findRenderString(assetDisplayMetadata)
         expect(renderString).toEqual('<img src=\"/v3/assets/blt333/blt44asset/dummy.pdf\" alt=\"{{object.title}}\" />')
         done()
     })
 
     it('Find Render string from passed renderOption', done => {
-        let renderString = findRenderString(entryRichTextMetadata, entryEmbeddedEntries._embedded_items.rich_text_editor[0], {
-            [StyleType.BLOCK]: ({item}) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
+        entryRichTextMetadata.item = entryEmbeddedEntries._embedded_items.rich_text_editor[0]
+        let renderString = findRenderString(entryRichTextMetadata, {
+            [StyleType.BLOCK]: (metadata: Metadata) => `<div><div>${metadata.item.title || metadata.item.uid}</div><div>Content type: <span>${metadata.item._content_type_uid}</span></div></div>`
         })
         expect(renderString).toEqual('<div><div>Update this title</div><div>Content type: <span>content_block</span></div></div>')
-
-        renderString = findRenderString(entryRichTextMetadata, entryEmbeddedEntries._embedded_items.rich_text_editor[0], {
+        
+        entryRichTextMetadata.item = entryEmbeddedEntries._embedded_items.rich_text_editor[0]
+        renderString = findRenderString(entryRichTextMetadata, {
             [StyleType.BLOCK]: 
             {
                 'embeddedrte':
-                ({item}) => `<div>${item.title || item.uid}<div>Content type: <span>${item._content_type_uid}</span></div></div>`
+                (metadata: Metadata) => `<div>${metadata.item.title || metadata.item.uid}<div>Content type: <span>${metadata.item._content_type_uid}</span></div></div>`
             }
         })
         expect(renderString).toEqual('<div>Update this title<div>Content type: <span>content_block</span></div></div>')
 
-        renderString = findRenderString(entryRichTextMetadata, entryEmbeddedEntries._embedded_items.rich_text_editor[0], {
+        entryRichTextMetadata.item = entryEmbeddedEntries._embedded_items.rich_text_editor[0]
+        renderString = findRenderString(entryRichTextMetadata, {
             [StyleType.BLOCK]: 
             {
                 'content-type':
-                ({item}) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
+                (metadata: Metadata) => `<div><div>${metadata.item.title || metadata.item.uid}</div><div>Content type: <span>${metadata.item._content_type_uid}</span></div></div>`
             }
         })
         expect(renderString).toEqual('<div><p>Update this title</p><p>Content type: <span>content_block</span></p></div>')

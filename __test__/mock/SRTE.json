@@ -720,7 +720,60 @@
             "text": ""
             }
         ]
-        }
+        },
+        {
+            "uid": "70f9b325075d43128c0d0aa3eb7f291f",
+            "type": "reference",
+            "attrs": {
+              "display-type": "block",
+              "entry-uid": "bltb9e1cfc94315f8eb",
+              "content-type-uid": "00_copy_of_00_suraj",
+              "locale": "en-us",
+              "type": "entry",
+              "class-name": "embedded-entry"
+            },
+            "children": [
+              {
+                "text": ""
+              }
+            ]
+          },
+          {
+            "uid": "7626ea22f6bb46b4b798e0e95d602210",
+            "type": "reference",
+            "attrs": {
+              "target": "_self",
+              "href": "/copy-of-entry-final-02",
+              "display-type": "link",
+              "entry-uid": "bltf2fb45e5fc46f8d4",
+              "content-type-uid": "00_suraj_final",
+              "locale": "en-us",
+              "type": "entry",
+              "class-name": "embedded-entry"
+            },
+            "children": [
+              {
+                "text": "/copy-of-entry-final-02"
+              }
+            ]
+          },
+          {
+            "uid": "506487aacd584a168f3f4621f0cbcaff",
+            "type": "reference",
+            "attrs": {
+              "display-type": "inline",
+              "entry-uid": "blt3e080541e130736b",
+              "content-type-uid": "00_suraj",
+              "locale": "en-us",
+              "type": "entry",
+              "class-name": "embedded-entry"
+            },
+            "children": [
+              {
+                "text": ""
+              }
+            ]
+          }
     ],
     "type": "doc"
 }
