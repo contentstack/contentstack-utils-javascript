@@ -2,7 +2,6 @@ import { AnyNode } from '../json-to-html';
 import { EntryEmbedable, EmbeddedItem } from '../Models/embedded-object';
 import { Metadata } from '../Models/metadata-model';
 import Node from '../nodes/node';
-import TextNode from '../nodes/text';
 
 export type Next = (nodes: AnyNode[]) => string
 export type RenderNode = (node: Node, next: Next) => string;
