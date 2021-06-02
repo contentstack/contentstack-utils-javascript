@@ -80,7 +80,6 @@ export function renderContent(content: (string | string[]), option: Option): (st
 
 function findAndReplaceEmbeddedItem(content:string, embededObjectTag: string, metadata: Metadata, option: Option): string {    
     const embeddedObjects = findEmbeddedItems(metadata, option.entry)
-    metadata.item = embeddedObjects[0]
-    const renderString = findRenderString(metadata, option.renderOption)
+    const renderString = findRenderString(embeddedObjects[0], metadata, option.renderOption)
     return content.replace(embededObjectTag, renderString)
 }

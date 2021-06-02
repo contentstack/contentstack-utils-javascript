@@ -45,17 +45,13 @@ export function findEmbeddedItems(object: Metadata, entry: EntryEmbedable): (Emb
 }
 
 export function findRenderString(
+  item: EmbeddedItem,
   metadata: Metadata,
   renderOptions?: RenderOption,
 ): string {
-  if ((!metadata.item && metadata.item === undefined) || (!metadata && metadata === undefined)) {
+  if ((!item && item === undefined) || (!metadata && metadata === undefined)) {
     return '';
   }
-  
-  if (!metadata.styleType) {
-    return '';
-  }
-
   
   if (renderOptions && renderOptions[metadata.styleType] !== undefined) {
     const renderFunction = renderOptions[metadata.styleType] as RenderItem;
@@ -65,29 +61,29 @@ export function findRenderString(
       typeof renderFunction !== 'function' &&
       renderFunction[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']] !== undefined
     ) {
-      return (renderFunction as RenderContentType)[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']](metadata);
+      return (renderFunction as RenderContentType)[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']](item, metadata);
     } else if (
       (metadata.attributes as EntryAttributes)['data-sys-content-type-uid'] !== undefined &&
       typeof renderFunction !== 'function' &&
       (renderFunction as RenderContentType).$default !== undefined
     ) {
-      return (renderFunction as RenderContentType).$default(metadata);
+      return (renderFunction as RenderContentType).$default(item, metadata);
     } else if (
       metadata.contentTypeUid !== undefined &&
       typeof renderFunction !== 'function' &&
       renderFunction[metadata.contentTypeUid] !== undefined
     ) {
-      return (renderFunction as RenderContentType)[metadata.contentTypeUid](metadata)
+      return (renderFunction as RenderContentType)[metadata.contentTypeUid](item, metadata)
     } else if (
       metadata.contentTypeUid !== undefined &&
       typeof renderFunction !== 'function' &&
       (renderFunction as RenderContentType).$default !== undefined
     ) {
-      return (renderFunction as RenderContentType).$default(metadata);
+      return (renderFunction as RenderContentType).$default(item, metadata);
     }  else if (typeof renderFunction === 'function') {
-      return renderFunction(metadata);
+      return renderFunction(item, metadata);
     }
   }
   const defaultRenderFunction = defaultOptions[metadata.styleType] as RenderItem;  
-  return defaultRenderFunction(metadata);
+  return defaultRenderFunction(item, metadata);
 }
