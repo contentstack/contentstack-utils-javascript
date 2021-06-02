@@ -9,8 +9,6 @@ export interface Metadata {
   itemType: 'entry' | 'asset' | undefined
   styleType: StyleType | undefined
   contentTypeUid: string | undefined
-
-  item: EmbeddedItem | undefined
 }
 
 export interface Attributes {
@@ -40,7 +38,6 @@ export function createMetadata(attribute: Attributes): Metadata {
     styleType: attribute["sys-style-type"] as StyleType,
     attributes: attribute,
     contentTypeUid: attribute["data-sys-content-type-uid"],
-    item: undefined
   }
 }
 
@@ -52,7 +49,6 @@ export function nodeToMetadata(attribute: Attributes, textNode: TextNode): Metad
   styleType: attribute["display-type"] as StyleType,
   attributes: attribute,
   contentTypeUid: attribute["content-type-uid"],
-  item: undefined
  }
 }
 
