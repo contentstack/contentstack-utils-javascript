@@ -11,9 +11,10 @@ const node: Node = {
     attrs: {},
     children: []
 }
+
 const imgNode: Node = {
     type: NodeType.IMAGE,
-    attrs: {"src": "https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png"},
+    attrs: {url: "https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png"},
     children:[]
 
 }
@@ -21,7 +22,7 @@ const imgNode: Node = {
 const embedNode: Node = {
     type: NodeType.EMBED,
     "attrs": {
-      "url": "https://www.youtube.com/"
+      url: "https://www.youtube.com/"
     },
     children: []
 }
@@ -38,12 +39,12 @@ describe('Default node render options', () => {
         done()
     })
     it('Should return link string', done => {
-        let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(node, next)
-        expect(renderString).toEqual('<a>text</a>')
+        let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(imgNode, next)
+        expect(renderString).toEqual(`<a href="${imgNode.attrs.url}">text</a>`)
         renderString = (defaultNodeOption[NodeType.IMAGE] as RenderNode)(imgNode, next)
         expect(renderString).toEqual('<img src="https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png" />text')
         renderString = (defaultNodeOption[NodeType.EMBED] as RenderNode)(embedNode, next)
-        expect(renderString).toEqual('<iframe url="https://www.youtube.com/">text</iframe>')
+        expect(renderString).toEqual('<iframe src="https://www.youtube.com/">text</iframe>')
         done()
     })
     it('Should return Heading string', done => {

@@ -9,73 +9,73 @@ export const defaultNodeOption: RenderOption = {
         return ``
     },
     [NodeType.PARAGRAPH]:(node: Node, next: Next) => {
-         return `<p${attributeToString(node.attrs)}>${next(node.children)}</p>`
+         return `<p>${next(node.children)}</p>`
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
-         return `<a${attributeToString(node.attrs)}>${next(node.children)}</a>`
+         return `<a href="${node.attrs.url}">${next(node.children)}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
-        return `<img${attributeToString(node.attrs)} />${next(node.children)}`
+        return `<img src="${node.attrs.url}" />${next(node.children)}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
-        return `<iframe${attributeToString(node.attrs)}>${next(node.children)}</iframe>`
+        return `<iframe src="${node.attrs.url}">${next(node.children)}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
-        return `<h1${attributeToString(node.attrs)}>${next(node.children)}</h1>`
+        return `<h1>${next(node.children)}</h1>`
     },
     [NodeType.HEADING_2]:(node: Node, next: Next) => {
-        return `<h2${attributeToString(node.attrs)}>${next(node.children)}</h2>`
+        return `<h2>${next(node.children)}</h2>`
     },
     [NodeType.HEADING_3]:(node: Node, next: Next) => {
-        return `<h3${attributeToString(node.attrs)}>${next(node.children)}</h3>`
+        return `<h3>${next(node.children)}</h3>`
     },
     [NodeType.HEADING_4]:(node: Node, next: Next) => {
-        return `<h4${attributeToString(node.attrs)}>${next(node.children)}</h4>`
+        return `<h4>${next(node.children)}</h4>`
     },
     [NodeType.HEADING_5]:(node: Node, next: Next) => {
-        return `<h5${attributeToString(node.attrs)}>${next(node.children)}</h5>`
+        return `<h5>${next(node.children)}</h5>`
     },
     [NodeType.HEADING_6]:(node: Node, next: Next) => {
-        return `<h6${attributeToString(node.attrs)}>${next(node.children)}</h6>`
+        return `<h6>${next(node.children)}</h6>`
     },
     [NodeType.ORDER_LIST]:(node: Node, next: Next) => {
-        return `<ol${attributeToString(node.attrs)}>${next(node.children)}</ol>`
+        return `<ol>${next(node.children)}</ol>`
     },
     [NodeType.UNORDER_LIST]:(node: Node, next: Next) => {
-        return `<ul${attributeToString(node.attrs)}>${next(node.children)}</ul>`
+        return `<ul>${next(node.children)}</ul>`
     },
     [NodeType.LIST_ITEM]:(node: Node, next: Next) => {
-        return `<li${attributeToString(node.attrs)}>${next(node.children)}</li>`
+        return `<li>${next(node.children)}</li>`
     },
     [NodeType.HR]:(node: Node, next: Next) => {
         return `<hr>`
     },
     [NodeType.TABLE]:(node: Node, next: Next) => {
-        return `<table${attributeToString(node.attrs)}>${next(node.children)}</table>`
+        return `<table>${next(node.children)}</table>`
     },
     [NodeType.TABLE_HEADER]:(node: Node, next: Next) => {
-        return `<thead${attributeToString(node.attrs)}>${next(node.children)}</thead>`
+        return `<thead>${next(node.children)}</thead>`
     },
     [NodeType.TABLE_BODY]:(node: Node, next: Next) => {
-        return `<tbody${attributeToString(node.attrs)}>${next(node.children)}</tbody>`
+        return `<tbody>${next(node.children)}</tbody>`
     },
     [NodeType.TABLE_FOOTER]:(node: Node, next: Next) => {
-        return `<tfoot${attributeToString(node.attrs)}>${next(node.children)}</tfoot>`
+        return `<tfoot>${next(node.children)}</tfoot>`
     },
     [NodeType.TABLE_ROW]:(node: Node, next: Next) => {
-        return `<tr${attributeToString(node.attrs)}>${next(node.children)}</tr>`
+        return `<tr>${next(node.children)}</tr>`
     },
     [NodeType.TABLE_HEAD]:(node: Node, next: Next) => {
-        return `<th${attributeToString(node.attrs)}>${next(node.children)}</th>`
+        return `<th>${next(node.children)}</th>`
     },
     [NodeType.TABLE_DATA]:(node: Node, next: Next) => {
-        return `<td${attributeToString(node.attrs)}>${next(node.children)}</td>`
+        return `<td>${next(node.children)}</td>`
     },
     [NodeType.BLOCK_QUOTE]:(node: Node, next: Next) => {
-        return `<blockquote${attributeToString(node.attrs)}>${next(node.children)}</blockquote>`
+        return `<blockquote>${next(node.children)}</blockquote>`
     },
     [NodeType.CODE]:(node: Node, next: Next) => {
-        return `<code${attributeToString(node.attrs)}>${next(node.children)}</code>`
+        return `<code>${next(node.children)}</code>`
     },
 
     ['reference']:(node: Node, next: Next) => {
