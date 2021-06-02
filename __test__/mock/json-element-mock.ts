@@ -1,4 +1,4 @@
-const plainJson = {
+const paragraphJson = {
     uid: "06e34a7a4e5481190849d7fc2acd",
     _version: 13,
     attrs: {},
@@ -125,19 +125,19 @@ const entryReferenceInlineJson = {
     type: "doc"
 }
 
-const plainEntry = {
+const paragraphEntry = {
     title: 'entry and assets',
     url: '/entry-and-assets',
-    rich_text_editor: {...plainJson},
+    rich_text_editor: {...paragraphJson},
     locale: 'en-us',
     _in_progress: false,
     uid: 'blt88jn',
 }
 
-const plainJsonArrayEntry = {
+const paragraphJsonArrayEntry = {
     title: 'entry and assets',
     url: '/entry-and-assets',
-    rich_text_editor: [plainJson],
+    rich_text_editor: [paragraphJson],
     locale: 'en-us',
     _in_progress: false,
     uid: 'blt88jn',
@@ -351,10 +351,10 @@ const embeddedEntryJsonEntry = {
 }
 
 export { 
-    plainJson, 
-    plainEntry, 
+    paragraphJson, 
+    paragraphEntry, 
     assetReferenceJson, 
-    plainJsonArrayEntry, 
+    paragraphJsonArrayEntry, 
     embeddedAssetJsonEntry,
     embeddedEntryJsonEntry,
     entryReferenceLinkJson,

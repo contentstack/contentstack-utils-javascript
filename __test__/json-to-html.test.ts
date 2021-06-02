@@ -1,8 +1,8 @@
 import { jsonToHTML } from '../src/json-to-html'
-import { embeddedAssetJsonEntry, plainEntry, plainJsonArrayEntry } from './mock/json-element-mock'
+import { embeddedAssetJsonEntry, paragraphEntry, paragraphJsonArrayEntry } from './mock/json-element-mock'
 import { embeddedAssetWithRenderOption } from './mock/render-options'
 
-describe('Node parser plain content', () => {
+describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
 
@@ -22,7 +22,7 @@ describe('Node parser plain content', () => {
     })
 
     it('Should render Json To html',  done => {
-        const entry = {...plainEntry}
+        const entry = {...paragraphEntry}
 
         jsonToHTML({entry, paths: ['rich_text_editor']})
 
@@ -31,7 +31,7 @@ describe('Node parser plain content', () => {
     })
 
     it('Should render Json To html for Array of Entries',  done => {
-        const entry = {...plainEntry}
+        const entry = {...paragraphEntry}
 
         jsonToHTML({entry: [entry], paths: ['rich_text_editor']})
 
@@ -40,7 +40,7 @@ describe('Node parser plain content', () => {
     })
 
     it('Should render array Json To array html',  done => {
-        const entry = {...plainJsonArrayEntry}
+        const entry = {...paragraphJsonArrayEntry}
 
         jsonToHTML({entry, paths: ['rich_text_editor']})
 
@@ -49,7 +49,7 @@ describe('Node parser plain content', () => {
     })
 
     it('Should render array Json To array html for array of Entries',  done => {
-        const entry = {...plainJsonArrayEntry}
+        const entry = {...paragraphJsonArrayEntry}
 
         jsonToHTML({entry: [entry], paths: ['rich_text_editor']})
 

@@ -1,7 +1,7 @@
 import Node from '../../src/nodes/node'
 import NodeType from '../../src/nodes/node-type'
 import TextNode from '../../src/nodes/text'
-import { plainJson } from '../mock/json-element-mock'
+import { paragraphJson } from '../mock/json-element-mock'
 import Document from '../../src/nodes/document'
 describe('Node parser', () => {
     it('Should return node object', done => {
