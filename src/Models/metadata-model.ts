@@ -57,7 +57,19 @@ export function attributeToString( attributes: Attributes):string {
   for (const key in attributes) {
     if (Object.prototype.hasOwnProperty.call(attributes, key)) {
       let element = attributes[key];
-      if (typeof element === 'object') {
+      if (element instanceof Array) {
+        let elementString = ''
+        let isFirst = true 
+        element.forEach((value) => {
+          if (isFirst) {
+            elementString += `${value}`
+            isFirst = false
+          }else {
+            elementString += `, ${value}`
+          }
+        })
+        element = elementString
+      } else if (typeof element === 'object') {
         let elementString = ''
         for (const elementKey in element) {
           if (Object.prototype.hasOwnProperty.call(element, elementKey)) {
