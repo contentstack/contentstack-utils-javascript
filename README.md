@@ -22,7 +22,7 @@ Use the following command to install Contentstack JavaScript Utils SDK:
 npm i @contentstack/utils
 ```
 ## Usage
-Let’s learn how you can use Utils SDK to render embedded items.
+Let’s learn how you can use Utils SDK to render RTE embedded items and Supercharged RTE Json to HTML.
 
 ### Create Render Option
 To render embedded items on the front-end, use the renderOptions function, and define the UI elements you want to show in the front-end of your website, as shown in the example below:
@@ -35,7 +35,7 @@ const renderOptions = {
 	h1: (node, next) => {
 		`<h1 class='class-id'>${next(node.children)}</h1>` // you will need to call next function with node children contents
 	}
-	// to render Supercharged RTE MarkType content like bold, italic, underline, strickthrough, inlineCode, subscript, and superscript
+	// to render Supercharged RTE MarkType content like bold, italic, underline, strikethrough, inlineCode, subscript, and superscript
 	bold: (text) => {
 		`<b>${next(node.children)}</b>`
 	}
