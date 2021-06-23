@@ -14,7 +14,14 @@ const node: Node = {
 
 const imgNode: Node = {
     type: NodeType.IMAGE,
-    attrs: {url: "https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png"},
+    attrs: {src: "https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png"},
+    children:[]
+
+}
+
+const linkNode: Node = {
+    type: NodeType.LINK,
+    attrs: {href: "https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png"},
     children:[]
 
 }
@@ -22,7 +29,7 @@ const imgNode: Node = {
 const embedNode: Node = {
     type: NodeType.EMBED,
     "attrs": {
-      url: "https://www.youtube.com/"
+      src: "https://www.youtube.com/"
     },
     children: []
 }
@@ -39,8 +46,8 @@ describe('Default node render options', () => {
         done()
     })
     it('Should return link string', done => {
-        let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(imgNode, next)
-        expect(renderString).toEqual(`<a href="${imgNode.attrs.url}">text</a>`)
+        let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(linkNode, next)
+        expect(renderString).toEqual(`<a href="${linkNode.attrs.href}">text</a>`)
         renderString = (defaultNodeOption[NodeType.IMAGE] as RenderNode)(imgNode, next)
         expect(renderString).toEqual('<img src="https://images.contentstack.com/v3/assets/blt7726e6b/bltb42cd1/5fa3be959bedb6b/Donald.jog.png" />text')
         renderString = (defaultNodeOption[NodeType.EMBED] as RenderNode)(embedNode, next)
