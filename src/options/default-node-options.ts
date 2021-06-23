@@ -12,13 +12,13 @@ export const defaultNodeOption: RenderOption = {
          return `<p>${next(node.children)}</p>`
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
-         return `<a href="${node.attrs.url}">${next(node.children)}</a>`
+         return `<a href="${node.attrs.href}">${next(node.children)}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
-        return `<img src="${node.attrs.url}" />${next(node.children)}`
+        return `<img src="${node.attrs.src}" />${next(node.children)}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
-        return `<iframe src="${node.attrs.url}">${next(node.children)}</iframe>`
+        return `<iframe src="${node.attrs.src}">${next(node.children)}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
         return `<h1>${next(node.children)}</h1>`
