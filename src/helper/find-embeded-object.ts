@@ -24,21 +24,27 @@ export function findEmbeddedAsset(uid: string, embeddedAssets: EmbeddedItem[] = 
   });
 }
 
+export function findGQLEmbeddedItems(metadata: Metadata, items: EmbeddedItem[]): EmbeddedItem[] {
+  if (metadata.itemType === 'entry') {
+    return findEmbeddedEntry(
+        metadata.itemUid,
+        metadata.contentTypeUid,
+        items
+        );
+  } else {
+    return findEmbeddedAsset(
+        metadata.itemUid, 
+        items
+        );
+  }
+}
+
 export function findEmbeddedItems(object: Metadata, entry: EntryEmbedable): (EmbeddedItem)[] {
   if (object && object !== undefined && entry && entry !== undefined) {
     if (entry._embedded_items !== undefined) {
       const entryEmbedable = entry
-      if (object.itemType === 'entry') {
-        return findEmbeddedEntry(
-          object.itemUid,
-          object.contentTypeUid,
-          Object.values(entryEmbedable._embedded_items || []).reduce((accumulator, value) => accumulator.concat(value), []),
-        );
-      } else {
-        return findEmbeddedAsset(
-          object.itemUid, 
-          Object.values(entryEmbedable._embedded_items|| []).reduce((accumulator, value) => accumulator.concat(value), []),);
-      }
+      const items = Object.values(entryEmbedable._embedded_items || []).reduce((accumulator, value) => accumulator.concat(value), [])
+      return findGQLEmbeddedItems(object, items)
     }
   }
   return [];
