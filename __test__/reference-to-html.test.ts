@@ -1,4 +1,7 @@
-import { referenceToHTML } from '../src/json-to-html'
+
+import { referenceToHTML } from '../src/helper/enumerate-entries'
+import { findEmbeddedItems } from '../src/helper/find-embeded-object'
+import { Metadata } from '../src/Models/metadata-model'
 import Node from '../src/nodes/node'
 import NodeType from '../src/nodes/node-type'
 import { defaultOptions } from '../src/options/default-options'
@@ -35,7 +38,9 @@ describe('Reference Node To HTML', () => {
         }
         const renderOption = {}
 
-        const resultHTML = referenceToHTML(node as unknown as Node, renderOption, embeddedAssetJsonEntry)
+        const resultHTML = referenceToHTML(node as unknown as Node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedAssetJsonEntry)[0]
+        })
 
         expect(resultHTML).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="dummy.pdf" />')
         done()
@@ -45,7 +50,9 @@ describe('Reference Node To HTML', () => {
         const node = assetReferenceJson.children[0] as undefined as Node
         const renderOption = {}
 
-        const resultHTML = referenceToHTML(node, renderOption, embeddedAssetJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedAssetJsonEntry)[0]
+        })
 
         expect(resultHTML).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="dummy.pdf" />')
         done()
@@ -55,7 +62,9 @@ describe('Reference Node To HTML', () => {
         const node = entryReferenceBlockJson.children[0] as undefined as Node
         const renderOption = {}
 
-        const resultHTML = referenceToHTML(node, renderOption, embeddedEntryJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedEntryJsonEntry)[0]
+        })
         expect(resultHTML).toEqual('<div><p>Update this title</p><p>Content type: <span>content_block</span></p></div>')
         done()
     })
@@ -64,7 +73,9 @@ describe('Reference Node To HTML', () => {
         const node = entryReferenceLinkJson.children[0] as undefined as Node
         const renderOption = {}
 
-        const resultHTML = referenceToHTML(node, renderOption, embeddedEntryJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedEntryJsonEntry)[0]
+        })
         expect(resultHTML).toEqual('<a href=\"undefined\">/copy-of-entry-final-02</a>')
         done()
     })
@@ -73,7 +84,9 @@ describe('Reference Node To HTML', () => {
         const node = entryReferenceInlineJson.children[0] as undefined as Node
         const renderOption = {}
         
-        const resultHTML = referenceToHTML(node, renderOption, embeddedEntryJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedEntryJsonEntry)[0]
+        })
         expect(resultHTML).toEqual('<span>updated title</span>')
         done()
     })
@@ -83,7 +96,9 @@ describe('Reference Node To HTML', () => {
         const node = assetReferenceJson.children[0] as undefined as Node
         const renderOption = embeddedAssetWithRenderOption.renderOption
         
-        const resultHTML = referenceToHTML(node, renderOption, embeddedAssetJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedAssetJsonEntry)[0]
+        })
         expect(resultHTML).toEqual('<img src="/v3/assets/blt333/blt44asset/dummy.pdf" alt="Alternet Text" />')
         done()
     })
@@ -92,7 +107,9 @@ describe('Reference Node To HTML', () => {
         const node = entryReferenceBlockJson.children[0] as undefined as Node
         const renderOption = embeddedObjectWithRenderOption.renderOption
         
-        const resultHTML = referenceToHTML(node, renderOption, embeddedEntryJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedEntryJsonEntry)[0]
+        })
         expect(resultHTML).toEqual('<div><div>Update this title</div></div>')
         done()
     })
@@ -101,7 +118,9 @@ describe('Reference Node To HTML', () => {
         const node = entryReferenceInlineJson.children[0] as undefined as Node
         const renderOption = embeddedObjectWithRenderOption.renderOption
         
-        const resultHTML = referenceToHTML(node, renderOption, embeddedEntryJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedEntryJsonEntry)[0]
+        })
         expect(resultHTML).toEqual('<div><div>blttitleUpdateUID</div></div>')
         done()
     })
@@ -110,7 +129,9 @@ describe('Reference Node To HTML', () => {
         const node = entryReferenceBlockJson.children[0] as undefined as Node
         const renderOption = embeddedObjectDefaultRender.renderOption
         
-        const resultHTML = referenceToHTML(node, renderOption, embeddedEntryJsonEntry)
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedEntryJsonEntry)[0]
+        })
         expect(resultHTML).toEqual(`<div>
             <div>Update this title</div>
             <div><span>blttitleuid</span>
