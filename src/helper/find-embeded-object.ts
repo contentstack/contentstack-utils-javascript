@@ -1,30 +1,31 @@
 import { EntryEmbedable, EmbeddedItem } from '../Models/embedded-object';
-import { RenderOption, RenderNode, RenderContentType, RenderItem } from '../options/index';
+import { RenderOption, RenderContentType, RenderItem } from '../options/index';
 import { EntryAttributes, Metadata } from '../Models/metadata-model';
 import { defaultOptions } from '../options/default-options';
+import { EntryNode } from '../Models/json-rte-model';
 
 // This function will find Embedded object present in string
 export function findEmbeddedEntry(
   uid: string,
   contentTypeUid: string,
-  embeddeditems: EmbeddedItem[] = [],
-): EmbeddedItem[] {
-  return embeddeditems.filter((entry) => {
-    if (entry.uid === uid && entry._content_type_uid === contentTypeUid) {
+  embeddeditems: (EmbeddedItem| EntryNode)[] = [],
+): (EmbeddedItem | EntryNode)[] {
+  return embeddeditems.filter((entry: any) => {
+    if ((entry.uid && (entry as EmbeddedItem).uid === uid && (entry as EmbeddedItem)._content_type_uid === contentTypeUid)|| (entry.system && (entry as EntryNode).system.uid === uid && (entry as EntryNode).system.content_type_uid === contentTypeUid)) {
       return entry;
     }
   });
 }
 
-export function findEmbeddedAsset(uid: string, embeddedAssets: EmbeddedItem[] = []): EmbeddedItem[] {
-  return embeddedAssets.filter((asset) => {
-    if (asset.uid === uid) {
+export function findEmbeddedAsset(uid: string, embeddedAssets: (EmbeddedItem| EntryNode)[] = []): (EmbeddedItem| EntryNode)[] {
+  return embeddedAssets.filter((asset: any) => {
+    if ((asset.uid && (asset as EmbeddedItem).uid === uid) || asset.system && (asset as EntryNode).system.uid === uid) {
       return asset;
     }
   });
 }
 
-export function findGQLEmbeddedItems(metadata: Metadata, items: EmbeddedItem[]): EmbeddedItem[] {
+export function findGQLEmbeddedItems(metadata: Metadata, items: (EmbeddedItem| EntryNode)[]): (EmbeddedItem| EntryNode)[] {
   if (metadata.itemType === 'entry') {
     return findEmbeddedEntry(
         metadata.itemUid,
@@ -39,7 +40,7 @@ export function findGQLEmbeddedItems(metadata: Metadata, items: EmbeddedItem[]):
   }
 }
 
-export function findEmbeddedItems(object: Metadata, entry: EntryEmbedable): (EmbeddedItem)[] {
+export function findEmbeddedItems(object: Metadata, entry: EntryEmbedable): (EmbeddedItem| EntryNode)[] {
   if (object && object !== undefined && entry && entry !== undefined) {
     if (entry._embedded_items !== undefined) {
       const entryEmbedable = entry
@@ -51,7 +52,7 @@ export function findEmbeddedItems(object: Metadata, entry: EntryEmbedable): (Emb
 }
 
 export function findRenderString(
-  item: EmbeddedItem,
+  item: EmbeddedItem | EntryNode,
   metadata: Metadata,
   renderOptions?: RenderOption,
 ): string {

@@ -1,4 +1,3 @@
-import { EmbeddedItem } from "./embedded-object";
 import Document from "../nodes/document";
 export interface JsonRTE {
     json: Document| Document[],
@@ -7,6 +6,16 @@ export interface JsonRTE {
 
 export interface EmbeddedConnection {
     edges: {
-        node: EmbeddedItem
+        node: EntryNode;
     }[]
+}
+
+export interface EntryNode {
+    system: SystemField;
+    [propName: string]: any;
+}
+export interface SystemField {
+    uid: string;
+    content_type_uid?: string;
+    [propName: string]: any;
 }

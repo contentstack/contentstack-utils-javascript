@@ -4,8 +4,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
   edges: [
     {
       node: {
-        _content_type_uid: 'sys_assets',
-        uid: 'blt9844',
+        system:  {
+          content_type_uid: 'sys_assets',
+          uid: 'blt9844'
+        },
         created_at: '2020-08-19T09:13:05.864Z',
         updated_at: '2020-09-10T09:35:28.393Z',
         created_by: 'bltcreate',
@@ -20,8 +22,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
       }
     }, {
       node: {
-        _content_type_uid: 'sys_assets',
-        uid: 'blt44asset',
+        system:  {
+          content_type_uid: 'sys_assets',
+          uid: 'blt44asset',
+        },
         created_at: '2020-08-19T09:13:32.785Z',
         updated_at: '2020-08-19T09:13:32.785Z',
         created_by: 'bltcreate',
@@ -38,8 +42,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
         title: 'Update this title',
         url: '',
         locale: 'en-us',
-        uid: 'blttitleuid',
-        _content_type_uid: 'content_block',
+        system:  {
+          uid: 'blttitleuid',
+          content_type_uid: 'content_block',
+        },
         _version: 5,
         _in_progress: false,
         multi_line: '',
@@ -60,8 +66,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
           '<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.image/v3/assets/blturl/bltassetUID//DIABETICDIET-800x600.jpg" data-sys-asset-uid="bltassetUID" data-sys-asset-filename="DIABETICDIET-800x600.jpg" data-sys-asset-contenttype="image/jpeg" type="asset" sys-style-type="display"></figure>'
         ],
         locale: 'en-us',
-        uid: 'blttitleUpdateUID',
-        _content_type_uid: 'embeddedrte',
+        system:  {
+          uid: 'blttitleUpdateUID',
+          content_type_uid: 'embeddedrte',
+        },
         _in_progress: false,
         _embedded_items: {
           rich_text_editor: [
@@ -79,8 +87,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
           '<figure class="embedded-entry block-entry" data-sys-entry-uid="blt1234CtUID" data-sys-content-type-uid="1234" sys-style-type="block" type="entry"></figure>\n<figure class="embedded-entry inline-entry" data-sys-entry-uid="blt1234CtUID" data-sys-content-type-uid="1234" sys-style-type="inline" type="entry"></figure>\n<p><br><br></p>\n<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.image/v3/assets/blturl/html5.png" data-sys-asset-uid="blt1234AssetUID" data-sys-asset-filename="html5.png" data-sys-asset-contenttype="image/png" type="asset" sys-style-type="display"></figure>'
         ],
         locale: 'en-us',
-        uid: 'bltemmbedEntryUID',
-        _content_type_uid: 'embeddedrte',
+        system:  {
+          uid: 'bltemmbedEntryUID',
+          content_type_uid: 'embeddedrte',
+        },
         _in_progress: false,
         _embedded_items: {
           rich_text_editor: [
@@ -101,9 +111,11 @@ const embeddedItemsConnection: EmbeddedConnection = {
       }
     }, {
       node: {
-        uid: 'bltassetEmbuid',
+        system:  {
+          uid: 'bltassetEmbuid',
+          content_type_uid: 'sys_assets',
+        },
         content_type: 'image/png',
-        _content_type_uid: 'sys_assets',
         file_size: '36743',
         filename: 'svg-logo-text.png',
         url: '/v3/assets/blturl/bltassetEmbuid/svg-logo-text.png',
@@ -115,8 +127,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
         title: 'Update this title',
         url: '',
         locale: 'en-us',
-        uid: 'blttitleuid',
-        _content_type_uid: 'content_block',
+        system:  {
+          uid: 'blttitleuid',
+          content_type_uid: 'content_block',
+        },
         _version: 5,
         _in_progress: false,
         multi_line: '',
@@ -137,8 +151,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
           '<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.image/v3/assets/blturl/DIABETICDIET-800x600.jpg" data-sys-asset-uid="bltassetUID" data-sys-asset-filename="DIABETICDIET-800x600.jpg" data-sys-asset-contenttype="image/jpeg" type="asset" sys-style-type="display"></figure>'
         ],
         locale: 'en-us',
-        uid: 'blttitleUpdateUID',
-        _content_type_uid: 'embeddedrte',
+        system:  {
+          uid: 'blttitleUpdateUID',
+          content_type_uid: 'embeddedrte',
+        },
         _in_progress: false,
         _embedded_items: { 
           rich_text_editor:
@@ -157,8 +173,10 @@ const embeddedItemsConnection: EmbeddedConnection = {
           '<figure class="embedded-entry block-entry" data-sys-entry-uid="blt1234CtUID" data-sys-content-type-uid="1234" sys-style-type="block" type="entry"></figure>\n<figure class="embedded-entry inline-entry" data-sys-entry-uid="blt1234CtUID" data-sys-content-type-uid="1234" sys-style-type="inline" type="entry"></figure>\n<p><br><br></p>\n<figure class="embedded-asset" data-sys-asset-filelink="https://contentstack.image/v3/assets/blturl/html5.png" data-sys-asset-uid="blt1234AssetUID" data-sys-asset-filename="html5.png" data-sys-asset-contenttype="image/png" type="asset" sys-style-type="display"></figure>'
         ],
         locale: 'en-us',
-        uid: 'bltemmbedEntryUID',
-        _content_type_uid: 'embeddedrte',
+        system:  {
+          uid: 'bltemmbedEntryUID',
+          content_type_uid: 'embeddedrte',
+        },
         _in_progress: false,
         _embedded_items: {
           rich_text_editor:[
