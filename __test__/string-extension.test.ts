@@ -149,5 +149,5 @@ describe('String extension for each embedded Object ', () => {
 })
 
 function makeFindEmbedd(content: string = '', callback: (embedTag: string, metadata: Metadata) => void) {
-    content.forEachEmbeddedObject(callback)
+    content.forEachEmbeddedItem(callback)
 }

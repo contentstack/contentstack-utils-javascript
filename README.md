@@ -22,41 +22,52 @@ Use the following command to install Contentstack JavaScript Utils SDK:
 npm i @contentstack/utils
 ```
 ## Usage
-Let’s learn how you can use Utils SDK to render embedded items.
+Let’s learn how you can use Utils SDK to render RTE embedded items and Supercharged RTE Json to HTML.
 
 ### Create Render Option
-To render embedded items on the front-end, use the renderOptions function,  and define the UI elements you want to show in the front-end of your website, as shown in the example below:
+To render embedded items on the front-end, use the renderOptions function, and define the UI elements you want to show in the front-end of your website, as shown in the example below:
 ```js
 const renderOptions = {
-		//to render block-type embedded items  
+	// to render Supercharged RTE NodeType content like paragraph, link, table, order list, un-order list and more.
+	p: (node, next) => {
+		`<p class='class-id'>${next(node.children)}</p>` // you will need to call next function with node children contents
+	}
+	h1: (node, next) => {
+		`<h1 class='class-id'>${next(node.children)}</h1>` // you will need to call next function with node children contents
+	}
+	// to render Supercharged RTE MarkType content like bold, italic, underline, strikethrough, inlineCode, subscript, and superscript
+	bold: (text) => {
+		`<b>${next(node.children)}</b>`
+	}
+	// to render block-type embedded items  
 	block: {  
-		'product': (entry, metadata) => {  
-				`<div>  
-				<h2 >${entry.title}</h2>  
-				<img src=${entry.product_image.url} alt=${entry.product_image.title}/>  
-				<p>${entry.price}</p>  
-				</div>`  
+		'product': (item, metadata) => {  
+			`<div>  
+			<h2 >${item.title}</h2>  
+			<img src=${item.product_image.url} alt=${item.product_image.title}/>  
+			<p>${item.price}</p>  
+			</div>`  
 		},
-		//to render the default  
-		'$default': (entry, metadata) => {  
-				`<div>  
-				<h2>${entry.title}</h2>  
-				<p>${ntry.description}</p>  
-				</div>`
+		// to render the default  
+		'$default': (item, metadata) => {  
+			`<div>  
+			<h2>${item.title}</h2>  
+			<p>${item.description}</p>  
+			</div>`
 		}  
 	},
-//to display inline embedded items  
+	// to display inline embedded items  
 	inline: {  
-		'$default': (entry) => {  
-			`<span><b>${entry.title}</b> - ${entry.description}</span>`
-			}  
+		'$default': (item, metadata) => {  
+			`<span><b>${item.title}</b> - ${item.description}</span>`
+		}  
 	},
-	//to display embedded items inserted via link  
-	link: (entry, metadata) => {  
+	// to display embedded items inserted via link  
+	link: (item, metadata) => {  
 		`<a href="${metadata.attributes.href}">${metadata.text}</a>`
 	},
 	// to display assets  
-	display: (asset, metadata) => {  
+	display: (item, metadata) => {  
 		`<img src=${metadata.attributes.src} alt=${metadata.alt} />`
 	}  
 }
@@ -66,7 +77,8 @@ const renderOptions = {
 Contentstack Utils SDK lets you interact with the Content Delivery APIs and retrieve embedded items from the RTE field of an entry.
 
 ### Fetch Embedded Item(s) from a Single Entry
-To get an embedded item of a single entry, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use the includeEmbeddedItems and Contentstack.Utils.render functions as shown below:
+#### Render HTML RTE Embedded object
+To get an embedded item of a single entry, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use the `includeEmbeddedItems` and `Contentstack.Utils.render` functions as shown below:
 ```js
 import * as Contentstack from  'contentstack'  
 const stack = Contentstack.Stack({  
@@ -88,9 +100,35 @@ If you have multiple RTE fields in an entry and want to fetch the embedded items
 Refer to the example code below:
 ```js
 //code to render embedded item from an RTE field and from another RTE field nested within a group field
-Contentstack.Utils.render({ entry, path: ["rte_fieldUid", "group.rtefieldUID"], renderOption })
+Contentstack.Utils.render({ entry, path: ["rte_fieldUid", "group.rteFieldUID"], renderOption })
 ```
+
+#### Render Supercharged RTE contents
+To get a single entry, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use `Contentstack.Utils.jsonToHtml` function as shown below:
+```js
+import * as Contentstack from  'contentstack'  
+const stack = Contentstack.Stack({  
+        api_key: '<API_KEY>',  
+        delivery_token: '<ENVIRONMENT_SPECIFIC_DELIVERY_TOKEN>',  
+        environment: '<ENVIRONMENT>'})  
+  
+stack.ContentType('<CONTENT_TYPE_UID>')  
+	 .Entry('<ENTRY_UID>')  
+	 .toJSON()  
+	 .fetch()  
+	 .then(entry => {  
+			Contentstack.Utils.jsonToHtml({ 
+				entry, 
+				path: ["rte_fieldUid", "group.rteFieldUID"], 
+				renderOption 
+			})  
+	 })
+```
+> Node: Supercharged RTE also supports Embedded items to get all embedded items while fetching entry use `includeEmbeddedItems` function.
+
 ### Fetch Embedded Item(s) from Multiple Entries
+#### Render HTML RTE Embedded object
+
 To get embedded items from multiple entries, you need to provide the content type UID. You can also use the path variable in case the entries have multiple RTE fields.
 ```js
 import Contentstack from  'contentstack'  
@@ -107,7 +145,38 @@ stack.ContentType('<CONTENT_TYPE_UID>')
 	 .find()  
 	 .then(result => {  
 		result.forEach(entry => {  
-		    Contentstack.Utils.render({ entry, path: ['rte', 'group.rtefieldUID'], renderOption })  
+		    Contentstack.Utils.render({ 
+				entry, 
+				path: ['rte', 'group.rteFieldUID'], 
+				renderOption 
+			})  
 	    })  
      })
 ```
+
+#### Render Supercharged RTE contents
+To get a multiple entries, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use `Contentstack.Utils.jsonToHtml` function as shown below:
+```js
+import * as Contentstack from  'contentstack'  
+const stack = Contentstack.Stack({  
+        api_key: '<API_KEY>',  
+        delivery_token: '<ENVIRONMENT_SPECIFIC_DELIVERY_TOKEN>',  
+        environment: '<ENVIRONMENT>'})  
+  
+stack.ContentType('<CONTENT_TYPE_UID>')  
+	 .Query()  
+	 .toJSON()  
+	 .where('title', '<entry_title_to_search>')  
+	 .find()  
+	 .then(result => {  
+		result.forEach(entry => {  
+			Contentstack.Utils.jsonToHtml({ 
+				entry, 
+				path: ["rte_fieldUid", "group.rteFieldUID"], 
+				renderOption 
+			})
+		})  
+     })
+```
+
+> Node: Supercharged RTE also supports Embedded items to get all embedded items while fetching entry use `includeEmbeddedItems` function.

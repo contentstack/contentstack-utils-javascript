@@ -1,7 +1,7 @@
 import StyleType from '../src/embedded-types/style-type';
 import { defaultOptions } from '../src/options/default-options';
 import { entryContentBlank, entryContentURL, entryContentTitle, entryContentTitleURL } from './mock/entry-mock';
-import { RenderObject } from '../src/options/index';
+import { RenderItem } from '../src/options/index';
 import { assetContentBlank, 
     assetContentUrl,
     assetContentonlyFileName, 
@@ -11,12 +11,12 @@ import { assetContentBlank,
 import { Metadata, Attributes } from '../src/Models/metadata-model';
 
 const linkText = "linkText"
-const entryBlockFunction: RenderObject = defaultOptions[StyleType.BLOCK] as RenderObject
-const entryInlineFunction: RenderObject = defaultOptions[StyleType.INLINE] as RenderObject
-const entryLinkFunction: RenderObject = defaultOptions[StyleType.LINK] as RenderObject
+const entryBlockFunction: RenderItem = defaultOptions[StyleType.BLOCK] as RenderItem
+const entryInlineFunction: RenderItem = defaultOptions[StyleType.INLINE] as RenderItem
+const entryLinkFunction: RenderItem = defaultOptions[StyleType.LINK] as RenderItem
 
-const assetDisplaableFunction: RenderObject = defaultOptions[StyleType.DISPLAY] as RenderObject
-const assetDownloadFunction: RenderObject = defaultOptions[StyleType.DOWNLOAD] as RenderObject
+const assetDisplaableFunction: RenderItem = defaultOptions[StyleType.DISPLAY] as RenderItem
+const assetDownloadFunction: RenderItem = defaultOptions[StyleType.DOWNLOAD] as RenderItem
 
 const embedAttributes = { attributes: {} } as Metadata
 
@@ -89,11 +89,10 @@ describe('Default Option test', () => {
     })
 
     it('Default options Link text test', done => {
-        expect(entryLinkFunction(entryContentTitle, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
         expect(entryLinkFunction(entryContentURL, embedAttributesText)).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
+        expect(entryLinkFunction(entryContentTitle, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
         expect(entryLinkFunction(entryContentBlank, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
         expect(entryLinkFunction(entryContentTitleURL, embedAttributesText)).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
-
         expect(assetDisplaableFunction(assetContentBlank, embedAttributesText)).toEqual(`<img src="undefined" alt="${linkText}" />`)
         expect(assetDownloadFunction(assetContentBlank, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
         done()

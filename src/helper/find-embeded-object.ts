@@ -1,5 +1,5 @@
-import { EntryEmbedable, EmbeddedObject } from '../Models/embedded-object';
-import { RenderOption, RenderObject, RenderContentType } from '../options/index';
+import { EntryEmbedable, EmbeddedItem } from '../Models/embedded-object';
+import { RenderOption, RenderNode, RenderContentType, RenderItem } from '../options/index';
 import { EntryAttributes, Metadata } from '../Models/metadata-model';
 import { defaultOptions } from '../options/default-options';
 
@@ -7,8 +7,8 @@ import { defaultOptions } from '../options/default-options';
 export function findEmbeddedEntry(
   uid: string,
   contentTypeUid: string,
-  embeddeditems: EmbeddedObject[] = [],
-): EmbeddedObject[] {
+  embeddeditems: EmbeddedItem[] = [],
+): EmbeddedItem[] {
   return embeddeditems.filter((entry) => {
     if (entry.uid === uid && entry._content_type_uid === contentTypeUid) {
       return entry;
@@ -16,7 +16,7 @@ export function findEmbeddedEntry(
   });
 }
 
-export function findEmbeddedAsset(uid: string, embeddedAssets: EmbeddedObject[] = []): EmbeddedObject[] {
+export function findEmbeddedAsset(uid: string, embeddedAssets: EmbeddedItem[] = []): EmbeddedItem[] {
   return embeddedAssets.filter((asset) => {
     if (asset.uid === uid) {
       return asset;
@@ -24,7 +24,7 @@ export function findEmbeddedAsset(uid: string, embeddedAssets: EmbeddedObject[] 
   });
 }
 
-export function findEmbeddedObjects(object: Metadata, entry: EntryEmbedable): (EmbeddedObject)[] {
+export function findEmbeddedItems(object: Metadata, entry: EntryEmbedable): (EmbeddedItem)[] {
   if (object && object !== undefined && entry && entry !== undefined) {
     if (entry._embedded_items !== undefined) {
       const entryEmbedable = entry
@@ -45,33 +45,45 @@ export function findEmbeddedObjects(object: Metadata, entry: EntryEmbedable): (E
 }
 
 export function findRenderString(
+  item: EmbeddedItem,
   metadata: Metadata,
-  renderModel: EmbeddedObject,
   renderOptions?: RenderOption,
 ): string {
-  if ((!renderModel && renderModel === undefined) || (!metadata && metadata === undefined)) {
+  if ((!item && item === undefined) || (!metadata && metadata === undefined)) {
     return '';
   }
   
   if (renderOptions && renderOptions[metadata.styleType] !== undefined) {
-    const renderFunction = renderOptions[metadata.styleType] as RenderObject;
+    const renderFunction = renderOptions[metadata.styleType] as RenderItem;
 
-    if (
+     if (
       (metadata.attributes as EntryAttributes)['data-sys-content-type-uid'] !== undefined &&
       typeof renderFunction !== 'function' &&
       renderFunction[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']] !== undefined
     ) {
-      return (renderFunction as RenderContentType)[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']](renderModel, metadata);
+      return (renderFunction as RenderContentType)[(metadata.attributes as EntryAttributes)['data-sys-content-type-uid']](item, metadata);
     } else if (
       (metadata.attributes as EntryAttributes)['data-sys-content-type-uid'] !== undefined &&
       typeof renderFunction !== 'function' &&
       (renderFunction as RenderContentType).$default !== undefined
     ) {
-      return (renderFunction as RenderContentType).$default(renderModel, metadata);
-    } else if (typeof renderFunction === 'function') {
-      return renderFunction(renderModel, metadata);
+      return (renderFunction as RenderContentType).$default(item, metadata);
+    } else if (
+      metadata.contentTypeUid !== undefined &&
+      typeof renderFunction !== 'function' &&
+      renderFunction[metadata.contentTypeUid] !== undefined
+    ) {
+      return (renderFunction as RenderContentType)[metadata.contentTypeUid](item, metadata)
+    } else if (
+      metadata.contentTypeUid !== undefined &&
+      typeof renderFunction !== 'function' &&
+      (renderFunction as RenderContentType).$default !== undefined
+    ) {
+      return (renderFunction as RenderContentType).$default(item, metadata);
+    }  else if (typeof renderFunction === 'function') {
+      return renderFunction(item, metadata);
     }
   }
-  const defaultRenderFunction = defaultOptions[metadata.styleType] as RenderObject;  
-  return defaultRenderFunction(renderModel, metadata);
+  const defaultRenderFunction = defaultOptions[metadata.styleType] as RenderItem;  
+  return defaultRenderFunction(item, metadata);
 }

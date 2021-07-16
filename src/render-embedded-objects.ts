@@ -1,7 +1,7 @@
 import './extensions'
 import { Option, RenderOption } from './options';
 import { Metadata } from './Models/metadata-model';
-import { findEmbeddedObjects, findRenderString } from './helper/find-embeded-object';
+import { findEmbeddedItems, findRenderString } from './helper/find-embeded-object';
 import { EntryEmbedable } from './Models/embedded-object';
 import { findRenderContent } from './helper/find-render-content';
 /**
@@ -17,7 +17,7 @@ export function render(option: {
 }) {
 
     function findContent(path: string, entry: EntryEmbedable) {
-        findRenderContent(path, entry, (content) => {
+        findRenderContent(path, entry, (content: string| string[]) => {
             return renderContent(content, { entry, renderOption: option.renderOption })
         })
     }
@@ -60,8 +60,8 @@ export function renderContent(content: (string | string[]), option: Option): (st
     // render content of type string
     if (typeof content === 'string') {
         let contentToReplace = content
-        content.forEachEmbeddedObject((embededObjectTag: string, object: Metadata) => {
-            contentToReplace = findAndReplaceEmbeddedObject(
+        content.forEachEmbeddedItem((embededObjectTag: string, object: Metadata) => {
+            contentToReplace = findAndReplaceEmbeddedItem(
                 contentToReplace,
                 embededObjectTag, 
                 object, 
@@ -78,8 +78,8 @@ export function renderContent(content: (string | string[]), option: Option): (st
     return resultContent
 }
 
-function findAndReplaceEmbeddedObject(content:string, embededObjectTag: string, object: Metadata, option: Option): string {    
-    const embeddedObjects = findEmbeddedObjects(object, option.entry)
-    const renderString = findRenderString(object, embeddedObjects[0], option.renderOption)
+function findAndReplaceEmbeddedItem(content:string, embededObjectTag: string, metadata: Metadata, option: Option): string {    
+    const embeddedObjects = findEmbeddedItems(metadata, option.entry)
+    const renderString = findRenderString(embeddedObjects[0], metadata, option.renderOption)
     return content.replace(embededObjectTag, renderString)
 }

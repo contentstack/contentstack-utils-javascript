@@ -1,9 +1,9 @@
 import { EntryEmbedable } from '../Models/embedded-object';
-export function findRenderContent (keyPaths: string, entry: EntryEmbedable, render: (content: string| string[]) => (string| string[])){
+export function findRenderContent<Type>(keyPaths: string, entry: EntryEmbedable, render: (content: Type) => (string| string[])){
      getContent(keyPaths.split("."), entry, render)
 }
 
-export function getContent(keys: string[], object: any, render: (content: string| string[]) => (string| string[])) {
+export function getContent<Type>(keys: string[], object: any, render: (content: Type) => (string| string[])) {
     if (keys) {
         const key = keys[0]
         if (keys.length === 1 && object[key]) {
@@ -13,8 +13,8 @@ export function getContent(keys: string[], object: any, render: (content: string
                 const newKeys = keys.slice(1)
                 if (Array.isArray(object[key])) {
                     // tslint:disable-next-line: prefer-for-of
-                    for (let i = 0; i < object[key].length; i++) {
-                        getContent(newKeys, object[key][i], render)
+                    for (const objKey of object[key]) {
+                        getContent(newKeys, objKey, render)
                     }
                 } else if (typeof object[key] === 'object') {
                     getContent(newKeys, object[key], render)

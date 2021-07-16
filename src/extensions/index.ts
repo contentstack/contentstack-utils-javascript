@@ -5,11 +5,11 @@ const frameflag = 'documentfragmentcontainer';
 
 declare global {
   interface String {
-    forEachEmbeddedObject(callbackfn: (embededObjectTag: string, object: Metadata) => void): void;
+    forEachEmbeddedItem(callbackfn: (embededObjectTag: string, object: Metadata) => void): void;
   }
 }
 
-String.prototype.forEachEmbeddedObject = function (
+String.prototype.forEachEmbeddedItem = function (
   callbackfn: (embededObjectTag: string, object: Metadata) => void,
 ): void {
 

@@ -1,8 +1,9 @@
 import { Option } from "../../src/options";
-import { entryEmbeddedAssets, entryEmbeddedObject, entryEmbeddedEntries, entryAssetEmbedBlank } from './entry-mock';
+import { entryEmbeddedAssets, entryEmbeddedItem, entryEmbeddedEntries, entryAssetEmbedBlank } from './entry-mock';
 import StyleType from '../../src/embedded-types/style-type';
 import { renderContent } from "../../src/render-embedded-objects";
-import { EmbeddedObject } from "../../src/Models/embedded-object";
+import { EmbeddedItem } from "../../src/Models/embedded-object";
+import { Metadata } from "../../src/Models/metadata-model";
 
 export const embeddedAssetWithNoRenderOption: Option = {
     entry: entryEmbeddedAssets,
@@ -17,13 +18,13 @@ export const embeddedEntriesWithNoRenderOption: Option = {
 }
 
 export const embeddedObjectWithNoRenderOption: Option = {
-    entry: entryEmbeddedObject,
+    entry: entryEmbeddedItem,
 }
 
 export const embeddedAssetWithRenderOption: Option = {
     entry: entryEmbeddedAssets,
     renderOption: {
-        [StyleType.DISPLAY]:  (asset) => `<img src=\"${asset.url}\" alt=\"Alternet Text\" />`,
+        [StyleType.DISPLAY]:  (item: EmbeddedItem, metadata: Metadata) => `<img src=\"${item.url}\" alt=\"Alternet Text\" />`,
     }
 }
 
@@ -31,42 +32,42 @@ export const embeddedEntriesWithRenderOption: Option = {
     entry: entryEmbeddedEntries,
     renderOption: {
         [StyleType.BLOCK]:  {
-            'content-type': (entry) => entry.title
+            'content-type': (item: EmbeddedItem, metadata: Metadata) => item.title,
         },
         [StyleType.INLINE]: {
-            'content-type': (entry) => entry.uid
+            'content-type': (item: EmbeddedItem, metadata: Metadata) => item.uid
         }
     }
 }
 
 export const embeddedObjectWithRenderOption: Option = {
-    entry: entryEmbeddedObject,
+    entry: entryEmbeddedItem,
     renderOption: {
         [StyleType.BLOCK]:  {
-            'content_block': (entry) => `<div><div>${entry.title}</div></div>`
+            'content_block': (item: EmbeddedItem, metadata: Metadata) => `<div><div>${item.title}</div></div>`
         },
         [StyleType.INLINE]: {
-            'embeddedrte': (entry) => `<div><div>${entry.uid}</div></div>`
+            'embeddedrte': (item: EmbeddedItem, metadata: Metadata) => `<div><div>${item.uid}</div></div>`
         }
     }
 }
 export const embeddedObjectWithMultiRenderOption: Option = {
-    entry: entryEmbeddedObject,
+    entry: entryEmbeddedItem,
     renderOption: {
         [StyleType.BLOCK]:  {
-            'content_block': (entry) => `<div>
-            <div>${entry.title}</div>
-            <div>${renderContent(entry.rich_text_editor, {
-                entry: entry as EmbeddedObject,
+            'content_block': (item: EmbeddedItem, metadata: Metadata) => `<div>
+            <div>${item.title}</div>
+            <div>${renderContent(item.rich_text_editor, {
+                entry: item as EmbeddedItem,
                 renderOption: embeddedObjectWithRenderOption.renderOption
             })}
             </div>`
         },
         [StyleType.INLINE]: {
-            'embeddedrte': (entry) => `<div>
-            <div>${entry.uid}</div>
-            <MYCONTENT>${renderContent(entry.rich_text_editor[0], {
-                entry: entry as EmbeddedObject,
+            'embeddedrte': (item: EmbeddedItem, metadata: Metadata) => `<div>
+            <div>${item.uid}</div>
+            <MYCONTENT>${renderContent(item.rich_text_editor[0], {
+                entry: item as EmbeddedItem,
                 renderOption: embeddedObjectWithRenderOption.renderOption
             })}</MYCONTENT>
             </div>`
@@ -76,22 +77,22 @@ export const embeddedObjectWithMultiRenderOption: Option = {
 
 
 export const embeddedObjectDefaultRender: Option = {
-    entry: entryEmbeddedObject,
+    entry: entryEmbeddedItem,
     renderOption: {
         [StyleType.BLOCK]:  {
-            '$default': (entry) => `<div>
-            <div>${entry.title}</div>
-            <div>${renderContent(entry.rich_text_editor, {
-                entry: entry as EmbeddedObject,
+            '$default': (item: EmbeddedItem, metadata: Metadata) => `<div>
+            <div>${item.title}</div>
+            <div>${renderContent(item.rich_text_editor, {
+                entry: item as EmbeddedItem,
                 renderOption: embeddedObjectWithRenderOption.renderOption
             })}
             </div>`
         },
         [StyleType.INLINE]: {
-            'embeddedrte': (entry) => `<div>
-            <div>${entry.uid}</div>
-            <MYCONTENT>${renderContent(entry.rich_text_editor[0], {
-                entry: entry as EmbeddedObject,
+            'embeddedrte': (item: EmbeddedItem, metadata: Metadata) => `<div>
+            <div>${item.uid}</div>
+            <MYCONTENT>${renderContent(item.rich_text_editor[0], {
+                entry: item as EmbeddedItem,
                 renderOption: embeddedObjectWithRenderOption.renderOption
             })}</MYCONTENT>
             </div>`
