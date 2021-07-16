@@ -1,14 +1,18 @@
-import { EntryEmbedable, EmbeddedObject } from '../Models/embedded-object';
+import { AnyNode } from '../json-to-html';
+import { EntryEmbedable, EmbeddedItem } from '../Models/embedded-object';
 import { Metadata } from '../Models/metadata-model';
+import Node from '../nodes/node';
 
-export type RenderObject = (object: EmbeddedObject, metadata: Metadata) => string;
-
+export type Next = (nodes: AnyNode[]) => string
+export type RenderNode = (node: Node, next: Next) => string;
+export type RenderMark = (text: string) => string;
+export type RenderItem = (item: EmbeddedItem, metadata: Metadata) => string;
 export interface RenderOption {
-  [embedType: string]: RenderObject | RenderContentType;
+  [embedType: string]: RenderNode | RenderMark | RenderItem | RenderContentType;
 }
 
 export interface RenderContentType {
-  [contentTypeUid: string]: RenderObject;
+  [contentTypeUid: string]: RenderItem;
 }
 
 export interface Option {
