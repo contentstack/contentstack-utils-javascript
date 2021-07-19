@@ -1,4 +1,4 @@
-import { textNodeToHTML } from "../src/json-to-html"
+import { textNodeToHTML } from "../src/helper/enumerate-entries"
 import NodeType from "../src/nodes/node-type"
 import TextNode from "../src/nodes/text"
 import { defaultNodeOption } from "../src/options/default-node-options"

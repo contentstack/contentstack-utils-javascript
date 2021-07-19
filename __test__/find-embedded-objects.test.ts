@@ -4,6 +4,7 @@ import { assetDisplayJson } from './mock/embedded-object-mock';
 import { Attributes, createMetadata, Metadata } from '../src/Models/metadata-model';
 import { findEmbeddedEntry, findEmbeddedAsset, findRenderString, findEmbeddedItems } from '../src/helper/find-embeded-object';
 import StyleType from '../src/embedded-types/style-type';
+import { EntryNode } from '../src/Models/json-rte-model';
 
 const assetRichTextMetadata = createMetadata(assetRichTextJson as unknown as Attributes)
 const entryRichTextMetadata = createMetadata(entryRichTextJson as unknown as Attributes)
@@ -81,7 +82,7 @@ describe('Embedded object render from content', () => {
 
     it('Find Render string from passed renderOption', done => {
         let renderString = findRenderString(entryEmbeddedEntries._embedded_items.rich_text_editor[0], entryRichTextMetadata, {
-            [StyleType.BLOCK]: (item:EmbeddedItem, metadata: Metadata) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
+            [StyleType.BLOCK]: (item:EmbeddedItem | EntryNode, metadata: Metadata) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
         })
         expect(renderString).toEqual('<div><div>Update this title</div><div>Content type: <span>content_block</span></div></div>')
         
@@ -89,7 +90,7 @@ describe('Embedded object render from content', () => {
             [StyleType.BLOCK]: 
             {
                 'embeddedrte':
-                (item:EmbeddedItem, metadata: Metadata) => `<div>${item.title || item.uid}<div>Content type: <span>${item._content_type_uid}</span></div></div>`
+                (item:EmbeddedItem | EntryNode, metadata: Metadata) => `<div>${item.title || item.uid}<div>Content type: <span>${item._content_type_uid}</span></div></div>`
             }
         })
         expect(renderString).toEqual('<div>Update this title<div>Content type: <span>content_block</span></div></div>')
@@ -98,7 +99,7 @@ describe('Embedded object render from content', () => {
             [StyleType.BLOCK]: 
             {
                 'content-type':
-                (item:EmbeddedItem, metadata: Metadata) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
+                (item:EmbeddedItem | EntryNode, metadata: Metadata) => `<div><div>${item.title || item.uid}</div><div>Content type: <span>${item._content_type_uid}</span></div></div>`
             }
         })
         expect(renderString).toEqual('<div><p>Update this title</p><p>Content type: <span>content_block</span></p></div>')

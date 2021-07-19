@@ -1,6 +1,6 @@
 export interface EmbeddedItem {
   uid: string;
-  _content_type_uid: string;
+  _content_type_uid?: string;
   [propName: string]: any;
 }
 
