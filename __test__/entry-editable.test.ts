@@ -101,7 +101,6 @@ describe('Entry editable test', () => {
 
     it('Entry with reference test', done => {
         addTags(entry_global_field_multiple, 'entry_asset', false)        
-        console.log((entry_global_field_multiple as any)['global_rich_multiple'][0]['modular_blocks'][0]);
         
         expect((entry_global_field_multiple as any)['global_rich_multiple'][0]['$']['rich_text_editor']).toEqual('data-cslp=entry_asset.bltcb70aa8425b4676c.en-us.global_rich_multiple.0.rich_text_editor')
         expect((entry_global_field_multiple as any)['global_rich_multiple'][0]['$']['rich_text_editor_multiple']).toEqual('data-cslp=entry_asset.bltcb70aa8425b4676c.en-us.global_rich_multiple.0.rich_text_editor_multiple')
