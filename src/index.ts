@@ -12,3 +12,4 @@ export { default as Document } from './nodes/document'
 export { default as TextNode } from './nodes/text';
 export { jsonToHTML } from './json-to-html'
 export { GQL } from './gql'
+export { addTags as addEditableTags } from './entry-editable'
