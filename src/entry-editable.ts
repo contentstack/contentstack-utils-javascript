@@ -22,7 +22,9 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                         }
                     })
                 }else {
-                    value["$"] = getTag(value, `${prefix}.${key}`, tagsAsObject, locale)
+                    if (value) {
+                        value["$"] = getTag(value, `${prefix}.${key}`, tagsAsObject, locale)
+                    }
                 }
                 break;
             default:
