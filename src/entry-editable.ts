@@ -1,7 +1,8 @@
 import { EntryModel } from ".";
 
-export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us') : void {    
-    entry["$"] = getTag(entry, `${contentTypeUid}.${entry.uid}.${locale}`, tagsAsObject, locale)        
+export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us') : void {  
+    if (entry)  
+        entry["$"] = getTag(entry, `${contentTypeUid}.${entry.uid}.${locale}`, tagsAsObject, locale)        
 }
 
 function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string): object {
@@ -11,7 +12,7 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
             case "object":
                 if (Array.isArray(value)) {
                     value.forEach((obj, index) => {
-                        if (obj._content_type_uid !== undefined && obj.uid !== undefined) {
+                        if ((typeof obj !== 'undefined' || obj !== null) && obj._content_type_uid !== undefined && obj.uid !== undefined) {
                             value[index]['$'] = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale)
                         }else {
                             if (typeof obj === "object") {
