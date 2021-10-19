@@ -9,7 +9,7 @@ export const entryMultipleContent =  {
                 "uid": "blt7324a68403ee7281",
                 "created_at": "2020-10-12T06:18:43.815Z",
                 "updated_at": "2020-10-20T13:31:48.635Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
@@ -26,7 +26,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-28T12:11:09.538Z",
-                    "user": "blt702565fb0d35107f"
+                    "user": "uid_mock_4"
                 }
             }
         ],
@@ -35,7 +35,7 @@ export const entryMultipleContent =  {
                 "uid": "blt7324a68403ee7281",
                 "created_at": "2020-10-12T06:18:43.815Z",
                 "updated_at": "2020-10-20T13:31:48.635Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
@@ -52,7 +52,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-28T12:11:09.538Z",
-                    "user": "blt702565fb0d35107f"
+                    "user": "uid_mock_4"
                 }
             }
         ],
@@ -61,7 +61,7 @@ export const entryMultipleContent =  {
                 "uid": "blt7324a68403ee7281",
                 "created_at": "2020-10-12T06:18:43.815Z",
                 "updated_at": "2020-10-20T13:31:48.635Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
@@ -78,7 +78,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-28T12:11:09.538Z",
-                    "user": "blt702565fb0d35107f"
+                    "user": "uid_mock_4"
                 }
             }
         ],
@@ -87,7 +87,7 @@ export const entryMultipleContent =  {
                 "uid": "blt7324a68403ee7281",
                 "created_at": "2020-10-12T06:18:43.815Z",
                 "updated_at": "2020-10-20T13:31:48.635Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
@@ -104,7 +104,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-28T12:11:09.538Z",
-                    "user": "blt702565fb0d35107f"
+                    "user": "uid_mock_4"
                 }
             }
         ],
@@ -152,8 +152,8 @@ export const entryMultipleContent =  {
                 
                 "locale": "en-us",
                 "uid": "blt41a3bf40728446c3",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blte75599b1e529fa3a",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock",
                 "created_at": "2020-01-08T05:58:32.735Z",
                 "updated_at": "2020-09-30T06:15:31.196Z",
                 "_content_type_uid": "00_suraj",
@@ -164,15 +164,15 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-09-30T06:27:30.470Z",
-                    "user": "blte75599b1e529fa3a"
+                    "user": "uid_mock"
                 }
             },
             {
                 "uid": "blt120a5a04d91c9466",
                 "created_at": "2020-05-13T05:33:10.496Z",
                 "updated_at": "2020-05-13T05:33:10.496Z",
-                "created_by": "blt10ead621ea074461",
-                "updated_by": "blt10ead621ea074461",
+                "created_by": "uid_mock_2",
+                "updated_by": "uid_mock_2",
                 "content_type": "image/png",
                 "file_size": "59014",
                 "_content_type_uid": "0_solve",
@@ -186,7 +186,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-07T12:51:11.012Z",
-                    "user": "blt7cf74ca069442cc6"
+                    "user": "uid_mock_3"
                 }
             }
         ],
@@ -195,7 +195,7 @@ export const entryMultipleContent =  {
                 "uid": "blt7324a68403ee7281",
                 "created_at": "2020-10-12T06:18:43.815Z",
                 "updated_at": "2020-10-20T13:31:48.635Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "updated_by": "bltcd8cc4e3db7b72f1",
                 "content_type": "image/jpeg",
                 "file_size": "11773",
@@ -212,7 +212,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-28T12:11:09.538Z",
-                    "user": "blt702565fb0d35107f"
+                    "user": "uid_mock_4"
                 }
             }
         ],
@@ -260,8 +260,8 @@ export const entryMultipleContent =  {
                 
                 "locale": "en-us",
                 "uid": "blt41a3bf40728446c3",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blte75599b1e529fa3a",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock",
                 "created_at": "2020-01-08T05:58:32.735Z",
                 "updated_at": "2020-09-30T06:15:31.196Z",
                 "_content_type_uid": "00_suraj",
@@ -272,7 +272,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-09-30T06:27:30.470Z",
-                    "user": "blte75599b1e529fa3a"
+                    "user": "uid_mock"
                 }
             }
         ],
@@ -285,8 +285,8 @@ export const entryMultipleContent =  {
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock_3",
                 "created_at": "2020-09-30T14:34:30.401Z",
                 "updated_at": "2020-09-30T14:35:57.483Z",
                 "_content_type_uid": "0_solve",
@@ -302,7 +302,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-09-30T14:36:11.282Z",
-                    "user": "blt7cf74ca069442cc6"
+                    "user": "uid_mock_3"
                 }
             }
         ],
@@ -319,7 +319,7 @@ export const entryMultipleContent =  {
                 "_in_progress": false,
                 "_version": 1,
                 "created_at": "2020-01-08T07:05:09.667Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "markdown": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
                 "modular_blocks": [
                     {
@@ -345,13 +345,13 @@ export const entryMultipleContent =  {
                 "title": "Copy of Entry final 01",
                 "uid": "bltf2fb45e5fc46f8d4",
                 "updated_at": "2020-01-08T07:05:09.667Z",
-                "updated_by": "blt7cf74ca069442cc6",
+                "updated_by": "uid_mock_3",
                 "url": "/copy-of-entry-final-01",
                 "publish_details": {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-14T15:41:23.760Z",
-                    "user": "blte75599b1e529fa3a"
+                    "user": "uid_mock"
                 },
                 "_content_type_uid": "00_suraj_final"
             }
@@ -366,8 +366,8 @@ export const entryMultipleContent =  {
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock_3",
                 "created_at": "2020-09-30T14:34:30.401Z",
                 "updated_at": "2020-09-30T14:35:57.483Z",
                 "_content_type_uid": "0_solve",
@@ -383,7 +383,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-09-30T14:36:11.282Z",
-                    "user": "blt7cf74ca069442cc6"
+                    "user": "uid_mock_3"
                 }
             }
         ],
@@ -411,8 +411,8 @@ export const entryMultipleContent =  {
                 ],
                 "locale": "en-us",
                 "uid": "bltb9e1cfc94315f8eb",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock_3",
                 "created_at": "2020-01-08T06:18:21.759Z",
                 "updated_at": "2020-01-08T06:18:21.759Z",
                 "_content_type_uid": "00_copy_of_00_suraj",
@@ -422,7 +422,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-05-04T08:43:36.476Z",
-                    "user": "blt10ead621ea074461"
+                    "user": "uid_mock_2"
                 }
             }
         ],
@@ -476,8 +476,8 @@ export const entryMultipleContent =  {
                 
                 "locale": "en-us",
                 "uid": "blt41a3bf40728446c3",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blte75599b1e529fa3a",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock",
                 "created_at": "2020-01-08T05:58:32.735Z",
                 "updated_at": "2020-09-30T06:15:31.196Z",
                 "_content_type_uid": "00_suraj",
@@ -488,7 +488,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-09-30T06:27:30.470Z",
-                    "user": "blte75599b1e529fa3a"
+                    "user": "uid_mock"
                 }
             }
         ],
@@ -501,8 +501,8 @@ export const entryMultipleContent =  {
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock_3",
                 "created_at": "2020-09-30T14:34:30.401Z",
                 "updated_at": "2020-09-30T14:35:57.483Z",
                 "_content_type_uid": "0_solve",
@@ -518,7 +518,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-09-30T14:36:11.282Z",
-                    "user": "blt7cf74ca069442cc6"
+                    "user": "uid_mock_3"
                 }
             }
         ],
@@ -535,7 +535,7 @@ export const entryMultipleContent =  {
                 "_in_progress": false,
                 "_version": 1,
                 "created_at": "2020-01-08T06:16:52.122Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "markdown": "fsdfsdfsdfasf",
                 "modular_blocks": [
                     {
@@ -568,13 +568,13 @@ export const entryMultipleContent =  {
                 "title": "Copy of Suraj 123 Entry",
                 "uid": "blt3e080541e130736b",
                 "updated_at": "2020-01-08T06:16:52.122Z",
-                "updated_by": "blt7cf74ca069442cc6",
+                "updated_by": "uid_mock_3",
                 "url": "/copy-of-suraj-123-entry",
                 "publish_details": {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-04-01T08:14:35.247Z",
-                    "user": "blt10ead621ea074461"
+                    "user": "uid_mock_2"
                 },
                 "_content_type_uid": "00_suraj"
             }
@@ -606,8 +606,8 @@ export const entryMultipleContent =  {
                 
                 "locale": "en-us",
                 "uid": "blt4d27c2875ffcaefc",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock_3",
                 "created_at": "2020-01-03T06:55:42.057Z",
                 "updated_at": "2020-01-03T06:55:42.057Z",
                 "_content_type_uid": "0_solve",
@@ -618,7 +618,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-05-04T08:43:36.476Z",
-                    "user": "blt10ead621ea074461"
+                    "user": "uid_mock_2"
                 }
             }
         ],
@@ -631,8 +631,8 @@ export const entryMultipleContent =  {
                 "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt1c9e75e3608f8c6b\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" sys-style-type=\"block\" type=\"entry\"></div>",
                 "locale": "en-us",
                 "uid": "blt1c9e75e3608f8c6b",
-                "created_by": "blt7cf74ca069442cc6",
-                "updated_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
+                "updated_by": "uid_mock_3",
                 "created_at": "2020-09-30T14:34:30.401Z",
                 "updated_at": "2020-09-30T14:35:57.483Z",
                 "_content_type_uid": "0_solve",
@@ -649,7 +649,7 @@ export const entryMultipleContent =  {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-09-30T14:36:11.282Z",
-                    "user": "blt7cf74ca069442cc6"
+                    "user": "uid_mock_3"
                 }
             }
         ],
@@ -666,7 +666,7 @@ export const entryMultipleContent =  {
                 "_in_progress": false,
                 "_version": 1,
                 "created_at": "2020-01-08T07:05:09.667Z",
-                "created_by": "blt7cf74ca069442cc6",
+                "created_by": "uid_mock_3",
                 "markdown": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
                 "modular_blocks": [
                     {
@@ -692,13 +692,13 @@ export const entryMultipleContent =  {
                 "title": "Copy of Entry final 01",
                 "uid": "bltf2fb45e5fc46f8d4",
                 "updated_at": "2020-01-08T07:05:09.667Z",
-                "updated_by": "blt7cf74ca069442cc6",
+                "updated_by": "uid_mock_3",
                 "url": "/copy-of-entry-final-01",
                 "publish_details": {
                     "environment": "bltbe240fa93baafa15",
                     "locale": "en-us",
                     "time": "2020-10-14T15:41:23.760Z",
-                    "user": "blte75599b1e529fa3a"
+                    "user": "uid_mock"
                 },
                 "_content_type_uid": "00_suraj_final"
             }
@@ -712,7 +712,7 @@ export const entryMultipleContent =  {
     },
     "_in_progress": false,
     "created_at": "2020-10-06T08:17:56.955Z",
-    "created_by": "blt314a5d5a52d022c1",
+    "created_by": "uid_mock_1",
     "global_rich": {
         "rich_text_editor": "<p><a data-sys-entry-uid=\"blt41a3bf40728446c3\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"00_suraj\" sys-style-type=\"link\" data-sys-can-edit=\"true\" class=\"embedded-entry\" type=\"entry\" href=\"/suraj-123-entry\" title=\"Manish New entry\">Global</a></p>",
         "rich_text_editor_multiple": [
@@ -830,13 +830,13 @@ export const entryMultipleContent =  {
     
     "title": "Test Rich Text",
     "updated_at": "2020-11-05T08:26:14.590Z",
-    "updated_by": "blt314a5d5a52d022c1",
+    "updated_by": "uid_mock_1",
     "url": "/test-rich-text",
     "publish_details": {
         "environment": "bltbe240fa93baafa15",
         "locale": "en-us",
         "time": "2020-11-05T08:26:24.826Z",
-        "user": "blt314a5d5a52d022c1"
+        "user": "uid_mock_1"
     }
 }
 
