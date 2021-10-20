@@ -1,6 +1,6 @@
 import Node from '../../src/nodes/node'
 import NodeType from '../../src/nodes/node-type'
-import TextNode from '../../src/nodes/text'
+import TextNode from '../../src/nodes/text-node'
 import { paragraphJson } from '../mock/json-element-mock'
 import Document from '../../src/nodes/document'
 describe('Node parser', () => {

@@ -9,7 +9,7 @@ export { default as NodeType } from './nodes/node-type'
 export { default as MarkType } from './nodes/mark-type'
 export { default as Node} from './nodes/node'
 export { default as Document } from './nodes/document'
-export { default as TextNode } from './nodes/text';
+export { default as TextNode } from './nodes/text-node';
 export { jsonToHTML } from './json-to-html'
 export { GQL } from './gql'
 export { addTags as addEditableTags } from './entry-editable'

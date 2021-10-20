@@ -1,5 +1,5 @@
 import Node from './nodes/node';
-import TextNode from './nodes/text';
+import TextNode from './nodes/text-node';
 import Document from './nodes/document';
 import { Metadata } from './Models/metadata-model';
 import { EntryEmbedable } from './Models/embedded-object';

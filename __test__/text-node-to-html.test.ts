@@ -1,6 +1,6 @@
 import { textNodeToHTML } from "../src/helper/enumerate-entries"
 import NodeType from "../src/nodes/node-type"
-import TextNode from "../src/nodes/text"
+import TextNode from "../src/nodes/text-node"
 import { defaultNodeOption } from "../src/options/default-node-options"
 
 const textNode: TextNode = {
