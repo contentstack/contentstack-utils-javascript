@@ -10,8 +10,7 @@
     "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
     "moduleDirectories": ["node_modules", "src"],
     "transformIgnorePatterns": [
-      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)",
-      "^.+\\.js$"
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
     ],
     "collectCoverage": true,
     "coverageReporters": [
