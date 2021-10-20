@@ -35,7 +35,7 @@ function enumerateKeys(option: {
 }) {
     for (const key of option.paths) {
         findRenderContent(key, 
-            option.entry as EntryEmbedable, 
+            option.entry, 
             ((content: JsonRTE) => {
             if (content && content.json) {
                 const edges = content.embedded_itemsConnection ? content.embedded_itemsConnection.edges : []

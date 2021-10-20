@@ -1,6 +1,8 @@
 {
+    "preset": "ts-jest",
     "transform": {
-      "^.+\\.(t|j)sx?$": "ts-jest"
+      "^.+\\.(t|j)sx?$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest"
     },
     "testMatch": [
       "**/__test__/**/?(*.)+(spec|test).[jt]s?(x)"
