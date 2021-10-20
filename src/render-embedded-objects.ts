@@ -41,7 +41,7 @@ export function render(option: {
             findAndRender(entry)
         })
     }else {
-        findAndRender(option.entry as EntryEmbedable)
+        findAndRender(option.entry)
     }
 }
 

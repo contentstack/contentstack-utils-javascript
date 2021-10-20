@@ -2,7 +2,7 @@ import { AnyNode } from "../json-to-html";
 import { EmbeddedItem, EntryEmbedable } from "../Models/embedded-object";
 import { Metadata, nodeToMetadata } from "../Models/metadata-model";
 import MarkType from "../nodes/mark-type";
-import TextNode from "../nodes/text";
+import TextNode from "../nodes/text-node";
 import Node from '../nodes/node'
 import Document from '../nodes/document'
 import { Next, RenderMark, RenderNode, RenderOption } from "../options";
