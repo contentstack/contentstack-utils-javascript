@@ -1,5 +1,4 @@
 import { Next, RenderOption } from ".";
-import { attributeToString } from "../Models/metadata-model";
 import MarkType from "../nodes/mark-type";
 import Node from "../nodes/node";
 import NodeType from "../nodes/node-type";
