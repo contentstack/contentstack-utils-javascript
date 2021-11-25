@@ -96,6 +96,10 @@ function nodeToHTML(
         return referenceToHTML(node, renderOption, renderEmbed)
     }else {
         const next: Next = nodes => nodeChildrenToHTML(nodes, renderOption, renderEmbed)
-        return (renderOption[node.type] as RenderNode)(node, next)
+        if (renderOption[node.type] !== undefined) {
+            return (renderOption[node.type] as RenderNode)(node, next)
+        }else {
+            return (renderOption.default as RenderNode)(node, next)
+        }
     }
 }

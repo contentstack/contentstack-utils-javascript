@@ -80,6 +80,9 @@ export const defaultNodeOption: RenderOption = {
     ['reference']:(node: Node, next: Next) => {
         return ``
     },
+    ['default']:(node: Node, next: Next) => {
+        return next(node.children)
+    },
 
     [MarkType.BOLD]:(text: string) => {
         return `<strong>${text}</strong>`
