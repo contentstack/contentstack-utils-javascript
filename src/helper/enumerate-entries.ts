@@ -2,7 +2,7 @@ import { AnyNode } from "../json-to-html";
 import { EmbeddedItem, EntryEmbedable } from "../Models/embedded-object";
 import { Metadata, nodeToMetadata } from "../Models/metadata-model";
 import MarkType from "../nodes/mark-type";
-import TextNode from "../nodes/text";
+import TextNode from "../nodes/text-node";
 import Node from '../nodes/node'
 import Document from '../nodes/document'
 import { Next, RenderMark, RenderNode, RenderOption } from "../options";
@@ -96,6 +96,10 @@ function nodeToHTML(
         return referenceToHTML(node, renderOption, renderEmbed)
     }else {
         const next: Next = nodes => nodeChildrenToHTML(nodes, renderOption, renderEmbed)
-        return (renderOption[node.type] as RenderNode)(node, next)
+        if (renderOption[node.type] !== undefined) {
+            return (renderOption[node.type] as RenderNode)(node, next)
+        }else {
+            return (renderOption.default as RenderNode)(node, next)
+        }
     }
 }

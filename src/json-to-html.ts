@@ -1,5 +1,5 @@
 import Node from './nodes/node';
-import TextNode from './nodes/text';
+import TextNode from './nodes/text-node';
 import Document from './nodes/document';
 import { Metadata } from './Models/metadata-model';
 import { EntryEmbedable } from './Models/embedded-object';
@@ -34,7 +34,7 @@ function enumerateKeys(option: {
     renderOption?: RenderOption,
 }) {
     for (const key of option.paths) {
-        findRenderContent(key, option.entry as EntryEmbedable, ((content: Document | Document[]) => {
+        findRenderContent(key, option.entry, ((content: Document | Document[]) => {
             return enumerateContents(content, option.renderOption, (metadata: Metadata) => {
                 return findEmbeddedItems(metadata, option.entry)[0]
             })

@@ -1,7 +1,7 @@
+import { defaultOptions } from '../options/default-options';
 import { EntryEmbedable, EmbeddedItem } from '../Models/embedded-object';
 import { RenderOption, RenderContentType, RenderItem } from '../options/index';
 import { EntryAttributes, Metadata } from '../Models/metadata-model';
-import { defaultOptions } from '../options/default-options';
 import { EntryNode } from '../Models/json-rte-model';
 
 // This function will find Embedded object present in string

@@ -1,5 +1,4 @@
 import { Next, RenderOption } from ".";
-import { attributeToString } from "../Models/metadata-model";
 import MarkType from "../nodes/mark-type";
 import Node from "../nodes/node";
 import NodeType from "../nodes/node-type";
@@ -80,6 +79,9 @@ export const defaultNodeOption: RenderOption = {
 
     ['reference']:(node: Node, next: Next) => {
         return ``
+    },
+    ['default']:(node: Node, next: Next) => {
+        return next(node.children)
     },
 
     [MarkType.BOLD]:(text: string) => {

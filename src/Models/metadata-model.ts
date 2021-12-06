@@ -1,6 +1,5 @@
 import StyleType from '../embedded-types/style-type';
-import TextNode from '../nodes/text';
-import { EmbeddedItem } from './embedded-object';
+import TextNode from '../nodes/text-node';
 export interface Metadata {
   text: string
   attributes: Attributes

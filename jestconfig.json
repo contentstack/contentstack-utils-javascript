@@ -1,12 +1,17 @@
 {
+    "preset": "ts-jest",
     "transform": {
-      "^.+\\.(t|j)sx?$": "ts-jest"
+      "^.+\\.(t|j)sx?$": "ts-jest",
+      "^.+\\.(ts|tsx|js|jsx)$": "babel-jest"
     },
     "testMatch": [
       "**/__test__/**/?(*.)+(spec|test).[jt]s?(x)"
     ],
     "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-
+    "moduleDirectories": ["node_modules", "src"],
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
+    ],
     "collectCoverage": true,
     "coverageReporters": [
       "json", 

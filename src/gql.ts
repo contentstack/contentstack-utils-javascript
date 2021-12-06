@@ -1,5 +1,5 @@
 import Node from './nodes/node';
-import TextNode from './nodes/text';
+import TextNode from './nodes/text-node';
 import { RenderOption } from './options';
 import { JsonRTE } from './Models/json-rte-model';
 import { Metadata } from './Models/metadata-model';
@@ -35,7 +35,7 @@ function enumerateKeys(option: {
 }) {
     for (const key of option.paths) {
         findRenderContent(key, 
-            option.entry as EntryEmbedable, 
+            option.entry, 
             ((content: JsonRTE) => {
             if (content && content.json) {
                 const edges = content.embedded_itemsConnection ? content.embedded_itemsConnection.edges : []

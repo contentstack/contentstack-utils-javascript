@@ -1,5 +1,5 @@
 import { elementToJson } from '../helper/html-to-json';
-import { EntryAttributes, AssetAttributes, Metadata, createMetadata, Attributes } from '../Models/metadata-model';
+import { Metadata, createMetadata, Attributes } from '../Models/metadata-model';
 import { parse } from 'node-html-parser';
 const frameflag = 'documentfragmentcontainer';
 
