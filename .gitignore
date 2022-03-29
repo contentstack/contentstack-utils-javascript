@@ -13,3 +13,4 @@ tap-html.html
 *html-report
 dist/*
 coverage/
+.dccache
