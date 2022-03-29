@@ -12,7 +12,7 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
             case "object":
                 if (Array.isArray(value)) {
                     value.forEach((obj, index) => {
-                        if ((typeof obj !== 'undefined' || obj !== null) && obj._content_type_uid !== undefined && obj.uid !== undefined) {
+                        if (typeof obj !== 'undefined' && obj !== null && obj._content_type_uid !== undefined && obj.uid !== undefined) {
                             value[index].$ = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale)
                         }else {
                             if (typeof obj === "object") {
