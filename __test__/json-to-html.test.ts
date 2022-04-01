@@ -14,10 +14,12 @@ import {
     orderListJson,
     unorderListJson,
     imgJson,
+    imgJsonURL,
     tableJson,
     blockquoteJson,
     codeJson,
-    linkInPJson} from './mock/json-element-mock'
+    linkInPJson,
+    linkInPJsonUrl} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -350,7 +352,7 @@ describe('Node parse image content', () => {
             uid: 'entry_uid_19',
             supercharged_rte: [
                 {
-                    ...imgJson
+                    ...imgJsonURL
                 }
             ],
             _embedded_items: {}
@@ -477,7 +479,7 @@ describe('Node parse link in paragraph content', () => {
             uid: 'entry_uid_19',
             supercharged_rte: [
                 {
-                    ...linkInPJson
+                    ...linkInPJsonUrl
                 },
             ],
             _embedded_items: {}
