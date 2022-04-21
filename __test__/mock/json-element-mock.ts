@@ -348,6 +348,32 @@ const imgJson = {
   type: "doc"
 }
 
+const imgJsonURL = {
+  uid: "06e34a7a4849d7fc2acd",
+  _version: 13,
+  attrs: {},
+  children: [
+    {
+      "uid": "f3be74be3b64646e626",
+      "type": "img",
+      "attrs": {
+          "url": "https://image.url/Donald.jog.png",
+          "width": 33.69418132611637,
+          "height": "auto",
+          "redactor-attributes": {
+              "asset_uid": "47f1aa5ae422cd1"
+          }
+      },
+      "children": [
+          {
+              "text": ""
+          }
+      ]
+    }
+  ],
+  type: "doc"
+}
+
 const paragraphJson = {
     uid: "0d7fd",
     _version: 13,
@@ -593,6 +619,51 @@ const linkInPJson = {
           "type": "a",
           "attrs": {
               "href": "LINK.com",
+              "target": "_self"
+          },
+          "children": [
+              {
+              "text": "LINK"
+              }
+          ]
+          },
+          {
+          "text": ""
+          }
+      ]
+      }
+  ],
+  type: "doc"
+}
+
+
+const linkInPJsonUrl = {
+  uid: "06e34a7190849d7f2acd",
+  _version: 13,
+  attrs: {},
+  children: [
+    {
+      "type": "ps",
+      "attrs": {
+          "style": {
+          "text-align": "left"
+          },
+          "redactor-attributes": {}
+      },
+      "uid": "d88dcdf4590dff2d",
+      "children": [
+          {
+          "text": "",
+          "bold": true,
+          "italic": true,
+          "underline": true,
+          "subscript": true
+          },
+          {
+          "uid": "0d06598201aa8b47",
+          "type": "a",
+          "attrs": {
+              "url": "LINK.com",
               "target": "_self"
           },
           "children": [
@@ -954,9 +1025,11 @@ export {
   h5Json,
   h6Json,
   imgJson,
+  imgJsonURL,
   codeJson,
   tableJson,
   linkInPJson,
+  linkInPJsonUrl,
   plainTextJson,
   paragraphJson, 
   orderListJson,
