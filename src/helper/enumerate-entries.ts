@@ -70,14 +70,20 @@ export function referenceToHTML(node: Node,
     renderOption: RenderOption,
     renderEmbed?: (metadata: Metadata) => EmbeddedItem | EntryNode
 ): string {
-    const metadata = nodeToMetadata(node.attrs, ((node.children && node.children.length > 0) ? node.children[0]: {}) as unknown as TextNode)
-    if (!renderEmbed && metadata.itemType === 'asset' && renderOption[node.type] !== undefined) {
-        return (renderOption[node.type] as RenderNode)(node, undefined)
+    function sendToRenderOption(referenceNode: Node): string {
+        return (renderOption[referenceNode.type] as RenderNode)(referenceNode, undefined)
+    }
+    if (!renderEmbed && renderOption[node.type] !== undefined) {
+        return sendToRenderOption(node)
     }
     if (!renderEmbed) {
         return ''
     }
+    const metadata = nodeToMetadata(node.attrs, ((node.children && node.children.length > 0) ? node.children[0]: {}) as unknown as TextNode)
     const item = renderEmbed(metadata)    
+    if (!item && renderOption[node.type] !== undefined) {
+        return sendToRenderOption(node)
+    }
     return findRenderString(item, metadata, renderOption)
 }
 

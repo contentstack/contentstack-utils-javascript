@@ -152,4 +152,19 @@ describe('Reference Node To HTML', () => {
         expect(resultHTML).toEqual('<img src=https://image.url/11.jpg>')
         done()
     })
+    
+    it('Should return HTML for embedded link entry', done => {
+        const node = entryReferenceLinkJson.children[0] as unknown as Node
+        const renderOption = {
+            'reference' : (node: Node, next: Next) => {
+                return `<a href=\"${node.attrs['entry-uid']}\">${node.attrs.href}</a>`;
+            }
+        }
+
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, { uid: 'uid' })[0]
+        })
+        expect(resultHTML).toEqual('<a href=\"entry_uid_20\">/copy-of-entry-final-02</a>')
+        done()
+    })
 })
