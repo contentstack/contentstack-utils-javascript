@@ -6,7 +6,7 @@ export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject:
 }
 
 function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string): object {
-    let tags: any = {}
+    const tags: any = {}
     Object.entries(content).forEach(([key, value]) => {      
         switch (typeof value) {
             case "object":
