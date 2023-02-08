@@ -1,5 +1,6 @@
-{
+export default {
     "preset": "ts-jest",
+    "testEnvironment": "jsdom",
     "transform": {
       "^.+\\.(t|j)sx?$": "ts-jest",
       "^.+\\.(ts|tsx|js|jsx)$": "babel-jest"
@@ -13,6 +14,7 @@
       "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
     ],
     "collectCoverage": true,
+    coverageDirectory: './reports/coverage',
     "coverageReporters": [
       "json", 
       "html",
@@ -36,10 +38,22 @@
     "default",
     ["jest-html-reporters", 
       {
-        "publicPath": "./testcase-report",
+        "publicPath": "./reports/html",
         "filename": "index.html",
         "expand": true
       }
+    ],
+    ["jest-junit",
+        {
+            "outputDirectory": "reports/junit",
+            "outputName": "jest-junit.xml",
+            "ancestorSeparator": " › ",
+            "uniqueOutputName": "false",
+            "suiteNameTemplate": "{filepath}",
+            "classNameTemplate": "{classname}",
+            "titleTemplate": "{title}"
+        }
     ]
   ]
-}
+};
+  
