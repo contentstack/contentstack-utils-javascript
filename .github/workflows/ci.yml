@@ -1,9 +1,5 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Unit-Test-CI
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
@@ -11,12 +7,24 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      - name: Install modules
-        run: npm install
-      - name: Run tests
-        run: npm run test
+        - uses: actions/checkout@v3
+        - uses: ArtiomTr/jest-coverage-report-action@v2
+          id: coverage-utils-js
+          with:
+            output: comment, report-markdown
+        - uses: marocchino/sticky-pull-request-comment@v2
+          with:
+              header: Contentstack Utils JS Coverage
+              recreate: true
+              message: ${{ steps.coverage-utils-js.outputs.report }}
+        - name: Test Report
+          uses: dorny/test-reporter@v1
+          if: success() || failure()
+          with:
+            name: JEST Tests
+            path: reports/junit/jest-*.xml
+            reporter: jest-junit
+            fail-on-error: true

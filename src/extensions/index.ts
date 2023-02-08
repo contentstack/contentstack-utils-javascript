@@ -1,6 +1,5 @@
 import { elementToJson } from '../helper/html-to-json';
 import { Metadata, createMetadata, Attributes } from '../Models/metadata-model';
-import { parse } from 'node-html-parser';
 const frameflag = 'documentfragmentcontainer';
 
 declare global {
@@ -14,7 +13,7 @@ String.prototype.forEachEmbeddedItem = function (
 ): void {
 
   const str = `<${frameflag}>${this.toString()}</${frameflag}>`;
-  const root = parse(str)
+  const root = (new DOMParser()).parseFromString(str, 'text/html')
   const embeddedEntries = root.querySelectorAll(".embedded-entry")
   
   embeddedEntries.forEach((element) => {    

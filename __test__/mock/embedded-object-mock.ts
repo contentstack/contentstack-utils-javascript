@@ -31,7 +31,7 @@ export const assetDisplayLinkJson ={
   "sys-style-type": "display",
   "type": "asset",
 }
-export const entryBlock = `<figure class="embedded-entry block-entry" data-redactor-type="embed" type="entry" data-sys-entry-uid="asset_uid_5"  data-sys-entry-locale="en-us" data-sys-content-type-uid="article" sys-style-type="block">{{title}}</figure>`
+export const entryBlock = `<figure class="embedded-entry block-entry" data-redactor-type="embed" type="entry" data-sys-entry-uid="asset_uid_5" data-sys-entry-locale="en-us" data-sys-content-type-uid="article" sys-style-type="block">{{title}}</figure>`
 export const entryBlockJson = { 
   class: "embedded-entry block-entry",
   type: 'entry',
@@ -43,7 +43,7 @@ export const entryBlockJson = {
   "data-sys-entry-locale": "en-us"
 }
 
-export const entryInline = `<figure class="embedded-entry inline-entry" data-redactor-type="embed"  type="entry" data-sys-entry-uid="asset_uid_5" data-sys-entry-locale="en-us" data-sys-content-type-uid="article" style="display:inline;" sys-style-type="inline">{{title}}
+export const entryInline = `<figure class="embedded-entry inline-entry" data-redactor-type="embed" type="entry" data-sys-entry-uid="asset_uid_5" data-sys-entry-locale="en-us" data-sys-content-type-uid="article" style="display:inline;" sys-style-type="inline">{{title}}
 </figure>`
 export const entryInlineJson = { 
   class: "embedded-entry inline-entry",

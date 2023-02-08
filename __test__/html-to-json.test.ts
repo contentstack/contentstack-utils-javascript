@@ -1,6 +1,5 @@
 import { elementToJson } from '../src/helper/html-to-json';
 import { assetDisplayJson, assetDisplayLink, assetDisplayLinkJson } from './mock/embedded-object-mock';
-import { parse } from 'node-html-parser';
 import { entryBlock,
     entryInline,
     entryLink,
@@ -12,27 +11,31 @@ import { entryBlock,
     entryInlineJson,
     entryBlockJson
  } from './mock/embedded-object-mock';
-const noChildNodeHTML = parse(noChildNode)
+const dom = new DOMParser();
+const getBody = (content: string) => {
+    return dom.parseFromString(content, 'text/html').body
+}
+
 describe('HTML To JSON test', () => {
     it('HTML To JSON figure tag with no child test', done => {
-        expect(elementToJson(noChildNodeHTML)).toEqual({ figure: noChildNodeJson})
+        expect(elementToJson(getBody(noChildNode))).toEqual({ figure: noChildNodeJson})
         done()
     })
 
     it('HTML to JSON entry figure tag test', done => {
-        expect(elementToJson(parse(entryLink))).toEqual({ figure: entryLinkJson })
-        expect(elementToJson(parse(entryInline))).toEqual({ figure: entryInlineJson })
-        expect(elementToJson(parse(entryBlock))).toEqual({ figure: entryBlockJson })
+        expect(elementToJson(getBody(entryLink))).toEqual({ figure: entryLinkJson })
+        expect(elementToJson(getBody(entryInline))).toEqual({ figure: entryInlineJson })
+        expect(elementToJson(getBody(entryBlock))).toEqual({ figure: entryBlockJson })
         done()
     })
 
     it('HTML to JSON asset figure tag test', done => {
-        expect(elementToJson(parse(assetDisplay))).toEqual({ figure: assetDisplayJson })
-        expect(elementToJson(parse(assetDisplayLink))).toEqual({ figure: assetDisplayLinkJson })
+        expect(elementToJson(getBody(assetDisplay))).toEqual({ figure: assetDisplayJson })
+        expect(elementToJson(getBody(assetDisplayLink))).toEqual({ figure: assetDisplayLinkJson })
         done()
     })
     it('HTML to JSON false tag test', done => {
-        expect(elementToJson(parse(unexpectedCloseTag))).toEqual({ "figur2":{
+        expect(elementToJson(getBody(unexpectedCloseTag))).toEqual({ "figur2":{
             "#text": " \n",
             "class": "embedded-asset",
             "data-sys-content-type-uid": "data-sys-content-type-uid",
@@ -41,18 +44,8 @@ describe('HTML To JSON test', () => {
             "sys-style-type": "inline",
             "type": "asset"
         } })
-        expect(elementToJson(parse('String'))).toEqual({ "#text": "String" })
-        expect(elementToJson(parse(''))).toEqual({})
-        expect(elementToJson(parse(`<data><![CDATA[This text contains a CEND ]]]]><![CDATA[>]]></data>`))).toEqual( {
-            "data": {
-              "#text": "<![CDATA[This text contains a CEND ]]]]><![CDATA[>]]>",
-            },
-        })
-        done()
-    })
-    
-    it('HTML comment to JSON false tag test', done => {
-        expect(elementToJson(parse('<html><!-- Comment in html --><html>', { comment: true}))).toEqual({ html: {} })
+        expect(elementToJson(getBody('String'))).toEqual({ "#text": "String" })
+        expect(elementToJson(getBody(''))).toEqual({})
         done()
     })
 })

@@ -18,9 +18,11 @@
     "url": "https://github.com/contentstack/contentstack-utils-javascript.git"
   },
   "scripts": {
-    "test": "jest --config jestconfig.json ",
-    "test:badges": "npm run test && jest-coverage-badges --output ./badges",
-    "test:debug": "jest --watchAll --config jestconfig.json --runInBand",
+    "clear:reports": "rm -rf reports",
+    "clear:badges":  "rm -rf badges",
+    "test": "npm run clear:reports && jest --ci --json --coverage --testLocationInResults --outputFile=./reports/report.json",
+    "test:badges": "npm run clear:badges && npm run test && jest-coverage-badges --input ./reports/coverage/coverage-summary.json --output ./badges",
+    "test:debug": "jest --watchAll --runInBand",
     "prebuild": "rimraf dist",
     "build": "tsc && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -29,8 +31,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "generate:docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --readme README.md --verbose"
+    "postversion": "git push && git push --tags"
   },
   "author": "Contentstack",
   "license": "MIT",
@@ -45,7 +46,9 @@
     "jest": "^27.5.1",
     "jest-coverage-badges": "^1.1.2",
     "jest-html-reporters": "^2.1.7",
-    "jsdoc": "^3.6.10",
+    "jest-junit": "^15.0.0",
+    "jsdom": "^21.1.0",
+    "jsdom-global": "^3.0.2",
     "prettier": "^2.6.1",
     "rollup": "^2.70.1",
     "rollup-plugin-json": "^4.0.0",
@@ -53,13 +56,12 @@
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-typescript2": "^0.28.0",
     "ts-jest": "^27.1.4",
+    "ts-node": "^10.9.1",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.6.3"
   },
-  "dependencies": {
-    "node-html-parser": "^5.4.1"
-  },
+  "dependencies": {},
   "babel": {
     "presets": [
       "es2015"
