@@ -1,10 +1,12 @@
-import { HTMLElement } from 'node-html-parser';
 
-export function elementToJson(element: HTMLElement): object {
-  let obj: any = { ...element.rawAttributes }
-
+export function elementToJson(element: Element): object {
+  let obj: any = { }
+  for (let i = 0; i<element.attributes.length; i++) {
+    obj[element.attributes.item(i).name] = element.attributes.item(i).value
+  }
+  
   element.childNodes.forEach((chileNode) => {
-    const node: HTMLElement = (chileNode as HTMLElement)
+    const node: ChildNode = (chileNode)
     obj = {
       ...obj,
       ...parseElement(node)
@@ -13,12 +15,12 @@ export function elementToJson(element: HTMLElement): object {
   return obj
 }
 
-function parseElement(node: HTMLElement): any {
+function parseElement(node: ChildNode): any {
   const obj: any = {}
   if (node.nodeType === 3) {
-    obj['#text'] = node.text;
+    obj['#text'] = node.textContent;
   }else if (node.nodeType === 1) {
-    obj[node.tagName.toLowerCase()] = elementToJson(node)
+    obj[node.nodeName.toLowerCase()] = elementToJson(node as Element)
   }
   return obj
 }
