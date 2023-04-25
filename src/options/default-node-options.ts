@@ -11,6 +11,9 @@ export const defaultNodeOption: RenderOption = {
          return `<p>${next(node.children)}</p>`
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
+        if (node.attrs.target) {
+            return `<a href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${next(node.children)}</a>`   
+        }
          return `<a href="${node.attrs.href || node.attrs.url}">${next(node.children)}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
