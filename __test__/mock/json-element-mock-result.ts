@@ -13,6 +13,7 @@ const tableHtml = "<table><thead><tr><th><p>Header 1</p></th><th><p>Header 2</p>
 const blockquoteHtml = "<blockquote>Praesent eu ex sed nibh venenatis pretium.</blockquote>"
 const codeHtml = "<code>Code template.</code>"
 const linkInPHtml = "<strong><em><u><sub></sub></u></em></strong><a href=\"LINK.com\">LINK</a>"
+const linkInPURLHtml = "<strong><em><u><sub></sub></u></em></strong><a href=\"LINK.com\" target=\"_self\">LINK</a>"
 
 export {
     h1Html,
@@ -28,6 +29,7 @@ export {
     orderListHtml,
     paragraphHtml,
     plainTextHtml,
+    linkInPURLHtml,
     blockquoteHtml,
     unorderListHtml,
 }
