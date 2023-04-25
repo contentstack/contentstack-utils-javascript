@@ -24,7 +24,8 @@ const plainTextJson = {
         "bold": true,
         "italic": true,
         "underline": true,
-        "strikethrough": true
+        "strikethrough": true,
+        "break": true
     },
     {
         "text": "Sed condimentum iaculis magna in vehicula. ",

@@ -43,6 +43,9 @@ export function enumerateContents(
 
 export function textNodeToHTML(node: TextNode, renderOption: RenderOption): string {
     let text = node.text
+    if (node.break) {
+        text =  (renderOption[MarkType.BREAK] as RenderMark)(text)
+    }
     if (node.superscript) {
         text =  (renderOption[MarkType.SUPERSCRIPT] as RenderMark)(text)
     }
