@@ -8,6 +8,7 @@ export default class TextNode extends Node {
     inlineCode?: boolean
     superscript?: boolean
     subscript?: boolean
+    break?: boolean
 
     text: string
 
