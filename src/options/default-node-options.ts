@@ -78,6 +78,9 @@ export const defaultNodeOption: RenderOption = {
     },
 
     ['reference']:(node: Node, next: Next) => {
+        if (node.attrs['type'] === 'asset') {
+            return `<img src="${node.attrs['asset-link']}" />`
+        }
         return ``
     },
     ['default']:(node: Node, next: Next) => {
@@ -104,6 +107,9 @@ export const defaultNodeOption: RenderOption = {
     },
     [MarkType.SUPERSCRIPT]:(text: string) => {
         return `<sup>${text}</sup>`
+    },
+    [MarkType.BREAK]:(text: string) => {
+        return `<br />${text}`
     },
 
 }
