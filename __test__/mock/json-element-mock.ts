@@ -24,7 +24,8 @@ const plainTextJson = {
         "bold": true,
         "italic": true,
         "underline": true,
-        "strikethrough": true
+        "strikethrough": true,
+        "break": true
     },
     {
         "text": "Sed condimentum iaculis magna in vehicula. ",
@@ -618,8 +619,7 @@ const linkInPJson = {
           "uid": "0d06598201aa8b47",
           "type": "a",
           "attrs": {
-              "href": "LINK.com",
-              "target": "_self"
+              "href": "LINK.com"
           },
           "children": [
               {
