@@ -31,6 +31,7 @@ import {
     h6Html,
     imgHtml,
     linkInPHtml,
+    linkInPURLHtml,
     orderListHtml,
     paragraphHtml,
     plainTextHtml, 
@@ -488,7 +489,7 @@ describe('Node parse link in paragraph content', () => {
 
         jsonToHTML({ entry, paths})
 
-        expect(entry.supercharged_rte).toEqual([linkInPHtml])
+        expect(entry.supercharged_rte).toEqual([linkInPURLHtml])
         done()
     })
 })

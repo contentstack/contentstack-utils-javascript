@@ -5,6 +5,7 @@ import { Metadata } from '../src/Models/metadata-model'
 import Node from '../src/nodes/node'
 import NodeType from '../src/nodes/node-type'
 import { Next, RenderOption } from '../src/options'
+import { defaultNodeOption } from '../src/options/default-node-options'
 import { defaultOptions } from '../src/options/default-options'
 import { assetReferenceJson, embeddedAssetJsonEntry, embeddedEntryJsonEntry, entryReferenceBlockJson, entryReferenceInlineJson, entryReferenceLinkJson } from './mock/json-element-mock'
 import { embeddedAssetWithRenderOption, embeddedObjectDefaultRender, embeddedObjectWithRenderOption } from './mock/render-options'
@@ -150,6 +151,13 @@ describe('Reference Node To HTML', () => {
 
         const resultHTML = referenceToHTML(node, renderOption)
         expect(resultHTML).toEqual('<img src=https://image.url/11.jpg>')
+        done()
+    })
+    it('Should return image for undefined node asset from default node option', done => {
+        const node = assetReferenceJson.children[0] as unknown as Node
+
+        const resultHTML = referenceToHTML(node, defaultNodeOption)
+        expect(resultHTML).toEqual('<img src="https://image.url/11.jpg" />')
         done()
     })
     

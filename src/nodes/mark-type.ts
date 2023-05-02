@@ -8,7 +8,8 @@ enum MarkType {
 
 
     SUBSCRIPT = 'subscript',
-    SUPERSCRIPT = 'superscript'
+    SUPERSCRIPT = 'superscript',
+    BREAK = 'break'
 }
 
 export default MarkType
