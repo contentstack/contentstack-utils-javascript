@@ -27,10 +27,9 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                 }else {
                     if (value) {
                         value.$ = getTag(value, `${prefix}.${key}`, tagsAsObject, locale)
-                        tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject)
-
                     }
                 }
+                tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject)
                 break;
             default:
                 tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject)
