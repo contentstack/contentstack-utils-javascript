@@ -27,7 +27,7 @@ Let’s learn how you can use Utils SDK to render RTE embedded items and Superch
 ### Create Render Option
 To render embedded items on the front-end, use the renderOptions function, and define the UI elements you want to show in the front-end of your website, as shown in the example below:
 ```js
-const renderOptions = {
+const renderOption = {
 	// to render Supercharged RTE NodeType content like paragraph, link, table, order list, un-order list and more.
 	p: (node, next) => {
 		`<p class='class-id'>${next(node.children)}</p>` // you will need to call next function with node children contents
