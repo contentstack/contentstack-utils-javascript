@@ -664,7 +664,7 @@ const linkInPJsonUrl = {
           "type": "a",
           "attrs": {
               "url": "LINK.com",
-              "target": "_self"
+              "target": "_blank"
           },
           "children": [
               {
@@ -679,6 +679,53 @@ const linkInPJsonUrl = {
       }
   ],
   type: "doc"
+}
+
+const styleinPJson = {
+  type: 'doc',
+  attrs: {},
+  uid: '7611f269eb4e4f4e9a0c8274decd1e0a',
+  children: [
+    {
+      type: 'p',
+      attrs: {
+        style: { 'text-align': 'right' },
+        'redactor-attributes': {},
+        dir: 'ltr'
+      },
+      uid: '24b09a8e7efa42a2a909cfbc4da403b1',
+      children: [
+        { text: 'This is ' },
+        { text: 'second', inlineCode: true },
+        { text: ' ' },
+        { text: 'JSON', underline: true },
+        { text: ' entry' }
+      ]
+    },
+    {
+      type: 'p',
+      attrs: {
+        style: { 'text-align': 'left' },
+        'redactor-attributes': {},
+        dir: 'ltr'
+      },
+      uid: '7eb3984120fe4f3ea18fdeff84326ff4',
+      children: [
+        { text: '' },
+        {
+          uid: '76aa06b02ec64a44bd6a0f4ccde11b6a',
+          type: 'a',
+          attrs: {
+            url: 'example.com',
+            target: '_blank'
+          },
+          children: [ { text: 'Example' } ]
+        },
+        { text: '' }
+      ]
+    }
+  ],
+  _version: 6
 }
 
 const assetReferenceJson = {
@@ -1030,6 +1077,7 @@ export {
   tableJson,
   linkInPJson,
   linkInPJsonUrl,
+  styleinPJson,
   plainTextJson,
   paragraphJson, 
   orderListJson,
