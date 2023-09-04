@@ -1,25 +1,26 @@
 import { jsonToHTML } from '../src/json-to-html'
 import { embeddedAssetWithRenderOption } from './mock/render-options'
 import { 
-    plainTextJson,
-    paragraphEntry, 
-    embeddedAssetJsonEntry, 
-    paragraphJsonArrayEntry, 
+    blockquoteJson,
+    codeJson,
+    embeddedAssetJsonEntry,
     h1Json,
     h2Json,
     h3Json,
     h4Json,
     h5Json,
     h6Json,
-    orderListJson,
-    unorderListJson,
     imgJson,
     imgJsonURL,
-    tableJson,
-    blockquoteJson,
-    codeJson,
     linkInPJson,
-    linkInPJsonUrl} from './mock/json-element-mock'
+    linkInPJsonUrl,
+    orderListJson,
+    paragraphEntry,
+    paragraphJsonArrayEntry,
+    plainTextJson,
+    styleinPJson,
+    tableJson,
+    unorderListJson} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -35,6 +36,7 @@ import {
     orderListHtml,
     paragraphHtml,
     plainTextHtml, 
+    styleinPHtml, 
     tableHtml, 
     unorderListHtml} from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
@@ -490,6 +492,25 @@ describe('Node parse link in paragraph content', () => {
         jsonToHTML({ entry, paths})
 
         expect(entry.supercharged_rte).toEqual([linkInPURLHtml])
+        done()
+    })
+})
+
+
+describe('Node parse style attribute', () => {
+    it('Should return style attribute in paragraph html content', done => {
+        const entry = {
+            uid: 'entry_uid_19',
+            supercharged_rte: {
+                ...styleinPJson
+            },
+            _embedded_items: {}
+        }
+        const paths = ['supercharged_rte']
+
+        jsonToHTML({ entry, paths})
+
+        expect(entry.supercharged_rte).toEqual(styleinPHtml)
         done()
     })
 })
