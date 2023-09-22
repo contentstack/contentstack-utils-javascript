@@ -27,48 +27,48 @@ Let’s learn how you can use Utils SDK to render RTE embedded items and Superch
 ### Create Render Option
 To render embedded items on the front-end, use the renderOptions function, and define the UI elements you want to show in the front-end of your website, as shown in the example below:
 ```js
-const renderOptions = {
+const renderOption = {
 	// to render Supercharged RTE NodeType content like paragraph, link, table, order list, un-order list and more.
 	p: (node, next) => {
-		`<p class='class-id'>${next(node.children)}</p>` // you will need to call next function with node children contents
-	}
+		return `<p class='class-id'>${next(node.children)}</p>` // you will need to call next function with node children contents
+	},
 	h1: (node, next) => {
-		`<h1 class='class-id'>${next(node.children)}</h1>` // you will need to call next function with node children contents
-	}
+		return `<h1 class='class-id'>${next(node.children)}</h1>` // you will need to call next function with node children contents
+	},
 	// to render Supercharged RTE MarkType content like bold, italic, underline, strikethrough, inlineCode, subscript, and superscript
 	bold: (text) => {
-		`<b>${next(node.children)}</b>`
-	}
+		return `<b>${next(node.children)}</b>`
+	},
 	// to render block-type embedded items  
 	block: {  
 		'product': (item, metadata) => {  
-			`<div>  
-			<h2 >${item.title}</h2>  
-			<img src=${item.product_image.url} alt=${item.product_image.title}/>  
-			<p>${item.price}</p>  
-			</div>`  
+			return `<div>  
+					<h2 >${item.title}</h2>  
+					<img src=${item.product_image.url} alt=${item.product_image.title}/>  
+					<p>${item.price}</p>  
+					</div>`  
 		},
 		// to render the default  
 		'$default': (item, metadata) => {  
-			`<div>  
-			<h2>${item.title}</h2>  
-			<p>${item.description}</p>  
-			</div>`
+			return `<div>  
+					<h2>${item.title}</h2>  
+					<p>${item.description}</p>  
+					</div>`
 		}  
 	},
 	// to display inline embedded items  
 	inline: {  
 		'$default': (item, metadata) => {  
-			`<span><b>${item.title}</b> - ${item.description}</span>`
+			return `<span><b>${item.title}</b> - ${item.description}</span>`
 		}  
 	},
 	// to display embedded items inserted via link  
 	link: (item, metadata) => {  
-		`<a href="${metadata.attributes.href}">${metadata.text}</a>`
+		return `<a href="${metadata.attributes.href}">${metadata.text}</a>`
 	},
 	// to display assets  
 	display: (item, metadata) => {  
-		`<img src=${metadata.attributes.src} alt=${metadata.alt} />`
+		return `<img src=${metadata.attributes.src} alt=${metadata.alt} />`
 	}  
 }
 ```
@@ -104,7 +104,7 @@ Contentstack.Utils.render({ entry, path: ["rte_fieldUid", "group.rteFieldUID"], 
 ```
 
 #### Render Supercharged RTE contents
-To get a single entry, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use `Contentstack.Utils.jsonToHtml` function as shown below:
+To get a single entry, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use `Contentstack.Utils.jsonToHTML` function as shown below:
 ```js
 import * as Contentstack from  'contentstack'  
 const stack = Contentstack.Stack({  
@@ -117,7 +117,7 @@ stack.ContentType('<CONTENT_TYPE_UID>')
 	 .toJSON()  
 	 .fetch()  
 	 .then(entry => {  
-			Contentstack.Utils.jsonToHtml({ 
+			Contentstack.Utils.jsonToHTML({ 
 				entry, 
 				path: ["rte_fieldUid", "group.rteFieldUID"], 
 				renderOption 
@@ -155,7 +155,7 @@ stack.ContentType('<CONTENT_TYPE_UID>')
 ```
 
 #### Render Supercharged RTE contents
-To get a multiple entries, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use `Contentstack.Utils.jsonToHtml` function as shown below:
+To get a multiple entries, you need to provide the stack API key, environment name, delivery token, content type and entry UID. Then, use `Contentstack.Utils.jsonToHTML` function as shown below:
 ```js
 import * as Contentstack from  'contentstack'  
 const stack = Contentstack.Stack({  
@@ -170,7 +170,7 @@ stack.ContentType('<CONTENT_TYPE_UID>')
 	 .find()  
 	 .then(result => {  
 		result.forEach(entry => {  
-			Contentstack.Utils.jsonToHtml({ 
+			Contentstack.Utils.jsonToHTML({ 
 				entry, 
 				path: ["rte_fieldUid", "group.rteFieldUID"], 
 				renderOption 
