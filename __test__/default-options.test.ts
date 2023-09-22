@@ -1,6 +1,6 @@
 import StyleType from '../src/embedded-types/style-type';
 import { defaultOptions } from '../src/options/default-options';
-import { entryContentBlank, entryContentURL, entryContentTitle, entryContentTitleURL } from './mock/entry-mock';
+import { entryContentBlank, entryContentURL, entryContentTitle, entryContentTitleURL, entryContentURLWithoutSystemUid, entryContentURLWithSystemNoUid } from './mock/entry-mock';
 import { RenderItem } from '../src/options/index';
 import { assetContentBlank, 
     assetContentUrl,
@@ -48,6 +48,11 @@ describe('Default Option test', () => {
         expect(entryBlockFunction(entryContentTitleURL, embedAttributes)).toEqual(`<div><p>${entryContentTitleURL.title}</p><p>Content type: <span>${entryContentTitleURL._content_type_uid}</span></p></div>`)
         expect(entryInlineFunction(entryContentTitleURL, embedAttributes)).toEqual(`<span>${entryContentTitleURL.title}</span>`)
         expect(entryLinkFunction(entryContentTitleURL, embedAttributes)).toEqual(`<a href="${entryContentURL.url}">${entryContentTitleURL.title}</a>`)
+        done()
+    })
+
+    it('Default options Entry with only uid, url, system-uid test', done => {
+        expect(entryBlockFunction(entryContentURLWithoutSystemUid, embedAttributes)).toEqual(`<div><p>${entryContentURLWithoutSystemUid.uid}</p><p>Content type: <span></span></p></div>`)
         done()
     })
 
