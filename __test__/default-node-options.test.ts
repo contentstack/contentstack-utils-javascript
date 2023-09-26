@@ -19,6 +19,13 @@ const imgNode: Node = {
 
 }
 
+const imgNodeWithURL: Node = {
+    type: NodeType.IMAGE,
+    attrs: {url: "https://image.url/Donald.jog.png"},
+    children:[]
+
+}
+
 const linkNode: Node = {
     type: NodeType.LINK,
     attrs: {href: "https://image.url/Donald.jog.png"},
@@ -26,11 +33,21 @@ const linkNode: Node = {
 
 }
 
+const linkNodeWithURL: Node = {
+    type: NodeType.LINK,
+    attrs: {url: "https://image.url/Donald.jog.png"},
+    children:[]
+
+}
+
 const embedNode: Node = {
     type: NodeType.EMBED,
-    "attrs": {
-      src: "https://www.youtube.com/"
-    },
+    attrs: { src: "https://www.youtube.com/" },
+    children: []
+}
+const embedNodeWithURL: Node = {
+    type: NodeType.EMBED,
+    attrs: { url: "https://www.youtube.com/" },
     children: []
 }
 
@@ -52,6 +69,15 @@ describe('Default node render options', () => {
         expect(renderString).toEqual('<img src="https://image.url/Donald.jog.png" />text')
         renderString = (defaultNodeOption[NodeType.EMBED] as RenderNode)(embedNode, next)
         expect(renderString).toEqual('<iframe src="https://www.youtube.com/">text</iframe>')
+        done()
+    })
+    it('Should return link string with url as attr', done => {
+        let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(linkNodeWithURL, next)
+        expect(renderString).toEqual(`<a href="${linkNodeWithURL.attrs.url}">text</a>`)
+        renderString = (defaultNodeOption[NodeType.IMAGE] as RenderNode)(imgNodeWithURL, next)
+        expect(renderString).toEqual(`<img src="${imgNodeWithURL.attrs.url}" />text`)
+        renderString = (defaultNodeOption[NodeType.EMBED] as RenderNode)(embedNodeWithURL, next)
+        expect(renderString).toEqual(`<iframe src="${embedNodeWithURL.attrs.url}">text</iframe>`)
         done()
     })
     it('Should return Heading string', done => {
