@@ -81,7 +81,7 @@ export const defaultNodeOption: RenderOption = {
     },
 
     ['reference']:(node: Node, next: Next) => {
-        if (node.attrs['type'] === 'asset') {
+        if (node.attrs.type === 'asset') {
             return `<img${addStyleAttrs(node.attrs.style)} src="${node.attrs['asset-link']}" />`
         }
         return ``
@@ -121,8 +121,10 @@ export default function addStyleAttrs(styleObj: { [key: string]: any }) {
     if (!styleObj) return '';
     let styleString: string = '';
     for (const key in styleObj) {
-        const value = styleObj[key];
-        styleString += `${key}:${value};`;
+        if (styleObj.hasOwnProperty(key)) {
+            const value = styleObj[key];
+            styleString += `${key}:${value};`;
+        }
     }
     return ` style="${styleString}"`
 }

@@ -4,6 +4,7 @@ import { entryContentBlank, entryContentURL, entryContentTitle, entryContentTitl
 import { RenderItem } from '../src/options/index';
 import { assetContentBlank, 
     assetContentUrl,
+    assetContentWithoutTitleAndUID,
     assetContentonlyFileName, 
     assetContentonlyFileNameAndURL, 
     assetContentonlyTitle, 
@@ -90,6 +91,11 @@ describe('Default Option test', () => {
     it('Default options Asset with uid, url and filename test', done => {
         expect(assetDisplaableFunction(assetContentonlyTitleAndUrl, embedAttributes)).toEqual(`<img src="${assetContentonlyTitleAndUrl.url}" alt="${assetContentonlyTitleAndUrl.title}" />`)
         expect(assetDownloadFunction(assetContentonlyTitleAndUrl, embedAttributes)).toEqual(`<a href="${assetContentonlyTitleAndUrl.url}">${assetContentonlyTitleAndUrl.title || assetContentonlyTitleAndUrl.uid}</a>`)
+        done()
+    })
+
+    it('Default options Asset with uid, url and filename test', done => {
+        expect(assetDownloadFunction(assetContentWithoutTitleAndUID, embedAttributes)).toEqual(`<a href="${assetContentWithoutTitleAndUID.url}">${assetContentWithoutTitleAndUID.system.content_type_uid}</a>`)
         done()
     })
 
