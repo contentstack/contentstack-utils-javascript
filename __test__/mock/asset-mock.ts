@@ -34,3 +34,12 @@ export const assetContentonlyTitleAndUrl = {
     url: "url",
     _content_type_uid: 'sys_assets'
 }
+
+export const assetContentWithoutTitleAndUID = {
+    url: "url",
+    _content_type_uid: 'sys_assets',
+    system: {
+        uid: 'sys_uid',
+        content_type_uid: 'ct_uid'
+    }
+}
