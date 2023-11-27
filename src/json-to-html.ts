@@ -34,10 +34,18 @@ function enumerateKeys(option: {
     renderOption?: RenderOption,
 }) {
     for (const key of option.paths) {
-        findRenderContent(key, option.entry, ((content: Document | Document[]) => {
-            return enumerateContents(content, option.renderOption, (metadata: Metadata) => {
-                return findEmbeddedItems(metadata, option.entry)[0]
+        findRenderContent(
+            key, 
+            option.entry, 
+            ((content: Document | Document[]) => {
+                return enumerateContents(
+                    content, 
+                    option.renderOption, 
+                    (metadata: Metadata) => {
+                        return findEmbeddedItems(metadata, option.entry)[0]
+                    }
+                )
             })
-        }))
+        )
     }
 }

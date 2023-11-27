@@ -23,6 +23,17 @@ export const entryContentTitleURL = {
     _content_type_uid: "content_type_uid"
 }
 
+export const entryContentURLWithoutSystemUid = {
+  uid: "uid",
+  url: "url"
+}
+
+export const entryContentURLWithSystemNoUid = {
+  uid: "uid",
+  url: "url",
+  system: { url: "system_uid"}
+}
+
 export const assetDownloadJson = { 
   type: 'asset',
   'data-sys-asset-uid': 'asset_uid_1',
