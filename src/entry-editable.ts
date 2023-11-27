@@ -15,6 +15,7 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                 if (Array.isArray(value)) {
                     value.forEach((obj, index) => {
                         const childKey = `${key}__${index}`
+                        const parentKey = `${key}__parent`
                         /**
                          * Indexes of array are handled here
                          * {
@@ -27,6 +28,7 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                          * }
                          */
                         tags[childKey] = getTagsValue(`${prefix}.${key}.${index}`, tagsAsObject)
+                        tags[parentKey] = getParentTagsValue(`${prefix}.${key}`, tagsAsObject)
                         if (typeof obj !== 'undefined' && obj !== null && obj._content_type_uid !== undefined && obj.uid !== undefined) {
                             /**
                              * References are handled here
@@ -102,5 +104,13 @@ function getTagsValue (dataValue:string, tagsAsObject: boolean): any {
         return { "data-cslp": dataValue };
     } else {
         return `data-cslp=${dataValue}`;
+    }
+}
+
+function getParentTagsValue (dataValue:string, tagsAsObject: boolean): any {
+    if (tagsAsObject) {
+        return { "data-cslp-parent-field": dataValue };
+    } else {
+        return `data-cslp-parent-field=${dataValue}`;
     }
 }
