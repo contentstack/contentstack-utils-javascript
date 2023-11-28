@@ -6,7 +6,7 @@ import Node from '../nodes/node';
 
 export type Next = (nodes: AnyNode[]) => string
 export type RenderNode = (node: Node, next: Next) => string;
-export type RenderMark = (text: string) => string;
+export type RenderMark = (text: string, classname?: string) => string;
 export type RenderItem = (item: EmbeddedItem | EntryNode, metadata: Metadata) => string;
 export interface RenderOption {
   [embedType: string]: RenderNode | RenderMark | RenderItem | RenderContentType;

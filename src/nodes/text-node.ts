@@ -9,6 +9,7 @@ export default class TextNode extends Node {
     superscript?: boolean
     subscript?: boolean
     break?: boolean
+    classname?: string
 
     text: string
 
