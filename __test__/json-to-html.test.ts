@@ -167,8 +167,64 @@ describe('Node parse text Content', () => {
         const paths = ['supercharged_rte']
         
         jsonToHTML({ entry, paths})
-
         expect(entry.supercharged_rte).toEqual([plainTextHtml])
+        done()
+    })
+    it('Should return bold text', done => {
+        const entry = {
+            "uid": "",
+            "_version": 3,
+            "locale": "en-us",
+            "json_rte": {
+                "type": "doc",
+                "attrs": {},
+                "uid": "",
+                "children": [
+                    {
+                        "type": "p",
+                        "attrs": {},
+                        "uid": "",
+                        "children": [
+                            {
+                                "text": "abc",
+                                "classname": "yellow",
+                            },
+                            {
+                                "text": " "
+                            },
+                            {
+                                "text": "def",
+                                "italic": true
+                            },
+                            {
+                                "text": " "
+                            },
+                            {
+                                "text": "ghi",
+                                "underline": true,
+                                "classname": "blue",
+                            },
+                            {
+                                "text": " "
+                            },
+                            {
+                                "text": "Basic",
+                                "classname": "red",
+                                "id": "blue",
+                                bold: true
+                            },
+                            {
+                                "text": " InformationEntry Type IDabc"
+                            }
+                        ]
+                    }
+                ],
+                "_version": 3
+            }
+        }
+        const paths = ['json_rte', 'children']
+        const response = jsonToHTML({ entry: entry, paths })
+        console.log("🚀 ~ file: json-to-html.test.ts:193 ~ describe ~ entry.json_rte:", entry)
         done()
     })
 })

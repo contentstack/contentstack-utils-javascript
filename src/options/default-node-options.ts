@@ -10,6 +10,13 @@ export const defaultNodeOption: RenderOption = {
     [NodeType.PARAGRAPH]:(node: Node, next: Next) => {
         return `<p${addStyleAttrs(node.attrs.style)}>${next(node.children)}</p>`
     },
+    // [NodeType.PARAGRAPH]:(node: Node, next: Next) => {
+    //     return `<p${addStyleAttrs(node.attrs.style)}>${next(node.children)}</p>`
+    // },
+    // [NodeType.PARAGRAPH]: (node: Node, next: Next) => {
+    //     const child = node.children.find((child) => child.classname)
+    //     return `<p${addStyleAttrs(node.attrs.style)} class ="${child.classname}">${next([child])}</p>`;
+    // },
     [NodeType.LINK]:(node: Node, next: Next) => {
         if (node.attrs.target) {
             return `<a${addStyleAttrs(node.attrs.style)} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${next(node.children)}</a>`   
@@ -90,7 +97,11 @@ export const defaultNodeOption: RenderOption = {
         return next(node.children)
     },
 
-    [MarkType.BOLD]:(text: string) => {
+    [MarkType.BOLD]:(text: string, classname?: string) => {
+        // if (classname) {
+        //     return `<strong class="${classname}">${text}</strong>`
+        // }
+        // else 
         return `<strong>${text}</strong>`
     },
     [MarkType.ITALIC]:(text: string) => {
@@ -114,6 +125,9 @@ export const defaultNodeOption: RenderOption = {
     [MarkType.BREAK]:(text: string) => {
         return `<br />${text}`
     },
+    [MarkType.CLASSNAME]:(text: string, classname: string) => {
+        return `<span class="${classname}">${text}</span>`
+    }
 
 }
 
