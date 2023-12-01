@@ -114,8 +114,8 @@ export const defaultNodeOption: RenderOption = {
     [MarkType.BREAK]:(text: string) => {
         return `<br />${text}`
     },
-    [MarkType.CLASSNAME]:(text: string, classname: string) => {
-        return `<span class="${classname}">${text}</span>`
+    [MarkType.CLASSNAME_OR_ID]:(text: string, classname: string, id:string) => {
+        return `<span${classname ? ` class="${classname}"` : ``}${id ? ` id="${id}"` : ``}>${text}</span>`
     }
 
 }

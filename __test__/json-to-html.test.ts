@@ -20,7 +20,9 @@ import {
     plainTextJson,
     styleinPJson,
     tableJson,
-    unorderListJson} from './mock/json-element-mock'
+    unorderListJson,
+    entryJsonRteWithClass,
+    entryJsonRteWithId} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -38,7 +40,9 @@ import {
     plainTextHtml, 
     styleinPHtml, 
     tableHtml, 
-    unorderListHtml} from './mock/json-element-mock-result'
+    unorderListHtml,
+    plainTextHtmlWithClass,
+    plainTextHtmlWithId } from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -171,85 +175,17 @@ describe('Node parse text Content', () => {
         done()
     })
     it('Should return html text with classname', done => {
-        const entry = {
-            "uid": "",
-            "_version": 3,
-            "locale": "en-us",
-            "json_rte": {
-                "type": "doc",
-                "attrs": {},
-                "uid": "",
-                "children": [
-                    {
-                        "type": "p",
-                        "attrs": {class: "class_p"},
-                        "uid": "",
-                        "children": [
-                            {
-                                "text": "abc",
-                                "classname": "yellow",
-                            },
-                            {
-                                "text": "def",
-                                "italic": false,
-                                "underline": true,
-                                "classname": "red",
-                                
-                            },
-                            {
-                                "text": "fed",
-                                "italic": true,
-                                "underline": true,
-                                "classname": "green",
-                                
-                            },
-                            {
-                                "text": "ghi",
-                                "underline": true,
-                                "classname": "blue",
-                            },
-                            {
-                                "text": "Basic",
-                                "classname": "orange",
-                                "id": "blue",
-                                "bold": true,
-                                "underline": true,
-                                "italic": true
-                            },
-                            {
-                                "text": "data",
-                                "classname": "brown",
-                                "id": "blue",
-                                "bold": false,
-                                "underline": true,
-                                "italic": true
-                            },
-                            {
-                                "type": "h1",
-                                "attrs": {},
-                                "uid": "",
-                                "children": [
-                                    {
-                                        "text": "abc",
-                                        "classname": "purple",
-                                    },
-                                    {
-                                        "text": "def",
-                                        "italic": false,
-                                        "underline": true,
-                                        "classname": "white",
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "_version": 3
-            }
-        }
-        const paths = ['json_rte', 'children']
-        const response = jsonToHTML({ entry: entry, paths })
-        console.log("🚀 ~ file: json-to-html.test.ts:193 ~ describe ~ entry.json_rte:", entry)
+        const entry = entryJsonRteWithClass
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithClass)
+        done()
+    })
+    it('Should return html text with id', done => {
+        const entry = entryJsonRteWithId
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithId)
         done()
     })
 })

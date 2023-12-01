@@ -1064,6 +1064,83 @@ const embeddedEntryJsonEntry = {
     }
 }
 
+const entryJsonRteWithClass = {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+              "type": "p",
+              "attrs": {class: "class_p"},
+              "uid": "",
+              "children": [
+                  {
+                      "text": "abc",
+                      "classname": "yellow",
+                  },
+                  {
+                      "text": "ghi",
+                      "underline": true,
+                      "classname": "blue",
+                  },
+                  {
+                      "text": "Basic",
+                      "classname": "orange",
+                      "id": "blue",
+                      "bold": true,
+                      "underline": true,
+                      "italic": true
+                  },
+                  {
+                      "type": "h1",
+                      "attrs": {},
+                      "uid": "",
+                      "children": [
+                          {
+                              "text": "abc",
+                              "classname": "purple",
+                          }
+                      ]
+                  }
+              ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
+const entryJsonRteWithId = {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+              "type": "p",
+              "attrs": {class: "class_p"},
+              "uid": "",
+              "children": [
+                  {
+                      "text": "data",
+                      "id": "blue",
+                      "bold": false,
+                      "underline": true,
+                      "italic": true
+                  }
+              ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
 export { 
   h1Json,
   h2Json,
@@ -1090,5 +1167,7 @@ export {
   embeddedEntryJsonEntry,
   entryReferenceLinkJson,
   entryReferenceBlockJson,
-  entryReferenceInlineJson
+  entryReferenceInlineJson,
+  entryJsonRteWithClass,
+  entryJsonRteWithId
 }
