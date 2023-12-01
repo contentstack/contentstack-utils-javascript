@@ -67,8 +67,8 @@ export function textNodeToHTML(node: TextNode, renderOption: RenderOption): stri
     if (node.bold) {
         text =  (renderOption[MarkType.BOLD] as RenderMark)(text)
     }
-    if (node.classname) {
-        text =  (renderOption[MarkType.CLASSNAME] as RenderMark)(text, node.classname)
+    if (node.classname || node.id) {
+        text =  (renderOption[MarkType.CLASSNAME_OR_ID] as RenderMark)(text, node.classname, node.id)
     }
     return text
 }

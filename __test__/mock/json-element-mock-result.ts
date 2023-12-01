@@ -15,6 +15,8 @@ const codeHtml = "<code>Code template.</code>"
 const linkInPHtml = "<strong><em><u><sub></sub></u></em></strong><a href=\"LINK.com\">LINK</a>"
 const linkInPURLHtml = "<strong><em><u><sub></sub></u></em></strong><a href=\"LINK.com\" target=\"_blank\">LINK</a>"
 const styleinPHtml = "<p style=\"text-align:right;\">This is <span>second</span> <u>JSON</u> entry</p><p style=\"text-align:left;\"><a href=\"example.com\" target=\"_blank\">Example</a></p>"
+const plainTextHtmlWithClass = "<p class=\"class_p\"><span class=\"yellow\">abc</span><span class=\"blue\"><u>ghi</u></span><span class=\"orange\" id=\"blue\"><strong><em><u>Basic</u></em></strong></span><h1><span class=\"purple\">abc</span></h1></p>"
+const plainTextHtmlWithId = "<p class=\"class_p\"><span id=\"blue\"><em><u>data</u></em></span></p>"
 
 export {
     h1Html,
@@ -34,4 +36,6 @@ export {
     blockquoteHtml,
     unorderListHtml,
     styleinPHtml,
+    plainTextHtmlWithClass,
+    plainTextHtmlWithId
 }
