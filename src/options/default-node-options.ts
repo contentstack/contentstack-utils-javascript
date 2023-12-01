@@ -8,81 +8,81 @@ export const defaultNodeOption: RenderOption = {
         return ``
     },
     [NodeType.PARAGRAPH]:(node: Node, next: Next) => {
-        return `<p${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</p>`
+        return `<p${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</p>`
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
         if (node.attrs.target) {
-            return `<a${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${next(node.children)}</a>`   
+            return `<a${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${next(node.children)}</a>`   
         }
-         return `<a${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``} href="${node.attrs.href || node.attrs.url}">${next(node.children)}</a>`
+         return `<a${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${next(node.children)}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
-        return `<img${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``} src="${node.attrs.src || node.attrs.url}" />${next(node.children)}`
+        return `<img${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}" />${next(node.children)}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
-        return `<iframe${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``} src="${node.attrs.src || node.attrs.url}">${next(node.children)}</iframe>`
+        return `<iframe${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}">${next(node.children)}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
-        return `<h1${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</h1>`
+        return `<h1${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h1>`
     },
     [NodeType.HEADING_2]:(node: Node, next: Next) => {
-        return `<h2${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</h2>`
+        return `<h2${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h2>`
     },
     [NodeType.HEADING_3]:(node: Node, next: Next) => {
-        return `<h3${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</h3>`
+        return `<h3${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h3>`
     },
     [NodeType.HEADING_4]:(node: Node, next: Next) => {
-        return `<h4${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</h4>`
+        return `<h4${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h4>`
     },
     [NodeType.HEADING_5]:(node: Node, next: Next) => {
-        return `<h5${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</h5>`
+        return `<h5${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h5>`
     },
     [NodeType.HEADING_6]:(node: Node, next: Next) => {
-        return `<h6${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</h6>`
+        return `<h6${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h6>`
     },
     [NodeType.ORDER_LIST]:(node: Node, next: Next) => {
-        return `<ol${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</ol>`
+        return `<ol${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ol>`
     },
     [NodeType.UNORDER_LIST]:(node: Node, next: Next) => {
-        return `<ul${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</ul>`
+        return `<ul${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ul>`
     },
     [NodeType.LIST_ITEM]:(node: Node, next: Next) => {
-        return `<li${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</li>`
+        return `<li${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</li>`
     },
     [NodeType.HR]:(node: Node, next: Next) => {
         return `<hr>`
     },
     [NodeType.TABLE]:(node: Node, next: Next) => {
-        return `<table${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</table>`
+        return `<table${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</table>`
     },
     [NodeType.TABLE_HEADER]:(node: Node, next: Next) => {
-        return `<thead${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</thead>`
+        return `<thead${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</thead>`
     },
     [NodeType.TABLE_BODY]:(node: Node, next: Next) => {
-        return `<tbody${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</tbody>`
+        return `<tbody${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tbody>`
     },
     [NodeType.TABLE_FOOTER]:(node: Node, next: Next) => {
-        return `<tfoot${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</tfoot>`
+        return `<tfoot${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tfoot>`
     },
     [NodeType.TABLE_ROW]:(node: Node, next: Next) => {
-        return `<tr${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</tr>`
+        return `<tr${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tr>`
     },
     [NodeType.TABLE_HEAD]:(node: Node, next: Next) => {
-        return `<th${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</th>`
+        return `<th${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</th>`
     },
     [NodeType.TABLE_DATA]:(node: Node, next: Next) => {
-        return `<td${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</td>`
+        return `<td${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</td>`
     },
     [NodeType.BLOCK_QUOTE]:(node: Node, next: Next) => {
-        return `<blockquote${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</blockquote>`
+        return `<blockquote${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</blockquote>`
     },
     [NodeType.CODE]:(node: Node, next: Next) => {
-        return `<code${node.attrs.class ? ` class="${node.attrs.class}"` : ``}>${next(node.children)}</code>`
+        return `<code${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</code>`
     },
 
     ['reference']:(node: Node, next: Next) => {
         if (node.attrs.type === 'asset') {
-            return `<img${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``} src="${node.attrs['asset-link']}" />`
+            return `<img${addStyleAttrs(node.attrs.style)}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs['asset-link']}" />`
         }
         return ``
     },
