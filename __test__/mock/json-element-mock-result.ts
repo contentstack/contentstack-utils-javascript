@@ -15,9 +15,10 @@ const codeHtml = "<code>Code template.</code>"
 const linkInPHtml = "<strong><em><u><sub></sub></u></em></strong><a href=\"LINK.com\">LINK</a>"
 const linkInPURLHtml = "<strong><em><u><sub></sub></u></em></strong><a href=\"LINK.com\" target=\"_blank\">LINK</a>"
 const styleinPHtml = "<p style=\"text-align:right;\">This is <span>second</span> <u>JSON</u> entry</p><p style=\"text-align:left;\"><a href=\"example.com\" target=\"_blank\">Example</a></p>"
-const plainTextHtmlWithClass = "<p class=\"class_p\"><span class=\"yellow\">abc</span><span class=\"blue\"><u>ghi</u></span><span class=\"orange\" id=\"blue\"><strong><em><u>Basic</u></em></strong></span><h1><span class=\"purple\">abc</span></h1></p>"
-const plainTextHtmlWithId = "<p class=\"class_p\"><span id=\"blue\"><em><u>data</u></em></span></p>"
-
+const plainTextHtmlWithClass = "<p class=\"class_p\"><span class=\"yellow\">abc</span><u><span class=\"blue\">ghi</span></u><strong><em><u><span class=\"orange\" id=\"blue\">Basic</span></u></em></strong><h1><span class=\"purple\">abc</span></h1></p>"
+const plainTextHtmlWithId = "<p class=\"class_p\"><em><u><span id=\"blue\">data</span></u></em></p>"
+const htmlTextIdInAttrs = "<p id=\"id_p\"><em><u>data</u></em></p>"
+const classAndIdAttrsHtml = "<a class=\"class_a\" id=\"id_p\" href=\"LINK.com\">link</a><img class=\"class_img\" id=\"id_img\" src=\"https://dummyImage.url/Donald.jog.png\" /><h1 class=\"class_h1\" id=\"id_h1\">heading1</h1><h2 class=\"class_h2\" id=\"id_h2\">heading2</h2><h3 class=\"class_h3\" id=\"id_h3\">heading3</h3><h4 class=\"class_h4\" id=\"id_h4\">heading4</h4><h5 class=\"class_h5\" id=\"id_h5\">heading5</h5><h6 class=\"class_h6\" id=\"id_h6\">heading6</h6>"
 export {
     h1Html,
     h2Html,
@@ -37,5 +38,7 @@ export {
     unorderListHtml,
     styleinPHtml,
     plainTextHtmlWithClass,
-    plainTextHtmlWithId
+    plainTextHtmlWithId,
+    htmlTextIdInAttrs,
+    classAndIdAttrsHtml
 }

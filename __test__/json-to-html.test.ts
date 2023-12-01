@@ -22,7 +22,9 @@ import {
     tableJson,
     unorderListJson,
     entryJsonRteWithClass,
-    entryJsonRteWithId} from './mock/json-element-mock'
+    entryJsonRteWithId,
+    entryJsonRteWithIdinAttrs, 
+    jsonRteClassAndIdAttrs } from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -42,7 +44,9 @@ import {
     tableHtml, 
     unorderListHtml,
     plainTextHtmlWithClass,
-    plainTextHtmlWithId } from './mock/json-element-mock-result'
+    plainTextHtmlWithId,
+    htmlTextIdInAttrs,
+    classAndIdAttrsHtml } from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -528,6 +532,37 @@ describe('Node parse style attribute', () => {
         jsonToHTML({ entry, paths})
 
         expect(entry.supercharged_rte).toEqual(styleinPHtml)
+        done()
+    })
+})
+
+describe('Node parse json_rte Content', () => {
+    it('Should return html text with classname', done => {
+        const entry = entryJsonRteWithClass
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithClass)
+        done()
+    })
+    it('Should return html text with id', done => {
+        const entry = entryJsonRteWithId
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithId)
+        done()
+    })
+    it('Should return html text with id in parent tag', done => {
+        const entry = entryJsonRteWithIdinAttrs
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(htmlTextIdInAttrs)
+        done()
+    })
+    it('Should return html text with class and id in parent tag', done => {
+        const entry = jsonRteClassAndIdAttrs
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(classAndIdAttrsHtml)
         done()
     })
 })

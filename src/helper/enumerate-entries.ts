@@ -43,6 +43,9 @@ export function enumerateContents(
 
 export function textNodeToHTML(node: TextNode, renderOption: RenderOption): string {
     let text = node.text
+    if (node.classname || node.id) {
+        text =  (renderOption[MarkType.CLASSNAME_OR_ID] as RenderMark)(text, node.classname, node.id)
+    }
     if (node.break) {
         text =  (renderOption[MarkType.BREAK] as RenderMark)(text)
     }
@@ -66,9 +69,6 @@ export function textNodeToHTML(node: TextNode, renderOption: RenderOption): stri
     }
     if (node.bold) {
         text =  (renderOption[MarkType.BOLD] as RenderMark)(text)
-    }
-    if (node.classname || node.id) {
-        text =  (renderOption[MarkType.CLASSNAME_OR_ID] as RenderMark)(text, node.classname, node.id)
     }
     return text
 }

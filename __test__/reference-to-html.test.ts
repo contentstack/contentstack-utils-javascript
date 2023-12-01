@@ -157,7 +157,7 @@ describe('Reference Node To HTML', () => {
         const node = assetReferenceJson.children[0] as unknown as Node
 
         const resultHTML = referenceToHTML(node, defaultNodeOption)
-        expect(resultHTML).toEqual('<img src="https://image.url/11.jpg" />')
+        expect(resultHTML).toEqual('<img id=\"sdf\" src="https://image.url/11.jpg" />')
         done()
     })
     

@@ -13,6 +13,7 @@ export interface Metadata {
 export interface Attributes {
   type?: 'entry' | 'asset',
   class?: string,
+  id?: string,
   [key: string]: any,
   'sys-style-type'?: string,
 }
