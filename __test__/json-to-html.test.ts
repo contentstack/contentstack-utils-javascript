@@ -170,7 +170,7 @@ describe('Node parse text Content', () => {
         expect(entry.supercharged_rte).toEqual([plainTextHtml])
         done()
     })
-    it('Should return bold text', done => {
+    it('Should return html text with classname', done => {
         const entry = {
             "uid": "",
             "_version": 3,
@@ -182,7 +182,7 @@ describe('Node parse text Content', () => {
                 "children": [
                     {
                         "type": "p",
-                        "attrs": {},
+                        "attrs": {class: "class_p"},
                         "uid": "",
                         "children": [
                             {
@@ -190,14 +190,18 @@ describe('Node parse text Content', () => {
                                 "classname": "yellow",
                             },
                             {
-                                "text": " "
-                            },
-                            {
                                 "text": "def",
-                                "italic": true
+                                "italic": false,
+                                "underline": true,
+                                "classname": "red",
+                                
                             },
                             {
-                                "text": " "
+                                "text": "fed",
+                                "italic": true,
+                                "underline": true,
+                                "classname": "green",
+                                
                             },
                             {
                                 "text": "ghi",
@@ -205,16 +209,37 @@ describe('Node parse text Content', () => {
                                 "classname": "blue",
                             },
                             {
-                                "text": " "
-                            },
-                            {
                                 "text": "Basic",
-                                "classname": "red",
+                                "classname": "orange",
                                 "id": "blue",
-                                bold: true
+                                "bold": true,
+                                "underline": true,
+                                "italic": true
                             },
                             {
-                                "text": " InformationEntry Type IDabc"
+                                "text": "data",
+                                "classname": "brown",
+                                "id": "blue",
+                                "bold": false,
+                                "underline": true,
+                                "italic": true
+                            },
+                            {
+                                "type": "h1",
+                                "attrs": {},
+                                "uid": "",
+                                "children": [
+                                    {
+                                        "text": "abc",
+                                        "classname": "purple",
+                                    },
+                                    {
+                                        "text": "def",
+                                        "italic": false,
+                                        "underline": true,
+                                        "classname": "white",
+                                    }
+                                ]
                             }
                         ]
                     }
