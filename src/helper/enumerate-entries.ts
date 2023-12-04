@@ -1,6 +1,6 @@
 import { AnyNode } from "../json-to-html";
 import { EmbeddedItem, EntryEmbedable } from "../Models/embedded-object";
-import { Metadata, nodeToMetadata } from "../Models/metadata-model";
+import { Metadata, nodeToMetadata, styleObj } from "../Models/metadata-model";
 import MarkType from "../nodes/mark-type";
 import TextNode from "../nodes/text-node";
 import Node from '../nodes/node'
@@ -100,11 +100,29 @@ function nodeChildrenToHTML(nodes: AnyNode[],
         return nodes.map<string>((node: AnyNode) => nodeToHTML(node, renderOption, renderEmbed)).join('')
 }
 
+function styleObjectToString(styleObj: styleObj): string {
+    if (!styleObj) return '';
+    if (typeof styleObj === 'string') {
+        return styleObj;
+    }
+    let styleString: string = '';
+    for (const key in styleObj) {
+        if (styleObj.hasOwnProperty(key)) {
+            const value = styleObj[key];
+            styleString += `${key}:${value};`;
+        }
+    }
+    return styleString;
+}
+
 function nodeToHTML(
     node: AnyNode, 
     renderOption: RenderOption,
     renderEmbed?: (metadata: Metadata) => EmbeddedItem | EntryNode,
-): string {    
+): string {
+    if (node?.attrs?.style){
+        node.attrs.style = styleObjectToString(node.attrs.style as styleObj)
+    }
     if (!node.type) {
         return textNodeToHTML(node as TextNode, renderOption)
     }else if ((node.type as string) === 'reference') {

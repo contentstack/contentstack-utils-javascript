@@ -260,7 +260,7 @@ const orderListJson = {
           }
       ],
       "id": "7f413d448a",
-      "attrs": {}
+      "attrs": {class: "table", id: "table_id"}
     }
   ],
   type: "doc"
@@ -317,7 +317,7 @@ const unorderListJson = {
           }
       ],
       "id": "b083fa46ef899420ab19",
-      "attrs": {}
+      "attrs": {class: "table", id: "table_id"}
     }
   ],
   type: "doc"
@@ -1270,6 +1270,98 @@ const jsonRteClassAndIdAttrs =  {
   }
 }
 
+const styleObj  = {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+            "type": "h1",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading1",
+                }
+            ]
+          },
+          {
+            "type": "h2",
+            "attrs": {
+              "style": {
+                "text-align": "left"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading2",
+                }
+            ]
+          },
+          {
+            "type": "h3",
+            "attrs": {
+              "style": {
+                "text-align": "right"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading3",
+                }
+            ]
+          },
+          {
+            "type": "h4",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading4",
+                }
+            ]
+          },
+          {
+            "type": "h5",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading5",
+                }
+            ]
+          },
+          {
+            "type": "h6",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading6",
+                }
+            ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
 export { 
   h1Json,
   h2Json,
@@ -1300,5 +1392,6 @@ export {
   entryJsonRteWithClass,
   entryJsonRteWithId,
   entryJsonRteWithIdinAttrs,
-  jsonRteClassAndIdAttrs
+  jsonRteClassAndIdAttrs,
+  styleObj
 }
