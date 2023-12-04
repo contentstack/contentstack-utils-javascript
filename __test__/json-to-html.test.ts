@@ -24,7 +24,8 @@ import {
     entryJsonRteWithClass,
     entryJsonRteWithId,
     entryJsonRteWithIdinAttrs, 
-    jsonRteClassAndIdAttrs } from './mock/json-element-mock'
+    jsonRteClassAndIdAttrs, 
+    styleObj} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -46,7 +47,8 @@ import {
     plainTextHtmlWithClass,
     plainTextHtmlWithId,
     htmlTextIdInAttrs,
-    classAndIdAttrsHtml } from './mock/json-element-mock-result'
+    classAndIdAttrsHtml,
+    styleObjHtml } from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -532,6 +534,15 @@ describe('Node parse style attribute', () => {
         jsonToHTML({ entry, paths})
 
         expect(entry.supercharged_rte).toEqual(styleinPHtml)
+        done()
+    })
+    it('Should return style attribute in headings tag content', done => {
+        const entry = styleObj
+        const paths = ['json_rte']
+
+        jsonToHTML({ entry, paths})
+
+        expect(entry.json_rte).toEqual(styleObjHtml)
         done()
     })
 })
