@@ -746,8 +746,8 @@ const assetReferenceJson = {
                 "type": "asset",
                 "class-name": "embedded-asset",
                 "width": 25.16914749661705,
-                "className": "dsd",
-                "id": "sdf"
+                "className": "classname",
+                "id": "img_id"
             },
             "children": [
                 {

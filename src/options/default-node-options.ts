@@ -90,7 +90,7 @@ export const defaultNodeOption: RenderOption = {
         return next(node.children)
     },
 
-    [MarkType.BOLD]:(text: string, classname?: string) => {
+    [MarkType.BOLD]:(text: string) => {
         return `<strong>${text}</strong>`
     },
     [MarkType.ITALIC]:(text: string) => {
