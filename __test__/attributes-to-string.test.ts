@@ -27,7 +27,7 @@ describe('Attributes to String', () => {
 
         const resultString = attributeToString(attr)
 
-        expect(resultString).toEqual(' display-type="display" asset-uid="asset_uid_1" content-type-uid="sys_assets" asset-link="https://image.url/11.jpg" asset-name="11.jpg" asset-type="image/jpeg" type="asset" class-name="embedded-asset" width="25.16914749661705" className="dsd" id="sdf"')
+        expect(resultString).toEqual(' display-type="display" asset-uid="asset_uid_1" content-type-uid="sys_assets" asset-link="https://image.url/11.jpg" asset-name="11.jpg" asset-type="image/jpeg" type="asset" class-name="embedded-asset" width="25.16914749661705" className="classname" id="img_id"')
         done()
     })
 
