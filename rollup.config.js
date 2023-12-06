@@ -24,7 +24,7 @@ export default {
 
         typescript({
             useTsconfigDeclarationDir: true,
-            objectHashIgnoreUnknownHack: true      
+            objectHashIgnoreUnknownHack: false      
         }),
         // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
         commonjs(),
