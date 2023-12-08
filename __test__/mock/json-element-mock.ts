@@ -260,7 +260,7 @@ const orderListJson = {
           }
       ],
       "id": "7f413d448a",
-      "attrs": {}
+      "attrs": {class: "table", id: "table_id"}
     }
   ],
   type: "doc"
@@ -317,7 +317,7 @@ const unorderListJson = {
           }
       ],
       "id": "b083fa46ef899420ab19",
-      "attrs": {}
+      "attrs": {class: "table", id: "table_id"}
     }
   ],
   type: "doc"
@@ -746,8 +746,8 @@ const assetReferenceJson = {
                 "type": "asset",
                 "class-name": "embedded-asset",
                 "width": 25.16914749661705,
-                "className": "dsd",
-                "id": "sdf"
+                "className": "classname",
+                "id": "img_id"
             },
             "children": [
                 {
@@ -1064,6 +1064,304 @@ const embeddedEntryJsonEntry = {
     }
 }
 
+const entryJsonRteWithClass = {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+              "type": "p",
+              "attrs": {class: "class_p"},
+              "uid": "",
+              "children": [
+                  {
+                      "text": "abc",
+                      "classname": "yellow",
+                  },
+                  {
+                      "text": "ghi",
+                      "underline": true,
+                      "classname": "blue",
+                  },
+                  {
+                      "text": "Basic",
+                      "classname": "orange",
+                      "id": "blue",
+                      "bold": true,
+                      "underline": true,
+                      "italic": true
+                  },
+                  {
+                      "type": "h1",
+                      "attrs": {},
+                      "uid": "",
+                      "children": [
+                          {
+                              "text": "abc",
+                              "classname": "purple",
+                          }
+                      ]
+                  }
+              ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
+const entryJsonRteWithId = {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+              "type": "p",
+              "attrs": {class: "class_p"},
+              "uid": "",
+              "children": [
+                  {
+                      "text": "data",
+                      "id": "blue",
+                      "bold": false,
+                      "underline": true,
+                      "italic": true
+                  }
+              ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
+const entryJsonRteWithIdinAttrs = {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+              "type": "p",
+              "attrs": {id: "id_p"},
+              "uid": "",
+              "children": [
+                  {
+                      "text": "data",
+                      "bold": false,
+                      "underline": true,
+                      "italic": true
+                  }
+              ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
+const jsonRteClassAndIdAttrs =  {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+              "type": "a",
+              "attrs": {"href": "LINK.com", class: "class_a", id: "id_p"},
+              "uid": "",
+              "children": [
+                  {
+                      "text": "link",
+                  }
+              ]
+          },
+          {
+            "type": "img",
+            "attrs": {
+              class: "class_img", 
+              id: "id_img",
+              "src": "https://dummyImage.url/Donald.jog.png",
+              "width": 33.69418132611637,
+              "height": "auto",
+              "redactor-attributes": {
+                "asset_uid": "47f1aa5ae422cd1"
+            }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "",
+                }
+            ]
+          },
+          {
+            "type": "h1",
+            "attrs": {class: "class_h1", id: "id_h1"},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading1",
+                }
+            ]
+          },
+          {
+            "type": "h2",
+            "attrs": {class: "class_h2", id: "id_h2"},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading2",
+                }
+            ]
+          },
+          {
+            "type": "h3",
+            "attrs": {class: "class_h3", id: "id_h3"},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading3",
+                }
+            ]
+          },
+          {
+            "type": "h4",
+            "attrs": {class: "class_h4", id: "id_h4"},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading4",
+                }
+            ]
+          },
+          {
+            "type": "h5",
+            "attrs": {class: "class_h5", id: "id_h5"},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading5",
+                }
+            ]
+          },
+          {
+            "type": "h6",
+            "attrs": {class: "class_h6", id: "id_h6"},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading6",
+                }
+            ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
+const styleObj  = {
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte": {
+      "type": "doc",
+      "attrs": {},
+      "uid": "",
+      "children": [
+          {
+            "type": "h1",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading1",
+                }
+            ]
+          },
+          {
+            "type": "h2",
+            "attrs": {
+              "style": {
+                "text-align": "left"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading2",
+                }
+            ]
+          },
+          {
+            "type": "h3",
+            "attrs": {
+              "style": {
+                "text-align": "right"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading3",
+                }
+            ]
+          },
+          {
+            "type": "h4",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading4",
+                }
+            ]
+          },
+          {
+            "type": "h5",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading5",
+                }
+            ]
+          },
+          {
+            "type": "h6",
+            "attrs": {
+              "style": {
+                "text-align": "justify"
+              }},
+            "uid": "",
+            "children": [
+                {
+                    "text": "heading6",
+                }
+            ]
+          }
+      ],
+      "_version": 3
+  }
+}
+
 export { 
   h1Json,
   h2Json,
@@ -1090,5 +1388,10 @@ export {
   embeddedEntryJsonEntry,
   entryReferenceLinkJson,
   entryReferenceBlockJson,
-  entryReferenceInlineJson
+  entryReferenceInlineJson,
+  entryJsonRteWithClass,
+  entryJsonRteWithId,
+  entryJsonRteWithIdinAttrs,
+  jsonRteClassAndIdAttrs,
+  styleObj
 }
