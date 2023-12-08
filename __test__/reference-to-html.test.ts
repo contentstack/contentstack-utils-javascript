@@ -34,8 +34,8 @@ describe('Reference Node To HTML', () => {
                 "type": "asset",
                 "class-name": "embedded-asset",
                 "width": 25.16914749661705,
-                "className": "dsd",
-                "id": "sdf"
+                "className": "classname",
+                "id": "img_id"
             }
         }
         const renderOption = {}
@@ -157,7 +157,7 @@ describe('Reference Node To HTML', () => {
         const node = assetReferenceJson.children[0] as unknown as Node
 
         const resultHTML = referenceToHTML(node, defaultNodeOption)
-        expect(resultHTML).toEqual('<img src="https://image.url/11.jpg" />')
+        expect(resultHTML).toEqual('<img id=\"img_id\" src="https://image.url/11.jpg" />')
         done()
     })
     
