@@ -20,7 +20,12 @@ import {
     plainTextJson,
     styleinPJson,
     tableJson,
-    unorderListJson} from './mock/json-element-mock'
+    unorderListJson,
+    entryJsonRteWithClass,
+    entryJsonRteWithId,
+    entryJsonRteWithIdinAttrs, 
+    jsonRteClassAndIdAttrs, 
+    styleObj} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -38,7 +43,12 @@ import {
     plainTextHtml, 
     styleinPHtml, 
     tableHtml, 
-    unorderListHtml} from './mock/json-element-mock-result'
+    unorderListHtml,
+    plainTextHtmlWithClass,
+    plainTextHtmlWithId,
+    htmlTextIdInAttrs,
+    classAndIdAttrsHtml,
+    styleObjHtml } from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -167,8 +177,21 @@ describe('Node parse text Content', () => {
         const paths = ['supercharged_rte']
         
         jsonToHTML({ entry, paths})
-
         expect(entry.supercharged_rte).toEqual([plainTextHtml])
+        done()
+    })
+    it('Should return html text with classname', done => {
+        const entry = entryJsonRteWithClass
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithClass)
+        done()
+    })
+    it('Should return html text with id', done => {
+        const entry = entryJsonRteWithId
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithId)
         done()
     })
 })
@@ -511,6 +534,46 @@ describe('Node parse style attribute', () => {
         jsonToHTML({ entry, paths})
 
         expect(entry.supercharged_rte).toEqual(styleinPHtml)
+        done()
+    })
+    it('Should return style attribute in headings tag content', done => {
+        const entry = styleObj
+        const paths = ['json_rte']
+
+        jsonToHTML({ entry, paths})
+
+        expect(entry.json_rte).toEqual(styleObjHtml)
+        done()
+    })
+})
+
+describe('Node parse json_rte Content', () => {
+    it('Should return html text with classname', done => {
+        const entry = entryJsonRteWithClass
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithClass)
+        done()
+    })
+    it('Should return html text with id', done => {
+        const entry = entryJsonRteWithId
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(plainTextHtmlWithId)
+        done()
+    })
+    it('Should return html text with id in parent tag', done => {
+        const entry = entryJsonRteWithIdinAttrs
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(htmlTextIdInAttrs)
+        done()
+    })
+    it('Should return html text with class and id in parent tag', done => {
+        const entry = jsonRteClassAndIdAttrs
+        const paths = ['json_rte']
+        jsonToHTML({ entry: entry, paths })
+        expect(entry.json_rte).toEqual(classAndIdAttrsHtml)
         done()
     })
 })
