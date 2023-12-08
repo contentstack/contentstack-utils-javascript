@@ -13,9 +13,12 @@ export interface Metadata {
 export interface Attributes {
   type?: 'entry' | 'asset',
   class?: string,
+  id?: string,
   [key: string]: any,
+  style?: styleObj | string,
   'sys-style-type'?: string,
 }
+export type styleObj = { [key: string]: any }
 
 export interface EntryAttributes extends Attributes {
   'data-sys-entry-uid': string;
