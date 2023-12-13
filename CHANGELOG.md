@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.3.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.1) (2023-12-12)
+## [1.3.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.1) (2023-12-13)
  - Text level rendering suppport
  - Dependencies update
  - Multiple array support
