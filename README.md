@@ -1,8 +1,3 @@
-![Coverage statements](./badges/badge-statements.svg?raw=true)
-![Coverage branches](./badges/badge-branches.svg)
-![Coverage functions](./badges/badge-functions.svg)
-![Coverage lines](./badges/badge-lines.svg)
-
 # Contentstack JavaScript Utils SDK:
 
 Contentstack is a headless CMS with an API-first approach. It is a CMS that developers can use to build powerful cross-platform applications in their favorite languages. Build your application frontend, and Contentstack will take care of the rest. Read More.
