@@ -7,25 +7,25 @@ on:
     types: [created]
 
 jobs:
-  publish-npm:  
+  publish-npm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '12.x'
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  publish-git:  
+  publish-git:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '12.x'
+          node-version: '18.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@contentstack'
       - run: npm ci
