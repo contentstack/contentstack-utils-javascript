@@ -25,7 +25,10 @@ import {
     entryJsonRteWithId,
     entryJsonRteWithIdinAttrs, 
     jsonRteClassAndIdAttrs, 
-    styleObj} from './mock/json-element-mock'
+    styleObj,
+    unorderListJson1,
+    unorderListJson2,
+    orderListJson2,} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -338,7 +341,21 @@ describe('Node parse list content', () => {
         expect(entry.supercharged_rte).toEqual(orderListHtml)
         done()
     })
+    it('Should return order list html content for updated json rte', done => {
+        const entry = {
+            uid: 'entry_uid_19',
+            supercharged_rte: {
+                ...orderListJson2
+            },
+            _embedded_items: {}
+        }
+        const paths = ['supercharged_rte']
 
+        jsonToHTML({ entry, paths})
+
+        expect(entry.supercharged_rte).toEqual('<ol><li><fragment>One</fragment><ol><li><strong>nested</strong> one</li><li>nested two</li></ol></li><li>Two</li></ol>')
+        done()
+    })
     it('Should return un-order list html content', done => {
         const entry = {
             uid: 'entry_uid_19',
@@ -352,6 +369,36 @@ describe('Node parse list content', () => {
         jsonToHTML({ entry, paths})
 
         expect(entry.supercharged_rte).toEqual(unorderListHtml)
+        done()
+    })
+    it('Should return unorder list html content for previous json rte ', done => {
+        const entry = {
+            uid: 'entry_uid_19',
+            supercharged_rte: {
+                ...unorderListJson1
+            },
+            _embedded_items: {}
+        }
+        const paths = ['supercharged_rte']
+
+        jsonToHTML({ entry, paths})
+
+        expect(entry.supercharged_rte).toEqual('<ul><li>One</li><ul><li>nested one</li><li>nested two</li></ul><li>Two</li></ul>')
+        done()
+    })
+    it('Should return unorder list html content for updated json rte', done => {
+        const entry = {
+            uid: 'entry_uid_19',
+            supercharged_rte: {
+                ...unorderListJson2
+            },
+            _embedded_items: {}
+        }
+        const paths = ['supercharged_rte']
+
+        jsonToHTML({ entry, paths})
+
+        expect(entry.supercharged_rte).toEqual('<ul><li><fragment>One</fragment><ul><li>nested one </li><li>nested two </li></ul></li><li>Two</li></ul>')
         done()
     })
 })

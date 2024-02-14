@@ -16,6 +16,7 @@ enum NodeType {
     ORDER_LIST = 'ol',
     UNORDER_LIST = 'ul',
     LIST_ITEM = 'li',
+    FRAGMENT = 'fragment',
   
     HR = 'hr',
 
