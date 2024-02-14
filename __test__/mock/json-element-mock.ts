@@ -266,6 +266,270 @@ const orderListJson = {
   type: "doc"
 }
 
+const unorderListJson1 = {
+  uid: "rte1",
+  _version: 1,
+  attrs: {},
+  children: [
+    {
+        "uid": "uid",
+        "type": "ul",
+        "children": [
+            {
+                "type": "li",
+                "attrs": {
+                    "style": {},
+                    "redactor-attributes": {},
+                    "dir": "ltr"
+                },
+                "uid": "uid",
+                "children": [
+                    {
+                        "text": "One"
+                    }
+                ]
+            },
+            {
+                "uid": "uid",
+                "type": "ul",
+                "attrs": {
+                    "style": {}
+                },
+                "children": [
+                    {
+                        "type": "li",
+                        "attrs": {
+                            "style": {},
+                            "redactor-attributes": {},
+                            "dir": "ltr"
+                        },
+                        "uid": "uid",
+                        "children": [
+                            {
+                                "text": "nested one"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "li",
+                        "attrs": {
+                            "style": {},
+                            "redactor-attributes": {},
+                            "dir": "ltr"
+                        },
+                        "uid": "uid",
+                        "children": [
+                            {
+                                "text": "nested two"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "li",
+                "attrs": {
+                    "style": {},
+                    "redactor-attributes": {},
+                    "dir": "ltr"
+                },
+                "uid": "uid",
+                "children": [
+                    {
+                        "text": "Two"
+                    }
+                ]
+            }
+        ],
+        "id": "id",
+        "attrs": {
+            "style": {},
+            "redactor-attributes": {},
+            "dir": "ltr"
+        }
+    }
+  ],
+  type: "doc"
+}
+
+const unorderListJson2 = {
+  uid: "rte1",
+  _version: 2,
+  attrs: {},
+    children: [
+      {
+        "uid": "uid",
+        "type": "ul",
+        "children": [
+          {
+            "uid": "uid",
+            "type": "li",
+            "attrs": {
+              "style": {},
+              "redactor-attributes": {},
+              "dir": "ltr"
+            },
+            "children": [
+              {
+                "type": "fragment",
+                "children": [
+                  {
+                    "text": "One"
+                  }
+                ],
+                "uid": "uid"
+              },
+              {
+                "uid": "uid",
+                "type": "ul",
+                "attrs": {
+                  "style": {}
+                },
+                "children": [
+                  {
+                    "type": "li",
+                    "attrs": {
+                      "style": {},
+                      "redactor-attributes": {},
+                      "dir": "ltr"
+                    },
+                    "uid": "uid",
+                    "children": [
+                      {
+                        "text": "nested one "
+                      }
+                    ]
+                  },
+                  {
+                    "type": "li",
+                    "attrs": {
+                      "style": {},
+                      "redactor-attributes": {},
+                      "dir": "ltr"
+                    },
+                    "uid": "uid",
+                    "children": [
+                      {
+                        "text": "nested two "
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "li",
+            "attrs": {
+              "style": {},
+              "redactor-attributes": {},
+              "dir": "ltr"
+            },
+            "uid": "uid",
+            "children": [
+              {
+                "text": "Two"
+              }
+            ]
+          }
+        ],
+        "id": "uid",
+        "attrs": {
+          "style": {},
+          "redactor-attributes": {},
+          "dir": "ltr"
+        }
+      }
+    ],
+    type: "doc"
+}
+
+const orderListJson2 = {
+  uid: "rte1",
+  _version: 2,
+  attrs: {},
+    children: [
+      {
+        "uid": "uid",
+        "type": "ol",
+        "children": [
+          {
+            "type": "li",
+            "uid": "uid",
+            "attrs": {
+              "style": {},
+              "redactor-attributes": {},
+              "dir": "ltr"
+            },
+            "children": [
+              {
+                "uid": "uid",
+                "type": "fragment",
+                "children": [
+                  {
+                    "text": "One"
+                  }
+                ]
+              },
+              {
+                "uid": "uid",
+                "type": "ol",
+                "children": [
+                  {
+                    "uid": "uid",
+                    "type": "li",
+                    "children": [
+                      {
+                        "text": "nested",
+                        "bold": true
+                      },
+                      {
+                        "text": " one"
+                      }
+                    ],
+                    "attrs": {
+                      "style": {},
+                      "redactor-attributes": {},
+                      "dir": "ltr"
+                    }
+                  },
+                  {
+                    "uid": "uid",
+                    "type": "li",
+                    "children": [
+                      {
+                        "text": "nested two"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ],
+                "attrs": {}
+              }
+            ]
+          },
+          {
+            "uid": "uid",
+            "type": "li",
+            "children": [
+              {
+                "text": "Two"
+              }
+            ],
+            "attrs": {}
+          }
+        ],
+        "id": "uid",
+        "attrs": {
+          "style": {},
+          "redactor-attributes": {},
+          "dir": "ltr"
+        }
+      }
+    ],
+  type: "doc"
+}
+
 const unorderListJson = {
   uid: "0e5481190849a",
   _version: 13,
@@ -1393,5 +1657,8 @@ export {
   entryJsonRteWithId,
   entryJsonRteWithIdinAttrs,
   jsonRteClassAndIdAttrs,
-  styleObj
+  styleObj,
+  unorderListJson1,
+  unorderListJson2,
+  orderListJson2,
 }
