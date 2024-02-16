@@ -43,6 +43,9 @@ export const defaultNodeOption: RenderOption = {
     [NodeType.ORDER_LIST]:(node: Node, next: Next) => {
         return `<ol${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ol>`
     },
+    [NodeType.FRAGMENT]:(node: Node, next: Next) => {
+        return `<fragment>${next(node.children)}</fragment>`
+    },
     [NodeType.UNORDER_LIST]:(node: Node, next: Next) => {
         return `<ul${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ul>`
     },
