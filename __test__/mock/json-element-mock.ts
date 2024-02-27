@@ -204,6 +204,7 @@ const orderListJson = {
                   "style": {
                       "text-align": "justify"
                   },
+                  "class": "class",
                   "redactor-attributes": {}
               },
               "uid": "160bbd7430b98bd3d996",
@@ -717,7 +718,9 @@ const tableJson = {
           {
               "uid": "b9082",
               "type": "thead",
-              "attrs": {},
+              "attrs": {
+                "class": "class"
+              },
               "children": [
                   {
                       "type": "tr",
@@ -764,11 +767,16 @@ const tableJson = {
           },
           {
               "type": "tbody",
-              "attrs": {},
+              "attrs": {
+                "class": "class",
+                "id":"id"
+              },
               "children": [
                   {
                       "type": "tr",
-                      "attrs": {},
+                      "attrs": {
+                        "class": "class",
+                        "id":"id"},
                       "children": [
                           {
                               "type": "td",
@@ -789,7 +797,9 @@ const tableJson = {
                           },
                           {
                               "type": "td",
-                              "attrs": {},
+                              "attrs": {
+                                "class": "class",
+                                "id":"id"},
                               "children": [
                                   {
                                       "type": "p",
@@ -809,7 +819,9 @@ const tableJson = {
                   },
                   {
                       "type": "tr",
-                      "attrs": {},
+                      "attrs": {
+                        "id": "class"
+                      },
                       "children": [
                           {
                               "type": "td",
@@ -834,7 +846,9 @@ const tableJson = {
                               "children": [
                                   {
                                       "type": "p",
-                                      "attrs": {},
+                                      "attrs": {
+                                        "class": "class"
+                                      },
                                       "children": [
                                           {
                                               "text": "Body row 2 data 2"
@@ -981,7 +995,8 @@ const styleinPJson = {
           type: 'a',
           attrs: {
             url: 'example.com',
-            target: '_blank'
+            target: '_blank',
+            "class": "class"
           },
           children: [ { text: 'Example' } ]
         },
@@ -1067,6 +1082,7 @@ const entryReferenceLinkJson = {
             "type": "entry",
             "class-name": "embedded-entry"
             },
+            "class": "class",
             "children": [
             {
                 "text": "/copy-of-entry-final-02"
@@ -1626,6 +1642,614 @@ const styleObj  = {
   }
 }
 
+const testJsonRte = {
+    "uid": "",
+    "_version": 25,
+    "locale": "en-us",
+    "ACL": {},
+    "_in_progress": false,
+    "content": [
+        {
+            "json": {
+                "uid": "",
+                "attrs": {},
+                "children": [
+                    {
+                        "type": "p",
+                        "attrs": {
+                            "style": {},
+                            "redactor-attributes": {},
+                            "dir": "ltr"
+                        },
+                        "uid": "",
+                        "children": [
+                            {
+                                "text": "G1"
+                            }
+                        ]
+                    }
+                ],
+                "type": "doc",
+                "_version": 25
+            },
+            "_metadata": {
+                "uid": ""
+            },
+            "image": {
+                
+                "alt": ""
+            },
+            "main_title": {
+                "title": "",
+            },
+            "subtitle": {
+                "title": "",
+            },
+            "analytics": {
+                "campaign_name": "",
+                "content_campaign_uid": ""
+            }
+        },
+        {
+            "json": {
+                "uid": "",
+                "attrs": {},
+                "children": [
+                    {
+                        "type": "p",
+                        "attrs": {
+                            "style": {},
+                            "redactor-attributes": {},
+                            "dir": "ltr"
+                        },
+                        "uid": "",
+                        "children": [
+                            {
+                                "text": "G2"
+                            }
+                        ]
+                    }
+                ],
+                "type": "doc",
+                "_version": 25
+            },
+            "_metadata": {
+                "uid": ""
+            },
+            "image": {
+                
+                "alt": ""
+            },
+            "main_title": {
+                "title": "",
+            },
+            "subtitle": {
+                "title": "",
+            },
+            "analytics": {
+                "campaign_name": "",
+                "content_campaign_uid": ""
+            }
+        },
+        {
+            "json": {
+                "uid": "",
+                "attrs": {},
+                "children": [
+                    {
+                        "type": "p",
+                        "attrs": {
+                            "style": {},
+                            "redactor-attributes": {},
+                            "dir": "ltr"
+                        },
+                        "uid": "",
+                        "children": [
+                            {
+                                "text": "G3"
+                            }
+                        ]
+                    }
+                ],
+                "type": "doc",
+                "_version": 25
+            },
+            "_metadata": {
+                "uid": ""
+            },
+            "image": {
+                
+                "alt": ""
+            },
+            "main_title": {
+                "title": "",
+            },
+            "subtitle": {
+                "title": "",
+            },
+            "analytics": {
+                "campaign_name": "",
+                "content_campaign_uid": ""
+            }
+        }
+    ],
+    "created_at": "",
+    "created_by": "",
+    "custom": {
+        "custom": "field"
+    },
+    "custom_color": {
+        "hsl": {
+            "h": 111.42857142857142,
+            "s": 0.5384615384615385,
+            "l": 0.5666666666666667,
+            "a": 1
+        },
+        "hex": "#66cc55",
+        "rgb": {
+            "r": 102,
+            "g": 204,
+            "b": 85,
+            "a": 1
+        },
+        "hsv": {
+            "h": 111.42857142857142,
+            "s": 0.5833333333333334,
+            "v": 0.8,
+            "a": 1
+        },
+        "oldHue": 246.9064748201439,
+        "source": "hex"
+    },
+    "enable_carousel": {
+        "xs": false,
+        "sm": false,
+        "md": false,
+        "lg": false
+    },
+    "image_orientation": [
+        "B",
+        "A"
+    ],
+    "json_rte": [
+        {
+            "uid": "",
+            "type": "doc",
+            "attrs": {},
+            "children": [
+                {
+                    "type": "p",
+                    "uid": "",
+                    "attrs": {
+                        "style": {},
+                        "redactor-attributes": {},
+                        "dir": "ltr"
+                    },
+                    "children": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "uid": "",
+                            "type": "reference",
+                            "attrs": {
+                                "display-type": "link",
+                                "type": "entry",
+                                "class-name": "embedded-entry redactor-component block-entry",
+                                "entry-uid": "",
+                                "locale": "en-us",
+                                "content-type-uid": "rte",
+                                "target": "_self",
+                                "href": "/test"
+                            },
+                            "children": [
+                                {
+                                    "text": "Embed entry as a link"
+                                }
+                            ]
+                        },
+                        {
+                            "text": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "p",
+                    "uid": "",
+                    "attrs": {
+                        "style": {},
+                        "redactor-attributes": {},
+                        "dir": "ltr"
+                    },
+                    "children": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "uid": "",
+                            "type": "reference",
+                            "attrs": {
+                                "display-type": "link",
+                                "type": "entry",
+                                "class-name": "embedded-entry redactor-component block-entry",
+                                "entry-uid": "",
+                                "locale": "en-us",
+                                "content-type-uid": "rte",
+                                "target": "_blank",
+                                "href": "/entry-3"
+                            },
+                            "children": [
+                                {
+                                    "text": "Open entry as a link in new tab"
+                                }
+                            ]
+                        },
+                        {
+                            "text": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "p",
+                    "uid": "",
+                    "attrs": {
+                        "style": {},
+                        "redactor-attributes": {},
+                        "dir": "ltr"
+                    },
+                    "children": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "uid": "",
+                            "type": "reference",
+                            "attrs": {
+                                "display-type": "link",
+                                "type": "entry",
+                                "class-name": "embedded-entry redactor-component block-entry",
+                                "entry-uid": "",
+                                "locale": "en-us",
+                                "content-type-uid": "rte",
+                                "target": "_self",
+                                "href": "/entry-2"
+                            },
+                            "children": [
+                                {
+                                    "text": "Bold entry"
+                                }
+                            ]
+                        },
+                        {
+                            "text": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "p",
+                    "uid": "",
+                    "attrs": {
+                        "style": {},
+                        "redactor-attributes": {},
+                        "dir": "ltr"
+                    },
+                    "children": [
+                        {
+                            "text": ""
+                        },
+                        {
+                            "uid": "",
+                            "type": "reference",
+                            "attrs": {
+                                "display-type": "link",
+                                "type": "entry",
+                                "class-name": "embedded-entry redactor-component block-entry",
+                                "entry-uid": "",
+                                "locale": "en-us",
+                                "content-type-uid": "rte",
+                                "target": "_blank",
+                                "href": "/entry-4"
+                            },
+                            "children": [
+                                {
+                                    "text": "Bold entry open in new tab",
+                                    "bold": true
+                                }
+                            ]
+                        },
+                        {
+                            "text": ""
+                        }
+                    ]
+                }
+            ],
+            "_version": 25
+        }
+    ],
+    "modular_blocks": [
+        {
+            "block": {
+                "multi_line": "Block 1",
+                "_metadata": {
+                    "uid": ""
+                },
+                "json_rich_text": {
+                    "uid": "",
+                    "attrs": {},
+                    "children": [
+                        {
+                            "type": "p",
+                            "uid": "",
+                            "attrs": {
+                                "style": {},
+                                "redactor-attributes": {},
+                                "dir": "ltr"
+                            },
+                            "children": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "uid": "",
+                                    "type": "reference",
+                                    "attrs": {
+                                        "display-type": "link",
+                                        "type": "entry",
+                                        "class-name": "embedded-entry redactor-component block-entry",
+                                        "entry-uid": "",
+                                        "locale": "en-us",
+                                        "content-type-uid": "test_extension",
+                                        "target": "_self",
+                                        "href": "/Test"
+                                    },
+                                    "children": [
+                                        {
+                                            "text": "Embed entry as a link"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": ""
+                                }
+                            ]
+                        },
+                        {
+                            "type": "p",
+                            "uid": "",
+                            "attrs": {
+                                "style": {},
+                                "redactor-attributes": {},
+                                "dir": "ltr"
+                            },
+                            "children": [
+                                {
+                                    "text": ""
+                                },
+                                {
+                                    "uid": "",
+                                    "type": "reference",
+                                    "attrs": {
+                                        "display-type": "link",
+                                        "type": "entry",
+                                        "class-name": "embedded-entry redactor-component block-entry",
+                                        "entry-uid": "",
+                                        "locale": "en-us",
+                                        "content-type-uid": "test_extension",
+                                        "target": "_blank"
+                                    },
+                                    "children": [
+                                        {
+                                            "text": "Embed entry as a link open in new tab"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": ""
+                                }
+                            ]
+                        },
+                        {
+                            "uid": "",
+                            "type": "ul",
+                            "children": [
+                                {
+                                    "type": "li",
+                                    "uid": "",
+                                    "attrs": {
+                                        "style": {},
+                                        "redactor-attributes": {},
+                                        "dir": "ltr"
+                                    },
+                                    "children": [
+                                        {
+                                            "uid": "",
+                                            "type": "reference",
+                                            "attrs": {
+                                                "display-type": "link",
+                                                "type": "entry",
+                                                "class-name": "embedded-entry redactor-component block-entry",
+                                                "entry-uid": "",
+                                                "locale": "en-us",
+                                                "content-type-uid": "test_extension",
+                                                "target": "_self"
+                                            },
+                                            "children": [
+                                                {
+                                                    "text": "Entry as a link"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "li",
+                                    "uid": "",
+                                    "attrs": {
+                                        "style": {},
+                                        "redactor-attributes": {},
+                                        "dir": "ltr"
+                                    },
+                                    "children": [
+                                        {
+                                            "uid": "",
+                                            "type": "reference",
+                                            "attrs": {
+                                                "display-type": "link",
+                                                "type": "entry",
+                                                "class-name": "embedded-entry redactor-component block-entry",
+                                                "entry-uid": "",
+                                                "locale": "en-us",
+                                                "content-type-uid": "test_extension",
+                                                "target": "_blank"
+                                            },
+                                            "children": [
+                                                {
+                                                    "text": "Open entry as a link in new tab"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "li",
+                                    "uid": "",
+                                    "attrs": {
+                                        "style": {},
+                                        "redactor-attributes": {},
+                                        "dir": "ltr"
+                                    },
+                                    "children": [
+                                        {
+                                            "uid": "",
+                                            "type": "reference",
+                                            "attrs": {
+                                                "display-type": "link",
+                                                "type": "entry",
+                                                "class-name": "embedded-entry redactor-component block-entry",
+                                                "entry-uid": "",
+                                                "locale": "en-us",
+                                                "content-type-uid": "test_extension",
+                                                "target": "_self"
+                                            },
+                                            "children": [
+                                                {
+                                                    "text": "Entry as a link bold",
+                                                    "bold": true,
+                                                    "underline": true
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "li",
+                                    "uid": "",
+                                    "attrs": {
+                                        "style": {},
+                                        "redactor-attributes": {},
+                                        "dir": "ltr"
+                                    },
+                                    "children": [
+                                        {
+                                            "uid": "",
+                                            "type": "reference",
+                                            "attrs": {
+                                                "display-type": "link",
+                                                "type": "entry",
+                                                "class-name": "embedded-entry redactor-component block-entry",
+                                                "entry-uid": "",
+                                                "locale": "en-us",
+                                                "content-type-uid": "test_single_line",
+                                                "target": "_blank",
+                                                "href": "khjgf"
+                                            },
+                                            "children": [
+                                                {
+                                                    "bold": true,
+                                                    "text": "Open bold entry as a link in new tab ",
+                                                    "underline": true
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "li",
+                                    "uid": "",
+                                    "attrs": {
+                                        "style": {},
+                                        "redactor-attributes": {},
+                                        "dir": "ltr"
+                                    },
+                                    "children": [
+                                        {
+                                            "uid": "",
+                                            "type": "a",
+                                            "attrs": {
+                                                "url": "https://",
+                                                "target": "_self"
+                                            },
+                                            "children": [
+                                                {
+                                                    "text": "Link URL",
+                                                    "bold": true,
+                                                    "underline": true
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "li",
+                                    "uid": "",
+                                    "attrs": {
+                                        "style": {},
+                                        "redactor-attributes": {},
+                                        "dir": "ltr"
+                                    },
+                                    "children": [
+                                        {
+                                            "uid": "",
+                                            "type": "a",
+                                            "attrs": {
+                                                "url": "https://",
+                                                "target": "_blank"
+                                            },
+                                            "children": [
+                                                {
+                                                    "bold": true,
+                                                    "underline": true,
+                                                    "text": "Open link in new tab"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "id": "",
+                            "attrs": {
+                                "style": {}
+                            }
+                        }
+                    ],
+                    "type": "doc",
+                    "_version": 25
+                }
+            }
+        }
+    ],
+    "reference": [
+        {
+            "uid": "",
+            "_content_type_uid": "header"
+        }
+    ],
+    "title": "Test publishing with name version",
+    "updated_at": "",
+    "updated_by": "",
+    "url": "/version-ten",
+    "version": "100"
+}
 export { 
   h1Json,
   h2Json,
@@ -1661,4 +2285,5 @@ export {
   unorderListJson1,
   unorderListJson2,
   orderListJson2,
+  testJsonRte
 }
