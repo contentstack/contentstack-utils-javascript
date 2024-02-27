@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.2) (2024-02-28)
+ - Fix for parsing nesteed children when entry is referenced as link
+
 ## [1.3.2](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.2) (2024-02-14)
  - Added style attribute fragment as 
 
