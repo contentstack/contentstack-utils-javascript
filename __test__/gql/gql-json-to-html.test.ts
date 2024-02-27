@@ -120,8 +120,8 @@ describe('Node parser reference content', () => {
 
         GQL.jsonToHTML({entry, paths})
 
-        expect(entry[0].single_rte).toEqual('<a href=\"undefined\">/copy-of-entry-final-02</a>')
-        expect(entry[0].multiple_rte).toEqual(['<a href=\"undefined\">/copy-of-entry-final-02</a>'])
+        expect(entry[0].single_rte).toEqual('<a href=\"/copy-of-entry-final-02\" target=\"_self\">/copy-of-entry-final-02</a>')
+        expect(entry[0].multiple_rte).toEqual(['<a href=\"/copy-of-entry-final-02\" target=\"_self\">/copy-of-entry-final-02</a>'])
         done()
     })
 
