@@ -28,7 +28,8 @@ import {
     styleObj,
     unorderListJson1,
     unorderListJson2,
-    orderListJson2,} from './mock/json-element-mock'
+    orderListJson2,
+    testJsonRte,} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -51,7 +52,9 @@ import {
     plainTextHtmlWithId,
     htmlTextIdInAttrs,
     classAndIdAttrsHtml,
-    styleObjHtml } from './mock/json-element-mock-result'
+    styleObjHtml, 
+    referenceObjHtml,
+    referenceObjHtmlBlock} from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -146,6 +149,17 @@ describe('Node parser reference content', () => {
 
         expect(entry[0].rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />')
         expect(entry[0].rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />'])
+        done()
+    })
+
+    it('should convert to html when and type is reference, attrs type is entry and display-type is link', done => {
+        const entry = testJsonRte
+        const paths = ["content","json_rte", "modular_blocks.block.json_rich_text"]
+        jsonToHTML({ entry: entry, paths })
+        entry.modular_blocks.forEach((blocks) => {
+            expect(blocks.block.json_rich_text).toEqual(referenceObjHtmlBlock)
+        });
+        expect(entry.json_rte[0]).toEqual(referenceObjHtml)
         done()
     })
 })
