@@ -1,6 +1,9 @@
 # Changelog
 
-## [1.3.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.2) (2024-02-28)
+## [1.3.4](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.4) (2024-05-13)
+ - Fixes for vulnerability issues related to regular expression and options
+
+## [1.3.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.3) (2024-02-28)
  - Fix for parsing nested children when entry is referenced as link
 
 ## [1.3.2](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.2) (2024-02-14)
