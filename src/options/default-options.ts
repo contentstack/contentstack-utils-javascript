@@ -8,8 +8,8 @@ import * as DOMPurify from 'dompurify';
 export const defaultOptions: RenderOption = {
   [StyleType.BLOCK]: (item: EmbeddedItem | EntryNode) => {
     const title = DOMPurify.sanitize(item.title || item.uid);
-    const content_type_uid = DOMPurify.sanitize(item._content_type_uid || (item.system ? item.system.content_type_uid : ''));
-    return `<div><p>${title}</p><p>Content type: <span>${content_type_uid}</span></p></div>`;
+    const contentTypeUid = DOMPurify.sanitize(item._content_type_uid || (item.system ? item.system.content_type_uid : ''));
+    return `<div><p>${title}</p><p>Content type: <span>${contentTypeUid}</span></p></div>`;
   },
   [StyleType.INLINE]: (item: EmbeddedItem | EntryNode) => {
     const title = DOMPurify.sanitize(item.title || item.uid);
