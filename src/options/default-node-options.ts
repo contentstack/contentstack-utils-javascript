@@ -9,88 +9,88 @@ export const defaultNodeOption: RenderOption = {
         return ``
     },
     [NodeType.PARAGRAPH]:(node: Node, next: Next) => {
-        return `<p${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</p>`
+        return `<p${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</p>`
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
         const sanitizedHref = DOMPurify.sanitize(node.attrs.href || node.attrs.url);
         if (node.attrs.target) {
-            return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}" target="${node.attrs.target}">${next(node.children)}</a>`   
+            return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}" target="${node.attrs.target}">${next(node.children)}</a>`   
         }
-         return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}">${next(node.children)}</a>`
+         return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}">${next(node.children)}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
         const sanitizedSrc = DOMPurify.sanitize(node.attrs.src || node.attrs.url);
-        return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}" />${next(node.children)}`
+        return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}" />${next(node.children)}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
         const sanitizedSrc = DOMPurify.sanitize(node.attrs.src || node.attrs.url);
-        return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}">${next(node.children)}</iframe>`
+        return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}">${next(node.children)}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
-        return `<h1${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h1>`
+        return `<h1${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h1>`
     },
     [NodeType.HEADING_2]:(node: Node, next: Next) => {
-        return `<h2${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h2>`
+        return `<h2${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h2>`
     },
     [NodeType.HEADING_3]:(node: Node, next: Next) => {
-        return `<h3${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h3>`
+        return `<h3${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h3>`
     },
     [NodeType.HEADING_4]:(node: Node, next: Next) => {
-        return `<h4${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h4>`
+        return `<h4${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h4>`
     },
     [NodeType.HEADING_5]:(node: Node, next: Next) => {
-        return `<h5${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h5>`
+        return `<h5${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h5>`
     },
     [NodeType.HEADING_6]:(node: Node, next: Next) => {
-        return `<h6${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h6>`
+        return `<h6${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h6>`
     },
     [NodeType.ORDER_LIST]:(node: Node, next: Next) => {
-        return `<ol${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ol>`
+        return `<ol${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ol>`
     },
     [NodeType.FRAGMENT]:(node: Node, next: Next) => {
         return `<fragment>${next(node.children)}</fragment>`
     },
     [NodeType.UNORDER_LIST]:(node: Node, next: Next) => {
-        return `<ul${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ul>`
+        return `<ul${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</ul>`
     },
     [NodeType.LIST_ITEM]:(node: Node, next: Next) => {
-        return `<li${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</li>`
+        return `<li${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</li>`
     },
     [NodeType.HR]:(node: Node, next: Next) => {
         return `<hr>`
     },
     [NodeType.TABLE]:(node: Node, next: Next) => {
-        return `<table${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</table>`
+        return `<table${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</table>`
     },
     [NodeType.TABLE_HEADER]:(node: Node, next: Next) => {
-        return `<thead${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</thead>`
+        return `<thead${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</thead>`
     },
     [NodeType.TABLE_BODY]:(node: Node, next: Next) => {
-        return `<tbody${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tbody>`
+        return `<tbody${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tbody>`
     },
     [NodeType.TABLE_FOOTER]:(node: Node, next: Next) => {
-        return `<tfoot${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tfoot>`
+        return `<tfoot${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tfoot>`
     },
     [NodeType.TABLE_ROW]:(node: Node, next: Next) => {
-        return `<tr${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tr>`
+        return `<tr${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tr>`
     },
     [NodeType.TABLE_HEAD]:(node: Node, next: Next) => {
-        return `<th${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</th>`
+        return `<th${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</th>`
     },
     [NodeType.TABLE_DATA]:(node: Node, next: Next) => {
-        return `<td${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</td>`
+        return `<td${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</td>`
     },
     [NodeType.BLOCK_QUOTE]:(node: Node, next: Next) => {
-        return `<blockquote${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</blockquote>`
+        return `<blockquote${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</blockquote>`
     },
     [NodeType.CODE]:(node: Node, next: Next) => {
-        return `<code${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</code>`
+        return `<code${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</code>`
     },
 
     ['reference']:(node: Node, next: Next) => {
         const sanitizedAsset = DOMPurify.sanitize(node.attrs['asset-link']);
         if (node.attrs.type === 'asset') {
-            return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedAsset}" />`
+            return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedAsset}" />`
         }
         return ``
     },
