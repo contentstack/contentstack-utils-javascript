@@ -80,9 +80,9 @@ export function referenceToHTML(
   if (node.attrs.type === 'entry' && node.attrs['display-type'] === 'link') {
     const entryText = node.children ? nodeChildrenToHTML(node.children, renderOption, renderEmbed) : '';
     if (node.attrs.target) {
-      return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${entryText}</a>`   
+      return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${entryText}</a>`   
     }
-    return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${entryText}</a>`;
+    return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${entryText}</a>`;
   }
   function sendToRenderOption(referenceNode: Node): string {
     return (renderOption[referenceNode.type] as RenderNode)(referenceNode, undefined);
