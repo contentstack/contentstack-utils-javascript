@@ -204,7 +204,7 @@ const orderListJson = {
                   "style": {
                       "text-align": "justify"
                   },
-                  "class": "class",
+                  "class-name": "class",
                   "redactor-attributes": {}
               },
               "uid": "160bbd7430b98bd3d996",
@@ -261,7 +261,7 @@ const orderListJson = {
           }
       ],
       "id": "7f413d448a",
-      "attrs": {class: "table", id: "table_id"}
+      "attrs": {"class-name": "table", "id": "table_id"}
     }
   ],
   type: "doc"
@@ -582,7 +582,7 @@ const unorderListJson = {
           }
       ],
       "id": "b083fa46ef899420ab19",
-      "attrs": {class: "table", id: "table_id"}
+      "attrs": {"class-name": "table", id: "table_id"}
     }
   ],
   type: "doc"
@@ -719,7 +719,7 @@ const tableJson = {
               "uid": "b9082",
               "type": "thead",
               "attrs": {
-                "class": "class"
+                "class-name": "class"
               },
               "children": [
                   {
@@ -768,14 +768,14 @@ const tableJson = {
           {
               "type": "tbody",
               "attrs": {
-                "class": "class",
+                "class-name": "class",
                 "id":"id"
               },
               "children": [
                   {
                       "type": "tr",
                       "attrs": {
-                        "class": "class",
+                        "class-name": "class",
                         "id":"id"},
                       "children": [
                           {
@@ -798,7 +798,7 @@ const tableJson = {
                           {
                               "type": "td",
                               "attrs": {
-                                "class": "class",
+                                "class-name": "class",
                                 "id":"id"},
                               "children": [
                                   {
@@ -847,7 +847,7 @@ const tableJson = {
                                   {
                                       "type": "p",
                                       "attrs": {
-                                        "class": "class"
+                                        "class-name": "class"
                                       },
                                       "children": [
                                           {
@@ -996,7 +996,7 @@ const styleinPJson = {
           attrs: {
             url: 'example.com',
             target: '_blank',
-            "class": "class"
+            "class-name": "class"
           },
           children: [ { text: 'Example' } ]
         },
@@ -1355,7 +1355,7 @@ const entryJsonRteWithClass = {
       "children": [
           {
               "type": "p",
-              "attrs": {class: "class_p"},
+              "attrs": {"class-name": "class_p"},
               "uid": "",
               "children": [
                   {
@@ -1404,7 +1404,7 @@ const entryJsonRteWithId = {
       "children": [
           {
               "type": "p",
-              "attrs": {class: "class_p"},
+              "attrs": {"class-name": "class_p"},
               "uid": "",
               "children": [
                   {
@@ -1459,7 +1459,7 @@ const jsonRteClassAndIdAttrs =  {
       "children": [
           {
               "type": "a",
-              "attrs": {"href": "LINK.com", class: "class_a", id: "id_p"},
+              "attrs": {"href": "LINK.com", "class-name": "class_a", id: "id_p"},
               "uid": "",
               "children": [
                   {
@@ -1470,7 +1470,7 @@ const jsonRteClassAndIdAttrs =  {
           {
             "type": "img",
             "attrs": {
-              class: "class_img", 
+              "class-name": "class_img", 
               id: "id_img",
               "src": "https://dummyImage.url/Donald.jog.png",
               "width": 33.69418132611637,
@@ -1487,7 +1487,7 @@ const jsonRteClassAndIdAttrs =  {
           },
           {
             "type": "h1",
-            "attrs": {class: "class_h1", id: "id_h1"},
+            "attrs": {"class-name": "class_h1", id: "id_h1"},
             "uid": "",
             "children": [
                 {
@@ -1497,7 +1497,7 @@ const jsonRteClassAndIdAttrs =  {
           },
           {
             "type": "h2",
-            "attrs": {class: "class_h2", id: "id_h2"},
+            "attrs": {"class-name": "class_h2", id: "id_h2"},
             "uid": "",
             "children": [
                 {
@@ -1507,7 +1507,7 @@ const jsonRteClassAndIdAttrs =  {
           },
           {
             "type": "h3",
-            "attrs": {class: "class_h3", id: "id_h3"},
+            "attrs": {"class-name": "class_h3", id: "id_h3"},
             "uid": "",
             "children": [
                 {
@@ -1517,7 +1517,7 @@ const jsonRteClassAndIdAttrs =  {
           },
           {
             "type": "h4",
-            "attrs": {class: "class_h4", id: "id_h4"},
+            "attrs": {"class-name": "class_h4", id: "id_h4"},
             "uid": "",
             "children": [
                 {
@@ -1527,7 +1527,7 @@ const jsonRteClassAndIdAttrs =  {
           },
           {
             "type": "h5",
-            "attrs": {class: "class_h5", id: "id_h5"},
+            "attrs": {"class-name": "class_h5", id: "id_h5"},
             "uid": "",
             "children": [
                 {
@@ -1537,7 +1537,7 @@ const jsonRteClassAndIdAttrs =  {
           },
           {
             "type": "h6",
-            "attrs": {class: "class_h6", id: "id_h6"},
+            "attrs": {"class-name": "class_h6", id: "id_h6"},
             "uid": "",
             "children": [
                 {
