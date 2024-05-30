@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.4](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.5) (2024-05-31)
+ - Feat: updateAssetURLForGQL added
+
 ## [1.3.4](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.4) (2024-05-13)
  - Fixes for vulnerability issues related to regular expression and options
 
