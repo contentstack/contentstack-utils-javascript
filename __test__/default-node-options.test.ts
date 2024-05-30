@@ -51,6 +51,26 @@ const embedNodeWithURL: Node = {
     children: []
 }
 
+const tableDataNode: Node = {
+    type: NodeType.TABLE_DATA,
+    attrs: {
+        rowSpan: 2,
+        colSpan: 2,
+        'redactor-attributes': { colSpan: 2, rowSpan: 2 }
+    },
+    children: []
+}
+
+const tableHeadNode: Node = {
+    type: NodeType.TABLE_HEAD,
+    attrs: {
+        rowSpan: 2,
+        colSpan: 2,
+        'redactor-attributes': { colSpan: 2, rowSpan: 2 }
+    },
+    children: []
+}
+
 describe('Default node render options', () => {
     it('Should return document string', done => {
         const renderString = (defaultNodeOption[NodeType.DOCUMENT] as RenderNode)(node, next)
@@ -134,11 +154,11 @@ describe('Default node render options', () => {
         renderString = (defaultNodeOption[NodeType.TABLE_ROW] as RenderNode)(node, next)
         expect(renderString).toEqual('<tr>text</tr>')
 
-        renderString = (defaultNodeOption[NodeType.TABLE_HEAD] as RenderNode)(node, next)
-        expect(renderString).toEqual('<th>text</th>')
+        renderString = (defaultNodeOption[NodeType.TABLE_HEAD] as RenderNode)(tableHeadNode, next)
+        expect(renderString).toEqual('<th rowspan=\"2\" colspan=\"2\">text</th>')
 
-        renderString = (defaultNodeOption[NodeType.TABLE_DATA] as RenderNode)(node, next)
-        expect(renderString).toEqual('<td>text</td>')
+        renderString = (defaultNodeOption[NodeType.TABLE_DATA] as RenderNode)(tableDataNode, next)
+        expect(renderString).toEqual('<td rowspan=\"2\" colspan=\"2\">text</td>')
 
         done()
     })

@@ -75,10 +75,22 @@ export const defaultNodeOption: RenderOption = {
         return `<tr${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tr>`
     },
     [NodeType.TABLE_HEAD]:(node: Node, next: Next) => {
-        return `<th${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</th>`
+        return `<th` +
+                `${node.attrs.rowSpan ? ` rowspan="${node.attrs.rowSpan}"` : ``}` +
+                `${node.attrs.colSpan ? ` colspan="${node.attrs.colSpan}"` : ``}` +
+                `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}`+
+                `${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}`+
+                `${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}` +
+                `</th>`
     },
     [NodeType.TABLE_DATA]:(node: Node, next: Next) => {
-        return `<td${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</td>`
+        return `<td` +
+                `${node.attrs.rowSpan ? ` rowspan="${node.attrs.rowSpan}"` : ``}` +
+                `${node.attrs.colSpan ? ` colspan="${node.attrs.colSpan}"` : ``}` +
+                `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}`+
+                `${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}`+
+                `${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}` +
+                `</td>`
     },
     [NodeType.BLOCK_QUOTE]:(node: Node, next: Next) => {
         return `<blockquote${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</blockquote>`
