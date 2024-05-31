@@ -14,7 +14,7 @@ const node: Node = {
 
 const imgNode: Node = {
     type: NodeType.IMAGE,
-    attrs: {src: "https://image.url/Donald.jog.png"},
+    attrs: {src: "https://image.url/Donald.jog.png", style: "color: red;"},
     children:[]
 
 }
@@ -35,7 +35,7 @@ const linkNode: Node = {
 
 const linkNodeWithURL: Node = {
     type: NodeType.LINK,
-    attrs: {url: "https://image.url/Donald.jog.png"},
+    attrs: {url: "https://image.url/Donald.jog.png", style: "color: red;"},
     children:[]
 
 }
@@ -48,6 +48,26 @@ const embedNode: Node = {
 const embedNodeWithURL: Node = {
     type: NodeType.EMBED,
     attrs: { url: "https://www.youtube.com/" },
+    children: []
+}
+
+const tableDataNode: Node = {
+    type: NodeType.TABLE_DATA,
+    attrs: {
+        rowSpan: 2,
+        colSpan: 2,
+        'redactor-attributes': { colSpan: 2, rowSpan: 2 }
+    },
+    children: []
+}
+
+const tableHeadNode: Node = {
+    type: NodeType.TABLE_HEAD,
+    attrs: {
+        rowSpan: 2,
+        colSpan: 2,
+        'redactor-attributes': { colSpan: 2, rowSpan: 2 }
+    },
     children: []
 }
 
@@ -66,14 +86,14 @@ describe('Default node render options', () => {
         let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(linkNode, next)
         expect(renderString).toEqual(`<a href="${linkNode.attrs.href}">text</a>`)
         renderString = (defaultNodeOption[NodeType.IMAGE] as RenderNode)(imgNode, next)
-        expect(renderString).toEqual('<img src="https://image.url/Donald.jog.png" />text')
+        expect(renderString).toEqual('<img style=\"color: red;\" src="https://image.url/Donald.jog.png" />text')
         renderString = (defaultNodeOption[NodeType.EMBED] as RenderNode)(embedNode, next)
         expect(renderString).toEqual('<iframe src="https://www.youtube.com/">text</iframe>')
         done()
     })
     it('Should return link string with url as attr', done => {
         let renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(linkNodeWithURL, next)
-        expect(renderString).toEqual(`<a href="${linkNodeWithURL.attrs.url}">text</a>`)
+        expect(renderString).toEqual(`<a style=\"color: red;\" href="${linkNodeWithURL.attrs.url}">text</a>`)
         renderString = (defaultNodeOption[NodeType.IMAGE] as RenderNode)(imgNodeWithURL, next)
         expect(renderString).toEqual(`<img src="${imgNodeWithURL.attrs.url}" />text`)
         renderString = (defaultNodeOption[NodeType.EMBED] as RenderNode)(embedNodeWithURL, next)
@@ -134,11 +154,11 @@ describe('Default node render options', () => {
         renderString = (defaultNodeOption[NodeType.TABLE_ROW] as RenderNode)(node, next)
         expect(renderString).toEqual('<tr>text</tr>')
 
-        renderString = (defaultNodeOption[NodeType.TABLE_HEAD] as RenderNode)(node, next)
-        expect(renderString).toEqual('<th>text</th>')
+        renderString = (defaultNodeOption[NodeType.TABLE_HEAD] as RenderNode)(tableHeadNode, next)
+        expect(renderString).toEqual('<th rowspan=\"2\" colspan=\"2\">text</th>')
 
-        renderString = (defaultNodeOption[NodeType.TABLE_DATA] as RenderNode)(node, next)
-        expect(renderString).toEqual('<td>text</td>')
+        renderString = (defaultNodeOption[NodeType.TABLE_DATA] as RenderNode)(tableDataNode, next)
+        expect(renderString).toEqual('<td rowspan=\"2\" colspan=\"2\">text</td>')
 
         done()
     })

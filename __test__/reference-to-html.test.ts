@@ -78,7 +78,7 @@ describe('Reference Node To HTML', () => {
         const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
             return findEmbeddedItems(metadata, embeddedEntryJsonEntry)[0]
         })
-        expect(resultHTML).toEqual('<a href=\"/copy-of-entry-final-02\" target=\"_self\">/copy-of-entry-final-02</a>')
+        expect(resultHTML).toEqual('<a class=\"embedded-entry\" href=\"/copy-of-entry-final-02\" target=\"_self\">/copy-of-entry-final-02</a>')
         done()
     })
 
@@ -157,7 +157,7 @@ describe('Reference Node To HTML', () => {
         const node = assetReferenceJson.children[0] as unknown as Node
 
         const resultHTML = referenceToHTML(node, defaultNodeOption)
-        expect(resultHTML).toEqual('<img id=\"img_id\" src="https://image.url/11.jpg" />')
+        expect(resultHTML).toEqual('<img class=\"embedded-asset\" id=\"img_id\" src=\"https://image.url/11.jpg\" />')
         done()
     })
     
@@ -172,7 +172,7 @@ describe('Reference Node To HTML', () => {
         const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
             return findEmbeddedItems(metadata, { uid: 'uid' })[0]
         })
-        expect(resultHTML).toEqual('<a href=\"/copy-of-entry-final-02\" target=\"_self\">/copy-of-entry-final-02</a>')
+        expect(resultHTML).toEqual('<a class=\"embedded-entry\" href=\"/copy-of-entry-final-02\" target=\"_self\">/copy-of-entry-final-02</a>')
         done()
     })
 })
