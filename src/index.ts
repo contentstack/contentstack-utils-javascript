@@ -13,3 +13,4 @@ export { default as TextNode } from './nodes/text-node';
 export { jsonToHTML } from './json-to-html'
 export { GQL } from './gql'
 export { addTags as addEditableTags } from './entry-editable'
+export { updateAssetURLForGQL } from './updateAssetURLForGQL'
