@@ -71,6 +71,18 @@ const tableHeadNode: Node = {
     children: []
 }
 
+const tableDataNodeWithVoid: Node = {
+    type: NodeType.TABLE_DATA,
+    attrs: { void: true },
+    children: []
+}
+
+const tableHeadNodeWithVoid: Node = {
+    type: NodeType.TABLE_HEAD,
+    attrs: { void: true },
+    children: []
+}
+
 describe('Default node render options', () => {
     it('Should return document string', done => {
         const renderString = (defaultNodeOption[NodeType.DOCUMENT] as RenderNode)(node, next)
@@ -159,6 +171,12 @@ describe('Default node render options', () => {
 
         renderString = (defaultNodeOption[NodeType.TABLE_DATA] as RenderNode)(tableDataNode, next)
         expect(renderString).toEqual('<td rowspan=\"2\" colspan=\"2\">text</td>')
+
+        renderString = (defaultNodeOption[NodeType.TABLE_HEAD] as RenderNode)(tableHeadNodeWithVoid, next)
+        expect(renderString).toEqual('')
+
+        renderString = (defaultNodeOption[NodeType.TABLE_DATA] as RenderNode)(tableDataNodeWithVoid, next)
+        expect(renderString).toEqual('')
 
         done()
     })
