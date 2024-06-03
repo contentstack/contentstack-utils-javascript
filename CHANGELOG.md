@@ -1,7 +1,11 @@
 # Changelog
 
-## [1.3.4](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.5) (2024-05-31)
+## [1.3.6](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.6) (2024-05-31)
+ - Fix: handle case of td or th nodes with attr void:true
+
+## [1.3.5](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.5) (2024-05-31)
  - Feat: updateAssetURLForGQL added
+ - Fix: add rowspan and colspan attribute to td and th nodes
 
 ## [1.3.4](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.4) (2024-05-13)
  - Fixes for vulnerability issues related to regular expression and options
