@@ -75,6 +75,8 @@ export const defaultNodeOption: RenderOption = {
         return `<tr${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</tr>`
     },
     [NodeType.TABLE_HEAD]:(node: Node, next: Next) => {
+        if (node.attrs.void) return '';
+
         return `<th` +
                 `${node.attrs.rowSpan ? ` rowspan="${node.attrs.rowSpan}"` : ``}` +
                 `${node.attrs.colSpan ? ` colspan="${node.attrs.colSpan}"` : ``}` +
@@ -84,6 +86,8 @@ export const defaultNodeOption: RenderOption = {
                 `</th>`
     },
     [NodeType.TABLE_DATA]:(node: Node, next: Next) => {
+        if (node.attrs.void) return '';
+
         return `<td` +
                 `${node.attrs.rowSpan ? ` rowspan="${node.attrs.rowSpan}"` : ``}` +
                 `${node.attrs.colSpan ? ` colspan="${node.attrs.colSpan}"` : ``}` +
