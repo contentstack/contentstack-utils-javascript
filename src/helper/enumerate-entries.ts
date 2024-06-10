@@ -84,6 +84,39 @@ export function referenceToHTML(
     }
     return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${entryText}</a>`;
   }
+  if (node.attrs && node.attrs['content-type-uid']=== 'sys_assets' || node.attrs.type === 'asset') {
+    // Extract image information
+    const src = node.attrs['asset-link'];
+    const alt = node.attrs?.['redactor-attributes']?.['alt'];
+    const link = node.attrs.link;
+    const target = node.attrs.target || "";
+    const caption = node.attrs?.['redactor-attributes']?.['asset-caption'] || node.attrs?.['asset-caption'] || "";
+    const style = node.attrs.style;
+    const asset_uid= node.attrs['asset-uid'];
+
+    // Build img tag with optional attributes
+    let imageTag = `<img asset_uid="${asset_uid}" src="${src}" alt="${alt}"`;
+
+    if(node.attrs['asset_uid']){
+      imageTag += `asset_uid=${asset_uid}`;
+    }
+    if (node.attrs.target === "_blank") {
+      imageTag += ` target="_blank"`;
+    }
+    if (node.attrs.style) {
+      imageTag += ` style="${node.attrs.style}"`;
+    }
+
+    imageTag += " />";
+
+    const figureTag = `<figure style="${style}">` +
+      (node.attrs.link ? `<a href="${link}" target="${target || ""}">` : "") +
+      imageTag +
+      (node.attrs.link ? `</a>` : "") +
+      (caption ? `<figcaption>${caption}</figcaption>` : "") +
+      `</figure>`;
+    return figureTag;
+  }
   function sendToRenderOption(referenceNode: Node): string {
     return (renderOption[referenceNode.type] as RenderNode)(referenceNode, undefined);
   }
