@@ -1,5 +1,6 @@
 import { jsonToHTML } from '../src/json-to-html'
 import { embeddedAssetWithRenderOption } from './mock/render-options'
+
 import { 
     blockquoteJson,
     codeJson,
@@ -29,7 +30,8 @@ import {
     unorderListJson1,
     unorderListJson2,
     orderListJson2,
-    testJsonRte,} from './mock/json-element-mock'
+    testJsonRte,
+    testJsonAsset} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -54,7 +56,8 @@ import {
     classAndIdAttrsHtml,
     styleObjHtml, 
     referenceObjHtml,
-    referenceObjHtmlBlock} from './mock/json-element-mock-result'
+    referenceObjHtmlBlock,
+    imagetags} from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -635,6 +638,13 @@ describe('Node parse json_rte Content', () => {
         const paths = ['json_rte']
         jsonToHTML({ entry: entry, paths })
         expect(entry.json_rte).toEqual(classAndIdAttrsHtml)
+        done()
+    })
+    it('Testing json to html', done =>{
+        const entry = testJsonAsset
+        const paths =['json_rte']
+        jsonToHTML({ entry: entry, paths})
+        expect(entry.json_rte).toEqual(imagetags)
         done()
     })
 })
