@@ -12,15 +12,15 @@ export const defaultNodeOption: RenderOption = {
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
         if (node.attrs.target) {
-            return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${next(node.children)}</a>`
+            return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${next(node.children)}</a>`
         }
-        return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${next(node.children)}</a>`
+        return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${next(node.children)}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
-        return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}" />${next(node.children)}`
+        return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}" />${next(node.children)}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
-        return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}">${next(node.children)}</iframe>`
+        return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}">${next(node.children)}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
         return `<h1${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h1>`
@@ -101,7 +101,7 @@ export const defaultNodeOption: RenderOption = {
 
     ['reference']:(node: Node, next: Next) => {
         if (node.attrs.type === 'asset') {
-            return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs.class ? ` class="${node.attrs.class}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs['asset-link']}" />`
+            return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs['asset-link']}" />`
         }
         return ``
     },
