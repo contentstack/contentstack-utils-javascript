@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.7](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.7) (2024-06-18)
+ - Fix: Cheerio and DOMPurify packages removed
+
+
 ## [1.3.6](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.6) (2024-05-31)
  - Fix: handle case of td or th nodes with attr void:true
 
