@@ -1,27 +1,11 @@
+const FigureTagRegex = /<\s*figure[^>]*>([^]*?)<\s*\/\s*figure>/g;
+
 export function containsFigureTag(content: string): boolean {
-  const openingTag = '<figure';
-  const closingTag = '</figure>';
-  const openingIndex = content.indexOf(openingTag);
-  const closingIndex = content.indexOf(closingTag);
-  return openingIndex !== -1 && closingIndex !== -1 && closingIndex > openingIndex;
+   return countFigureTags(content) > 0;
 }
 
-export function matchFigureTag(content: string): string[] | null {
-  const matches: string[] = [];
-  const openingTag = '<figure';
-  const closingTag = '</figure>';
-  let startIndex = content.indexOf(openingTag);
-  while (startIndex !== -1) {
-    const endIndex = content.indexOf(closingTag, startIndex);
-    if (endIndex !== -1 && endIndex > startIndex) {
-      matches.push(content.substring(startIndex, endIndex + closingTag.length));
-      startIndex = content.indexOf(openingTag, endIndex + closingTag.length);
-    } else {
-      console.error('Malformed figure tag found in content');
-      break;
-    }
- }
-  return matches.length > 0 ? matches : null;
+export function matchFigureTag(content: string): RegExpMatchArray {
+   return content.match(FigureTagRegex);
 }
 
 export function countFigureTags(content: string): number {
