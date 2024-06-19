@@ -10,16 +10,16 @@ import { defaultOptions } from '../src/options/default-options'
 import { assetReferenceJson, embeddedAssetJsonEntry, embeddedEntryJsonEntry, entryReferenceBlockJson, entryReferenceInlineJson, entryReferenceLinkJson } from './mock/json-element-mock'
 import { embeddedAssetWithRenderOption, embeddedObjectDefaultRender, embeddedObjectWithRenderOption } from './mock/render-options'
 describe('Reference Node To HTML', () => {
-    // it('Should return blank for undefined entry', done => {
-    //     const node = assetReferenceJson.children[0] as unknown as Node
-    //     console.log('Node attributes:', node.attrs); 
-    //     const renderOption = {}
+    it.skip('Should return blank for undefined entry', done => {
+        const node = assetReferenceJson.children[0] as unknown as Node
+        console.log('Node attributes:', node.attrs); 
+        const renderOption = {}
 
-    //     const resultHTML = referenceToHTML(node, renderOption)
+        const resultHTML = referenceToHTML(node, renderOption)
 
-    //     expect(resultHTML).toEqual('')
-    //     done()
-    // })
+        expect(resultHTML).toEqual('')
+        done()
+    })
 
     it('Should return blank for no children', done => {
         const node = {
@@ -49,17 +49,17 @@ describe('Reference Node To HTML', () => {
         done()
     })
 
-    // it('Should return HTML for embedded asset', done => {
-    //     const node = assetReferenceJson.children[0] as unknown as Node
-    //     const renderOption = {}
+    it.skip('Should return HTML for embedded asset', done => {
+        const node = assetReferenceJson.children[0] as unknown as Node
+        const renderOption = {}
 
-    //     const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
-    //         return findEmbeddedItems(metadata, embeddedAssetJsonEntry)[0]
-    //     })
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedAssetJsonEntry)[0]
+        })
 
-    //     expect(resultHTML).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
-    //     done()
-    // })
+        expect(resultHTML).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
+        done()
+    })
 
     it('Should return HTML for embedded block entry', done => {
         const node = entryReferenceBlockJson.children[0] as unknown as Node
@@ -94,17 +94,17 @@ describe('Reference Node To HTML', () => {
         done()
     })
 
-    // // Custom render option
-    // it('Should return custom HTML for embedded asset', done => {
-    //     const node = assetReferenceJson.children[0] as unknown as Node
-    //     const renderOption = embeddedAssetWithRenderOption.renderOption as RenderOption
+    // Custom render option
+    it.skip('Should return custom HTML for embedded asset', done => {
+        const node = assetReferenceJson.children[0] as unknown as Node
+        const renderOption = embeddedAssetWithRenderOption.renderOption as RenderOption
         
-    //     const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
-    //         return findEmbeddedItems(metadata, embeddedAssetJsonEntry)[0]
-    //     })
-    //     expect(resultHTML).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />')
-    //     done()
-    // })
+        const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
+            return findEmbeddedItems(metadata, embeddedAssetJsonEntry)[0]
+        })
+        expect(resultHTML).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />')
+        done()
+    })
 
     it('Should return custom HTML for embedded block entry', done => {
         const node = entryReferenceBlockJson.children[0] as unknown as Node
