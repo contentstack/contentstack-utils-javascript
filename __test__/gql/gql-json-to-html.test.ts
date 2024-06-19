@@ -84,14 +84,15 @@ describe('GQL Json To HTML', () => {
     })
 })
 
+
 describe('Node parser reference content', () => {
     it('Should render reference asset to html from Entry',  done => {
         const entry = gqlEntry(assetReferenceJson as unknown as Document, embeddedItemsConnection)
 
         GQL.jsonToHTML({entry, paths})
 
-        expect(entry.single_rte).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
-        expect(entry.multiple_rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />'])
+        expect(entry.single_rte).toEqual('<figure><img asset_uid=\"asset_uid_1\" src=\"https://image.url/11.jpg\" /></figure>')
+        expect(entry.multiple_rte).toEqual(['<figure><img asset_uid=\"asset_uid_1\" src=\"https://image.url/11.jpg\" /></figure>'])
         done()
     })
 
@@ -100,8 +101,8 @@ describe('Node parser reference content', () => {
 
         GQL.jsonToHTML({entry, paths})
 
-        expect(entry[0].single_rte).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
-        expect(entry[0].multiple_rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />'])
+        expect(entry[0].single_rte).toEqual('<figure><img asset_uid=\"asset_uid_1\" src=\"https://image.url/11.jpg\" /></figure>')
+        expect(entry[0].multiple_rte).toEqual(['<figure><img asset_uid=\"asset_uid_1\" src=\"https://image.url/11.jpg\" /></figure>'])
         done()
     })
 
