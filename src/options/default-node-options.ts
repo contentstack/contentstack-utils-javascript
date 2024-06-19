@@ -2,7 +2,6 @@ import { Next, RenderOption } from ".";
 import MarkType from "../nodes/mark-type";
 import Node from "../nodes/node";
 import NodeType from "../nodes/node-type";
-import * as DOMPurify from 'dompurify';
 
 export const defaultNodeOption: RenderOption = {
     [NodeType.DOCUMENT]:(node: Node) => {
@@ -12,19 +11,16 @@ export const defaultNodeOption: RenderOption = {
         return `<p${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</p>`
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
-        const sanitizedHref = DOMPurify.sanitize(node.attrs.href || node.attrs.url);
         if (node.attrs.target) {
-            return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}" target="${node.attrs.target}">${next(node.children)}</a>`   
+            return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${next(node.children)}</a>`
         }
-         return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}">${next(node.children)}</a>`
+        return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${next(node.children)}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
-        const sanitizedSrc = DOMPurify.sanitize(node.attrs.src || node.attrs.url);
-        return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}" />${next(node.children)}`
+        return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}" />${next(node.children)}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
-        const sanitizedSrc = DOMPurify.sanitize(node.attrs.src || node.attrs.url);
-        return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}">${next(node.children)}</iframe>`
+        return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs.src || node.attrs.url}">${next(node.children)}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
         return `<h1${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${next(node.children)}</h1>`
@@ -104,9 +100,8 @@ export const defaultNodeOption: RenderOption = {
     },
 
     ['reference']:(node: Node, next: Next) => {
-        const sanitizedAsset = DOMPurify.sanitize(node.attrs['asset-link']);
         if (node.attrs.type === 'asset') {
-            return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedAsset}" />`
+            return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${node.attrs['asset-link']}" />`
         }
         return ``
     },
