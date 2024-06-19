@@ -116,45 +116,45 @@ describe('Node parser paragraph content', () => {
 
 
 describe('Node parser reference content', () => {
-    // it('Should render reference asset to html from Entry',  done => {
-    //     const entry = {...embeddedAssetJsonEntry}
+    it.skip('Should render reference asset to html from Entry',  done => {
+        const entry = {...embeddedAssetJsonEntry}
 
-    //     jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
 
-    //     expect(entry.rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
-    //     expect(entry.rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />'])
-    //     done()
-    // })
+        expect(entry.rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
+        expect(entry.rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />'])
+        done()
+    })
 
-    // it('Should render reference asset to html from Entries',  done => {
-    //     const entry = [{ ...embeddedAssetJsonEntry }]
+    it.skip('Should render reference asset to html from Entries',  done => {
+        const entry = [{ ...embeddedAssetJsonEntry }]
 
-    //     jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
 
-    //     expect(entry[0].rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
-    //     expect(entry[0].rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />'])
-    //     done()
-    // })
+        expect(entry[0].rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />')
+        expect(entry[0].rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="dummy.pdf" />'])
+        done()
+    })
 
-    // it('Should render reference asset to html from Entry with custom render option',  done => {
-    //     const entry = {...embeddedAssetJsonEntry}
+    it.skip('Should render reference asset to html from Entry with custom render option',  done => {
+        const entry = {...embeddedAssetJsonEntry}
 
-    //     jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})
 
-    //     expect(entry.rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />')
-    //     expect(entry.rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />'])
-    //     done()
-    // })
+        expect(entry.rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />')
+        expect(entry.rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />'])
+        done()
+    })
 
-    // it('Should render reference asset to html from Entries with custom render option',  done => {
-    //     const entry = [{ ...embeddedAssetJsonEntry }]
+    it.skip('Should render reference asset to html from Entries with custom render option',  done => {
+        const entry = [{ ...embeddedAssetJsonEntry }]
 
-    //     jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})
+        jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})
 
-    //     expect(entry[0].rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />')
-    //     expect(entry[0].rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />'])
-    //     done()
-    // })
+        expect(entry[0].rich_text_editor).toEqual('<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />')
+        expect(entry[0].rte).toEqual(['<img src="/asset_uid_1/dummy.pdf" alt="Alternet Text" />'])
+        done()
+    })
 
     it('should convert to html when and type is reference, attrs type is entry and display-type is link', done => {
         const entry = testJsonRte
