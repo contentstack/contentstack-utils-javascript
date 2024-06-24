@@ -2249,6 +2249,64 @@ const testJsonRte = {
     "updated_by": "",
     "url": "/version-ten",
     "version": "100"
+
+}
+const testJsonAsset={
+  "uid": "",
+  "_version": 3,
+  "locale": "en-us",
+  "json_rte":{
+    "type": "doc",
+    "attrs": {},
+    "uid": "ddec1e08f4634eaca512b113ba4da946",
+    "children": [
+        {
+            "uid": "7dd9bbe6b18449b8b83cabe084b02da4",
+            "type": "reference",
+            "attrs": {
+                "display-type": "display",
+                "asset-uid": "bltb87e0bd5764c421e",
+                "content-type-uid": "sys_assets",
+                "asset-link": "https://images.contentstack.io/v3/assets/blt90bbfcce23680d08/bltb87e0bd5764c421e/64abd49b7b26dfaeede17525/batman.png",
+                "asset-name": "batman.png",
+                "asset-type": "image/png",
+                "type": "asset",
+                "class-name": "embedded-asset",
+                "redactor-attributes": {
+                    "position": "right",
+                    "alt": "batman",
+                    "caption": "The Batman",
+                    "anchorLink": "https://batman.com",
+                    "target": true,
+                    "height": "257"
+                },
+                "style": {
+                    "text-align": "right",
+                    "max-width": "137px",
+                    "float": "right",
+                    "width": "137px",
+                    "max-height": "257px",
+                    "height": "257px"
+                },
+                "position": "right",
+                "asset-alt": "batman",
+                "asset-caption": "The Batman",
+                "link": "https://batman.com",
+                "target": "_blank",
+                "max-width": "137",
+                "width": "137",
+                "max-height": "257",
+                "height": "257"
+            },
+            "children": [
+                {
+                    "text": ""
+                }
+            ]
+        }
+    ],
+    "_version": 22
+  }
 }
 export { 
   h1Json,
@@ -2285,5 +2343,6 @@ export {
   unorderListJson1,
   unorderListJson2,
   orderListJson2,
-  testJsonRte
+  testJsonRte,
+  testJsonAsset
 }
