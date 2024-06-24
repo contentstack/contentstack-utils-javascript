@@ -77,6 +77,47 @@ export function referenceToHTML(
   renderOption: RenderOption,
   renderEmbed?: (metadata: Metadata) => EmbeddedItem | EntryNode,
 ): string {
+  if ( node.children!== undefined && node.attrs.type === 'asset' && node.attrs['content-type-uid'] === 'sys_assets') {
+    
+    // Extract image information
+    const src = node.attrs['asset-link'];
+    const alt = node.attrs?.['redactor-attributes']?.['alt'];
+    const link = node.attrs.link;
+    const target = node.attrs.target || "";
+    const caption = node.attrs?.['redactor-attributes']?.['asset-caption'] || node.attrs?.['asset-caption'] || "";
+    const style = node.attrs.style;
+    const asset_uid= node.attrs['asset-uid'];
+
+    // Build img tag with optional attributes
+    let imageTag = `<img `;
+
+    if(node.attrs['asset-uid']){
+      imageTag += `asset_uid="${asset_uid}"`;
+    }
+    if(node.attrs['asset-link']){
+      imageTag += ` src="${src}"`;
+    }
+    if (node.attrs?.['redactor-attributes']?.['alt']) {
+      imageTag += ` alt="${alt}"`;
+    }
+    if (node.attrs.target === "_blank") {
+      imageTag += ` target="_blank"`;
+    }
+    if (node.attrs.style) {
+      imageTag += ` style="${style}"`;
+    }
+
+    imageTag += " />";
+
+    const figureTag = `<figure${style ? ` style="${style}"` : ''}>` +
+      (link ? `<a href="${link}" target="${target || ""}">` : "") +
+      imageTag +
+      (link ? `</a>` : "") +
+      (caption ? `<figcaption>${caption}</figcaption>` : "") +
+      `</figure>`;
+    return figureTag;
+  }
+  
   if (node.attrs.type === 'entry' && node.attrs['display-type'] === 'link') {
     const entryText = node.children ? nodeChildrenToHTML(node.children, renderOption, renderEmbed) : '';
     if (node.attrs.target) {
@@ -84,9 +125,11 @@ export function referenceToHTML(
     }
     return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${entryText}</a>`;
   }
+  
   function sendToRenderOption(referenceNode: Node): string {
     return (renderOption[referenceNode.type] as RenderNode)(referenceNode, undefined);
   }
+ 
   if (!renderEmbed && renderOption[node.type] !== undefined) {
     return sendToRenderOption(node);
   }
@@ -101,7 +144,9 @@ export function referenceToHTML(
   if (!item && renderOption[node.type] !== undefined) {
     return sendToRenderOption(node);
   }
+  
   return findRenderString(item, metadata, renderOption);
+
 }
 
 function nodeChildrenToHTML(
