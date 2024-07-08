@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.9](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.9) (2024-07-08)
+ - Fix: SRE vulnerabilities fixed
+
 ## [1.3.8](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.8) (2024-06-24)
  - Feat: Support for Image type asset in JsonToHtml 
 
