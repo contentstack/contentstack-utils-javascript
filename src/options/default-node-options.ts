@@ -105,7 +105,22 @@ export const defaultNodeOption: RenderOption = {
 
     ['reference']:(node: Node, next: Next) => {
         if (node.attrs.type === 'asset') {
-            return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${sanitizeHTML(node.attrs['class-name'])}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizeHTML(node.attrs['asset-link'])}" />`
+            const src = node.attrs['asset-link'];
+            const alt = node.attrs?.['redactor-attributes']?.['alt'];
+            const link = node.attrs.link;
+            const target = node.attrs.target || "";
+            const caption = node.attrs?.['redactor-attributes']?.['asset-caption'] || node.attrs?.['asset-caption'] || "";
+            const style = node.attrs.style;
+            const asset_uid= node.attrs['asset-uid'];
+
+            let imageTag = `<img${asset_uid ? ` asset_uid="${asset_uid}"` : `` }${node.attrs['class-name'] ? ` class="${sanitizeHTML(node.attrs['class-name'])}"`: ``}${src ? ` src="${sanitizeHTML(src)}"` : ``}${alt ? ` alt="${alt}"` : `` }${target === "_blank" ? ` target="_blank"` : `` }${style ? ` style="${style}"` : `` } />`;
+
+            return `<figure${style ? ` style="${style}"` : ''}>` +
+                    (link ? `<a href="${link}" target="${target || ""}">` : "") +
+                    imageTag +
+                    (link ? `</a>` : "") +
+                    (caption ? `<figcaption>${caption}</figcaption>` : "") +
+                    `</figure>`;
         }
         return ``
     },
