@@ -31,7 +31,8 @@ import {
     unorderListJson2,
     orderListJson2,
     testJsonRte,
-    testJsonAsset} from './mock/json-element-mock'
+    testJsonAsset,
+    embeddedAssetAsLinkJsonEntry} from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -116,7 +117,7 @@ describe('Node parser paragraph content', () => {
 
 
 describe('Node parser reference content', () => {
-    it.skip('Should render reference asset to html from Entry',  done => {
+    it('Should render reference asset to html from Entry',  done => {
         const entry = {...embeddedAssetJsonEntry}
 
         jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
@@ -126,7 +127,7 @@ describe('Node parser reference content', () => {
         done()
     })
 
-    it.skip('Should render reference asset to html from Entries',  done => {
+    it('Should render reference asset to html from Entries',  done => {
         const entry = [{ ...embeddedAssetJsonEntry }]
 
         jsonToHTML({entry, paths: ['rich_text_editor', 'rte']})
@@ -136,7 +137,7 @@ describe('Node parser reference content', () => {
         done()
     })
 
-    it.skip('Should render reference asset to html from Entry with custom render option',  done => {
+    it('Should render reference asset to html from Entry with custom render option',  done => {
         const entry = {...embeddedAssetJsonEntry}
 
         jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})
@@ -146,7 +147,7 @@ describe('Node parser reference content', () => {
         done()
     })
 
-    it.skip('Should render reference asset to html from Entries with custom render option',  done => {
+    it('Should render reference asset to html from Entries with custom render option',  done => {
         const entry = [{ ...embeddedAssetJsonEntry }]
 
         jsonToHTML({entry, paths: ['rich_text_editor', 'rte'], renderOption: embeddedAssetWithRenderOption.renderOption})

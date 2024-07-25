@@ -152,14 +152,14 @@ describe('Reference Node To HTML', () => {
         }
 
         const resultHTML = referenceToHTML(node, renderOption)
-        expect(resultHTML).toEqual('<figure><img asset_uid=\"asset_uid_1\" src=\"https://image.url/11.jpg\" /></figure>')
+        expect(resultHTML).toEqual('<img src=https://image.url/11.jpg>')
         done()
     })
     it('Should return image for undefined node asset from default node option', done => {
         const node = assetReferenceJson.children[0] as unknown as Node
 
         const resultHTML = referenceToHTML(node, defaultNodeOption)
-        expect(resultHTML).toEqual('<figure><img asset_uid=\"asset_uid_1\" src=\"https://image.url/11.jpg\" /></figure>')
+        expect(resultHTML).toEqual('<figure><img asset_uid=\"asset_uid_1\" class=\"embedded-asset\" src=\"https://image.url/11.jpg\" /></figure>')
         done()
     })
     
