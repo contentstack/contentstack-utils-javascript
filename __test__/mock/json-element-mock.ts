@@ -1138,6 +1138,41 @@ const paragraphJsonArrayEntry = {
     
 }
 
+const embeddedAssetAsLinkJsonEntry = {
+  uid: 'entry_uid',
+  rte_data: {
+    type: 'doc',
+    attrs: {},
+    uid: 'rte_uid',
+    children: [
+      {
+        type: 'p',
+        uid: 'p_uid',
+        attrs: {},
+        children: [
+          { text: '' },
+          {
+            uid: 'ref_uid',
+            type: 'reference',
+            attrs: {
+              'display-type': 'link',
+              type: 'asset',
+              'class-name': 'embedded-entry redactor-component undefined-entry',
+              'asset-uid': 'asset_uid_2',
+              'content-type-uid': 'sys_assets',
+              target: '_self',
+              href: 'https://picsum.photos/200'
+            },
+            children: [ { text: 'Door matching', bold: true, underline: true } ]
+          },
+          { text: '' }
+        ]
+      }
+    ],
+    _version: 4
+  }
+}
+
 const embeddedAssetJsonEntry = {
     uid: 'entry_uid',
     rich_text_editor: {...assetReferenceJson},
@@ -2328,9 +2363,10 @@ export {
   blockquoteJson,
   paragraphEntry,
   unorderListJson, 
-  assetReferenceJson, 
+  assetReferenceJson,
   paragraphJsonArrayEntry, 
   embeddedAssetJsonEntry,
+  embeddedAssetAsLinkJsonEntry,
   embeddedEntryJsonEntry,
   entryReferenceLinkJson,
   entryReferenceBlockJson,
