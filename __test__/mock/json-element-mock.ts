@@ -2258,16 +2258,16 @@ const testJsonAsset={
   "json_rte":{
     "type": "doc",
     "attrs": {},
-    "uid": "ddec1e08f4634eaca512b113ba4da946",
+    "uid": "UID",
     "children": [
         {
-            "uid": "7dd9bbe6b18449b8b83cabe084b02da4",
+            "uid": "UID",
             "type": "reference",
             "attrs": {
                 "display-type": "display",
-                "asset-uid": "bltb87e0bd5764c421e",
+                "asset-uid": "asset-UID",
                 "content-type-uid": "sys_assets",
-                "asset-link": "https://images.contentstack.io/v3/assets/blt90bbfcce23680d08/bltb87e0bd5764c421e/64abd49b7b26dfaeede17525/batman.png",
+                "asset-link": "https://images.contentstack.io/v3/assets/api-key/asset-UID/random-uid/batman.png",
                 "asset-name": "batman.png",
                 "asset-type": "image/png",
                 "type": "asset",
