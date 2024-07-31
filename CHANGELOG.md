@@ -1,5 +1,9 @@
 # Changelog
 
+
+## [1.3.10](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.10) (2024-07-08)
+ - Enhancement: Update default node options
+
 ## [1.3.9](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.9) (2024-07-08)
  - Fix: SRE vulnerabilities fixed
 
