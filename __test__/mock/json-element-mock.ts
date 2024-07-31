@@ -1138,6 +1138,41 @@ const paragraphJsonArrayEntry = {
     
 }
 
+const embeddedAssetAsLinkJsonEntry = {
+  uid: 'entry_uid',
+  rte_data: {
+    type: 'doc',
+    attrs: {},
+    uid: 'rte_uid',
+    children: [
+      {
+        type: 'p',
+        uid: 'p_uid',
+        attrs: {},
+        children: [
+          { text: '' },
+          {
+            uid: 'ref_uid',
+            type: 'reference',
+            attrs: {
+              'display-type': 'link',
+              type: 'asset',
+              'class-name': 'embedded-entry redactor-component undefined-entry',
+              'asset-uid': 'asset_uid_2',
+              'content-type-uid': 'sys_assets',
+              target: '_self',
+              href: 'https://picsum.photos/200'
+            },
+            children: [ { text: 'Door matching', bold: true, underline: true } ]
+          },
+          { text: '' }
+        ]
+      }
+    ],
+    _version: 4
+  }
+}
+
 const embeddedAssetJsonEntry = {
     uid: 'entry_uid',
     rich_text_editor: {...assetReferenceJson},
@@ -2258,16 +2293,16 @@ const testJsonAsset={
   "json_rte":{
     "type": "doc",
     "attrs": {},
-    "uid": "ddec1e08f4634eaca512b113ba4da946",
+    "uid": "UID",
     "children": [
         {
-            "uid": "7dd9bbe6b18449b8b83cabe084b02da4",
+            "uid": "UID",
             "type": "reference",
             "attrs": {
                 "display-type": "display",
-                "asset-uid": "bltb87e0bd5764c421e",
+                "asset-uid": "asset-UID",
                 "content-type-uid": "sys_assets",
-                "asset-link": "https://images.contentstack.io/v3/assets/***REMOVED***/bltb87e0bd5764c421e/64abd49b7b26dfaeede17525/batman.png",
+                "asset-link": "https://images.contentstack.io/v3/assets/api-key/asset-UID/random-uid/batman.png",
                 "asset-name": "batman.png",
                 "asset-type": "image/png",
                 "type": "asset",
@@ -2328,9 +2363,10 @@ export {
   blockquoteJson,
   paragraphEntry,
   unorderListJson, 
-  assetReferenceJson, 
+  assetReferenceJson,
   paragraphJsonArrayEntry, 
   embeddedAssetJsonEntry,
+  embeddedAssetAsLinkJsonEntry,
   embeddedEntryJsonEntry,
   entryReferenceLinkJson,
   entryReferenceBlockJson,
