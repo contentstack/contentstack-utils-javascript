@@ -77,12 +77,18 @@ export function referenceToHTML(
   renderOption: RenderOption,
   renderEmbed?: (metadata: Metadata) => EmbeddedItem | EntryNode,
 ): string {
-  if (node.attrs.type === 'entry' && node.attrs['display-type'] === 'link') {
+  if ((node.attrs.type === 'entry' || node.attrs.type === 'asset') && node.attrs['display-type'] === 'link') {
     const entryText = node.children ? nodeChildrenToHTML(node.children, renderOption, renderEmbed) : '';
+
+    let aTagAttrs = `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}"`;
     if (node.attrs.target) {
-      return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}" target="${node.attrs.target}">${entryText}</a>`   
+      aTagAttrs +=` target="${node.attrs.target}"`;
     }
-    return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}">${entryText}</a>`;
+    if(node.attrs.type == 'asset') {
+      aTagAttrs += ` type="asset" content-type-uid="sys_assets" ${node.attrs['asset-uid'] ? `data-sys-asset-uid="${node.attrs['asset-uid']}"` : ``} sys-style-type="download"`
+    }
+    const aTag = `<a${aTagAttrs}>${entryText}</a>`;
+    return aTag;
   }
   
   function sendToRenderOption(referenceNode: Node): string {
