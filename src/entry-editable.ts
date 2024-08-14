@@ -1,105 +1,121 @@
-import { EntryModel } from ".";
+import { EntryModel } from "."
 
-export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us') : void {  
-    if (entry)  
-        entry.$ = getTag(entry, `${contentTypeUid}.${entry.uid}.${locale}`, tagsAsObject, locale)        
-}
+  export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us') : void {  
+      if (entry) { 
+          const appliedVariants = entry._applied_variants || null;
+          entry.$ = getTag(entry, `${contentTypeUid}.${entry.uid}.${locale}`, tagsAsObject, locale, {_applied_variants: appliedVariants, shouldApplyVariant: !!appliedVariants, metaKey: ''})      }  
+  }
+  
+  function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string, appliedVariants: {_applied_variants:{[key: string]: any}, shouldApplyVariant: boolean, metaKey: string}): object {
+      const tags: any = {}
+      const { metaKey, shouldApplyVariant, _applied_variants } = appliedVariants
+      Object.entries(content).forEach(([key, value]) => {      
+          if (key === '$') return
+          let metaUID = value && typeof value === 'object' && value._metadata && value._metadata.uid ? value._metadata.uid : '';
+          let updatedMetakey = appliedVariants.shouldApplyVariant ? `${appliedVariants.metaKey ? appliedVariants.metaKey + '.' : '' }${key}` : '';
+          if(metaUID && updatedMetakey) updatedMetakey = updatedMetakey + '.' + metaUID;
+          switch (typeof value) {
+              case "object":
+                  if (Array.isArray(value)) {
+                      value.forEach((obj, index) => {
+                          const childKey = `${key}__${index}`
+                          const parentKey = `${key}__parent`
+                          metaUID = value && typeof value === 'object' && obj._metadata && obj._metadata.uid ? obj._metadata.uid : '';
+                          updatedMetakey = appliedVariants.shouldApplyVariant ? `${appliedVariants.metaKey ? appliedVariants.metaKey + '.' : '' }${key}` : '';
+                          if(metaUID && updatedMetakey) updatedMetakey = updatedMetakey + '.' + metaUID;
+                          /**
+                           * Indexes of array are handled here
+                           * {
+                           *  "array": ["hello", "world"],
+                           *  "$": {
+                           *      "array": {"data-cslp": "content_type_uid.entry_uid.locale.array"}
+                           *      "array__0": {"data-cslp": "content_type_uid.entry_uid.locale.array.0"}
+                           *      "array__1": {"data-cslp": "content_type_uid.entry_uid.locale.array.1"}
+                           *  }
+                           * }
+                           */
+                          tags[childKey] = getTagsValue(`${prefix}.${key}.${index}`, tagsAsObject, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                          tags[parentKey] = getParentTagsValue(`${prefix}.${key}`, tagsAsObject)
+                          if (typeof obj !== 'undefined' && obj !== null && obj._content_type_uid !== undefined && obj.uid !== undefined) {
+                              /**
+                               * References are handled here
+                               * {
+                               *  "reference": [{
+                               *      "title": "title",
+                               *      "uid": "ref_uid",
+                               *      "_content_type_uid": "ref_content_type_uid",
+                               *     "$": {"title": {"data-cslp": "ref_content_type_uid.ref_uid.locale.title"}}
+                               *  }]
+                               * }
+                               */
+                              const newAppliedVariants = obj._applied_variants || _applied_variants;
+                              const newShouldApplyVariant = !!newAppliedVariants
+                              value[index].$ = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale, {_applied_variants:newAppliedVariants, shouldApplyVariant:newShouldApplyVariant, metaKey: updatedMetakey})
+                          }else if (typeof obj === "object") {
+                              /**
+                               * Objects inside Array like modular blocks are handled here
+                               * {
+                               *  "array": [{
+                               *    "title": "title",
+                               *    "$": {"title": {"data-cslp": "content_type_uid.entry_uid.locale.array.0.title"}}
+                               *  }]
+                               * }
+                               */
+                              obj.$ = getTag(obj,`${prefix}.${key}.${index}`, tagsAsObject, locale, {_applied_variants, shouldApplyVariant, metaKey: updatedMetakey})
+                          }
+                      })
+                  }else {
+                      if (value) {
+                          /**
+                           * Objects are handled here
+                           * {
+                           *  "object": {
+                           *      "title": "title",
+                           *      "$": {
+                           *          "title": {"data-cslp": "content_type_uid.entry_uid.locale.object.title"}
+                           *      }
+                           *  },
+                           * }
+                           */
+                          value.$ = getTag(value, `${prefix}.${key}`, tagsAsObject, locale, {_applied_variants, shouldApplyVariant, metaKey: updatedMetakey})
+                      }
+                  }
+                  /**
+                   * {
+                   *  "object": {
+                   *      "title": "title",
+                   *  },
+                   *  "array": ["hello", "world"]
+                   *  "$": {
+                   *      "object": {"data-cslp": "content_type_uid.entry_uid.locale.object"},
+                   *      "array": {"data-cslp": "content_type_uid.entry_uid.locale.array"}
+                   *  }
+                   * }
+                   */
 
-function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string): object {
-    const tags: any = {}
-    Object.entries(content).forEach(([key, value]) => {      
-        if (key === '$') return
-
-        switch (typeof value) {
-            case "object":
-                if (Array.isArray(value)) {
-                    value.forEach((obj, index) => {
-                        const childKey = `${key}__${index}`
-                        const parentKey = `${key}__parent`
-                        /**
-                         * Indexes of array are handled here
-                         * {
-                         *  "array": ["hello", "world"],
-                         *  "$": {
-                         *      "array": {"data-cslp": "content_type_uid.entry_uid.locale.array"}
-                         *      "array__0": {"data-cslp": "content_type_uid.entry_uid.locale.array.0"}
-                         *      "array__1": {"data-cslp": "content_type_uid.entry_uid.locale.array.1"}
-                         *  }
-                         * }
-                         */
-                        tags[childKey] = getTagsValue(`${prefix}.${key}.${index}`, tagsAsObject)
-                        tags[parentKey] = getParentTagsValue(`${prefix}.${key}`, tagsAsObject)
-                        if (typeof obj !== 'undefined' && obj !== null && obj._content_type_uid !== undefined && obj.uid !== undefined) {
-                            /**
-                             * References are handled here
-                             * {
-                             *  "reference": [{
-                             *      "title": "title",
-                             *      "uid": "ref_uid",
-                             *      "_content_type_uid": "ref_content_type_uid",
-                             *     "$": {"title": {"data-cslp": "ref_content_type_uid.ref_uid.locale.title"}}
-                             *  }]
-                             * }
-                             */
-                            value[index].$ = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale)
-                        }else if (typeof obj === "object") {
-                            /**
-                             * Objects inside Array like modular blocks are handled here
-                             * {
-                             *  "array": [{
-                             *    "title": "title",
-                             *    "$": {"title": {"data-cslp": "content_type_uid.entry_uid.locale.array.0.title"}}
-                             *  }]
-                             * }
-                             */
-                            obj.$ = getTag(obj,`${prefix}.${key}.${index}`, tagsAsObject, locale)
-                        }
-                    })
-                }else {
-                    if (value) {
-                        /**
-                         * Objects are handled here
-                         * {
-                         *  "object": {
-                         *      "title": "title",
-                         *      "$": {
-                         *          "title": {"data-cslp": "content_type_uid.entry_uid.locale.object.title"}
-                         *      }
-                         *  },
-                         * }
-                         */
-                        value.$ = getTag(value, `${prefix}.${key}`, tagsAsObject, locale)
-                    }
-                }
-                /**
-                 * {
-                 *  "object": {
-                 *      "title": "title",
-                 *  },
-                 *  "array": ["hello", "world"]
-                 *  "$": {
-                 *      "object": {"data-cslp": "content_type_uid.entry_uid.locale.object"},
-                 *      "array": {"data-cslp": "content_type_uid.entry_uid.locale.array"}
-                 *  }
-                 * }
-                 */
-                tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject)
-                break;
-            default:
-                /**
-                 * All primitive values are handled here
-                 * {
-                 *  "title": "title",
-                 *  "$": {title: {"data-cslp": "content_type_uid.entry_uid.locale.title"}}
-                 * }
-                 */
-                tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject)
-        }
-    })
-    return tags
-}
-
-function getTagsValue (dataValue:string, tagsAsObject: boolean): any {
+                  tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                  break;
+              default:
+                  /**
+                   * All primitive values are handled here
+                   * {
+                   *  "title": "title",
+                   *  "$": {title: {"data-cslp": "content_type_uid.entry_uid.locale.title"}}
+                   * }
+                   */
+                  tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+          }
+      })
+      return tags
+  }
+  
+function getTagsValue (dataValue:string, tagsAsObject: boolean, appliedVariants: {_applied_variants: {[key: string]: any}, shouldApplyVariant: boolean, metaKey: string}): any {
+    if(appliedVariants.shouldApplyVariant && appliedVariants._applied_variants && appliedVariants._applied_variants[appliedVariants.metaKey]) {
+        const variant = appliedVariants._applied_variants[appliedVariants.metaKey]
+        const newDataValueArray = dataValue.split('.');
+        newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
+        dataValue = newDataValueArray.join('.');
+    }
     if (tagsAsObject) {
         return { "data-cslp": dataValue };
     } else {
