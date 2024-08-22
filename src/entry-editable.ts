@@ -112,7 +112,8 @@ import { EntryModel } from "."
 function getTagsValue (dataValue:string, tagsAsObject: boolean, appliedVariants: {_applied_variants: {[key: string]: any}, shouldApplyVariant: boolean, metaKey: string}): any {
     if(appliedVariants.shouldApplyVariant && appliedVariants._applied_variants && appliedVariants._applied_variants[appliedVariants.metaKey]) {
         const variant = appliedVariants._applied_variants[appliedVariants.metaKey]
-        const newDataValueArray = dataValue.split('.');
+        // Adding v2 prefix to the cslp tag. New cslp tags are in v2 format. ex: v2:content_type_uid.entry_uid.locale.title
+        const newDataValueArray = ('v2:' + dataValue).split('.');
         newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
         dataValue = newDataValueArray.join('.');
     }
