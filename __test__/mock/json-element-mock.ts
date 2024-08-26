@@ -1139,38 +1139,51 @@ const paragraphJsonArrayEntry = {
 }
 
 const embeddedAssetAsLinkJsonEntry = {
-  uid: 'entry_uid',
-  rte_data: {
-    type: 'doc',
-    attrs: {},
-    uid: 'rte_uid',
-    children: [
+  "type": "doc",
+  "attrs": {},
+  "uid": "1b212916f2784af4bcf9a0af5018364e",
+  "children": [
       {
-        type: 'p',
-        uid: 'p_uid',
-        attrs: {},
-        children: [
-          { text: '' },
-          {
-            uid: 'ref_uid',
-            type: 'reference',
-            attrs: {
-              'display-type': 'link',
-              type: 'asset',
-              'class-name': 'embedded-entry redactor-component undefined-entry',
-              'asset-uid': 'asset_uid_2',
-              'content-type-uid': 'sys_assets',
-              target: '_self',
-              href: 'https://picsum.photos/200'
-            },
-            children: [ { text: 'Door matching', bold: true, underline: true } ]
-          },
-          { text: '' }
-        ]
+          "type": "p",
+          "attrs": {},
+          "uid": "3f3a84966368435388b7b9948283be2e",
+          "children": [
+              {
+                  "text": "asda"
+              },
+              {
+                  "uid": "c2384ca128a64ee89e82b7aaab77e7b1",
+                  "type": "reference",
+                  "attrs": {
+                      "display-type": "link",
+                      "type": "asset",
+                      "class-name": "embedded-entry redactor-component undefined-entry",
+                      "asset-uid": "***REMOVED***",
+                      "content-type-uid": "sys_assets",
+                      "target": "_self",
+                      "href": "https://images.contentstack.io/v3/assets/***REMOVED***/***REMOVED***/657304603ed4d5773c01feed/Screenshot_2023-03-01_at_1.09.39_PM.png"
+                  },
+                  "children": [
+                      {
+                          "text": "s"
+                      },
+                      {
+                          "text": "das",
+                          "bold": true
+                      }
+                  ]
+              },
+              {
+                  "text": "d",
+                  "bold": true
+              },
+              {
+                  "text": "as"
+              }
+          ]
       }
-    ],
-    _version: 4
-  }
+  ],
+  "_version": 1
 }
 
 const embeddedAssetJsonEntry = {
