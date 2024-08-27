@@ -50,7 +50,7 @@ import { EntryModel } from "."
                                */
                               const newAppliedVariants = obj._applied_variants || _applied_variants;
                               const newShouldApplyVariant = !!newAppliedVariants
-                              value[index].$ = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale, {_applied_variants:newAppliedVariants, shouldApplyVariant:newShouldApplyVariant, metaKey: updatedMetakey})
+                              value[index].$ = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale, {_applied_variants:newAppliedVariants, shouldApplyVariant:newShouldApplyVariant, metaKey: ""})
                           }else if (typeof obj === "object") {
                               /**
                                * Objects inside Array like modular blocks are handled here
