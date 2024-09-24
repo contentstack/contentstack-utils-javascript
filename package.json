@@ -53,7 +53,7 @@
     "jsdom": "^21.1.2",
     "jsdom-global": "^3.0.2",
     "prettier": "^2.8.8",
-    "rollup": "^2.79.1",
+    "rollup": "^3.29.5",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
