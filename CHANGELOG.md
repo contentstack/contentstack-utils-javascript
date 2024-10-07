@@ -1,6 +1,9 @@
 # Changelog
 
 
+## [1.3.12](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.12) (2024-09-30)
+ - Fix: addTags methods changes for Variants
+
 ## [1.3.11](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.11) (2024-08-21)
  - Fix: Reference to HTML fixed to support assets that are referenced
 
