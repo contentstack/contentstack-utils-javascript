@@ -2,9 +2,9 @@ import { EntryModel } from "."
 
   export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us') : void {  
       if (entry) { 
-          const appliedVariants = entry._applied_variants || null;
-          entry.$ = getTag(entry, `${contentTypeUid}.${entry.uid}.${locale}`, tagsAsObject, locale, {_applied_variants: appliedVariants, shouldApplyVariant: !!appliedVariants, metaKey: ''})      }  
-  }
+          const appliedVariants = entry._applied_variants || entry?.system?.applied_variants || null;
+         entry.$ = getTag(entry, `${contentTypeUid}.${entry.uid}.${locale}`, tagsAsObject, locale, {_applied_variants: appliedVariants, shouldApplyVariant: !!appliedVariants, metaKey: ''})      }  
+        }
   
   function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string, appliedVariants: {_applied_variants:{[key: string]: any}, shouldApplyVariant: boolean, metaKey: string}): object {
       const tags: any = {}
@@ -48,7 +48,7 @@ import { EntryModel } from "."
                                *  }]
                                * }
                                */
-                              const newAppliedVariants = obj._applied_variants || _applied_variants;
+                              const newAppliedVariants = obj._applied_variants || obj?.system?.applied_variants || _applied_variants;
                               const newShouldApplyVariant = !!newAppliedVariants
                               value[index].$ = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale, {_applied_variants:newAppliedVariants, shouldApplyVariant:newShouldApplyVariant, metaKey: ""})
                           }else if (typeof obj === "object") {
