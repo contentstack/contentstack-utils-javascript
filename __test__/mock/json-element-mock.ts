@@ -1158,10 +1158,10 @@ const embeddedAssetAsLinkJsonEntry = {
                       "display-type": "link",
                       "type": "asset",
                       "class-name": "embedded-entry redactor-component undefined-entry",
-                      "asset-uid": "***REMOVED***",
+                      "asset-uid": "bltbcfce09569234229",
                       "content-type-uid": "sys_assets",
                       "target": "_self",
-                      "href": "https://images.contentstack.io/v3/assets/***REMOVED***/***REMOVED***/657304603ed4d5773c01feed/Screenshot_2023-03-01_at_1.09.39_PM.png"
+                      "href": "https://images.contentstack.io/v3/assets/***REMOVED***/bltbcfce09569234229/657304603ed4d5773c01feed/Screenshot_2023-03-01_at_1.09.39_PM.png"
                   },
                   "children": [
                       {
