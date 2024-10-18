@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.3.13](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.13) (2024-10-22)
+ - Enh: Node version bump
 
 ## [1.3.12](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.12) (2024-09-30)
  - Fix: addTags methods changes for Variants
