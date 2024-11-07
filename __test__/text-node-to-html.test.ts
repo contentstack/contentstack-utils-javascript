@@ -73,7 +73,7 @@ describe('Text Node To HTML', () => {
             ...defaultNodeOption
         })
 
-        expect(resultHtml).toEqual(`<span>${textNode.text}</span>`)
+        expect(resultHtml).toEqual(`<span data-type='inlineCode'>${textNode.text}</span>`)
         done()
     })
     it('Should return Subscript string text', done => {
@@ -119,7 +119,7 @@ describe('Text Node To HTML', () => {
             ...defaultNodeOption
         })
 
-        expect(resultHtml).toEqual(`<strong><em><u><strike><span><sub><sup>${textNode.text}</sup></sub></span></strike></u></em></strong>`)
+        expect(resultHtml).toEqual(`<strong><em><u><strike><span data-type='inlineCode'><sub><sup>${textNode.text}</sup></sub></span></strike></u></em></strong>`)
         done()
     })
 })
