@@ -218,17 +218,17 @@ describe('Default node render options', () => {
         expect(renderString).toEqual('<strike>text</strike>')
         done()
     })
-    it('Should return bold string', done => {
+    it('Should return inline code string', done => {
         const renderString = (defaultNodeOption[MarkType.INLINE_CODE] as RenderMark)(text)
-        expect(renderString).toEqual('<span>text</span>')
+        expect(renderString).toEqual(`<span data-type='inlineCode'>text</span>`)
         done()
     })
-    it('Should return bold string', done => {
+    it('Should return subscript string', done => {
         const renderString = (defaultNodeOption[MarkType.SUBSCRIPT] as RenderMark)(text)
         expect(renderString).toEqual('<sub>text</sub>')
         done()
     })
-    it('Should return bold string', done => {
+    it('Should return superscript string', done => {
         const renderString = (defaultNodeOption[MarkType.SUPERSCRIPT] as RenderMark)(text)
         expect(renderString).toEqual('<sup>text</sup>')
         done()
