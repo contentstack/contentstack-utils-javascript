@@ -174,7 +174,7 @@ describe('Node parser reference content', () => {
             rte_data: {...embeddedAssetAsLinkJsonEntry},
         }
         const paths = ["rte_data"]
-        const result = `<p>asda<a class="embedded-entry redactor-component undefined-entry" href="https://images.contentstack.io/v3/assets/blt144f0e44ce32a42f/bltbcfce09569234229/657304603ed4d5773c01feed/Screenshot_2023-03-01_at_1.09.39_PM.png" target="_self" content-type-uid="sys_assets" data-sys-asset-uid="bltbcfce09569234229" sys-style-type="download">s<strong>das</strong></a><strong>d</strong>as</p>`
+        const result = `<p>asda<a class="embedded-entry redactor-component undefined-entry" href="https://images.contentstack.io/v3/assets/***REMOVED***/bltbcfce09569234229/657304603ed4d5773c01feed/Screenshot_2023-03-01_at_1.09.39_PM.png" target="_self" content-type-uid="sys_assets" data-sys-asset-uid="bltbcfce09569234229" sys-style-type="download">s<strong>das</strong></a><strong>d</strong>as</p>`
         jsonToHTML({ entry: entry, paths })
          
         expect(entry.rte_data).toBe(result)
