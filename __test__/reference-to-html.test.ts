@@ -10,9 +10,8 @@ import { defaultOptions } from '../src/options/default-options'
 import { assetReferenceJson, embeddedAssetJsonEntry, embeddedEntryJsonEntry, entryReferenceBlockJson, entryReferenceInlineJson, entryReferenceLinkJson } from './mock/json-element-mock'
 import { embeddedAssetWithRenderOption, embeddedObjectDefaultRender, embeddedObjectWithRenderOption } from './mock/render-options'
 describe('Reference Node To HTML', () => {
-    it.skip('Should return blank for undefined entry', done => {
+    it('Should return blank for undefined entry', done => {
         const node = assetReferenceJson.children[0] as unknown as Node
-        console.log('Node attributes:', node.attrs); 
         const renderOption = {}
 
         const resultHTML = referenceToHTML(node, renderOption)
@@ -49,7 +48,7 @@ describe('Reference Node To HTML', () => {
         done()
     })
 
-    it.skip('Should return HTML for embedded asset', done => {
+    it('Should return HTML for embedded asset', done => {
         const node = assetReferenceJson.children[0] as unknown as Node
         const renderOption = {}
 
@@ -95,7 +94,7 @@ describe('Reference Node To HTML', () => {
     })
 
     // Custom render option
-    it.skip('Should return custom HTML for embedded asset', done => {
+    it('Should return custom HTML for embedded asset', done => {
         const node = assetReferenceJson.children[0] as unknown as Node
         const renderOption = embeddedAssetWithRenderOption.renderOption as RenderOption
         
