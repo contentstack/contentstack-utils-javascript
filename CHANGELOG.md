@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.14](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.14) (2024-11-18)
+ - Fix: Added Table cell merge in table tags
+
 ## [1.3.13](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.13) (2024-10-22)
  - Enh: Node version bump
 
