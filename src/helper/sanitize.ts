@@ -1,8 +1,8 @@
 
-type AllowedTags = 'p' | 'a' | 'strong' | 'em' | 'ul' | 'ol' | 'li' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'sub' | 'u' | 'table' | 'thead' | 'tbody' | 'tr' | 'th' | 'td' | 'span' | 'fragment' | 'strike' | 'sup' | 'br';
+type AllowedTags = 'p' | 'a' | 'strong' | 'em' | 'ul' | 'ol' | 'li' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'sub' | 'u' | 'table' | 'thead' | 'tbody' | 'tr' | 'th' | 'td' | 'span' | 'fragment' | 'strike' | 'sup' | 'br'| 'img';
 type AllowedAttributes = 'href' | 'title' | 'target' | 'alt' | 'src' | 'class' | 'id' | 'style' | 'colspan' | 'rowspan' | 'content-type-uid' | 'data-sys-asset-uid' | 'sys-style-type' | 'data-type';
 
-export function sanitizeHTML(input: string, allowedTags: AllowedTags[] = ['p', 'a', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'sub', 'u', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'span', 'fragment', 'sup', 'strike', 'br'], allowedAttributes: AllowedAttributes[] = ['href', 'title', 'target', 'alt', 'src', 'class', 'id', 'style', 'colspan', 'rowspan', 'content-type-uid', 'data-sys-asset-uid', 'sys-style-type', 'data-type']): string {
+export function sanitizeHTML(input: string, allowedTags: AllowedTags[] = ['p', 'a', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'sub', 'u', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'span', 'fragment', 'sup', 'strike', 'br', 'img'], allowedAttributes: AllowedAttributes[] = ['href', 'title', 'target', 'alt', 'src', 'class', 'id', 'style', 'colspan', 'rowspan', 'content-type-uid', 'data-sys-asset-uid', 'sys-style-type', 'data-type']): string {
     // Regular expression to find and remove all HTML tags except the allowed ones
     const sanitized = input.replace(/<\/?([a-z][a-z0-9]*)\b[^<>]*>/gi, (match, tag) => {
         return allowedTags.includes(tag.toLowerCase()) ? match : '';
