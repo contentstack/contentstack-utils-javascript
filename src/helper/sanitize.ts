@@ -1,19 +1,22 @@
 
-type AllowedTags = 'p' | 'a' | 'strong' | 'em' | 'ul' | 'ol' | 'li' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'sub' | 'u' | 'table' | 'thead' | 'tbody' | 'tr' | 'th' | 'td' | 'span'|'fragment'|'strike'|'sup'|'br';
-type AllowedAttributes = 'href' | 'title' | 'target' | 'alt' | 'src' | 'class' | 'id' | 'style';
+type AllowedTags = 'p' | 'a' | 'strong' | 'em' | 'ul' | 'ol' | 'li' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'sub' | 'u' | 'table' | 'thead' | 'tbody' | 'tr' | 'th' | 'td' | 'span' | 'fragment' | 'strike' | 'sup' | 'br'| 'img';
+type AllowedAttributes = 'href' | 'title' | 'target' | 'alt' | 'src' | 'class' | 'id' | 'style' | 'colspan' | 'rowspan' | 'content-type-uid' | 'data-sys-asset-uid' | 'sys-style-type' | 'data-type';
 
-export function sanitizeHTML(input: string, allowedTags: AllowedTags[] = ['p', 'a', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'sub', 'u', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'span','fragment','sup','strike','br'], allowedAttributes: AllowedAttributes[] = ['href', 'title', 'target', 'alt', 'src', 'class', 'id', 'style']): string {
+export function sanitizeHTML(input: string, allowedTags: AllowedTags[] = ['p', 'a', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'sub', 'u', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'span', 'fragment', 'sup', 'strike', 'br', 'img'], allowedAttributes: AllowedAttributes[] = ['href', 'title', 'target', 'alt', 'src', 'class', 'id', 'style', 'colspan', 'rowspan', 'content-type-uid', 'data-sys-asset-uid', 'sys-style-type', 'data-type']): string {
     // Regular expression to find and remove all HTML tags except the allowed ones
     const sanitized = input.replace(/<\/?([a-z][a-z0-9]*)\b[^<>]*>/gi, (match, tag) => {
         return allowedTags.includes(tag.toLowerCase()) ? match : '';
     });
 
     // Regular expression to remove all attributes except the allowed ones
-    const cleaned = sanitized.replace(/\s([a-z:]+)=['"][^'"]*['"]/gi
-    , (match, attribute) => {
-        return allowedAttributes.includes(attribute.toLowerCase()) ? match : '';
+    const cleaned = sanitized.replace(/<([a-z][a-z0-9]*)\b[^<>]*>/gi, (match, tag) => {
+        if (!allowedTags.includes(tag.toLowerCase())) {
+            return match; // Ignore tags not in allowedTags
+        }
+        // For each tag that is allowed, clean its attributes
+        return match.replace(/\s([a-z\-]+)=['"][^'"]*['"]/gi, (attributeMatch, attribute) => {
+            return allowedAttributes.includes(attribute.toLowerCase()) ? attributeMatch : '';
+        });
     });
-
     return cleaned;
 }
-
