@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.15](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.15) (2024-11-18)
+ - Fix: Added Table merge cell functionality
+
 ## [1.3.14](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.14) (2024-11-12)
  - Fix: Add data-type attr to inlineCode
 
