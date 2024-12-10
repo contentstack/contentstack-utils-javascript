@@ -1,4 +1,6 @@
 # Changelog
+## [1.3.16](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.16) (2024-12-11)
+ - Fix: Updated rendorOption code block in reaadme file
 
 ## [1.3.15](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.15) (2024-11-18)
  - Fix: Added Table merge cell functionality

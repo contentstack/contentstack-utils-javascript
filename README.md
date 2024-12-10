@@ -23,48 +23,61 @@ Let’s learn how you can use Utils SDK to render RTE embedded items and Superch
 To render embedded items on the front-end, use the renderOptions function, and define the UI elements you want to show in the front-end of your website, as shown in the example below:
 ```js
 const renderOption = {
-	// to render Supercharged RTE NodeType content like paragraph, link, table, order list, un-order list and more.
-	p: (node, next) => {
-		return `<p class='class-id'>${next(node.children)}</p>` // you will need to call next function with node children contents
-	},
-	h1: (node, next) => {
-		return `<h1 class='class-id'>${next(node.children)}</h1>` // you will need to call next function with node children contents
-	},
-	// to render Supercharged RTE MarkType content like bold, italic, underline, strikethrough, inlineCode, subscript, and superscript
-	bold: (text) => {
-		return `<b>${next(node.children)}</b>`
-	},
-	// to render block-type embedded items  
-	block: {  
-		'product': (item, metadata) => {  
-			return `<div>  
-					<h2 >${item.title}</h2>  
-					<img src=${item.product_image.url} alt=${item.product_image.title}/>  
-					<p>${item.price}</p>  
-					</div>`  
-		},
-		// to render the default  
-		'$default': (item, metadata) => {  
-			return `<div>  
-					<h2>${item.title}</h2>  
-					<p>${item.description}</p>  
-					</div>`
-		}  
-	},
-	// to display inline embedded items  
-	inline: {  
-		'$default': (item, metadata) => {  
-			return `<span><b>${item.title}</b> - ${item.description}</span>`
-		}  
-	},
-	// to display embedded items inserted via link  
-	link: (item, metadata) => {  
-		return `<a href="${metadata.attributes.href}">${metadata.text}</a>`
-	},
-	// to display assets  
-	display: (item, metadata) => {  
-		return `<img src=${metadata.attributes.src} alt=${metadata.alt} />`
-	}  
+    // To render paragraph nodes
+    p: (node, next) => `<p class="class-id">${next(node.children)}</p>`,
+    // To render heading level 1 nodes
+    h1: (node, next) => `<h1 class="class-id">${next(node.children)}</h1>`,
+    // To render bold text
+    bold: (text) => `<b>${text}</b>`,
+    // To render block-type embedded items
+    block: {
+        product: (item) =>
+            `<div>
+                <h2>${item.title}</h2>
+                <img src="${item.product_image.url}" alt="${item.product_image.title}" />
+                <p>${item.price}</p>
+            </div>`,
+        $default: (item) =>
+            `<div>
+                <h2>${item.title}</h2>
+                <p>${item.description}</p>
+            </div>`,
+    },
+    // To render inline embedded items
+    inline: {
+        $default: (item) =>
+            `<span><b>${item.title}</b> - ${item.description}</span>`,
+    },
+    // To render link (a) nodes
+    a: (node) => {
+        const { attrs, children } = node;
+        const childText = children.map((child) => child.text || '').join('');
+        return `<a href="${attrs.url}" target="${attrs.target || '_self'}">${childText}</a>`;
+    },
+    // To render embedded assets
+    display: (item, metadata) => {
+        const { attributes } = metadata;
+        return `<img src="${attributes.src}" alt="${attributes.alt || 'Asset'}" />`;
+    },
+    // To render embedded entry & asset references
+    reference: (node) => {
+        const { attrs, children } = node;
+        const childText = children.map((child) => child.text || '').join('');
+        if (attrs.type === 'entry') {
+            return `<a href="${attrs.href}" class="${attrs['class-name'] || ''}">${childText}</a>`;
+        } else if (attrs.type === 'asset') {
+            if (attrs['display-type'] === 'link') {
+                return `<a href="${attrs['asset-link']}" class="${attrs['class-name'] || ''}" target="_blank">${attrs['asset-name'] || 'View Asset'}</a>`;
+            }
+            
+            if (attrs['display-type'] === 'display') {
+                return `<img src="${attrs['asset-link']}" alt="${attrs['asset-alt'] || attrs['asset-name']}" class="${attrs['class-name'] || ''}" />`;
+            }
+        }
+        return childText; // Fallback for unknown references
+    },
+    // Default handler for unknown nodes
+    default: (node, next) => `<div>${next(node.children)}</div>`,
 }
 ```
 
