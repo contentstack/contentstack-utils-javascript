@@ -59,8 +59,26 @@ export const defaultNodeOption: RenderOption = {
     [NodeType.HR]:(node: Node, next: Next) => {
         return `<hr>`
     },
-    [NodeType.TABLE]:(node: Node, next: Next) => {
-        return `<table${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</table>`
+    [NodeType.TABLE]: (node: Node, next: Next) => {
+        // Generate colgroup if colWidths attribute is present
+        let colgroupHTML = '';
+        if (node.attrs.colWidths && Array.isArray(node.attrs.colWidths)) {
+            const totalWidth = node.attrs.colWidths.reduce((sum, width) => sum + width, 0);
+            colgroupHTML = `<${NodeType.COL_GROUP} data-width="${totalWidth}">`;
+            node.attrs.colWidths.forEach(colWidth => {
+                const widthPercentage = (colWidth / totalWidth) * 100;
+                colgroupHTML += `<${NodeType.COL} style="width:${widthPercentage.toFixed(2)}%"/>`;
+            });
+            colgroupHTML += `</${NodeType.COL_GROUP}>`;
+        }
+    
+        // Generate table with colgroup and other attributes
+        return `<table${node.attrs.style ? ` style="${node.attrs.style}"` : ``}` +
+               `${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}` +
+               `${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>` +
+               `${colgroupHTML}` +
+               `${sanitizeHTML(next(node.children))}` +
+               `</table>`;
     },
     [NodeType.TABLE_HEADER]:(node: Node, next: Next) => {
         return `<thead${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</thead>`
