@@ -27,6 +27,8 @@ enum NodeType {
     TABLE_ROW = 'tr',
     TABLE_HEAD = 'th',
     TABLE_DATA = 'td',
+    COL_GROUP = 'colgroup',
+    COL = 'col',
 
     BLOCK_QUOTE = 'blockquote',
     CODE = 'code',
