@@ -132,3 +132,174 @@ export const gqlResponseForAssetUpdateWithoutSystemUid = {
     }
   }
 }
+
+export const gqlResponseForAssetUpdateMultipleEntries = {
+  "data": {
+    "page_json_rte": {
+      "total": 1,
+      "items": [
+        {
+          "body_new": [
+            {
+              "__typename": "CopyOfArticleTutorialBodyNewBody",
+              "body": {
+                "body_12": {
+                  "json": {
+                    "type": "doc",
+                    "attrs": {},
+                    "uid": "rte_uid",
+                    "children": [
+                      {
+                        "uid": "ref_uid",
+                        "type": "reference",
+                        "attrs": {
+                          "display-type": "display",
+                          "asset-uid": "asset_uid_1",
+                          "content-type-uid": "sys_assets",
+                          "asset-link": "https://azure-na-images.contentstack.com/v3/assets/folder_uid/asset_uid_1/folder_uid_2/merry-marketplace.png?branch=test2",
+                          "asset-name": "merry-marketplace.png",
+                          "asset-type": "image/png",
+                          "type": "asset",
+                          "class-name": "embedded-asset",
+                          "alt": "merry-marketplace.png",
+                          "asset-alt": "merry-marketplace.png",
+                          "inline": false
+                        },
+                        "children": [
+                          {
+                            "text": ""
+                          }
+                        ]
+                      },
+                      {
+                        "uid": "p8_uid",
+                        "type": "p",
+                        "children": [
+                          {
+                            "text": "\n\ntext 2\n\n"
+                          }
+                        ],
+                        "attrs": {}
+                      },
+                      {
+                        "uid": "ref2_uid",
+                        "type": "reference",
+                        "attrs": {
+                          "display-type": "display",
+                          "asset-uid": "asset_uid_2",
+                          "content-type-uid": "sys_assets",
+                          "asset-link": "https://azure-na-images.contentstack.com/v3/assets/folder_uid/asset_uid_2/folder_uid_3/blog-assortment-growth_1.png?branch=test2",
+                          "asset-name": "merry-marketplace.png",
+                          "asset-type": "image/png",
+                          "type": "asset",
+                          "class-name": "embedded-asset",
+                          "alt": "merry-marketplace.png",
+                          "asset-alt": "merry-marketplace.png",
+                          "inline": false
+                        },
+                        "children": [
+                          {
+                            "text": ""
+                          }
+                        ]
+                      },
+                      {
+                        "uid": "p9_uid",
+                        "type": "p",
+                        "attrs": {},
+                        "children": [
+                          {
+                            "text": "\n\ntext 3\n\n"
+                          },
+                          {
+                            "uid": "ref3_uid",
+                            "type": "reference",
+                            "attrs": {
+                              "display-type": "link",
+                              "type": "asset",
+                              "class-name": "embedded-entry redactor-component undefined-entry",
+                              "asset-uid": "asset_uid_3",
+                              "content-type-uid": "sys_assets",
+                              "target": "_self",
+                              "href": "https://azure-na-assets.contentstack.com/v3/assets/folder_uid/asset_uid_3/folder_uid_4/2412_Tracking-Number-dos-and-donts.pdf?branch=test2"
+                            },
+                            "children": [
+                              {
+                                "text": "https://azure-na-assets.contentstack.com/v3/assets/folder_uid/asset_uid_3/67613d97e789e60c7b802387/2412_Tracking-Number-dos-and-donts.pdf?branch=test2"
+                              }
+                            ]
+                          },
+                          {
+                            "text": ""
+                          }
+                        ]
+                      },
+                      {
+                        "uid": "p10_uid",
+                        "type": "p",
+                        "children": [
+                          {
+                            "text": ""
+                          }
+                        ],
+                        "attrs": {}
+                      },
+                      {
+                        "uid": "p11_uid",
+                        "type": "p",
+                        "children": [
+                          {
+                            "text": ""
+                          }
+                        ],
+                        "attrs": {}
+                      }
+                    ],
+                    "_version": 12
+                  },
+                  "embedded_itemsConnection": {
+                    "edges": [
+                      {
+                        "node": {
+                          "title": "merry-marketplace.png",
+                          "url": "actual_asset_url.png",
+                          "content_type": "image/png",
+                          "description": null,
+                          "file_size": 273858,
+                          "filename": "merry-marketplace.png",
+                          "permanent_url": "Permanent URL Not Defined!"
+                        }
+                      },
+                      {
+                        "node": {
+                          "title": "Screenshot.png",
+                          "url": "https://azure-na-images.contentstack.com/v3/assets/folder_uid/asset_uid_2/folder_uid_4/Screenshot_2024-12-09_at_7.28.28_PM.png?branch=test2",
+                          "content_type": "image/png",
+                          "description": "",
+                          "file_size": 287954,
+                          "filename": "Screenshot_2024-12-09_at_7.28.28_PM.png",
+                          "permanent_url": "Permanent URL Not Defined!"
+                        }
+                      },
+                      {
+                        "node": {
+                          "title": "2412_Rich-Media_Technical-Requirements.pdf",
+                          "url": "https://azure-na-assets.contentstack.com/v3/assets/folder_uid/asset_uid_3/folder_uid_5/Aadhaar.pdf?branch=test2",
+                          "content_type": "application/pdf",
+                          "description": "",
+                          "file_size": 1050317,
+                          "filename": "Aadhaar.pdf",
+                          "permanent_url": "Permanent URL Not Defined!"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

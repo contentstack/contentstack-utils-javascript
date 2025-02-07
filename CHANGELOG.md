@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.17](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.17) (2025-02-11)
+ - Enh: updateAssetURLForGQL update for multilpe entries
+
 ## [1.3.16](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.16) (2025-01-27)
  - Enh: Added support for colgroup and col tags inside table tag
  - Fix: Updated rendorOption code block in reaadme file
