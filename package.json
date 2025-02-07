@@ -1,6 +1,6 @@
 {
   "name": "@contentstack/utils",
-  "version": "1.3.16",
+  "version": "1.3.17",
   "description": "Contentstack utilities for Javascript",
   "main": "dist/index.es.js",
   "types": "dist/types/index.d.ts",
@@ -38,7 +38,7 @@
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
     "@types/jest": "^26.0.24",
-    "babel-core": "^4.7.16",
+    "babel-core": "^6.26.3",
     "babel-jest": "^29.7.0",
     "babel-loader": "8.4.1",
     "babel-preset-es2015": "^6.24.1",
