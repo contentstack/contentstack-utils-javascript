@@ -1,5 +1,6 @@
 const plainTextHtml = "<strong>Aliquam sit amet libero dapibus, eleifend ligula at, varius justo</strong><strong><em>Lorem ipsum</em></strong><strong><em><u>dolor sit amet</u></em></strong><strong><em><u><strike><br />consectetur adipiscing elit.</strike></u></em></strong><strong><em><u><span data-type='inlineCode'>Sed condimentum iaculis magna in vehicula. </span></u></em></strong><strong><em><u><sup>  Vestibulum vitae convallis </sup></u></em></strong><strong><em><u><sub> lacus. </sub></u></em></strong>"
 const paragraphHtml = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed condimentum iaculis magna in vehicula. Vestibulum vitae convallis lacus. Praesent a diam iaculis turpis rhoncus faucibus. Aliquam sed pulvinar sem.</p>"
+const paragraphHtmlWithNewLine = "<p>Ritesh test</p><p>Shift enter<br />single enter</p>"
 const h1Html = "<h1><strong><em><u><sub>Lorem ipsum dolor sit amet.</sub></u></em></strong></h1>" 
 const h2Html = "<h2><strong><em><u><sub>Vestibulum a ligula eget massa sagittis aliquam sit amet quis tortor. </sub></u></em></strong></h2>"
 const h3Html = "<h3><strong><em><u><sub>Mauris venenatis dui id massa sollicitudin, non bibendum nunc dictum.</sub></u></em></strong></h3>"
@@ -51,5 +52,6 @@ export {
     referenceObjHtml,
     referenceObjHtmlBlock,
     imagetags,
+    paragraphHtmlWithNewLine,
 
 }

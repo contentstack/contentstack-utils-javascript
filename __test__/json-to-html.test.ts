@@ -17,6 +17,7 @@ import {
     linkInPJsonUrl,
     orderListJson,
     paragraphEntry,
+    paragraphEntryWithNewline,
     paragraphJsonArrayEntry,
     plainTextJson,
     styleinPJson,
@@ -47,6 +48,7 @@ import {
     linkInPURLHtml,
     orderListHtml,
     paragraphHtml,
+    paragraphHtmlWithNewLine,
     plainTextHtml, 
     styleinPHtml, 
     tableHtml, 
@@ -84,6 +86,13 @@ describe('Node parser paragraph content', () => {
         jsonToHTML({entry, paths: ['rich_text_editor']})
 
         expect(entry.rich_text_editor).toEqual(paragraphHtml)
+        done()
+    })
+
+    it('Should render Json To html with newline after single enter',  done => {
+        const entry = {...paragraphEntryWithNewline}
+        jsonToHTML({entry, paths: ['rich_text_editor']})
+        expect(entry.rich_text_editor).toEqual(paragraphHtmlWithNewLine)
         done()
     })
 
