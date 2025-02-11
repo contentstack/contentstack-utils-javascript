@@ -659,6 +659,35 @@ const paragraphJson = {
     type: "doc"
 }
 
+const paragraphJsonWithNewline = {
+  "type": "doc",
+  "attrs": {},
+  "uid": "abcdefgh123456",
+  "children": [
+      {
+          "type": "p",
+          "uid": "abcdefgh123456",
+          "attrs": {},
+          "children": [
+              {
+                  "text": "Ritesh test"
+              }
+          ]
+      },
+      {
+          "uid": "abcdefgh123456",
+          "type": "p",
+          "children": [
+              {
+                  "text": "Shift enter\nsingle enter"
+              }
+          ],
+          "attrs": {}
+      }
+  ],
+  "_version": 26
+}
+
 const blockquoteJson = {
   uid: "06084d7fd",
   _version: 13,
@@ -1126,6 +1155,15 @@ const paragraphEntry = {
     locale: 'en-us',
     _in_progress: false,
     uid: 'asset_uid_10',
+}
+
+const paragraphEntryWithNewline = {
+  title: 'entry and assets',
+  url: '/entry-and-assets',
+  rich_text_editor: {...paragraphJsonWithNewline},
+  locale: 'en-us',
+  _in_progress: false,
+  uid: 'asset_uid_10',
 }
 
 const paragraphJsonArrayEntry = {
@@ -2393,5 +2431,6 @@ export {
   unorderListJson2,
   orderListJson2,
   testJsonRte,
-  testJsonAsset
+  testJsonAsset,
+  paragraphEntryWithNewline
 }
