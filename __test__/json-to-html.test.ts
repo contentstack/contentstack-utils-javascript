@@ -33,7 +33,8 @@ import {
     orderListJson2,
     testJsonRte,
     testJsonAsset,
-    embeddedAssetAsLinkJsonEntry} from './mock/json-element-mock'
+    embeddedAssetAsLinkJsonEntry,
+    escapeJsonHtml } from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -60,7 +61,8 @@ import {
     styleObjHtml, 
     referenceObjHtml,
     referenceObjHtmlBlock,
-    imagetags} from './mock/json-element-mock-result'
+    imagetags,
+    escapeHtml } from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -120,6 +122,15 @@ describe('Node parser paragraph content', () => {
         jsonToHTML({entry: [entry], paths: ['rich_text_editor']})
 
         expect(entry.rich_text_editor).toEqual([paragraphHtml])
+        done()
+    })
+
+    it('Should render Json To html',  done => {
+        const entry = {...escapeJsonHtml}
+
+        jsonToHTML({entry, paths: ['rich_text_editor']})
+
+        expect(entry.rich_text_editor).toEqual(escapeHtml)
         done()
     })
 })
