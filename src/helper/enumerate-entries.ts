@@ -42,7 +42,7 @@ export function enumerateContents(
 }
 
 export function textNodeToHTML(node: TextNode, renderOption: RenderOption): string {
-  let text = node.text;
+  let text = escapeHtml(node.text);
   if (node.classname || node.id) {
     text = (renderOption[MarkType.CLASSNAME_OR_ID] as RenderMark)(text, node.classname, node.id);
   }
@@ -157,4 +157,11 @@ function nodeToHTML(
       return (renderOption.default as RenderNode)(node, next);
     }
   }
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
 }
