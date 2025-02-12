@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.18](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.17) (2025-02-17)
+ - Fix: Added fix for html injection
+ 
 ## [1.3.17](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.17) (2025-02-11)
  - Enh: updateAssetURLForGQL update for multilpe entries
  - Fix: Added support of  br tag (\n) after just enter
