@@ -2394,6 +2394,33 @@ const testJsonAsset={
     "_version": 22
   }
 }
+
+const escapeJsonHtml = {
+  title: 'entry and assets',
+  url: '/entry-and-assets',
+  rich_text_editor: {
+    uid: "uid",
+    _version: 13,
+    attrs: {},
+    children: [
+        {
+            type: "p",
+            attrs: {},
+            uid: "0a1b5676aa510e5a",
+            children: [
+                {
+                    text: '<p>Welcome to Contentstack! <script>console.log(/"Hello from Contentstack!/");</script> Explore our platform to create, manage, and publish content seamlessly.</p>'
+                }
+            ]
+        }
+    ],
+    type: "doc"
+},
+  locale: 'en-us',
+  _in_progress: false,
+  uid: 'asset_uid_10',
+}
+
 export { 
   h1Json,
   h2Json,
@@ -2432,5 +2459,6 @@ export {
   orderListJson2,
   testJsonRte,
   testJsonAsset,
-  paragraphEntryWithNewline
+  paragraphEntryWithNewline,
+  escapeJsonHtml
 }
