@@ -264,21 +264,13 @@ export const gqlResponseForAssetUpdateMultipleEntries = {
                           "title": "merry-marketplace.png",
                           "url": "actual_asset_url.png",
                           "content_type": "image/png",
-                          "description": null,
+                          "description": "null",
                           "file_size": 273858,
                           "filename": "merry-marketplace.png",
-                          "permanent_url": "Permanent URL Not Defined!"
-                        }
-                      },
-                      {
-                        "node": {
-                          "title": "Screenshot.png",
-                          "url": "https://azure-na-images.contentstack.com/v3/assets/folder_uid/asset_uid_2/folder_uid_4/Screenshot_2024-12-09_at_7.28.28_PM.png?branch=test2",
-                          "content_type": "image/png",
-                          "description": "",
-                          "file_size": 287954,
-                          "filename": "Screenshot_2024-12-09_at_7.28.28_PM.png",
-                          "permanent_url": "Permanent URL Not Defined!"
+                          "permanent_url": "Permanent URL Not Defined!",
+                          "system" : {
+                            "uid": "asset_uid_1"
+                          }
                         }
                       },
                       {
@@ -289,7 +281,10 @@ export const gqlResponseForAssetUpdateMultipleEntries = {
                           "description": "",
                           "file_size": 1050317,
                           "filename": "Aadhaar.pdf",
-                          "permanent_url": "Permanent URL Not Defined!"
+                          "permanent_url": "Permanent URL Not Defined!",
+                          "system" : {
+                            "uid": "asset_uid_2"
+                          }
                         }
                       }
                     ]
