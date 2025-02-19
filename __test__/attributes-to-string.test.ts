@@ -63,7 +63,7 @@ describe('Attributes to String', () => {
 
         const resultString = attributeToString(attr);
 
-        expect(resultString).toEqual(' style=\"text-align:left; \" rows=\"4\" cols=\"2\" colWidths=\"250, 250\" &lt;ls=\"&quot;&gt;&lt;/p&gt;&lt;h1&gt;test&lt;/h1&gt;&lt;p class=&quot;\"')
+        expect(resultString).toEqual(' style=\"text-align:left; \" rows=\"4\" cols=\"2\" colWidths=\"250, 250\"')
         done();
     });
     it('Should handle object attribute values correctly', done => {
@@ -123,6 +123,18 @@ describe('Attributes to String', () => {
         const resultString = attributeToString(attr);
 
         expect(resultString).toEqual(' safeKey="&lt;script&gt;alert(xss)&lt;/script&gt;"');
+        done();
+    });
+    it('Should ignore attributes with forbidden characters in keys', done => {
+        const attr = {
+            "validKey": "safeValue",
+            'in"valid': "should be ignored",
+            "another>invalid": "should also be ignored"
+        } as Attributes;
+
+        const resultString = attributeToString(attr);
+
+        expect(resultString).toEqual(' validKey="safeValue"');
         done();
     });
 })
