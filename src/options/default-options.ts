@@ -16,18 +16,18 @@ export const defaultOptions: RenderOption = {
     return `<span>${title}</span>`;
   },
   [StyleType.LINK]: (item: EmbeddedItem | EntryNode, metadata: Metadata) => {
-    const url = sanitizeHTML(item.url || 'undefined');
+    const url = encodeURI(sanitizeHTML(item.url || 'undefined'));
     const text = sanitizeHTML(metadata.text || item.title || item.uid || (item.system ? item.system.uid : ''));
     return `<a href="${url}">${text}</a>`;
   },
   [StyleType.DISPLAY]: (item: EmbeddedItem | EntryNode, metadata: Metadata) => {
-    const url = sanitizeHTML(item.url || 'undefined');
+    const url = encodeURI(sanitizeHTML(item.url || 'undefined'));
     const alt = sanitizeHTML(metadata.attributes.alt || item.title || item.filename || item.uid
       || (item.system ? item.system.uid : ''));
     return `<img src="${url}" alt="${alt}" />`;
   },
   [StyleType.DOWNLOAD]: (item: EmbeddedItem | EntryNode, metadata: Metadata) => {
-    const href = sanitizeHTML(item.url || 'undefined');
+    const href = encodeURI(sanitizeHTML(item.url || 'undefined'));
     const text = sanitizeHTML(metadata.text || item.title || item.uid || (item.system ? item.system.content_type_uid : ''));
     return `<a href="${href}">${text}</a>`;
   },
