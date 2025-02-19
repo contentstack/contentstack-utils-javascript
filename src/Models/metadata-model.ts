@@ -60,11 +60,7 @@ export function attributeToString(attributes: Attributes): string {
   let result = '';
   for (const key in attributes) {
     if (Object.prototype.hasOwnProperty.call(attributes, key)) {
-      // Sanitize the key to prevent HTML injection
-      const sanitizedKey = replaceHtmlEntities(key);
-
-      // Skip keys that contain forbidden characters (even after sanitization)
-      if (forbiddenAttrChars.some(char => sanitizedKey.includes(char))) {
+      if (forbiddenAttrChars.some(char => key.includes(char))) {
         continue;
       }
       let value = attributes[key];
@@ -76,14 +72,13 @@ export function attributeToString(attributes: Attributes): string {
           if (Object.prototype.hasOwnProperty.call(value, subKey)) {
             const subValue = value[subKey];
             if (subValue != null && subValue !== '') {
-              elementString += `${replaceHtmlEntities(subKey)}:${replaceHtmlEntities(String(subValue))}; `;
+              elementString += `${subKey}:${subValue}; `;
             }
           }
         }
         value = elementString;
       }
-      // Sanitize the value to prevent HTML injection
-      result += ` ${sanitizedKey}="${replaceHtmlEntities(String(value))}"`;
+      result += ` ${key}="${replaceHtmlEntities(String(value))}"`;
     }
   }
   return result;
