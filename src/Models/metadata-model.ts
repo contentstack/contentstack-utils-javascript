@@ -1,5 +1,7 @@
 import StyleType from '../embedded-types/style-type';
 import TextNode from '../nodes/text-node';
+import { replaceHtmlEntities, forbiddenAttrChars } from '../helper/enumerate-entries';
+
 export interface Metadata {
   text: string;
   attributes: Attributes;
@@ -58,30 +60,30 @@ export function attributeToString(attributes: Attributes): string {
   let result = '';
   for (const key in attributes) {
     if (Object.prototype.hasOwnProperty.call(attributes, key)) {
-      let element = attributes[key];
-      if (element instanceof Array) {
+      // Sanitize the key to prevent HTML injection
+      const sanitizedKey = replaceHtmlEntities(key);
+
+      // Skip keys that contain forbidden characters (even after sanitization)
+      if (forbiddenAttrChars.some(char => sanitizedKey.includes(char))) {
+        continue;
+      }
+      let value = attributes[key];
+      if (Array.isArray(value)) {
+        value = value.join(', ');
+      } else if (typeof value === 'object') {
         let elementString = '';
-        let isFirst = true;
-        element.forEach((value) => {
-          if (isFirst) {
-            elementString += `${value}`;
-            isFirst = false;
-          } else {
-            elementString += `, ${value}`;
-          }
-        });
-        element = elementString;
-      } else if (typeof element === 'object') {
-        let elementString = '';
-        for (const elementKey in element) {
-          if (Object.prototype.hasOwnProperty.call(element, elementKey)) {
-            const value = element[elementKey];
-            elementString += `${elementKey}:${value}; `;
+        for (const subKey in value) {
+          if (Object.prototype.hasOwnProperty.call(value, subKey)) {
+            const subValue = value[subKey];
+            if (subValue != null && subValue !== '') {
+              elementString += `${replaceHtmlEntities(subKey)}:${replaceHtmlEntities(String(subValue))}; `;
+            }
           }
         }
-        element = elementString;
+        value = elementString;
       }
-      result += ` ${key}="${element}"`;
+      // Sanitize the value to prevent HTML injection
+      result += ` ${sanitizedKey}="${replaceHtmlEntities(String(value))}"`;
     }
   }
   return result;
