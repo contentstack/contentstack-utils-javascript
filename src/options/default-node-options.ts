@@ -19,11 +19,11 @@ export const defaultNodeOption: RenderOption = {
         return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}">${sanitizeHTML(next(node.children))}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
-        const sanitizedSrc = sanitizeHTML(node.attrs.src || node.attrs.url);
+        const sanitizedSrc = encodeURI(sanitizeHTML(node.attrs.src || node.attrs.url));
         return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}" />${sanitizeHTML(next(node.children))}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
-        const sanitizedSrc = sanitizeHTML(node.attrs.src || node.attrs.url);
+        const sanitizedSrc = encodeURI(sanitizeHTML(node.attrs.src || node.attrs.url));
         return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}">${sanitizeHTML(next(node.children))}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
@@ -123,7 +123,7 @@ export const defaultNodeOption: RenderOption = {
 
     ['reference']:(node: Node, next: Next) => {
         if (node.attrs.type === 'asset') {
-            const src = node.attrs['asset-link'];
+            const src = encodeURI(node.attrs['asset-link']);
             const alt = node.attrs?.['redactor-attributes']?.['alt'];
             const link = node.attrs.link;
             const target = node.attrs.target || "";
