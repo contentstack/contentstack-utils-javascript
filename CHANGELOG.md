@@ -1,6 +1,9 @@
 # Changelog
 
-## [1.3.18](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.17) (2025-02-17)
+## [1.3.19](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.19) (2025-02-24)
+ - Fix: Added fix for html injection in keys and values of attributes
+ 
+## [1.3.18](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.18) (2025-02-17)
  - Fix: Added fix for html injection
  
 ## [1.3.17](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.17) (2025-02-11)
