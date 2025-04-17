@@ -26,7 +26,7 @@
     "prebuild": "rimraf dist",
     "build": "tsc && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
-    "prepare": "husky install && npm run build",
+    "prepare": "husky install && chmod +x .husky/pre-commit && npm run build",
     "prepublishOnly": "npm test",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
