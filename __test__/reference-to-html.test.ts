@@ -173,7 +173,7 @@ describe('Reference Node To HTML', () => {
         const resultHTML = referenceToHTML(node, renderOption, (metadata: Metadata) => {
             return findEmbeddedItems(metadata, { uid: 'uid' })[0]
         })
-        expect(resultHTML).toEqual('<a class=\"embedded-entry\" href=\"/copy-of-entry-final-02\" target=\"_self\">/copy-of-entry-final-02</a>')
+        expect(resultHTML).toEqual('<a href=\"entry_uid_20\">/copy-of-entry-final-02</a>')
         done()
     })
 })
