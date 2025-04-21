@@ -79,7 +79,8 @@ export function referenceToHTML(
 ): string {
 
   function sendToRenderOption(referenceNode: Node): string {
-    return (renderOption[referenceNode.type] as RenderNode)(referenceNode, undefined);
+    const next: Next = (nodes) => nodeChildrenToHTML(nodes, renderOption, renderEmbed);
+    return (renderOption[referenceNode.type] as RenderNode)(referenceNode, next);
   }
 
   if ((node.attrs.type === 'entry' || node.attrs.type === 'asset') && node.attrs['display-type'] === 'link') {
