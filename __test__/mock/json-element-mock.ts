@@ -1102,14 +1102,14 @@ const entryReferenceLinkJson = {
             "uid": "7626ea98e0e95d602210",
             "type": "reference",
             "attrs": {
-            "target": "_self",
-            "href": "/copy-of-entry-final-02",
-            "display-type": "link",
-            "entry-uid": "entry_uid_20",
-            "content-type-uid": "embeddedrte",
-            "locale": "en-us",
-            "type": "entry",
-            "class-name": "embedded-entry"
+              "target": "_self",
+              "href": "/copy-of-entry-final-02",
+              "display-type": "link",
+              "entry-uid": "entry_uid_20",
+              "content-type-uid": "embeddedrte",
+              "locale": "en-us",
+              "type": "entry",
+              "class-name": "embedded-entry"
             },
             "class": "class",
             "children": [
