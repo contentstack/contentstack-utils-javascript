@@ -1,8 +1,10 @@
 # Changelog
 
+## [1.4.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.0) (2025-04-21)
+ - Fix: customRenderOption for entry-embedded-as-link nodes
+ 
 ## [1.3.20](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.20) (2025-02-24)
  - Fix: Added data-mtec as allowed attribute
- - Fix: customRenderOption for entry-embedded-as-link nodes
  
 ## [1.3.19](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.3.19) (2025-02-24)
  - Fix: Added fix for html injection in keys and values of attributes
