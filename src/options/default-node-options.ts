@@ -122,6 +122,17 @@ export const defaultNodeOption: RenderOption = {
     },
 
     ['reference']:(node: Node, next: Next) => {
+        if ((node.attrs.type === 'entry' || node.attrs.type === 'asset') && node.attrs['display-type'] === 'link'){
+            let aTagAttrs = `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}"`;
+            if (node.attrs.target) {
+            aTagAttrs +=` target="${node.attrs.target}"`;
+            }
+            if(node.attrs.type == 'asset') {
+            aTagAttrs += ` type="asset" content-type-uid="sys_assets" ${node.attrs['asset-uid'] ? `data-sys-asset-uid="${node.attrs['asset-uid']}"` : ``} sys-style-type="download"`
+            }
+            const aTag = `<a${aTagAttrs}>${sanitizeHTML(next(node.children))}</a>`;
+            return aTag;
+        }
         if (node.attrs.type === 'asset') {
             const src = encodeURI(node.attrs['asset-link']);
             const alt = node.attrs?.['redactor-attributes']?.['alt'];

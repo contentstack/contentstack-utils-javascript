@@ -77,8 +77,17 @@ export function referenceToHTML(
   renderOption: RenderOption,
   renderEmbed?: (metadata: Metadata) => EmbeddedItem | EntryNode,
 ): string {
+
+  function sendToRenderOption(referenceNode: Node): string {
+    const next: Next = (nodes) => nodeChildrenToHTML(nodes, renderOption, renderEmbed);
+    return (renderOption[referenceNode.type] as RenderNode)(referenceNode, next);
+  }
+
   if ((node.attrs.type === 'entry' || node.attrs.type === 'asset') && node.attrs['display-type'] === 'link') {
     const entryText = node.children ? nodeChildrenToHTML(node.children, renderOption, renderEmbed) : '';
+    if (renderOption[node.type] !== undefined) {
+      return sendToRenderOption(node);
+    }
 
     let aTagAttrs = `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}"`;
     if (node.attrs.target) {
@@ -89,10 +98,6 @@ export function referenceToHTML(
     }
     const aTag = `<a${aTagAttrs}>${entryText}</a>`;
     return aTag;
-  }
-  
-  function sendToRenderOption(referenceNode: Node): string {
-    return (renderOption[referenceNode.type] as RenderNode)(referenceNode, undefined);
   }
  
   if (!renderEmbed && renderOption[node.type] !== undefined) {
