@@ -28,6 +28,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install && npm run build",
     "prepublishOnly": "npm test",
+    "pre-commit": "husky install && husky && chmod +x .husky/pre-commit && ./.husky/pre-commit",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
