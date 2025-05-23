@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.4.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.1) (2025-05-26)
+ - Chore: Handle case sensitivity for contentType and locale
+ 
 ## [1.4.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.0) (2025-04-21)
  - Fix: customRenderOption for entry-embedded-as-link nodes
  
