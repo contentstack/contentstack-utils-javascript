@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.5.0)
+ - Feat: Adds Helper functions for Contentstack Endpoints
+ 
 ## [1.4.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.1) (2025-05-26)
  - Chore: Handle case sensitivity for contentType and locale
  
