@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.1) (2025-09-01)
+ - Improve null checks in find embedded entry and find embedded asset functions
+
 ## [1.4.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.1) (2025-05-26)
  - Chore: Handle case sensitivity for contentType and locale
  
