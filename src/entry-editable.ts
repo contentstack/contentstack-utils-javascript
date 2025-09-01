@@ -115,12 +115,27 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
 }
 
 function getTagsValue(dataValue: string, tagsAsObject: boolean, appliedVariants: { _applied_variants: { [key: string]: any }, shouldApplyVariant: boolean, metaKey: string }): any {
-    if (appliedVariants.shouldApplyVariant && appliedVariants._applied_variants && appliedVariants._applied_variants[appliedVariants.metaKey]) {
+    if (appliedVariants.shouldApplyVariant && appliedVariants._applied_variants) {
+      const isFieldVariantised = appliedVariants._applied_variants[appliedVariants.metaKey];
+      if(isFieldVariantised) {
         const variant = appliedVariants._applied_variants[appliedVariants.metaKey]
         // Adding v2 prefix to the cslp tag. New cslp tags are in v2 format. ex: v2:content_type_uid.entry_uid.locale.title
         const newDataValueArray = ('v2:' + dataValue).split('.');
         newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
         dataValue = newDataValueArray.join('.');
+      }
+      else {
+        const variantisedFieldPaths = Object.keys(appliedVariants._applied_variants).sort((a, b) => {
+          return b.length - a.length;
+        });
+        const variantisedParentPath = variantisedFieldPaths.find(path => appliedVariants.metaKey.startsWith(path));
+        if(variantisedParentPath) {
+          const variant = appliedVariants._applied_variants[variantisedParentPath];
+          const newDataValueArray = ('v2:' + dataValue).split('.');
+          newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
+          dataValue = newDataValueArray.join('.');
+        }
+      }
     }
     if (tagsAsObject) {
         return { "data-cslp": dataValue };
