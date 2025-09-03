@@ -150,10 +150,77 @@ const entry_global_field_multiple = {
         }
     ]
 }
+// Mock entry with applied variants for testing variant functionality
+const entry_with_applied_variants = {
+    "_version": 10,
+    "locale": "en-us",
+    "uid": "entry_uid_1",
+    "ACL": {},
+    "_applied_variants": {
+        "rich_text_editor": "variant_1",
+        "nested.field": "variant_2",
+        "modular_blocks.content": "variant_3"
+    },
+    "rich_text_editor": "<p>Content with variant</p>",
+    "rich_text_editor_multiple": [
+        "<p>Multiple content with variant</p>"
+    ],
+    "nested": {
+        "field": "nested field content",
+        "other_field": "other nested content"
+    },
+    "modular_blocks": [
+        {
+            "content": "modular content",
+            "title": "modular title"
+        }
+    ]
+}
+
+// Mock entry with system-level applied variants
+const entry_with_system_variants = {
+    "_version": 10,
+    "locale": "en-us",
+    "uid": "entry_uid_2",
+    "ACL": {},
+    "system": {
+        "applied_variants": {
+            "title": "system_variant",
+            "description": "desc_variant"
+        }
+    },
+    "title": "System variant title",
+    "description": "System variant description"
+}
+
+// Mock entry with nested parent path variants
+const entry_with_parent_path_variants = {
+    "_version": 10,
+    "locale": "en-us", 
+    "uid": "entry_uid_3",
+    "ACL": {},
+    "_applied_variants": {
+        "group": "parent_variant",
+        "group.nested.deep": "deep_variant"
+    },
+    "group": {
+        "nested": {
+            "field": "nested field",
+            "deep": {
+                "field": "deep field"
+            }
+        },
+        "other": "other field"
+    }
+}
+
 export {
     entry_with_text,
     entry_reference,
     entry_global_field,
     entry_modular_block,
-    entry_global_field_multiple
+    entry_global_field_multiple,
+    entry_with_applied_variants,
+    entry_with_system_variants,
+    entry_with_parent_path_variants
 }
