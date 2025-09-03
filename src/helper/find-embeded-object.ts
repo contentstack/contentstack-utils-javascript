@@ -11,21 +11,26 @@ export function findEmbeddedEntry(
   embeddeditems: (EmbeddedItem| EntryNode)[] = [],
 ): (EmbeddedItem | EntryNode)[] {
   return embeddeditems.filter((entry: any) => {
-    if ((entry.uid && (entry as EmbeddedItem).uid === uid && (entry as EmbeddedItem)._content_type_uid === contentTypeUid)|| (entry.system && (entry as EntryNode).system.uid === uid && (entry as EntryNode).system.content_type_uid === contentTypeUid)) {
-      return entry;
-    }
+    if (!entry) return false;
+    return (
+      (entry.uid && (entry as EmbeddedItem).uid === uid && (entry as EmbeddedItem)._content_type_uid === contentTypeUid) ||
+      (entry.system && (entry as EntryNode).system.uid === uid && (entry as EntryNode).system.content_type_uid === contentTypeUid)
+    );
   });
 }
 
 export function findEmbeddedAsset(uid: string, embeddedAssets: (EmbeddedItem| EntryNode)[] = []): (EmbeddedItem| EntryNode)[] {
   return embeddedAssets.filter((asset: any) => {
-    if ((asset.uid && (asset as EmbeddedItem).uid === uid) || asset.system && (asset as EntryNode).system.uid === uid) {
-      return asset;
-    }
+    if (!asset) return false;
+    return (
+      (asset.uid && (asset as EmbeddedItem).uid === uid) ||
+      (asset.system && (asset as EntryNode).system.uid === uid)
+    );
   });
 }
 
 export function findGQLEmbeddedItems(metadata: Metadata, items: (EmbeddedItem| EntryNode)[]): (EmbeddedItem| EntryNode)[] {
+  if (!metadata || !items) return [];
   if (metadata.itemType === 'entry') {
     return findEmbeddedEntry(
         metadata.itemUid,

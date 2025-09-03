@@ -16,7 +16,7 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
     const { metaKey, shouldApplyVariant, _applied_variants } = appliedVariants
     Object.entries(content).forEach(([key, value]) => {
         if (key === '$') return
-        let metaUID = value && typeof value === 'object' && value._metadata && value._metadata.uid ? value._metadata.uid : '';
+        let metaUID = value && typeof value === 'object' && value !== null && value._metadata && value._metadata.uid ? value._metadata.uid : '';
         let updatedMetakey = appliedVariants.shouldApplyVariant ? `${appliedVariants.metaKey ? appliedVariants.metaKey + '.' : ''}${key}` : '';
         if (metaUID && updatedMetakey) updatedMetakey = updatedMetakey + '.' + metaUID;
         switch (typeof value) {
@@ -25,7 +25,7 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                     value.forEach((obj, index) => {
                         const childKey = `${key}__${index}`
                         const parentKey = `${key}__parent`
-                        metaUID = value && typeof value === 'object' && obj._metadata && obj._metadata.uid ? obj._metadata.uid : '';
+                        metaUID = value && typeof value === 'object' && obj !== null && obj._metadata && obj._metadata.uid ? obj._metadata.uid : '';
                         updatedMetakey = appliedVariants.shouldApplyVariant ? `${appliedVariants.metaKey ? appliedVariants.metaKey + '.' : ''}${key}` : '';
                         if (metaUID && updatedMetakey) updatedMetakey = updatedMetakey + '.' + metaUID;
                         /**
