@@ -6,7 +6,7 @@ export interface ContentstackEndpoints {
 const DEFAULT_ENDPOINTS_URL = 'https://raw.githubusercontent.com/nadeem-cs/cs-endpoints/refs/heads/main/endpoints.json';
 
 
-export async function getContentstackEndpoint(region: string = 'us', service: string = 'CDA', omitHttps: boolean = false): Promise<string | ContentstackEndpoints> {
+export async function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false): Promise<string | ContentstackEndpoints> {
   try {
     const response = await fetch(DEFAULT_ENDPOINTS_URL);
       
@@ -22,59 +22,57 @@ export async function getContentstackEndpoint(region: string = 'us', service: st
         throw new Error('Invalid JSON response from endpoints service');
       }
       
-      // Normalize region name
-      let normalizedRegion = region.toLowerCase();
-      
-      // Convert 'us' to 'aws_na' and handle existing cloud_us patterns
-      if (normalizedRegion === 'us') {
-        normalizedRegion = 'aws_na';
-      } else if (normalizedRegion.includes('_') || normalizedRegion.includes('-')) {
-        // Handle case where cloud provider is already included (e.g., 'aws_us' -> 'aws_na' or 'aws-us' -> 'aws_na')
+      let normalizedRegion = region.toUpperCase();
+
+      // Convert 'US' to 'aws_na' and handle existing patterns
+      if (normalizedRegion === 'US') {
+        normalizedRegion = 'AWS-NA';
+      } else if (normalizedRegion.includes('_') || normalizedRegion.includes('-')) {  // (e.g., 'aws_us' -> 'aws_na' or 'aws-us' -> 'aws-na')
         const separator = normalizedRegion.includes('_') ? '_' : '-';
         const parts = normalizedRegion.split(separator);
-        if (parts.length === 2 && parts[1] === 'us') {
-          normalizedRegion = `${parts[0]}_na`;
+        if (parts.length === 2 && parts[1] === 'US') {
+          normalizedRegion = `${parts[0]}-NA`;
         } else if (parts.length === 2) {
-          // Convert hyphen to underscore for consistency
-          normalizedRegion = `${parts[0]}_${parts[1]}`;
+          normalizedRegion = `${parts[0]}-${parts[1]}`;
         }
       } else if (!normalizedRegion.includes('_') && !normalizedRegion.includes('-') && normalizedRegion) {
-        // If region doesn't contain a cloud provider separator, append 'aws'
-        normalizedRegion = `aws_${normalizedRegion}`;
+        normalizedRegion = `AWS-${normalizedRegion}`;
       }
       
       if (normalizedRegion) {
-        const parts = normalizedRegion.toUpperCase().split('_');
+        const parts = normalizedRegion.toUpperCase().split('-');
         if (parts.length === 2) {
           const [cloud, region] = parts;
           
           try {
-            const endpoint = endpointsData[cloud][region][service];
+            const endpoint = service ? endpointsData[cloud][region][service] : endpointsData[cloud][region];
+            endpoint['Region'] = normalizedRegion;
 
-            return omitHttps ? endpoint.replace(/^https?:\/\//, '') : endpoint;
+            return omitHttps ? stripHttps(endpoint) : endpoint;
           } catch (error) {
-            console.warn(`Invalid region combination: ${cloud}_${region} - ${service}`);
-            throw Error('Unable to set the host. Please put valid host');
+            throw Error(`Invalid region combination: ${cloud}-${region} - ${service || 'all'}`);
           }
         } else {
-          // Handle invalid region format (not cloud_region pattern)
-          console.warn(`Invalid region format: ${normalizedRegion}`);
-          throw Error('Unable to set the host. Please put valid host');
+          throw Error(`Invalid region format: ${normalizedRegion}`);
         }
       } else {
         // Handle empty or falsy region
-        console.warn('Invalid region: empty or invalid region provided');
-        throw Error('Unable to set the host. Please put valid host');
+        throw Error('Invalid region: empty or invalid region provided');
       }
     }
   } catch (error) {
-    // Re-throw errors that are explicitly thrown by our logic
-    if (error instanceof Error && error.message === 'Unable to set the host. Please put valid host') {
-      throw error;
-    }
-    // If fetch fails or any other error occurs, return default host
-    console.warn('Failed to fetch endpoints:', error);
+    throw error;
   }
+}
 
-  return 'cdn.contentstack.io';
+function stripHttps(endpoint: string | ContentstackEndpoints): string | ContentstackEndpoints {
+  if (typeof endpoint === 'string') {
+    return endpoint.replace(/^https?:\/\//, '');
+  } else {
+    const result: ContentstackEndpoints = {};
+    for (const key in endpoint) {
+      result[key] = stripHttps(endpoint[key]);
+    }
+    return result;
+  }
 }

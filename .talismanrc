@@ -9,4 +9,4 @@ fileignoreconfig:
 - filename: .husky/pre-commit
   checksum: 5baabd7d2c391648163f9371f0e5e9484f8fb90fa2284cfc378732ec3192c193
 - filename: src/endpoints.ts
-  checksum: 061295893d0ef7f3be959b65b857c543a4ad8439c07a1ecea2ebb5864eb99f18
+  checksum: 721a1df93b02d04c1c19a76c171fe2748e4abb1fc3e43452e76fecfd8f384751
