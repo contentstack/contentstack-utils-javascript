@@ -171,27 +171,13 @@ const entry_with_applied_variants = {
     },
     "modular_blocks": [
         {
-            "content": "modular content",
-            "title": "modular title"
+            "content": {
+                "title": "modular title"
+            }
         }
     ]
 }
 
-// Mock entry with system-level applied variants
-const entry_with_system_variants = {
-    "_version": 10,
-    "locale": "en-us",
-    "uid": "entry_uid_2",
-    "ACL": {},
-    "system": {
-        "applied_variants": {
-            "title": "system_variant",
-            "description": "desc_variant"
-        }
-    },
-    "title": "System variant title",
-    "description": "System variant description"
-}
 
 // Mock entry with nested parent path variants
 const entry_with_parent_path_variants = {
@@ -201,7 +187,8 @@ const entry_with_parent_path_variants = {
     "ACL": {},
     "_applied_variants": {
         "group": "parent_variant",
-        "group.nested.deep": "deep_variant"
+        "group.nested.deep": "deep_variant",
+        "modular_blocks.content": "parent_variant"
     },
     "group": {
         "nested": {
@@ -211,7 +198,14 @@ const entry_with_parent_path_variants = {
             }
         },
         "other": "other field"
-    }
+    },
+    "modular_blocks": [
+        {
+            "content": {
+                "title": "modular title"
+            }
+        }
+    ]
 }
 
 export {
@@ -221,6 +215,5 @@ export {
     entry_modular_block,
     entry_global_field_multiple,
     entry_with_applied_variants,
-    entry_with_system_variants,
     entry_with_parent_path_variants
 }

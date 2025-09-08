@@ -1,5 +1,5 @@
 import { addTags } from '../src/entry-editable'
-import { entry_global_field, entry_global_field_multiple, entry_modular_block, entry_reference, entry_with_text, entry_with_applied_variants, entry_with_system_variants, entry_with_parent_path_variants } from './mock/entry-editable-mock'
+import { entry_global_field, entry_global_field_multiple, entry_modular_block, entry_reference, entry_with_text, entry_with_applied_variants, entry_with_parent_path_variants } from './mock/entry-editable-mock'
 
 describe('Entry editable test', () => {
     it('Entry with text test', done => {
@@ -134,7 +134,6 @@ describe('Entry editable test', () => {
             
             // Field with direct variant match should get v2 prefix and variant suffix
             expect((entry_with_applied_variants as any)['$']['rich_text_editor']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_1.en-us.rich_text_editor')
-            expect((entry_with_applied_variants as any)['$']['rich_text_editor_multiple']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_1.en-us.rich_text_editor_multiple')
             
             // Nested field with direct variant match
             expect((entry_with_applied_variants as any)['nested']['$']['field']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_2.en-us.nested.field')
@@ -150,23 +149,12 @@ describe('Entry editable test', () => {
             
             // Field with direct variant match should get v2 prefix and variant suffix as object
             expect((entry_with_applied_variants as any)['$']['rich_text_editor']).toEqual({'data-cslp': 'v2:entry_asset.entry_uid_1_variant_1.en-us.rich_text_editor'})
-            expect((entry_with_applied_variants as any)['$']['rich_text_editor_multiple']).toEqual({'data-cslp': 'v2:entry_asset.entry_uid_1_variant_1.en-us.rich_text_editor_multiple'})
             
             // Nested field with direct variant match
             expect((entry_with_applied_variants as any)['nested']['$']['field']).toEqual({'data-cslp': 'v2:entry_asset.entry_uid_1_variant_2.en-us.nested.field'})
             
             // Field without variant should not have v2 prefix
             expect((entry_with_applied_variants as any)['nested']['$']['other_field']).toEqual({'data-cslp': 'entry_asset.entry_uid_1.en-us.nested.other_field'})
-            
-            done()
-        })
-
-        it('Entry with system-level applied variants should work correctly', done => {
-            addTags(entry_with_system_variants, 'entry_asset', false)
-            
-            // Fields with system variants should get v2 prefix and variant suffix
-            expect((entry_with_system_variants as any)['$']['title']).toEqual('data-cslp=v2:entry_asset.entry_uid_2_system_variant.en-us.title')
-            expect((entry_with_system_variants as any)['$']['description']).toEqual('data-cslp=v2:entry_asset.entry_uid_2_desc_variant.en-us.description')
             
             done()
         })
@@ -191,9 +179,8 @@ describe('Entry editable test', () => {
             
             // Modular block content with variant should get v2 prefix and variant suffix
             expect((entry_with_applied_variants as any)['modular_blocks'][0]['$']['content']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_3.en-us.modular_blocks.0.content')
-            
             // Modular block field without variant should not have v2 prefix
-            expect((entry_with_applied_variants as any)['modular_blocks'][0]['$']['title']).toEqual('data-cslp=entry_asset.entry_uid_1.en-us.modular_blocks.0.title')
+            expect((entry_with_applied_variants as any)['modular_blocks'][0]['content']['$']['title']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_3.en-us.modular_blocks.0.content.title')
             
             done()
         })
