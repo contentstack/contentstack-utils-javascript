@@ -1,5 +1,11 @@
 import { EntryModel } from "."
 
+interface AppliedVariants {
+    _applied_variants: { [key: string]: any }
+    shouldApplyVariant: boolean
+    metaKey: string
+}
+
 export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us'): void {
     if (entry) {
         // handle case senstivity for contentTypeUid and locale
@@ -11,7 +17,7 @@ export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject:
     }
 }
 
-function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string, appliedVariants: { _applied_variants: { [key: string]: any }, shouldApplyVariant: boolean, metaKey: string }): object {
+function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string, appliedVariants: AppliedVariants): object {
     const tags: any = {}
     const { metaKey, shouldApplyVariant, _applied_variants } = appliedVariants
     Object.entries(content).forEach(([key, value]) => {
@@ -125,12 +131,9 @@ function getTagsValue(dataValue: string, tagsAsObject: boolean, appliedVariants:
         dataValue = newDataValueArray.join('.');
       }
       else {
-        const variantisedFieldPaths = Object.keys(appliedVariants._applied_variants).sort((a, b) => {
-          return b.length - a.length;
-        });
-        const variantisedParentPath = variantisedFieldPaths.find(path => appliedVariants.metaKey.startsWith(path));
-        if(variantisedParentPath) {
-          const variant = appliedVariants._applied_variants[variantisedParentPath];
+        const parentVariantisedPath = getParentVariantisedPath(appliedVariants);
+        if(parentVariantisedPath) {
+          const variant = appliedVariants._applied_variants[parentVariantisedPath];
           const newDataValueArray = ('v2:' + dataValue).split('.');
           newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
           dataValue = newDataValueArray.join('.');
@@ -149,5 +152,27 @@ function getParentTagsValue(dataValue: string, tagsAsObject: boolean): any {
         return { "data-cslp-parent-field": dataValue };
     } else {
         return `data-cslp-parent-field=${dataValue}`;
+    }
+}
+
+function getParentVariantisedPath(appliedVariants: AppliedVariants) {
+    try {
+        // Safety fallback
+        if(!appliedVariants._applied_variants) return '';
+        const variantisedFieldPaths = Object.keys(appliedVariants._applied_variants).sort((a, b) => {
+            return b.length - a.length;
+        });
+        const childPathFragments = appliedVariants.metaKey.split('.');
+        // Safety fallback
+        if(childPathFragments.length === 0 || variantisedFieldPaths.length === 0) return '';
+        const parentVariantisedPath = variantisedFieldPaths.find(path => {
+            const parentFragments = path.split('.');
+            if(parentFragments.length > childPathFragments.length) return false;
+            return parentFragments.every((fragment, index) => childPathFragments[index] === fragment);
+        }) ?? '';
+        return parentVariantisedPath;
+    }
+    catch(e) {
+        return '';
     }
 }
