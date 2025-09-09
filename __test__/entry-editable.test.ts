@@ -131,7 +131,7 @@ describe('Entry editable test', () => {
     describe('Applied Variants Tests', () => {
         it('Entry with applied variants should generate v2 tags with variant suffix', done => {
             addTags(entry_with_applied_variants, 'entry_asset', false)
-            
+
             // Field with direct variant match should get v2 prefix and variant suffix
             expect((entry_with_applied_variants as any)['$']['rich_text_editor']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_1.en-us.rich_text_editor')
             
@@ -140,6 +140,7 @@ describe('Entry editable test', () => {
             
             // Field without variant should not have v2 prefix
             expect((entry_with_applied_variants as any)['nested']['$']['other_field']).toEqual('data-cslp=entry_asset.entry_uid_1.en-us.nested.other_field')
+            expect((entry_with_applied_variants as any)['$']['rich_text_editor_multiple']).toEqual('data-cslp=entry_asset.entry_uid_1.en-us.rich_text_editor_multiple')
             
             done()
         })
@@ -155,32 +156,53 @@ describe('Entry editable test', () => {
             
             // Field without variant should not have v2 prefix
             expect((entry_with_applied_variants as any)['nested']['$']['other_field']).toEqual({'data-cslp': 'entry_asset.entry_uid_1.en-us.nested.other_field'})
+            expect((entry_with_applied_variants as any)['$']['rich_text_editor_multiple']).toEqual({'data-cslp': 'entry_asset.entry_uid_1.en-us.rich_text_editor_multiple'})
             
             done()
         })
 
         it('Entry with parent path variants should find correct variant', done => {
             addTags(entry_with_parent_path_variants, 'entry_asset', false)
-            
+
+            // Group field should get parent variant
+            expect((entry_with_parent_path_variants as any)['$']['group']).toEqual('data-cslp=v2:entry_asset.entry_uid_3_parent_variant.en-us.group')
             // Field under 'group' parent should get parent variant
             expect((entry_with_parent_path_variants as any)['group']['$']['other']).toEqual('data-cslp=v2:entry_asset.entry_uid_3_parent_variant.en-us.group.other')
-            
             // Field under 'group.nested' should get parent variant (group is longer match)
             expect((entry_with_parent_path_variants as any)['group']['nested']['$']['field']).toEqual('data-cslp=v2:entry_asset.entry_uid_3_parent_variant.en-us.group.nested.field')
-            
             // Field with exact deep path match should get deep variant
             expect((entry_with_parent_path_variants as any)['group']['nested']['deep']['$']['field']).toEqual('data-cslp=v2:entry_asset.entry_uid_3_deep_variant.en-us.group.nested.deep.field')
             
+            // Field with the same starting path should not get parent variant
+            expect((entry_with_parent_path_variants as any)['$']['group_multiple']).toEqual('data-cslp=entry_asset.entry_uid_3.en-us.group_multiple')
+
+            // Modular block content with variant should get v2 prefix and variant suffix
+            expect((entry_with_parent_path_variants as any)['modular_blocks'][0]['$']['content']).toEqual('data-cslp=v2:entry_asset.entry_uid_3_parent_variant.en-us.modular_blocks.0.content')
+            // Modular block field inside a variantised parent should get v2 prefix and variant suffix
+            expect((entry_with_parent_path_variants as any)['modular_blocks'][0]['content']['$']['title']).toEqual('data-cslp=v2:entry_asset.entry_uid_3_parent_variant.en-us.modular_blocks.0.content.title')
+
+            // Modular block content without variant should not have v2 prefix and variant suffix
+            expect((entry_with_parent_path_variants as any)['modular_blocks'][1]['$']['content']).toEqual('data-cslp=entry_asset.entry_uid_3.en-us.modular_blocks.1.content')
+            // Modular block field inside a non variantised parent should not get v2 prefix and variant suffix
+            expect((entry_with_parent_path_variants as any)['modular_blocks'][1]['content']['$']['title']).toEqual('data-cslp=entry_asset.entry_uid_3.en-us.modular_blocks.1.content.title')
+
             done()
         })
 
         it('Entry with modular block variants should apply variants correctly', done => {
             addTags(entry_with_applied_variants, 'entry_asset', false)
-            
+
             // Modular block content with variant should get v2 prefix and variant suffix
-            expect((entry_with_applied_variants as any)['modular_blocks'][0]['$']['content']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_3.en-us.modular_blocks.0.content')
-            // Modular block field without variant should not have v2 prefix
-            expect((entry_with_applied_variants as any)['modular_blocks'][0]['content']['$']['title']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_3.en-us.modular_blocks.0.content.title')
+            expect((entry_with_applied_variants as any)['modular_blocks'][1]['$']['content_from_variant']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_3.en-us.modular_blocks.1.content_from_variant')
+            // Modular block field inside a variantised parent should get v2 prefix and variant suffix
+            expect((entry_with_applied_variants as any)['modular_blocks'][1]['content_from_variant']['$']['title']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_3.en-us.modular_blocks.1.content_from_variant.title')
+            // Field inside a variantised parent with a different variant should get v2 prefix and variant suffix of that variant
+            expect((entry_with_applied_variants as any)['modular_blocks'][1]['content_from_variant']['$']['different_from_parent_variant']).toEqual('data-cslp=v2:entry_asset.entry_uid_1_variant_4.en-us.modular_blocks.1.content_from_variant.different_from_parent_variant')
+            
+            // Modular block content without variant should get v2 prefix and variant suffix
+            expect((entry_with_applied_variants as any)['modular_blocks'][0]['$']['content']).toEqual('data-cslp=entry_asset.entry_uid_1.en-us.modular_blocks.0.content')
+            // Modular block field without variant should not have v2 prefix and variant suffix
+            expect((entry_with_applied_variants as any)['modular_blocks'][0]['content']['$']['title']).toEqual('data-cslp=entry_asset.entry_uid_1.en-us.modular_blocks.0.content.title')
             
             done()
         })
