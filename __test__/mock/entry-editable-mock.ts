@@ -22,9 +22,9 @@ const entry_modular_block = {
                     "<p>module 2&nbsp;</p><figure class=\"embedded-asset\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-asset-filelink=\"https://image.url/11.jpg\" data-sys-asset-uid=\"entry_uid_34\" data-sys-asset-filename=\"11.jpg\" data-sys-asset-contenttype=\"image/jpeg\" type=\"asset\" sys-style-type=\"display\"></figure>"
                 ],
                 "_metadata": {
-                    "uid": "metadata_uid"
+                    "uid": "metadata_uid_1"
                 }
-            }
+            },
         },
         {
             "global_modular": {
@@ -46,13 +46,13 @@ const entry_modular_block = {
                                 "<p>Module 2</p><div class=\"redactor-component embedded-entry block-entry redactor-component-active\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"entry_uid_10\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" data-sys-can-edit=\"true\" sys-style-type=\"block\" type=\"entry\"></div>"
                             ],
                             "_metadata": {
-                                "uid": "metadata_uid"
+                                "uid": "metadata_uid_1"
                             }
-                        }
+                        },
                     }
                 ],
                 "_metadata": {
-                    "uid": "metadata_uid"
+                    "uid": "metadata_uid_2"
                 }
             }
         }
@@ -106,9 +106,9 @@ const entry_global_field = {
                         "<p>global modular 2<span class=\"redactor-component embedded-entry inline-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"entry_uid_12\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_bug_1\" data-sys-can-edit=\"true\" sys-style-type=\"inline\" type=\"entry\"></span></p>"
                     ],
                     "_metadata": {
-                        "uid": "metadata_uid"
+                        "uid": "metadata_uid_1"
                     }
-                }
+                },
             }
         ]
     },
@@ -139,21 +139,113 @@ const entry_global_field_multiple = {
                             "<p>Global multiple modular</p><figure class=\"embedded-asset\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-asset-filelink=\"https://image.url/11.jpg\" data-sys-asset-uid=\"entry_uid_34\" data-sys-asset-filename=\"11.jpg\" data-sys-asset-contenttype=\"image/jpeg\" type=\"asset\" sys-style-type=\"display\"></figure>\n<p> 2</p>"
                         ],
                         "_metadata": {
-                            "uid": "metadata_uid"
+                            "uid": "metadata_uid_1"
                         }
-                    }
+                    },
                 }
             ],
             "_metadata": {
-                "uid": "metadata_uid"
+                "uid": "metadata_uid_1"
             }
         }
     ]
 }
+// Mock entry with applied variants for testing variant functionality
+const entry_with_applied_variants = {
+    "_version": 10,
+    "locale": "en-us",
+    "uid": "entry_uid_1",
+    "ACL": {},
+    "_applied_variants": {
+        "rich_text_editor": "variant_1",
+        "nested.field": "variant_2",
+        "modular_blocks.content_from_variant.metadata_uid_2": "variant_3",
+        "modular_blocks.content_from_variant.metadata_uid_2.different_from_parent_variant": "variant_4"
+    },
+    "rich_text_editor": "<p>Content with variant</p>",
+    "rich_text_editor_multiple": [
+        "<p>Multiple content with variant</p>"
+    ],
+    "nested": {
+        "field": "nested field content",
+        "other_field": "other nested content"
+    },
+    "modular_blocks": [
+        {
+            "content": {
+                "title": "modular title",
+                "_metadata": {
+                    "uid": "metadata_uid_1"
+                }
+            }
+        },
+        {
+            "content_from_variant": {
+                "title": "modular title from variant",
+                "different_from_parent_variant": "different from parent variant",
+                "_metadata": {
+                    "uid": "metadata_uid_2"
+                }
+            }
+        }
+    ]
+}
+
+
+// Mock entry with nested parent path variants
+const entry_with_parent_path_variants = {
+    "_version": 10,
+    "locale": "en-us", 
+    "uid": "entry_uid_3",
+    "ACL": {},
+    "_applied_variants": {
+        "group": "parent_variant",
+        "group.nested.deep": "deep_variant",
+        "modular_blocks.content.metadata_uid_1": "parent_variant"
+    },
+    "group": {
+        "nested": {
+            "field": "nested field",
+            "deep": {
+                "field": "deep field"
+            }
+        },
+        "other": "other field"
+    },
+    "modular_blocks": [
+        {
+            "content": {
+                "title": "modular title",
+                "_metadata": {
+                    "uid": "metadata_uid_1"
+                }
+            },
+        },
+        {
+            "content": {
+                "title": "modular title 2",
+                "_metadata": {
+                    "uid": "metadata_uid_2"
+                }
+            },
+        }
+    ],
+    "group_multiple": [
+        {
+            "other": "other field",
+            "_metadata": {
+                "uid": "metadata_uid_1"
+            }
+        }
+    ]
+}
+
 export {
     entry_with_text,
     entry_reference,
     entry_global_field,
     entry_modular_block,
-    entry_global_field_multiple
+    entry_global_field_multiple,
+    entry_with_applied_variants,
+    entry_with_parent_path_variants
 }
