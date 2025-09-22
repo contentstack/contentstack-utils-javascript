@@ -1,6 +1,9 @@
 # Changelog
 
-## [1.5.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.1) (2025-09-01)
+## [1.4.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.3) (2025-09-22)
+ - Fix data-cslp generation logic in case of applied_variants
+
+## [1.4.2](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.2) (2025-09-01)
  - Improve null checks in find embedded entry and find embedded asset functions
 
 ## [1.4.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.1) (2025-05-26)
