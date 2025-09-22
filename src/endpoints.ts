@@ -46,7 +46,11 @@ export async function getContentstackEndpoint(region: string = 'us', service: st
           
           try {
             const endpoint = service ? endpointsData[cloud][region][service] : endpointsData[cloud][region];
-            endpoint['Region'] = normalizedRegion;
+            
+            // Only add Region property if endpoint is an object (not a string)
+            if (typeof endpoint === 'object' && endpoint !== null) {
+              endpoint['Region'] = normalizedRegion;
+            }
 
             return omitHttps ? stripHttps(endpoint) : endpoint;
           } catch (error) {
