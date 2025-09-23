@@ -179,6 +179,12 @@ export const defaultNodeOption: RenderOption = {
         return `<sup>${sanitizeHTML(text)}</sup>`
     },
     [MarkType.BREAK]:(text: string) => {
+        // Check if text is only newlines (which will be converted to <br /> by sanitizeHTML)
+        // If so, don't add an extra <br /> to avoid duplication
+        const onlyNewlines = /^\n+$/.test(text);
+        if (onlyNewlines) {
+            return sanitizeHTML(text);
+        }
         return `<br />${sanitizeHTML(text)}`
     },
     [MarkType.CLASSNAME_OR_ID]:(text: string, classname: string, id:string) => {

@@ -122,4 +122,94 @@ describe('Text Node To HTML', () => {
         expect(resultHtml).toEqual(`<strong><em><u><strike><span data-type='inlineCode'><sub><sup>${textNode.text}</sup></sub></span></strike></u></em></strong>`)
         done()
     })
+
+    it('Should return Break string text', done => {
+        const node = {
+            ...textNode,
+            break: true
+        }
+
+        const resultHtml = textNodeToHTML(node, {
+            ...defaultNodeOption
+        })
+
+        expect(resultHtml).toEqual(`<br />${textNode.text}`)
+        done()
+    })
+
+    it('Should handle newline character without break flag', done => {
+        const node = {
+            ...textNode,
+            text: "line1\nline2"
+        }
+
+        const resultHtml = textNodeToHTML(node, {
+            ...defaultNodeOption
+        })
+
+        expect(resultHtml).toEqual('line1<br />line2')
+        done()
+    })
+
+    it('Should handle single newline with break flag without duplication', done => {
+        const node = {
+            ...textNode,
+            text: "\n",
+            break: true
+        }
+
+        const resultHtml = textNodeToHTML(node, {
+            ...defaultNodeOption
+        })
+
+        expect(resultHtml).toEqual('<br />')
+        done()
+    })
+
+    it('Should handle multiple newlines with break flag without duplication', done => {
+        const node = {
+            ...textNode,
+            text: "\n\n\n",
+            break: true
+        }
+
+        const resultHtml = textNodeToHTML(node, {
+            ...defaultNodeOption
+        })
+
+        expect(resultHtml).toEqual('<br /><br /><br />')
+        done()
+    })
+
+    it('Should handle text with newline and break flag properly', done => {
+        const node = {
+            ...textNode,
+            text: "text with\nnewline",
+            break: true
+        }
+
+        const resultHtml = textNodeToHTML(node, {
+            ...defaultNodeOption
+        })
+
+        expect(resultHtml).toEqual('<br />text with<br />newline')
+        done()
+    })
+
+    it('Should handle break with other marks', done => {
+        const node = {
+            ...textNode,
+            text: "break text",
+            break: true,
+            bold: true,
+            italic: true
+        }
+
+        const resultHtml = textNodeToHTML(node, {
+            ...defaultNodeOption
+        })
+
+        expect(resultHtml).toEqual(`<strong><em><br />${node.text}</em></strong>`)
+        done()
+    })
 })
