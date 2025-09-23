@@ -9,6 +9,7 @@ import { Next, RenderMark, RenderNode, RenderOption } from '../options';
 import { defaultNodeOption } from '../options/default-node-options';
 import { findRenderString } from './find-embeded-object';
 import { EntryNode } from '../Models/json-rte-model';
+import { replaceHtmlEntities } from './string-utils';
 
 export function enumerate(
   entries: EntryEmbedable[] | EmbeddedItem[],
@@ -183,13 +184,3 @@ function nodeToHTML(
     }
   }
 }
-
-export function replaceHtmlEntities(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-}
-
-export const forbiddenAttrChars = ['"', "'", '>','<', '/', '='];
