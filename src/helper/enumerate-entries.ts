@@ -43,33 +43,53 @@ export function enumerateContents(
 
 export function textNodeToHTML(node: TextNode, renderOption: RenderOption): string {
   let text = replaceHtmlEntities(node.text);
+  
+  // Convert newlines to <br /> tags if there are no other marks
+  // This ensures newlines are always handled consistently
+  let hasMarks = false;
+  
   if (node.classname || node.id) {
     text = (renderOption[MarkType.CLASSNAME_OR_ID] as RenderMark)(text, node.classname, node.id);
+    hasMarks = true;
   }
   if (node.break) {
     text = (renderOption[MarkType.BREAK] as RenderMark)(text);
+    hasMarks = true;
   }
   if (node.superscript) {
     text = (renderOption[MarkType.SUPERSCRIPT] as RenderMark)(text);
+    hasMarks = true;
   }
   if (node.subscript) {
     text = (renderOption[MarkType.SUBSCRIPT] as RenderMark)(text);
+    hasMarks = true;
   }
   if (node.inlineCode) {
     text = (renderOption[MarkType.INLINE_CODE] as RenderMark)(text);
+    hasMarks = true;
   }
   if (node.strikethrough) {
     text = (renderOption[MarkType.STRIKE_THROUGH] as RenderMark)(text);
+    hasMarks = true;
   }
   if (node.underline) {
     text = (renderOption[MarkType.UNDERLINE] as RenderMark)(text);
+    hasMarks = true;
   }
   if (node.italic) {
     text = (renderOption[MarkType.ITALIC] as RenderMark)(text);
+    hasMarks = true;
   }
   if (node.bold) {
     text = (renderOption[MarkType.BOLD] as RenderMark)(text);
+    hasMarks = true;
   }
+  
+  // If no marks were applied, but text contains newlines, convert them to <br />
+  if (!hasMarks && text.includes('\n')) {
+    text = text.replace(/\n/g, '<br />');
+  }
+  
   return text;
 }
 export function referenceToHTML(
