@@ -2421,6 +2421,139 @@ const escapeJsonHtml = {
   uid: 'asset_uid_10',
 }
 
+const breakTestJson = {
+  uid: "break_test_uid",
+  _version: 1,
+  attrs: {},
+  children: [
+    {
+      type: "p",
+      attrs: {},
+      uid: "break_paragraph_uid",
+      children: [
+        {
+          text: "Normal text with ",
+        },
+        {
+          text: "break tag",
+          break: true
+        },
+        {
+          text: " after break."
+        }
+      ]
+    }
+  ],
+  type: "doc"
+}
+
+const newlineBreakTestJson = {
+  uid: "newline_break_test_uid", 
+  _version: 1,
+  attrs: {},
+  children: [
+    {
+      type: "p",
+      attrs: {},
+      uid: "newline_break_paragraph_uid",
+      children: [
+        {
+          text: "Text before newline break",
+        },
+        {
+          text: "\n",
+          break: true
+        },
+        {
+          text: "Text after newline break"
+        }
+      ]
+    }
+  ],
+  type: "doc"
+}
+
+const multipleNewlinesBreakTestJson = {
+  uid: "multiple_newlines_break_test_uid",
+  _version: 1, 
+  attrs: {},
+  children: [
+    {
+      type: "p",
+      attrs: {},
+      uid: "multiple_newlines_paragraph_uid",
+      children: [
+        {
+          text: "Text before",
+        },
+        {
+          text: "\n\n\n",
+          break: true
+        },
+        {
+          text: "Text after"
+        }
+      ]
+    }
+  ],
+  type: "doc"
+}
+
+const plainNewlineTestJson = {
+  uid: "plain_newline_test_uid",
+  _version: 1,
+  attrs: {},
+  children: [
+    {
+      type: "p", 
+      attrs: {},
+      uid: "plain_newline_paragraph_uid",
+      children: [
+        {
+          text: "Line 1\nLine 2\nLine 3"
+        }
+      ]
+    }
+  ],
+  type: "doc"
+}
+
+const breakTestEntry = {
+  title: 'Break Test Entry',
+  url: '/break-test-entry',
+  rich_text_editor: {...breakTestJson},
+  locale: 'en-us',
+  _in_progress: false,
+  uid: 'break_test_entry_uid',
+}
+
+const newlineBreakTestEntry = {
+  title: 'Newline Break Test Entry',
+  url: '/newline-break-test-entry', 
+  rich_text_editor: {...newlineBreakTestJson},
+  locale: 'en-us',
+  _in_progress: false,
+  uid: 'newline_break_test_entry_uid',
+}
+
+const multipleNewlinesBreakTestEntry = {
+  title: 'Multiple Newlines Break Test Entry',
+  url: '/multiple-newlines-break-test-entry',
+  rich_text_editor: {...multipleNewlinesBreakTestJson},
+  locale: 'en-us', 
+  _in_progress: false,
+  uid: 'multiple_newlines_break_test_entry_uid',
+}
+
+const plainNewlineTestEntry = {
+  title: 'Plain Newline Test Entry',
+  url: '/plain-newline-test-entry',
+  rich_text_editor: {...plainNewlineTestJson},
+  locale: 'en-us',
+  _in_progress: false,
+  uid: 'plain_newline_test_entry_uid',
+}
+
 export { 
   h1Json,
   h2Json,
@@ -2460,5 +2593,13 @@ export {
   testJsonRte,
   testJsonAsset,
   paragraphEntryWithNewline,
-  escapeJsonHtml
+  escapeJsonHtml,
+  breakTestJson,
+  newlineBreakTestJson,
+  multipleNewlinesBreakTestJson,
+  plainNewlineTestJson,
+  breakTestEntry,
+  newlineBreakTestEntry,
+  multipleNewlinesBreakTestEntry,
+  plainNewlineTestEntry
 }
