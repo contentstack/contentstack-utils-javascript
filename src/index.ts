@@ -14,3 +14,14 @@ export { jsonToHTML } from './json-to-html'
 export { GQL } from './gql'
 export { addTags as addEditableTags } from './entry-editable'
 export { updateAssetURLForGQL } from './updateAssetURLForGQL'
+
+// React integration exports (optional - only use if React is available)
+export { jsonToReact, createJsonToReact, defaultReactRenderOptions } from './json-to-react';
+export { ReactRenderOptions, JsonToReactOptions, ReactRenderNode } from './Models/react-types';
+export { 
+  getReactProps, 
+  parseStyleString, 
+  textNodeToReact, 
+  setNestedProperty, 
+  getNestedProperty 
+} from './helper/react-utils';
