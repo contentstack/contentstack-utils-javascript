@@ -34,7 +34,11 @@ import {
     testJsonRte,
     testJsonAsset,
     embeddedAssetAsLinkJsonEntry,
-    escapeJsonHtml } from './mock/json-element-mock'
+    escapeJsonHtml,
+    breakTestEntry,
+    newlineBreakTestEntry,
+    multipleNewlinesBreakTestEntry,
+    plainNewlineTestEntry } from './mock/json-element-mock'
 import {
     blockquoteHtml,
     codeHtml,
@@ -50,19 +54,23 @@ import {
     orderListHtml,
     paragraphHtml,
     paragraphHtmlWithNewLine,
-    plainTextHtml, 
-    styleinPHtml, 
-    tableHtml, 
+    plainTextHtml,
+    styleinPHtml,
+    tableHtml,
     unorderListHtml,
     plainTextHtmlWithClass,
     plainTextHtmlWithId,
     htmlTextIdInAttrs,
     classAndIdAttrsHtml,
-    styleObjHtml, 
+    styleObjHtml,
     referenceObjHtml,
     referenceObjHtmlBlock,
     imagetags,
-    escapeHtml } from './mock/json-element-mock-result'
+    escapeHtml,
+    breakTestHtml,
+    newlineBreakTestHtml,
+    multipleNewlinesBreakTestHtml,
+    plainNewlineTestHtml } from './mock/json-element-mock-result'
 describe('Node parser paragraph content', () => {
     it('Should accept proper values', done => {
         const entry = { uid: 'uid'}
@@ -680,6 +688,61 @@ describe('Node parse json_rte Content', () => {
         const paths =['json_rte']
         jsonToHTML({ entry: entry, paths})
         expect(entry.json_rte).toEqual(imagetags)
+        done()
+    })
+})
+
+describe('Break and Newline handling tests', () => {
+    it('Should handle break flag in text nodes correctly', done => {
+        const entry = {...breakTestEntry}
+        const paths = ['rich_text_editor']
+        
+        jsonToHTML({ entry, paths })
+        
+        expect(entry.rich_text_editor).toEqual(breakTestHtml)
+        done()
+    })
+
+    it('Should handle newline with break flag without duplication', done => {
+        const entry = {...newlineBreakTestEntry}
+        const paths = ['rich_text_editor']
+        
+        jsonToHTML({ entry, paths })
+        
+        expect(entry.rich_text_editor).toEqual(newlineBreakTestHtml)
+        done()
+    })
+
+    it('Should handle multiple newlines with break flag correctly', done => {
+        const entry = {...multipleNewlinesBreakTestEntry}
+        const paths = ['rich_text_editor']
+        
+        jsonToHTML({ entry, paths })
+        
+        expect(entry.rich_text_editor).toEqual(multipleNewlinesBreakTestHtml)
+        done()
+    })
+
+    it('Should handle plain newlines without break flag', done => {
+        const entry = {...plainNewlineTestEntry}
+        const paths = ['rich_text_editor']
+        
+        jsonToHTML({ entry, paths })
+        
+        expect(entry.rich_text_editor).toEqual(plainNewlineTestHtml)
+        done()
+    })
+
+    it('Should handle break flag in arrays', done => {
+        const entry = {
+            ...breakTestEntry,
+            rich_text_editor: [breakTestEntry.rich_text_editor]
+        }
+        const paths = ['rich_text_editor']
+        
+        jsonToHTML({ entry, paths })
+        
+        expect(entry.rich_text_editor).toEqual([breakTestHtml])
         done()
     })
 })
