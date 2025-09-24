@@ -14,3 +14,5 @@ fileignoreconfig:
   checksum: bcbd28b040bd1c338fd0a677354267918136aac7557e5449b9dd76015d6a336d
 - filename: src/json-to-react.ts
   checksum: 13985223d0c1471b637df4da5badfba91500b34e0473d41e70d2fc4b356055a4
+- filename: __test__/json-to-react.test.ts
+  checksum: 592452cbbe1c887ffd71fc10d5cf86f9e6f6c7c549077deba3e7a81944c1d397
