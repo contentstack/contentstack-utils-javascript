@@ -1,6 +1,6 @@
 import StyleType from '../embedded-types/style-type';
 import TextNode from '../nodes/text-node';
-import { replaceHtmlEntities, forbiddenAttrChars } from '../helper/enumerate-entries';
+import { replaceHtmlEntities, forbiddenAttrChars } from '../helper/string-utils';
 
 export interface Metadata {
   text: string;
