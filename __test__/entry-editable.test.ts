@@ -232,6 +232,110 @@ describe('Entry editable test', () => {
             done()
         })
 
+        it('Entry with array containing null values should skip null elements', done => {
+            const entryWithNullInArray = {
+                "locale": "en-us",
+                "uid": "uid",
+                "items": [
+                    null,
+                    { "title": "valid item" },
+                    null
+                ]
+            }
+            
+            expect(() => addTags(entryWithNullInArray, 'content_type', false)).not.toThrow()
+            expect((entryWithNullInArray as any)['items'][1]['$']['title']).toEqual('data-cslp=content_type.uid.en-us.items.1.title')
+            
+            done()
+        })
+
+        it('Entry with array containing undefined values should skip undefined elements', done => {
+            const entryWithUndefinedInArray = {
+                "locale": "en-us",
+                "uid": "uid",
+                "items": [
+                    undefined,
+                    { "title": "valid item" },
+                    undefined
+                ]
+            }
+            
+            expect(() => addTags(entryWithUndefinedInArray, 'content_type', false)).not.toThrow()
+            expect((entryWithUndefinedInArray as any)['items'][1]['$']['title']).toEqual('data-cslp=content_type.uid.en-us.items.1.title')
+            
+            done()
+        })
+
+        it('Entry with array containing mixed null and undefined values should skip both', done => {
+            const entryWithMixedNullUndefined = {
+                "locale": "en-us",
+                "uid": "uid",
+                "items": [
+                    null,
+                    undefined,
+                    { "title": "valid item 1" },
+                    null,
+                    { "title": "valid item 2" },
+                    undefined
+                ]
+            }
+            
+            expect(() => addTags(entryWithMixedNullUndefined, 'content_type', true)).not.toThrow()
+            expect((entryWithMixedNullUndefined as any)['items'][2]['$']['title']).toEqual({'data-cslp': 'content_type.uid.en-us.items.2.title'})
+            expect((entryWithMixedNullUndefined as any)['items'][4]['$']['title']).toEqual({'data-cslp': 'content_type.uid.en-us.items.4.title'})
+            
+            done()
+        })
+
+        it('Entry with _embedded_items containing null values should handle gracefully', done => {
+            const entryWithEmbeddedNull: any = {
+                "locale": "en-us",
+                "uid": "uid",
+                "blocks": [
+                    {
+                        "items": [
+                            { "heading": "Item heading" }
+                        ]
+                    }
+                ],
+                "_embedded_items": {
+                    "blocks.items.description": [null]
+                }
+            }
+            
+            expect(() => addTags(entryWithEmbeddedNull, 'content_type', false)).not.toThrow()
+            expect((entryWithEmbeddedNull as any)['blocks'][0]['items'][0]['$']['heading']).toEqual('data-cslp=content_type.uid.en-us.blocks.0.items.0.heading')
+            expect((entryWithEmbeddedNull as any)['_embedded_items']['blocks.items.description'][0]).toBeNull()
+            
+            done()
+        })
+
+        it('Entry with nested arrays containing nulls in complex structure should work', done => {
+            const entryWithComplexNulls: any = {
+                "locale": "en-us",
+                "uid": "uid",
+                "blocks": [
+                    {
+                        "hero": {
+                            "title": "Hero title",
+                            "items": [null, { "name": "Item name" }, undefined]
+                        }
+                    },
+                    null,
+                    {
+                        "content": "Content text"
+                    }
+                ]
+            }
+            
+            expect(() => addTags(entryWithComplexNulls, 'content_type', true)).not.toThrow()
+            expect((entryWithComplexNulls as any)['blocks'][0]['hero']['$']['title']).toEqual({'data-cslp': 'content_type.uid.en-us.blocks.0.hero.title'})
+            expect((entryWithComplexNulls as any)['blocks'][0]['hero']['items'][1]['$']['name']).toEqual({'data-cslp': 'content_type.uid.en-us.blocks.0.hero.items.1.name'})
+            expect((entryWithComplexNulls as any)['blocks'][2]['$']['content']).toEqual({'data-cslp': 'content_type.uid.en-us.blocks.2.content'})
+            
+            done()
+        })
+
         it('Variant path sorting should work correctly for nested paths', done => {
             const entryWithComplexVariants = {
                 "_version": 10,
