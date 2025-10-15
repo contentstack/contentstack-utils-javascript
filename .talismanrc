@@ -8,3 +8,11 @@ fileignoreconfig:
   checksum: 3ba7af9ed1c1adef2e2bd5610099716562bebb8ba750d4b41ddda99fc9eaf115
 - filename: .husky/pre-commit
   checksum: 5baabd7d2c391648163f9371f0e5e9484f8fb90fa2284cfc378732ec3192c193
+- filename: src/Models/react-types.ts
+  checksum: 10165b0c5f687c17e177df6b7a5014f174da4d8b0fdc7ed90cdeb6c0aba10808
+- filename: src/helper/react-utils.ts
+  checksum: bcbd28b040bd1c338fd0a677354267918136aac7557e5449b9dd76015d6a336d
+- filename: src/json-to-react.ts
+  checksum: 13985223d0c1471b637df4da5badfba91500b34e0473d41e70d2fc4b356055a4
+- filename: __test__/json-to-react.test.ts
+  checksum: 592452cbbe1c887ffd71fc10d5cf86f9e6f6c7c549077deba3e7a81944c1d397
