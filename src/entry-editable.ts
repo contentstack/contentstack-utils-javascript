@@ -29,6 +29,9 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
             case "object":
                 if (Array.isArray(value)) {
                     value.forEach((obj, index) => {
+                        if (obj === null || obj === undefined) {
+                            return;
+                        }
                         const childKey = `${key}__${index}`
                         const parentKey = `${key}__parent`
                         metaUID = value && typeof value === 'object' && obj !== null && obj._metadata && obj._metadata.uid ? obj._metadata.uid : '';
