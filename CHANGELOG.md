@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.5) (2025-10-27)
+ - fix: handle null and undefined values in getTag function
+ - fix: refernce variant cslp generation fix
+
+## [1.4.4](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.4) (2025-09-24)
+ -Enhance break and newline handling, update dependencies
+
 ## [1.4.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.3) (2025-09-22)
  - Fix data-cslp generation logic in case of applied_variants
 
