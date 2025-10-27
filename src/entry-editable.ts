@@ -62,7 +62,7 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                              *  }]
                              * }
                              */
-                            const newAppliedVariants = obj._applied_variants || obj?.system?.applied_variants || _applied_variants;
+                            const newAppliedVariants = obj._applied_variants || obj?.system?.applied_variants || null //check for _applied_variants in the reference object only return null if not present , do not check in the parent object;
                             const newShouldApplyVariant = !!newAppliedVariants
                             value[index].$ = getTag(obj, `${obj._content_type_uid}.${obj.uid}.${obj.locale || locale}`, tagsAsObject, locale, { _applied_variants: newAppliedVariants, shouldApplyVariant: newShouldApplyVariant, metaKey: "" })
                         } else if (typeof obj === "object") {
