@@ -232,6 +232,110 @@ describe('Entry editable test', () => {
             done()
         })
 
+        it('Entry with array containing null values should skip null elements', done => {
+            const entryWithNullInArray = {
+                "locale": "en-us",
+                "uid": "uid",
+                "items": [
+                    null,
+                    { "title": "valid item" },
+                    null
+                ]
+            }
+            
+            expect(() => addTags(entryWithNullInArray, 'content_type', false)).not.toThrow()
+            expect((entryWithNullInArray as any)['items'][1]['$']['title']).toEqual('data-cslp=content_type.uid.en-us.items.1.title')
+            
+            done()
+        })
+
+        it('Entry with array containing undefined values should skip undefined elements', done => {
+            const entryWithUndefinedInArray = {
+                "locale": "en-us",
+                "uid": "uid",
+                "items": [
+                    undefined,
+                    { "title": "valid item" },
+                    undefined
+                ]
+            }
+            
+            expect(() => addTags(entryWithUndefinedInArray, 'content_type', false)).not.toThrow()
+            expect((entryWithUndefinedInArray as any)['items'][1]['$']['title']).toEqual('data-cslp=content_type.uid.en-us.items.1.title')
+            
+            done()
+        })
+
+        it('Entry with array containing mixed null and undefined values should skip both', done => {
+            const entryWithMixedNullUndefined = {
+                "locale": "en-us",
+                "uid": "uid",
+                "items": [
+                    null,
+                    undefined,
+                    { "title": "valid item 1" },
+                    null,
+                    { "title": "valid item 2" },
+                    undefined
+                ]
+            }
+            
+            expect(() => addTags(entryWithMixedNullUndefined, 'content_type', true)).not.toThrow()
+            expect((entryWithMixedNullUndefined as any)['items'][2]['$']['title']).toEqual({'data-cslp': 'content_type.uid.en-us.items.2.title'})
+            expect((entryWithMixedNullUndefined as any)['items'][4]['$']['title']).toEqual({'data-cslp': 'content_type.uid.en-us.items.4.title'})
+            
+            done()
+        })
+
+        it('Entry with _embedded_items containing null values should handle gracefully', done => {
+            const entryWithEmbeddedNull: any = {
+                "locale": "en-us",
+                "uid": "uid",
+                "blocks": [
+                    {
+                        "items": [
+                            { "heading": "Item heading" }
+                        ]
+                    }
+                ],
+                "_embedded_items": {
+                    "blocks.items.description": [null]
+                }
+            }
+            
+            expect(() => addTags(entryWithEmbeddedNull, 'content_type', false)).not.toThrow()
+            expect((entryWithEmbeddedNull as any)['blocks'][0]['items'][0]['$']['heading']).toEqual('data-cslp=content_type.uid.en-us.blocks.0.items.0.heading')
+            expect((entryWithEmbeddedNull as any)['_embedded_items']['blocks.items.description'][0]).toBeNull()
+            
+            done()
+        })
+
+        it('Entry with nested arrays containing nulls in complex structure should work', done => {
+            const entryWithComplexNulls: any = {
+                "locale": "en-us",
+                "uid": "uid",
+                "blocks": [
+                    {
+                        "hero": {
+                            "title": "Hero title",
+                            "items": [null, { "name": "Item name" }, undefined]
+                        }
+                    },
+                    null,
+                    {
+                        "content": "Content text"
+                    }
+                ]
+            }
+            
+            expect(() => addTags(entryWithComplexNulls, 'content_type', true)).not.toThrow()
+            expect((entryWithComplexNulls as any)['blocks'][0]['hero']['$']['title']).toEqual({'data-cslp': 'content_type.uid.en-us.blocks.0.hero.title'})
+            expect((entryWithComplexNulls as any)['blocks'][0]['hero']['items'][1]['$']['name']).toEqual({'data-cslp': 'content_type.uid.en-us.blocks.0.hero.items.1.name'})
+            expect((entryWithComplexNulls as any)['blocks'][2]['$']['content']).toEqual({'data-cslp': 'content_type.uid.en-us.blocks.2.content'})
+            
+            done()
+        })
+
         it('Variant path sorting should work correctly for nested paths', done => {
             const entryWithComplexVariants = {
                 "_version": 10,
@@ -265,6 +369,151 @@ describe('Entry editable test', () => {
             expect((entryWithComplexVariants as any)['a']['b']['c']['$']['field']).toEqual('data-cslp=v2:entry_asset.entry_uid_test_variant_abc.en-us.a.b.c.field')
             expect((entryWithComplexVariants as any)['a']['b']['$']['field']).toEqual('data-cslp=v2:entry_asset.entry_uid_test_variant_ab.en-us.a.b.field')
             expect((entryWithComplexVariants as any)['a']['$']['field']).toEqual('data-cslp=v2:entry_asset.entry_uid_test_variant_a.en-us.a.field')
+            
+            done()
+        })
+
+        it('Reference fields should not inherit parent variants when they have no applied_variants', done => {
+            const entryWithReferenceAndVariants = {
+                "title": "home",
+                "url": "/data/all_test/first",
+                "single_line": "ssd",
+                "tags": ["hi"],
+                "locale": "en-us",
+                "uid": "blt827e0ad3608248be",
+                "created_by": "bltf0d59057590e9b09",
+                "updated_by": "bltf0d59057590e9b09",
+                "created_at": "2025-08-25T09:43:49.935Z",
+                "updated_at": "2025-10-09T11:45:19.967Z",
+                "ACL": [] as any[],
+                "_version": 40,
+                "_in_progress": false,
+                "json_rte": "<p>hisdassf</p>",
+                "select": "1",
+                "group": {
+                    "single_line": ""
+                },
+                "non_single_line_textbox": "",
+                "reference": [
+                    {
+                        "title": "base variant",
+                        "single_line": "bases",
+                        "tags": [] as any[],
+                        "locale": "en-us",
+                        "uid": "blt07a6c7258ddba844",
+                        "created_by": "bltf0d59057590e9b09",
+                        "updated_by": "bltf0d59057590e9b09",
+                        "created_at": "2025-10-01T03:10:10.701Z",
+                        "updated_at": "2025-10-09T11:44:44.981Z",
+                        "_content_type_uid": "all_test_3",
+                        "ACL": [] as any[],
+                        "_version": 3,
+                        "_in_progress": false,
+                        "multi_line_reference": "hii\n"
+                        // Note: This reference object has NO _applied_variants
+                    }
+                ],
+                "taxonomies": [] as any[],
+                "multi_line": "woek",
+                "_applied_variants": {
+                    "single_line": "csfff653e89df54e8c",
+                    "tags": "csfff653e89df54e8c",
+                    "multi_line": "csfff653e89df54e8c"
+                }
+            }
+            
+            addTags(entryWithReferenceAndVariants, 'all_test', false)
+            
+            // Parent entry fields with variants should get v2 prefix
+            expect((entryWithReferenceAndVariants as any)['$']['single_line']).toEqual('data-cslp=v2:all_test.blt827e0ad3608248be_csfff653e89df54e8c.en-us.single_line')
+            expect((entryWithReferenceAndVariants as any)['$']['tags']).toEqual('data-cslp=v2:all_test.blt827e0ad3608248be_csfff653e89df54e8c.en-us.tags')
+            expect((entryWithReferenceAndVariants as any)['$']['multi_line']).toEqual('data-cslp=v2:all_test.blt827e0ad3608248be_csfff653e89df54e8c.en-us.multi_line')
+            
+            // Reference fields should NOT get v2 prefix since they have no _applied_variants
+            expect((entryWithReferenceAndVariants as any)['reference'][0]['$']['title']).toEqual('data-cslp=all_test_3.blt07a6c7258ddba844.en-us.title')
+            expect((entryWithReferenceAndVariants as any)['reference'][0]['$']['single_line']).toEqual('data-cslp=all_test_3.blt07a6c7258ddba844.en-us.single_line')
+            expect((entryWithReferenceAndVariants as any)['reference'][0]['$']['tags']).toEqual('data-cslp=all_test_3.blt07a6c7258ddba844.en-us.tags')
+            expect((entryWithReferenceAndVariants as any)['reference'][0]['$']['multi_line_reference']).toEqual('data-cslp=all_test_3.blt07a6c7258ddba844.en-us.multi_line_reference')
+            
+            done()
+        })
+
+        it('Reference fields with their own applied_variants should use their variants', done => {
+            const entryWithReferenceHavingVariants = {
+                "title": "home",
+                "locale": "en-us",
+                "uid": "blt827e0ad3608248be",
+                "ACL": [] as any[],
+                "_version": 40,
+                "_in_progress": false,
+                "single_line": "parent field",
+                "reference": [
+                    {
+                        "title": "base variant",
+                        "single_line": "reference field",
+                        "locale": "en-us",
+                        "uid": "blt07a6c7258ddba844",
+                        "_content_type_uid": "all_test_3",
+                        "ACL": [] as any[],
+                        "_version": 3,
+                        "_in_progress": false,
+                        "_applied_variants": {
+                            "single_line": "ref_variant_123"
+                        }
+                    }
+                ],
+                "_applied_variants": {
+                    "single_line": "parent_variant_456"
+                }
+            }
+            
+            addTags(entryWithReferenceHavingVariants, 'all_test', false)
+            
+            // Parent entry field should get parent variant
+            expect((entryWithReferenceHavingVariants as any)['$']['single_line']).toEqual('data-cslp=v2:all_test.blt827e0ad3608248be_parent_variant_456.en-us.single_line')
+            
+            // Reference field should get its own variant, not parent variant
+            expect((entryWithReferenceHavingVariants as any)['reference'][0]['$']['title']).toEqual('data-cslp=all_test_3.blt07a6c7258ddba844.en-us.title')
+            expect((entryWithReferenceHavingVariants as any)['reference'][0]['$']['single_line']).toEqual('data-cslp=v2:all_test_3.blt07a6c7258ddba844_ref_variant_123.en-us.single_line')
+            
+            done()
+        })
+
+        it('Reference fields should work correctly with tagsAsObject=true', done => {
+            const entryWithReferenceAndVariants = {
+                "title": "home",
+                "single_line": "ssd",
+                "locale": "en-us",
+                "uid": "blt827e0ad3608248be",
+                "ACL": [] as any[],
+                "_version": 40,
+                "_in_progress": false,
+                "reference": [
+                    {
+                        "title": "base variant",
+                        "single_line": "bases",
+                        "locale": "en-us",
+                        "uid": "blt07a6c7258ddba844",
+                        "_content_type_uid": "all_test_3",
+                        "ACL": [] as any[],
+                        "_version": 3,
+                        "_in_progress": false
+                        // No _applied_variants
+                    }
+                ],
+                "_applied_variants": {
+                    "single_line": "csfff653e89df54e8c"
+                }
+            }
+            
+            addTags(entryWithReferenceAndVariants, 'all_test', true)
+            
+            // Parent entry field with variant should get v2 prefix as object
+            expect((entryWithReferenceAndVariants as any)['$']['single_line']).toEqual({'data-cslp': 'v2:all_test.blt827e0ad3608248be_csfff653e89df54e8c.en-us.single_line'})
+            
+            // Reference fields should NOT get v2 prefix as objects
+            expect((entryWithReferenceAndVariants as any)['reference'][0]['$']['title']).toEqual({'data-cslp': 'all_test_3.blt07a6c7258ddba844.en-us.title'})
+            expect((entryWithReferenceAndVariants as any)['reference'][0]['$']['single_line']).toEqual({'data-cslp': 'all_test_3.blt07a6c7258ddba844.en-us.single_line'})
             
             done()
         })
