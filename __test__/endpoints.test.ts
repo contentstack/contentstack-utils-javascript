@@ -1,378 +1,343 @@
-import { getContentstackEndpoint } from '../src/endpoints';
+import { getContentstackEndpoint, ContentstackEndpoints, RegionData, RegionsResponse } from '../src/endpoints';
 
-// Mock the global fetch
-const mockFetch = jest.fn();
-(globalThis as any).fetch = mockFetch;
-
-// Mock console.warn and console.error to avoid noise in tests
+// Mock console.warn to avoid noise in tests
 const originalConsoleWarn = console.warn;
-const originalConsoleError = console.error;
-
-beforeEach(() => {
-  // Reset mocks before each test
-  mockFetch.mockClear();
+beforeAll(() => {
   console.warn = jest.fn();
-  console.error = jest.fn();
 });
 
 afterAll(() => {
-  // Restore original console methods
   console.warn = originalConsoleWarn;
-  console.error = originalConsoleError;
 });
 
-// Mock endpoints data structure
-const mockEndpointsData = {
-  AWS: {
-    NA: {
-      CDA: 'https://cdn.contentstack.io',
-      CMA: 'https://api.contentstack.io',
-      GQL: 'https://graphql.contentstack.com'
-    },
-    EU: {
-      CDA: 'https://eu-cdn.contentstack.com',
-      CMA: 'https://eu-api.contentstack.com',
-      GQL: 'https://eu-graphql.contentstack.com'
-    },
-    APAC: {
-      CDA: 'https://apac-cdn.contentstack.com',
-      CMA: 'https://apac-api.contentstack.com',
-      GQL: 'https://apac-graphql.contentstack.com'
-    }
-  },
-  AZURE: {
-    NA: {
-      CDA: 'https://azure-na-cdn.contentstack.com',
-      CMA: 'https://azure-na-api.contentstack.com',
-      GQL: 'https://azure-na-graphql.contentstack.com'
-    }
-  }
-};
-
 describe('getContentstackEndpoint', () => {
-  
-  describe('Successful fetch scenarios', () => {
-    beforeEach(() => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
+  describe('Basic functionality', () => {
+    it('should return default endpoints for valid region without service', () => {
+      const result = getContentstackEndpoint('us');
+      
+      expect(result).toBeDefined();
+      expect(typeof result).toBe('object');
+      expect((result as ContentstackEndpoints).contentDelivery).toBe('https://cdn.contentstack.io');
+      expect((result as ContentstackEndpoints).contentManagement).toBe('https://api.contentstack.io');
     });
 
-    it('should return correct endpoint for default parameters (us region, CDA service)', async () => {
-      const result = await getContentstackEndpoint();
+    it('should return specific service endpoint for valid region and service', () => {
+      const result = getContentstackEndpoint('us', 'contentDelivery');
+      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should return endpoint without https when omitHttps is true', async () => {
-      const result = await getContentstackEndpoint('us', 'CDA', true);
-      expect(result).toBe('cdn.contentstack.io');
-    });
-
-    it('should handle "us" region and convert to aws_na', async () => {
-      const result = await getContentstackEndpoint('us', 'CDA');
-      expect(result).toBe('https://cdn.contentstack.io');
-    });
-
-    it('should handle "eu" region and convert to aws_eu', async () => {
-      const result = await getContentstackEndpoint('eu', 'CDA');
+    it('should return EU endpoints for EU region', () => {
+      const result = getContentstackEndpoint('eu', 'contentDelivery');
+      
       expect(result).toBe('https://eu-cdn.contentstack.com');
     });
 
-    it('should handle "apac" region and convert to aws_apac', async () => {
-      const result = await getContentstackEndpoint('apac', 'CDA');
-      expect(result).toBe('https://apac-cdn.contentstack.com');
+    it('should return undefined for invalid service', () => {
+      const result = getContentstackEndpoint('us', 'invalidService');
+      
+      expect(result).toBeUndefined();
     });
+  });
 
-    it('should handle region with underscore separator (aws_na)', async () => {
-      const result = await getContentstackEndpoint('aws_na', 'CDA');
+  describe('Region alias matching', () => {
+    it('should match region by alias "na"', () => {
+      const result = getContentstackEndpoint('na', 'contentDelivery');
+      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should handle region with hyphen separator (aws-na)', async () => {
-      const result = await getContentstackEndpoint('aws-na', 'CDA');
+    it('should match region by alias "aws-na"', () => {
+      const result = getContentstackEndpoint('aws-na', 'contentDelivery');
+      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should convert us region in aws_us format to aws_na', async () => {
-      const result = await getContentstackEndpoint('aws_us', 'CDA');
+    it('should match region by alias "aws_na"', () => {
+      const result = getContentstackEndpoint('aws_na', 'contentDelivery');
+      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should convert us region in aws-us format to aws_na', async () => {
-      const result = await getContentstackEndpoint('aws-us', 'CDA');
+    it('should be case insensitive for region matching', () => {
+      const result = getContentstackEndpoint('US', 'contentDelivery');
+      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should handle azure cloud provider', async () => {
-      const result = await getContentstackEndpoint('azure_na', 'CDA');
-      expect(result).toBe('https://azure-na-cdn.contentstack.com');
+    it('should trim whitespace from region input', () => {
+      const result = getContentstackEndpoint('  us  ', 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+  });
+
+  describe('omitHttps parameter', () => {
+    it('should strip https from string endpoint when omitHttps is true', () => {
+      const result = getContentstackEndpoint('us', 'contentDelivery', true);
+      
+      expect(result).toBe('cdn.contentstack.io');
     });
 
-    it('should handle azure cloud provider with hyphen', async () => {
-      const result = await getContentstackEndpoint('azure-na', 'CDA');
-      expect(result).toBe('https://azure-na-cdn.contentstack.com');
+    it('should strip https from all endpoints when omitHttps is true and no service specified', () => {
+      const result = getContentstackEndpoint('us', '', true) as ContentstackEndpoints;
+      
+      expect(result.contentDelivery).toBe('cdn.contentstack.io');
+      expect(result.contentManagement).toBe('api.contentstack.io');
+      expect(result.application).toBe('app.contentstack.com');
     });
 
-    it('should handle different services (CMA)', async () => {
-      const result = await getContentstackEndpoint('us', 'CMA');
-      expect(result).toBe('https://api.contentstack.io');
+    it('should preserve https when omitHttps is false', () => {
+      const result = getContentstackEndpoint('us', 'contentDelivery', false);
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+  });
+
+  describe('Error handling and edge cases', () => {
+    it('should throw error for empty region', () => {
+      expect(() => {
+        getContentstackEndpoint('');
+      }).toThrow('Unable to set the host. Please put valid host');
     });
 
-    it('should handle different services (GQL)', async () => {
-      const result = await getContentstackEndpoint('us', 'GQL');
+    it('should return default endpoint for invalid region', () => {
+      const result = getContentstackEndpoint('invalid-region', 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+
+    it('should return default endpoint for region with underscores/dashes', () => {
+      const result = getContentstackEndpoint('invalid_region_format', 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+
+    it('should handle malformed regions data gracefully', () => {
+      const malformedData: RegionsResponse = {
+        regions: null as any
+      };
+      
+      const result = getContentstackEndpoint('us', 'contentDelivery', false, malformedData);
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+
+    it('should fallback to default when region is not found', () => {
+      const result = getContentstackEndpoint('nonexistent', 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+  });
+
+  describe('Default parameters', () => {
+    it('should use default region "us" when no region provided', () => {
+      const result = getContentstackEndpoint();
+      
+      expect(result).toBeDefined();
+      expect(typeof result).toBe('object');
+      expect((result as ContentstackEndpoints).contentDelivery).toBe('https://cdn.contentstack.io');
+    });
+
+    it('should use default service "" when no service provided', () => {
+      const result = getContentstackEndpoint('us');
+      
+      expect(result).toBeDefined();
+      expect(typeof result).toBe('object');
+    });
+
+    it('should use default omitHttps false when not provided', () => {
+      const result = getContentstackEndpoint('us', 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+  });
+
+  describe('Service-specific endpoints', () => {
+    it('should return correct application endpoint', () => {
+      const result = getContentstackEndpoint('us', 'application');
+      
+      expect(result).toBe('https://app.contentstack.com');
+    });
+
+    it('should return correct auth endpoint', () => {
+      const result = getContentstackEndpoint('us', 'auth');
+      
+      expect(result).toBe('https://auth-api.contentstack.com');
+    });
+
+    it('should return correct graphqlDelivery endpoint', () => {
+      const result = getContentstackEndpoint('us', 'graphqlDelivery');
+      
       expect(result).toBe('https://graphql.contentstack.com');
     });
 
-    it('should handle case insensitive regions', async () => {
-      const result = await getContentstackEndpoint('EU', 'CDA');
-      expect(result).toBe('https://eu-cdn.contentstack.com');
+    it('should return correct preview endpoint', () => {
+      const result = getContentstackEndpoint('us', 'preview');
+      
+      expect(result).toBe('https://rest-preview.contentstack.com');
     });
 
-    it('should handle mixed case regions with separators', async () => {
-      const result = await getContentstackEndpoint('AWS_EU', 'CDA');
-      expect(result).toBe('https://eu-cdn.contentstack.com');
+    it('should return correct images endpoint', () => {
+      const result = getContentstackEndpoint('us', 'images');
+      
+      expect(result).toBe('https://images.contentstack.io');
+    });
+
+    it('should return correct assets endpoint', () => {
+      const result = getContentstackEndpoint('us', 'assets');
+      
+      expect(result).toBe('https://assets.contentstack.io');
+    });
+
+    it('should return correct automate endpoint', () => {
+      const result = getContentstackEndpoint('us', 'automate');
+      
+      expect(result).toBe('https://automations-api.contentstack.com');
+    });
+
+    it('should return correct launch endpoint', () => {
+      const result = getContentstackEndpoint('us', 'launch');
+      
+      expect(result).toBe('https://launch-api.contentstack.com');
+    });
+
+    it('should return correct developerHub endpoint', () => {
+      const result = getContentstackEndpoint('us', 'developerHub');
+      
+      expect(result).toBe('https://developerhub-api.contentstack.com');
+    });
+
+    it('should return correct brandKit endpoint', () => {
+      const result = getContentstackEndpoint('us', 'brandKit');
+      
+      expect(result).toBe('https://brand-kits-api.contentstack.com');
+    });
+
+    it('should return correct genAI endpoint', () => {
+      const result = getContentstackEndpoint('us', 'genAI');
+      
+      expect(result).toBe('https://ai.contentstack.com');
+    });
+
+    it('should return correct personalize endpoint', () => {
+      const result = getContentstackEndpoint('us', 'personalize');
+      
+      expect(result).toBe('https://personalize-api.contentstack.com');
+    });
+
+    it('should return correct personalizeEdge endpoint', () => {
+      const result = getContentstackEndpoint('us', 'personalizeEdge');
+      
+      expect(result).toBe('https://personalize-edge.contentstack.com');
     });
   });
 
-  describe('Error scenarios', () => {
-    it('should return default host when fetch fails', async () => {
-      mockFetch.mockRejectedValue(new Error('Network error'));
+  describe('Different regions', () => {
+    it('should return correct EU endpoints', () => {
+      const result = getContentstackEndpoint('eu', 'contentDelivery');
       
-      const result = await getContentstackEndpoint('us', 'CDA');
-      expect(result).toBe('cdn.contentstack.io');
-      expect(console.warn).toHaveBeenCalledWith('Failed to fetch endpoints:', expect.any(Error));
+      expect(result).toBe('https://eu-cdn.contentstack.com');
     });
 
-    it('should return default host when response is not ok', async () => {
-      mockFetch.mockResolvedValue({
-        ok: false,
-        status: 404
-      });
+    it('should return correct Azure NA endpoints', () => {
+      const result = getContentstackEndpoint('azure-na', 'contentDelivery');
       
-      const result = await getContentstackEndpoint('us', 'CDA');
-      expect(result).toBe('cdn.contentstack.io');
+      expect(result).toBe('https://azure-na-cdn.contentstack.com');
     });
 
-    it('should handle invalid JSON response and fall back to default', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue('invalid json')
-      });
+    it('should return correct GCP NA endpoints', () => {
+      const result = getContentstackEndpoint('gcp-na', 'contentDelivery');
+      
+      expect(result).toBe('https://gcp-na-cdn.contentstack.com');
+    });
+  });
 
-      const result = await getContentstackEndpoint('us', 'CDA');
-      expect(result).toBe('cdn.contentstack.io');
-      expect(console.warn).toHaveBeenCalledWith('Failed to parse JSON response:', expect.any(Error));
-      expect(console.warn).toHaveBeenCalledWith('Response content:', 'invalid json...');
-      expect(console.warn).toHaveBeenCalledWith('Failed to fetch endpoints:', expect.any(Error));
+  describe('Additional regions and aliases', () => {
+    it('should return correct Australia endpoints', () => {
+      const result = getContentstackEndpoint('au', 'contentDelivery');
+      
+      expect(result).toBe('https://au-cdn.contentstack.com');
     });
 
-    it('should throw invalid JSON error when explicitly tested', async () => {
-      // Test that the JSON parsing actually does throw the error
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue('invalid json')
-      });
-
-      // Create a special mock to test the error throwing behavior
-      const originalConsoleWarn = console.warn;
-      const consoleWarnSpy = jest.fn();
-      console.warn = consoleWarnSpy;
-
-      try {
-        // Manually trigger the JSON parsing by mocking a scenario
-        const response = await fetch('test');
-        const result = await response.text();
-        expect(() => JSON.parse(result)).toThrow();
-      } catch {
-        // Expected to catch
-      }
-
-      console.warn = originalConsoleWarn;
+    it('should match Australia region by alias "aws-au"', () => {
+      const result = getContentstackEndpoint('aws-au', 'contentDelivery');
+      
+      expect(result).toBe('https://au-cdn.contentstack.com');
     });
 
-    it('should handle empty region', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
-
-      await expect(getContentstackEndpoint('', 'CDA')).rejects.toThrow('Unable to set the host. Please put valid host');
-      expect(console.warn).toHaveBeenCalledWith('Invalid region: empty or invalid region provided');
+    it('should return correct Azure EU endpoints', () => {
+      const result = getContentstackEndpoint('azure-eu', 'contentDelivery');
+      
+      expect(result).toBe('https://azure-eu-cdn.contentstack.com');
     });
 
-    it('should handle null region', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
-
-      const result = await getContentstackEndpoint(null as any, 'CDA');
-      expect(result).toBe('cdn.contentstack.io');
-      expect(console.warn).toHaveBeenCalledWith('Failed to fetch endpoints:', expect.any(Error));
+    it('should return correct GCP EU endpoints', () => {
+      const result = getContentstackEndpoint('gcp-eu', 'contentDelivery');
+      
+      expect(result).toBe('https://gcp-eu-cdn.contentstack.com');
     });
 
-    it('should handle undefined region', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
+    it('should match Azure region by underscore alias', () => {
+      const result = getContentstackEndpoint('azure_na', 'contentDelivery');
+      
+      expect(result).toBe('https://azure-na-cdn.contentstack.com');
+    });
 
-      const result = await getContentstackEndpoint(undefined, 'CDA');
+    it('should match GCP region by underscore alias', () => {
+      const result = getContentstackEndpoint('gcp_na', 'contentDelivery');
+      
+      expect(result).toBe('https://gcp-na-cdn.contentstack.com');
+    });
+  });
+
+  describe('Edge cases and error scenarios', () => {
+    it('should handle null region gracefully', () => {
+      const result = getContentstackEndpoint(null as any, 'contentDelivery');
+      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should handle invalid region format (single part)', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
-
-      await expect(getContentstackEndpoint('invalid_region_format_with_too_many_parts', 'CDA')).rejects.toThrow('Unable to set the host. Please put valid host');
-      expect(console.warn).toHaveBeenCalledWith('Invalid region format: invalid_region_format_with_too_many_parts');
-    });
-
-    it('should handle non-existent cloud provider', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
-
-      await expect(getContentstackEndpoint('invalid_na', 'CDA')).rejects.toThrow('Unable to set the host. Please put valid host');
-      expect(console.warn).toHaveBeenCalledWith('Invalid region combination: INVALID_NA - CDA');
-    });
-
-    it('should handle non-existent region for valid cloud provider', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
-
-      await expect(getContentstackEndpoint('aws_invalid', 'CDA')).rejects.toThrow('Unable to set the host. Please put valid host');
-      expect(console.warn).toHaveBeenCalledWith('Invalid region combination: AWS_INVALID - CDA');
-    });
-
-    it('should handle non-existent service for valid cloud and region', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
-
-      const result = await getContentstackEndpoint('aws_na', 'INVALID_SERVICE');
-      expect(result).toBe(undefined);
-    });
-
-    it('should handle malformed endpoints data structure', async () => {
-      const malformedData = {
-        AWS: 'invalid structure'
-      };
+    it('should handle undefined region gracefully', () => {
+      const result = getContentstackEndpoint(undefined as any, 'contentDelivery');
       
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(malformedData))
-      });
-
-      await expect(getContentstackEndpoint('aws_na', 'CDA')).rejects.toThrow('Unable to set the host. Please put valid host');
-      expect(console.warn).toHaveBeenCalledWith('Invalid region combination: AWS_NA - CDA');
+      expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should re-throw host validation errors from catch block', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
+    it('should handle region with only whitespace', () => {
+      const result = getContentstackEndpoint('   ', 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
 
-      // This will trigger the catch block but the error should be re-thrown
-      await expect(getContentstackEndpoint('invalid_format', 'CDA')).rejects.toThrow('Unable to set the host. Please put valid host');
+    it('should handle region with special characters', () => {
+      const result = getContentstackEndpoint('region@#$%', 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
+    });
+
+    it('should handle very long region name', () => {
+      const longRegion = 'a'.repeat(1000);
+      const result = getContentstackEndpoint(longRegion, 'contentDelivery');
+      
+      expect(result).toBe('https://cdn.contentstack.io');
     });
   });
 
-  describe('Edge cases and special scenarios', () => {
-    it('should handle text response parsing error in text() method', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockRejectedValue(new Error('Text parsing error'))
-      });
-
-      const result = await getContentstackEndpoint('us', 'CDA');
-      expect(result).toBe('cdn.contentstack.io');
-      expect(console.warn).toHaveBeenCalledWith('Failed to fetch endpoints:', expect.any(Error));
+  describe('Console warnings', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
     });
 
-    it('should handle endpoints data with null values', async () => {
-      const dataWithNulls = {
-        AWS: {
-          NA: {
-            CDA: null as any
-          }
-        }
-      };
+    it('should warn for invalid region', () => {
+      getContentstackEndpoint('invalid-region', 'contentDelivery');
       
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(dataWithNulls))
-      });
-
-      const result = await getContentstackEndpoint('aws_na', 'CDA');
-      expect(result).toBe(null);
+      expect(console.warn).toHaveBeenCalledWith('Invalid region combination.');
     });
 
-    it('should handle endpoints with different protocol (http)', async () => {
-      const dataWithHttp = {
-        AWS: {
-          NA: {
-            CDA: 'http://cdn.contentstack.io'
-          }
-        }
-      };
+    it('should warn for failed endpoint fetch', () => {
+      getContentstackEndpoint('invalid-region', 'contentDelivery');
       
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(dataWithHttp))
-      });
-
-      const result = await getContentstackEndpoint('aws_na', 'CDA', true);
-      expect(result).toBe('cdn.contentstack.io');
-    });
-
-    it('should handle endpoints without protocol when omitHttps is true', async () => {
-      const dataWithoutProtocol = {
-        AWS: {
-          NA: {
-            CDA: 'cdn.contentstack.io'
-          }
-        }
-      };
-      
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(dataWithoutProtocol))
-      });
-
-      const result = await getContentstackEndpoint('aws_na', 'CDA', true);
-      expect(result).toBe('cdn.contentstack.io');
-    });
-
-    it('should handle complex region names with multiple separators', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(JSON.stringify(mockEndpointsData))
-      });
-
-      // This should be processed but result in invalid format
-      await expect(getContentstackEndpoint('aws_na_extra', 'CDA')).rejects.toThrow('Unable to set the host. Please put valid host');
-    });
-
-    it('should handle very long response content in error message', async () => {
-      const longInvalidJson = 'x'.repeat(500);
-      mockFetch.mockResolvedValue({
-        ok: true,
-        text: jest.fn().mockResolvedValue(longInvalidJson)
-      });
-
-      const result = await getContentstackEndpoint('us', 'CDA');
-      expect(result).toBe('cdn.contentstack.io');
-      expect(console.warn).toHaveBeenCalledWith('Response content:', longInvalidJson.substring(0, 200) + '...');
       expect(console.warn).toHaveBeenCalledWith('Failed to fetch endpoints:', expect.any(Error));
     });
   });
