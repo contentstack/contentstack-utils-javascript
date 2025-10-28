@@ -25,6 +25,10 @@ const referenceObjHtml = "<p><a class=\"embedded-entry redactor-component block-
 const referenceObjHtmlBlock = "<p><a class=\"embedded-entry redactor-component block-entry\" href=\"/Test\" target=\"_self\">Embed entry as a link</a></p><p><a class=\"embedded-entry redactor-component block-entry\" href=\"undefined\" target=\"_blank\">Embed entry as a link open in new tab</a></p><ul><li><a class=\"embedded-entry redactor-component block-entry\" href=\"undefined\" target=\"_self\">Entry as a link</a></li><li><a class=\"embedded-entry redactor-component block-entry\" href=\"undefined\" target=\"_blank\">Open entry as a link in new tab</a></li><li><a class=\"embedded-entry redactor-component block-entry\" href=\"undefined\" target=\"_self\"><strong><u>Entry as a link bold</u></strong></a></li><li><a class=\"embedded-entry redactor-component block-entry\" href=\"khjgf\" target=\"_blank\"><strong><u>Open bold entry as a link in new tab </u></strong></a></li><li><a href=\"https://\" target=\"_self\"><strong><u>Link URL</u></strong></a></li><li><a href=\"https://\" target=\"_blank\"><strong><u>Open link in new tab</u></strong></a></li></ul>"
 const imagetags = "<figure style=\"text-align:right;max-width:137px;float:right;width:137px;max-height:257px;height:257px;\"><a href=\"https://batman.com\" target=\"_blank\"><img asset_uid=\"asset-UID\" class=\"embedded-asset\" src=\"https://images.contentstack.io/v3/assets/api-key/asset-UID/random-uid/batman.png\" alt=\"batman\" target=\"_blank\" style=\"text-align:right;max-width:137px;float:right;width:137px;max-height:257px;height:257px;\" /></a><figcaption>The Batman</figcaption></figure>"
 const escapeHtml = "<p>&lt;p&gt;Welcome to Contentstack! &lt;script&gt;console.log(/&quot;Hello from Contentstack!/&quot;);&lt;/script&gt; Explore our platform to create, manage, and publish content seamlessly.&lt;/p&gt;</p>"
+const breakTestHtml = "<p>Normal text with <br />break tag after break.</p>"
+const newlineBreakTestHtml = "<p>Text before newline break<br />Text after newline break</p>"
+const multipleNewlinesBreakTestHtml = "<p>Text before<br /><br /><br />Text after</p>"
+const plainNewlineTestHtml = "<p>Line 1<br />Line 2<br />Line 3</p>"
 
 export {
     h1Html,
@@ -53,5 +57,9 @@ export {
     referenceObjHtmlBlock,
     imagetags,
     paragraphHtmlWithNewLine,
-    escapeHtml
+    escapeHtml,
+    breakTestHtml,
+    newlineBreakTestHtml,
+    multipleNewlinesBreakTestHtml,
+    plainNewlineTestHtml
 }
