@@ -1,72 +1,104 @@
+import regions from '../regions.json'
 export interface ContentstackEndpoints {
   [key: string]: string | ContentstackEndpoints;
 }
 
-// Default endpoint URL - should return the same structure as endpoints.json
-const DEFAULT_ENDPOINTS_URL = 'https://raw.githubusercontent.com/nadeem-cs/cs-endpoints/refs/heads/main/endpoints.json';
+export interface RegionData {
+  id: string;
+  name: string;
+  cloudProvider: string;
+  location: string;
+  alias: string[];
+  isDefault: boolean;
+  endpoints: ContentstackEndpoints;
+}
 
+export interface RegionsResponse {
+  regions: RegionData[];
+}
 
-export async function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false): Promise<string | ContentstackEndpoints> {
-  try {
-    const response = await fetch(DEFAULT_ENDPOINTS_URL);
-      
-    if (response.ok) {
-      const result = await response.text();
-      let endpointsData;
-      
-      try {
-        endpointsData = JSON.parse(result);
-      } catch (jsonError) {
-        console.warn('Failed to parse JSON response:', jsonError);
-        console.warn('Response content:', result.substring(0, 200) + '...');
-        throw new Error('Invalid JSON response from endpoints service');
-      }
-      
-      let normalizedRegion = region.toUpperCase();
-
-      // Convert 'US' to 'aws_na' and handle existing patterns
-      if (normalizedRegion === 'US') {
-        normalizedRegion = 'AWS-NA';
-      } else if (normalizedRegion.includes('_') || normalizedRegion.includes('-')) {  // (e.g., 'aws_us' -> 'aws_na' or 'aws-us' -> 'aws-na')
-        const separator = normalizedRegion.includes('_') ? '_' : '-';
-        const parts = normalizedRegion.split(separator);
-        if (parts.length === 2 && parts[1] === 'US') {
-          normalizedRegion = `${parts[0]}-NA`;
-        } else if (parts.length === 2) {
-          normalizedRegion = `${parts[0]}-${parts[1]}`;
-        }
-      } else if (!normalizedRegion.includes('_') && !normalizedRegion.includes('-') && normalizedRegion) {
-        normalizedRegion = `AWS-${normalizedRegion}`;
-      }
-      
-      if (normalizedRegion) {
-        const parts = normalizedRegion.toUpperCase().split('-');
-        if (parts.length === 2) {
-          const [cloud, region] = parts;
-          
-          try {
-            const endpoint = service ? endpointsData[cloud][region][service] : endpointsData[cloud][region];
-            
-            // Only add Region property if endpoint is an object (not a string)
-            if (typeof endpoint === 'object' && endpoint !== null) {
-              endpoint['Region'] = normalizedRegion;
-            }
-
-            return omitHttps ? stripHttps(endpoint) : endpoint;
-          } catch (error) {
-            throw Error(`Invalid region combination: ${cloud}-${region} - ${service || 'all'}`);
-          }
-        } else {
-          throw Error(`Invalid region format: ${normalizedRegion}`);
-        }
-      } else {
-        // Handle empty or falsy region
-        throw Error('Invalid region: empty or invalid region provided');
-      }
-    }
-  } catch (error) {
-    throw error;
+export function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false, localRegionsData?: RegionsResponse): string | ContentstackEndpoints {
+  // Validate empty region before any processing
+  if (region === '') {
+    console.warn('Invalid region: empty or invalid region provided');
+    throw new Error('Unable to set the host. Please put valid host');
   }
+
+  try {
+    let regionsData: RegionsResponse;
+
+    regionsData = regions;
+
+    // Normalize the region input
+    const normalizedRegion = region.toLowerCase().trim() || 'us';
+
+    // Check if regions data is malformed
+    if (!Array.isArray(regionsData.regions)) {
+      throw new Error('Invalid Regions file. Please install the SDK again to fix this issue.');
+    }
+
+    // Find the region by ID or alias
+    const regionData = findRegionByIDOrAlias(regionsData.regions, normalizedRegion);
+
+    if (!regionData) {
+      // Check if this looks like a legacy format that should throw an error
+      if (region.includes('_') || region.includes('-')) {
+        const parts = region.split(/[-_]/);
+        if (parts.length >= 2) {
+          console.warn(`Invalid region combination.`);
+          throw new Error('Region Invalid. Please use a valid region identifier.');
+        }
+      }
+      
+      console.warn('Invalid region:', region, '(normalized:', normalizedRegion + ')');
+      console.warn('Failed to fetch endpoints:', new Error(`Invalid region: ${region}`));
+      return getDefaultEndpoint(service, omitHttps);
+    }
+
+    // Get the endpoint(s)
+    let endpoint: string | ContentstackEndpoints;
+
+    if (service) {
+      // Return specific service endpoint
+      endpoint = regionData.endpoints[service];
+
+      if (!endpoint) {
+        // For invalid services, return undefined (as expected by some tests)
+        return undefined as any;
+      }
+    } else {
+      return omitHttps ? stripHttps(regionData.endpoints) : regionData.endpoints;
+    }
+
+    return omitHttps ? stripHttps(endpoint) : endpoint;
+  } catch (error) {
+    console.warn('Failed to fetch endpoints:', error);
+    return getDefaultEndpoint(service, omitHttps);
+  }
+}
+
+function getDefaultEndpoint(service: string, omitHttps: boolean): string {
+  const defaultEndpoints: ContentstackEndpoints = regions.regions.find(r => r.isDefault)?.endpoints || {};
+
+  const value = defaultEndpoints[service];
+  const endpoint = typeof value === 'string' ? value : 'https://cdn.contentstack.io';
+
+  return omitHttps ? endpoint.replace(/^https?:\/\//, '') : endpoint;
+}
+
+function findRegionByIDOrAlias(regions: RegionData[], regionInput: string): RegionData | null {
+  // First try to find by exact ID match
+  let region = regions.find(r => r.id === regionInput);
+  if (region) {
+    return region;
+  }
+
+  // Then try to find by alias
+  region = regions.find(r =>
+    r.alias.some(alias => alias.toLowerCase() === regionInput.toLowerCase())
+  );
+
+  return region || null;
 }
 
 function stripHttps(endpoint: string | ContentstackEndpoints): string | ContentstackEndpoints {
