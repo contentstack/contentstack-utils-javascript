@@ -2,8 +2,7 @@ export default {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
     "transform": {
-      "^.+\\.(t|j)sx?$": "ts-jest",
-      "^.+\\.(ts|tsx|js|jsx)$": "babel-jest"
+      "^.+\\.(t|j)sx?$": "ts-jest"
     },
     "testMatch": [
       "**/__test__/**/?(*.)+(spec|test).[jt]s?(x)"

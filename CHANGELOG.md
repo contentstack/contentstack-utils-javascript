@@ -1,8 +1,21 @@
 # Changelog
 
-## [1.5.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.5.0)
+## [1.6.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.0)
  - Feat: Adds Helper functions for Contentstack Endpoints
  
+## [1.5.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.5) (2025-10-27)
+ - fix: handle null and undefined values in getTag function
+ - fix: refernce variant cslp generation fix
+
+## [1.4.4](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.4) (2025-09-24)
+ -Enhance break and newline handling, update dependencies
+
+## [1.4.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.3) (2025-09-22)
+ - Fix data-cslp generation logic in case of applied_variants
+
+## [1.4.2](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.2) (2025-09-01)
+ - Improve null checks in find embedded entry and find embedded asset functions
+
 ## [1.4.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.1) (2025-05-26)
  - Chore: Handle case sensitivity for contentType and locale
  
