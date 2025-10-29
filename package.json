@@ -1,9 +1,9 @@
 {
   "name": "@contentstack/utils",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Contentstack utilities for Javascript",
   "main": "dist/index.es.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/src/index.d.ts",
   "files": [
     "dist"
   ],
@@ -30,7 +30,9 @@
     "prepublishOnly": "npm test",
     "pre-commit": "husky install && husky && chmod +x .husky/pre-commit && ./.husky/pre-commit",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "postinstall": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o regions.json || echo 'Warning: Failed to download regions.json, using existing file if available'",
+    "postupdate": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o regions.json || echo 'Warning: Failed to download regions.json, using existing file if available'"
   },
   "author": "Contentstack",
   "license": "MIT",
