@@ -1,4 +1,11 @@
-import regions from '../regions.json'
+/// <reference types="node" />
+import * as path from 'path';
+import * as fs from 'fs';
+
+// Type declarations for CommonJS runtime (rollup outputs CommonJS format)
+declare const __dirname: string;
+declare function require(id: string): unknown;
+
 export interface ContentstackEndpoints {
   [key: string]: string | ContentstackEndpoints;
 }
@@ -17,6 +24,50 @@ export interface RegionsResponse {
   regions: RegionData[];
 }
 
+// Load regions.json at runtime from the dist/lib directory
+function loadRegions(): RegionsResponse {
+  try {
+    // Path to regions.json relative to the bundled file location
+    // The bundled file is at dist/index.es.js, and regions.json is at dist/lib/regions.json
+    // So from dist/index.es.js, the path is ./lib/regions.json
+    const regionsPath = path.join(__dirname, 'lib/regions.json');
+    
+    // Try loading from the installed package location first
+    if (fs.existsSync(regionsPath)) {
+      const regionsData = fs.readFileSync(regionsPath, 'utf-8');
+      return JSON.parse(regionsData);
+    }
+    
+    // Fallback: try loading from package root (for development/testing)
+    const fallbackPath = path.join(__dirname, '../../regions.json');
+    if (fs.existsSync(fallbackPath)) {
+      const regionsData = fs.readFileSync(fallbackPath, 'utf-8');
+      return JSON.parse(regionsData);
+    }
+    
+    // If neither path works, try require as final fallback
+    try {
+      // This might work in some bundler scenarios
+      const regionsData = require('./lib/regions.json') as RegionsResponse;
+      return regionsData;
+    } catch {
+      throw new Error('regions.json file not found. Please ensure the package is properly installed and postinstall script has run.');
+    }
+  } catch (error) {
+    throw new Error(`Failed to load regions.json: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
+// Cache the loaded regions data
+let cachedRegions: RegionsResponse | null = null;
+
+function getRegions(): RegionsResponse {
+  if (!cachedRegions) {
+    cachedRegions = loadRegions();
+  }
+  return cachedRegions;
+}
+
 export function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false, localRegionsData?: RegionsResponse): string | ContentstackEndpoints {
   // Validate empty region before any processing
   if (region === '') {
@@ -27,7 +78,7 @@ export function getContentstackEndpoint(region: string = 'us', service: string =
   try {
     let regionsData: RegionsResponse;
 
-    regionsData = regions;
+    regionsData = localRegionsData || getRegions();
 
     // Normalize the region input
     const normalizedRegion = region.toLowerCase().trim() || 'us';
@@ -64,7 +115,7 @@ export function getContentstackEndpoint(region: string = 'us', service: string =
 
       if (!endpoint) {
         // For invalid services, return undefined (as expected by some tests)
-        return undefined as any;
+        return undefined as unknown as ContentstackEndpoints;
       }
     } else {
       return omitHttps ? stripHttps(regionData.endpoints) : regionData.endpoints;
@@ -78,7 +129,8 @@ export function getContentstackEndpoint(region: string = 'us', service: string =
 }
 
 function getDefaultEndpoint(service: string, omitHttps: boolean): string {
-  const defaultEndpoints: ContentstackEndpoints = regions.regions.find(r => r.isDefault)?.endpoints || {};
+  const regions = getRegions();
+  const defaultEndpoints: ContentstackEndpoints = regions.regions.find((r: RegionData) => r.isDefault)?.endpoints || {};
 
   const value = defaultEndpoints[service];
   const endpoint = typeof value === 'string' ? value : 'https://cdn.contentstack.io';
