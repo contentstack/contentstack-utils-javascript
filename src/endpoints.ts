@@ -4,7 +4,6 @@ import * as fs from 'fs';
 
 // Type declarations for CommonJS runtime (rollup outputs CommonJS format)
 declare const __dirname: string;
-declare function require(id: string): unknown;
 
 export interface ContentstackEndpoints {
   [key: string]: string | ContentstackEndpoints;
@@ -26,36 +25,21 @@ export interface RegionsResponse {
 
 // Load regions.json at runtime from the dist/lib directory
 function loadRegions(): RegionsResponse {
-  try {
-    // Path to regions.json relative to the bundled file location
-    // The bundled file is at dist/index.es.js, and regions.json is at dist/lib/regions.json
-    // So from dist/index.es.js, the path is ./lib/regions.json
-    const regionsPath = path.join(__dirname, 'lib/regions.json');
-    
-    // Try loading from the installed package location first
-    if (fs.existsSync(regionsPath)) {
+  // The bundled file is at dist/index.es.js, regions.json is at dist/lib/regions.json
+  // So __dirname will be 'dist/' and we need to go to 'dist/lib/regions.json'
+  const regionsPath = path.join(__dirname, 'lib', 'regions.json');
+  
+  if (fs.existsSync(regionsPath)) {
+    try {
       const regionsData = fs.readFileSync(regionsPath, 'utf-8');
       return JSON.parse(regionsData);
+    } catch (error) {
+      throw new Error(`Failed to parse regions.json: ${error instanceof Error ? error.message : String(error)}`);
     }
-    
-    // Fallback: try loading from package root (for development/testing)
-    const fallbackPath = path.join(__dirname, '../../regions.json');
-    if (fs.existsSync(fallbackPath)) {
-      const regionsData = fs.readFileSync(fallbackPath, 'utf-8');
-      return JSON.parse(regionsData);
-    }
-    
-    // If neither path works, try require as final fallback
-    try {
-      // This might work in some bundler scenarios
-      const regionsData = require('./lib/regions.json') as RegionsResponse;
-      return regionsData;
-    } catch {
-      throw new Error('regions.json file not found. Please ensure the package is properly installed and postinstall script has run.');
-    }
-  } catch (error) {
-    throw new Error(`Failed to load regions.json: ${error instanceof Error ? error.message : String(error)}`);
   }
+  
+  // If not found, throw clear error
+  throw new Error('regions.json file not found at dist/lib/regions.json. Please ensure the package is properly installed and postinstall script has run.');
 }
 
 // Cache the loaded regions data
@@ -68,7 +52,7 @@ function getRegions(): RegionsResponse {
   return cachedRegions;
 }
 
-export function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false, localRegionsData?: RegionsResponse): string | ContentstackEndpoints {
+export function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false): string | ContentstackEndpoints {
   // Validate empty region before any processing
   if (region === '') {
     console.warn('Invalid region: empty or invalid region provided');
@@ -76,9 +60,7 @@ export function getContentstackEndpoint(region: string = 'us', service: string =
   }
 
   try {
-    let regionsData: RegionsResponse;
-
-    regionsData = localRegionsData || getRegions();
+    const regionsData: RegionsResponse = getRegions();
 
     // Normalize the region input
     const normalizedRegion = region.toLowerCase().trim() || 'us';
