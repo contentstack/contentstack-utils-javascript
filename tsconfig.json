@@ -16,8 +16,10 @@
       ],
       "types": ["jest"],
       "esModuleInterop": true,
+      "resolveJsonModule": true,
       "strictNullChecks": false,
       "sourceMap": true,
+      "skipLibCheck": true,
     },
     "include": ["src"],
     "exclude": ["node_modules", "__test__"]

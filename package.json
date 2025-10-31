@@ -1,9 +1,9 @@
 {
   "name": "@contentstack/utils",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Contentstack utilities for Javascript",
   "main": "dist/index.es.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/src/index.d.ts",
   "files": [
     "dist"
   ],
@@ -20,17 +20,20 @@
   "scripts": {
     "clear:reports": "rm -rf reports",
     "clear:badges": "rm -rf badges",
+    "pretest": "npm run build",
     "test": "npm run clear:reports && jest --ci --json --coverage --testLocationInResults --outputFile=./reports/report.json",
     "test:badges": "npm run clear:badges && npm run test && jest-coverage-badges --input ./reports/coverage/coverage-summary.json --output ./badges",
     "test:debug": "jest --watchAll --runInBand",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && mkdir -p dist/lib && curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json'",
     "build": "tsc && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install && npm run build",
     "prepublishOnly": "npm test",
     "pre-commit": "husky install && husky && chmod +x .husky/pre-commit && ./.husky/pre-commit",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "postinstall": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json, using existing file if available'",
+    "postupdate": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json, using existing file if available'"
   },
   "author": "Contentstack",
   "license": "MIT",
