@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.6.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.0)
+ - Feat: Adds Helper functions for Contentstack Endpoints
+ 
 ## [1.5.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.4.5) (2025-10-27)
  - fix: handle null and undefined values in getTag function
  - fix: refernce variant cslp generation fix
