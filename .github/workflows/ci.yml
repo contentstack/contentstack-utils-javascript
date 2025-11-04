@@ -2,9 +2,9 @@ name: Unit-Test-CI
 
 on:
   push:
-    branches: [ master, development ]
+    branches: [ master, staging, development ]
   pull_request:
-    branches: [ master, development ]
+    branches: [ master, staging, development ]
 
 jobs:
   build-test:
