@@ -19,6 +19,14 @@ jobs:
           with:
             node-version: '22.x'
         - run: npm ci
+        - name: Download regions.json
+          run: |
+            mkdir -p dist/lib
+            npm run download-regions
+            if [ ! -f dist/lib/regions.json ]; then
+              echo "Error: regions.json was not downloaded successfully"
+              exit 1
+            fi
         - uses: ArtiomTr/jest-coverage-report-action@v2
           id: coverage-utils-js
           continue-on-error: true
