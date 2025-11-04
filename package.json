@@ -24,7 +24,8 @@
     "test": "npm run clear:reports && jest --ci --json --coverage --testLocationInResults --outputFile=./reports/report.json",
     "test:badges": "npm run clear:badges && npm run test && jest-coverage-badges --input ./reports/coverage/coverage-summary.json --output ./badges",
     "test:debug": "jest --watchAll --runInBand",
-    "prebuild": "rimraf dist && mkdir -p dist/lib && curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json'",
+    "prebuild": "rimraf dist && mkdir -p dist/lib && npm run download-regions",
+    "download-regions": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json'",
     "build": "tsc && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install && npm run build",
@@ -32,8 +33,8 @@
     "pre-commit": "husky install && husky && chmod +x .husky/pre-commit && ./.husky/pre-commit",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "postinstall": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json, using existing file if available'",
-    "postupdate": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json, using existing file if available'"
+    "postinstall": "npm run download-regions",
+    "postupdate": "npm run download-regions"
   },
   "author": "Contentstack",
   "license": "MIT",
