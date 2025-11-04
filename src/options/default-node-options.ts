@@ -4,68 +4,105 @@ import Node from "../nodes/node";
 import NodeType from "../nodes/node-type";
 import { sanitizeHTML } from "../helper/sanitize";
 
+/**
+ * Safely gets an attribute value from node.attrs
+ */
+function getAttr(node: Node, key: string): unknown {
+    return node.attrs?.[key];
+}
+
+/**
+ * Safely gets a string attribute value from node.attrs
+ */
+function getAttrString(node: Node, key: string): string | undefined {
+    const value = node.attrs?.[key];
+    return typeof value === 'string' ? value : undefined;
+}
+
+/**
+ * Builds common HTML attributes string (style, class-name, id)
+ */
+function buildCommonAttrs(node: Node): string {
+    if (!node.attrs) return '';
+    
+    const attrs: string[] = [];
+    if (node.attrs.style) {
+        attrs.push(` style="${node.attrs.style}"`);
+    }
+    if (node.attrs['class-name']) {
+        attrs.push(` class="${node.attrs['class-name']}"`);
+    }
+    if (node.attrs.id) {
+        attrs.push(` id="${node.attrs.id}"`);
+    }
+    return attrs.join('');
+}
+
 export const defaultNodeOption: RenderOption = {
-    [NodeType.DOCUMENT]:(node: Node) => {
+    [NodeType.DOCUMENT]:() => {
         return ``
     },
     [NodeType.PARAGRAPH]:(node: Node, next: Next) => {
-        return `<p${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</p>`
+        return `<p${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</p>`
     },
     [NodeType.LINK]:(node: Node, next: Next) => {
-        const sanitizedHref = sanitizeHTML(node.attrs.href || node.attrs.url);
-        if (node.attrs.target) {
-            return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}" target="${node.attrs.target}">${sanitizeHTML(next(node.children))}</a>`
-        }
-        return `<a${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${sanitizedHref}">${sanitizeHTML(next(node.children))}</a>`
+        const href = getAttrString(node, 'href') || getAttrString(node, 'url') || '';
+        const sanitizedHref = sanitizeHTML(href);
+        const target = getAttrString(node, 'target');
+        const targetAttr = target ? ` target="${target}"` : '';
+        return `<a${buildCommonAttrs(node)} href="${sanitizedHref}"${targetAttr}>${sanitizeHTML(next(node.children))}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
-        const sanitizedSrc = encodeURI(sanitizeHTML(node.attrs.src || node.attrs.url));
-        return `<img${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}" />${sanitizeHTML(next(node.children))}`
+        const src = getAttrString(node, 'src') || getAttrString(node, 'url');
+        const sanitizedSrc = src ? encodeURI(sanitizeHTML(src)) : '';
+        return `<img${buildCommonAttrs(node)}${sanitizedSrc ? ` src="${sanitizedSrc}"` : ''} />${sanitizeHTML(next(node.children))}`
     },
     [NodeType.EMBED]:(node: Node, next: Next) => {
-        const sanitizedSrc = encodeURI(sanitizeHTML(node.attrs.src || node.attrs.url));
-        return `<iframe${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} src="${sanitizedSrc}">${sanitizeHTML(next(node.children))}</iframe>`
+        const src = getAttrString(node, 'src') || getAttrString(node, 'url');
+        const sanitizedSrc = src ? encodeURI(sanitizeHTML(src)) : '';
+        return `<iframe${buildCommonAttrs(node)}${sanitizedSrc ? ` src="${sanitizedSrc}"` : ''}>${sanitizeHTML(next(node.children))}</iframe>`
     },
     [NodeType.HEADING_1]:(node: Node, next: Next) => {
-        return `<h1${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</h1>`
+        return `<h1${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</h1>`
     },
     [NodeType.HEADING_2]:(node: Node, next: Next) => {
-        return `<h2${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</h2>`
+        return `<h2${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</h2>`
     },
     [NodeType.HEADING_3]:(node: Node, next: Next) => {
-        return `<h3${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</h3>`
+        return `<h3${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</h3>`
     },
     [NodeType.HEADING_4]:(node: Node, next: Next) => {
-        return `<h4${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</h4>`
+        return `<h4${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</h4>`
     },
     [NodeType.HEADING_5]:(node: Node, next: Next) => {
-        return `<h5${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</h5>`
+        return `<h5${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</h5>`
     },
     [NodeType.HEADING_6]:(node: Node, next: Next) => {
-        return `<h6${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</h6>`
+        return `<h6${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</h6>`
     },
     [NodeType.ORDER_LIST]:(node: Node, next: Next) => {
-        return `<ol${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</ol>`
+        return `<ol${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</ol>`
     },
     [NodeType.FRAGMENT]:(node: Node, next: Next) => {
         return `<fragment>${sanitizeHTML(next(node.children))}</fragment>`
     },
     [NodeType.UNORDER_LIST]:(node: Node, next: Next) => {
-        return `<ul${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</ul>`
+        return `<ul${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</ul>`
     },
     [NodeType.LIST_ITEM]:(node: Node, next: Next) => {
-        return `<li${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</li>`
+        return `<li${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</li>`
     },
-    [NodeType.HR]:(node: Node, next: Next) => {
+    [NodeType.HR]:() => {
         return `<hr>`
     },
     [NodeType.TABLE]: (node: Node, next: Next) => {
         // Generate colgroup if colWidths attribute is present
         let colgroupHTML = '';
-        if (node.attrs.colWidths && Array.isArray(node.attrs.colWidths)) {
-            const totalWidth = node.attrs.colWidths.reduce((sum, width) => sum + width, 0);
+        const colWidths = getAttr(node, 'colWidths');
+        if (colWidths && Array.isArray(colWidths)) {
+            const totalWidth = colWidths.reduce((sum: number, width: number) => sum + width, 0);
             colgroupHTML = `<${NodeType.COL_GROUP} data-width="${totalWidth}">`;
-            node.attrs.colWidths.forEach(colWidth => {
+            colWidths.forEach((colWidth: number) => {
                 const widthPercentage = (colWidth / totalWidth) * 100;
                 colgroupHTML += `<${NodeType.COL} style="width:${widthPercentage.toFixed(2)}%"/>`;
             });
@@ -73,78 +110,94 @@ export const defaultNodeOption: RenderOption = {
         }
     
         // Generate table with colgroup and other attributes
-        return `<table${node.attrs.style ? ` style="${node.attrs.style}"` : ``}` +
-               `${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}` +
-               `${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>` +
-               `${colgroupHTML}` +
-               `${sanitizeHTML(next(node.children))}` +
-               `</table>`;
+        return `<table${buildCommonAttrs(node)}>${colgroupHTML}${sanitizeHTML(next(node.children))}</table>`;
     },
     [NodeType.TABLE_HEADER]:(node: Node, next: Next) => {
-        return `<thead${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</thead>`
+        return `<thead${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</thead>`
     },
     [NodeType.TABLE_BODY]:(node: Node, next: Next) => {
-        return `<tbody${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</tbody>`
+        return `<tbody${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</tbody>`
     },
     [NodeType.TABLE_FOOTER]:(node: Node, next: Next) => {
-        return `<tfoot${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</tfoot>`
+        return `<tfoot${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</tfoot>`
     },
     [NodeType.TABLE_ROW]:(node: Node, next: Next) => {
-        return `<tr${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</tr>`
+        return `<tr${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</tr>`
     },
     [NodeType.TABLE_HEAD]:(node: Node, next: Next) => {
-        if (node.attrs.void) return '';
+        if (getAttr(node, 'void')) return '';
 
-        return `<th` +
-                `${node.attrs.rowSpan ? ` rowspan="${node.attrs.rowSpan}"` : ``}` +
-                `${node.attrs.colSpan ? ` colspan="${node.attrs.colSpan}"` : ``}` +
-                `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}`+
-                `${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}`+
-                `${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}` +
-                `</th>`
+        const rowSpan = getAttr(node, 'rowSpan');
+        const colSpan = getAttr(node, 'colSpan');
+        const rowSpanAttr = rowSpan ? ` rowspan="${rowSpan}"` : '';
+        const colSpanAttr = colSpan ? ` colspan="${colSpan}"` : '';
+        
+        return `<th${rowSpanAttr}${colSpanAttr}${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</th>`
     },
     [NodeType.TABLE_DATA]:(node: Node, next: Next) => {
-        if (node.attrs.void) return '';
+        if (getAttr(node, 'void')) return '';
 
-        return `<td` +
-                `${node.attrs.rowSpan ? ` rowspan="${node.attrs.rowSpan}"` : ``}` +
-                `${node.attrs.colSpan ? ` colspan="${node.attrs.colSpan}"` : ``}` +
-                `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}`+
-                `${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}`+
-                `${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}` +
-                `</td>`
+        const rowSpan = getAttr(node, 'rowSpan');
+        const colSpan = getAttr(node, 'colSpan');
+        const rowSpanAttr = rowSpan ? ` rowspan="${rowSpan}"` : '';
+        const colSpanAttr = colSpan ? ` colspan="${colSpan}"` : '';
+        
+        return `<td${rowSpanAttr}${colSpanAttr}${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</td>`
     },
     [NodeType.BLOCK_QUOTE]:(node: Node, next: Next) => {
-        return `<blockquote${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</blockquote>`
+        return `<blockquote${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</blockquote>`
     },
     [NodeType.CODE]:(node: Node, next: Next) => {
-        return `<code${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}>${sanitizeHTML(next(node.children))}</code>`
+        return `<code${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</code>`
     },
 
     ['reference']:(node: Node, next: Next) => {
-        if ((node.attrs.type === 'entry' || node.attrs.type === 'asset') && node.attrs['display-type'] === 'link'){
-            let aTagAttrs = `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}"`;
-            if (node.attrs.target) {
-            aTagAttrs +=` target="${node.attrs.target}"`;
+        const type = getAttr(node, 'type');
+        const displayType = getAttr(node, 'display-type');
+        
+        if ((type === 'entry' || type === 'asset') && displayType === 'link'){
+            const href = getAttrString(node, 'href') || getAttrString(node, 'url') || '';
+            const target = getAttrString(node, 'target');
+            const assetUid = getAttrString(node, 'asset-uid');
+            
+            let aTagAttrs = buildCommonAttrs(node);
+            aTagAttrs += ` href="${href}"`;
+            if (target) {
+                aTagAttrs += ` target="${target}"`;
             }
-            if(node.attrs.type == 'asset') {
-            aTagAttrs += ` type="asset" content-type-uid="sys_assets" ${node.attrs['asset-uid'] ? `data-sys-asset-uid="${node.attrs['asset-uid']}"` : ``} sys-style-type="download"`
+            if (type === 'asset') {
+                aTagAttrs += ` type="asset" content-type-uid="sys_assets"`;
+                if (assetUid) {
+                    aTagAttrs += ` data-sys-asset-uid="${assetUid}"`;
+                }
+                aTagAttrs += ` sys-style-type="download"`;
             }
-            const aTag = `<a${aTagAttrs}>${sanitizeHTML(next(node.children))}</a>`;
-            return aTag;
+            return `<a${aTagAttrs}>${sanitizeHTML(next(node.children))}</a>`;
         }
-        if (node.attrs.type === 'asset') {
-            const src = encodeURI(node.attrs['asset-link']);
-            const alt = node.attrs?.['redactor-attributes']?.['alt'];
-            const link = node.attrs.link;
-            const target = node.attrs.target || "";
-            const caption = node.attrs?.['redactor-attributes']?.['asset-caption'] || node.attrs?.['asset-caption'] || "";
-            const style = node.attrs.style;
-            const asset_uid= node.attrs['asset-uid'];
+        
+        if (type === 'asset') {
+            const assetLink = getAttrString(node, 'asset-link');
+            const src = assetLink ? encodeURI(assetLink) : '';
+            const redactorAttrs = getAttr(node, 'redactor-attributes') as Record<string, unknown> | undefined;
+            const alt = redactorAttrs?.['alt'] as string | undefined;
+            const link = getAttrString(node, 'link');
+            const target = getAttrString(node, 'target') || "";
+            const caption = (redactorAttrs?.['asset-caption'] as string | undefined) || getAttrString(node, 'asset-caption') || "";
+            const style = getAttrString(node, 'style');
+            const assetUid = getAttrString(node, 'asset-uid');
+            const className = getAttrString(node, 'class-name');
 
-            let imageTag = `<img${asset_uid ? ` asset_uid="${asset_uid}"` : `` }${node.attrs['class-name'] ? ` class="${sanitizeHTML(node.attrs['class-name'])}"`: ``}${src ? ` src="${sanitizeHTML(src)}"` : ``}${alt ? ` alt="${alt}"` : `` }${target === "_blank" ? ` target="_blank"` : `` }${style ? ` style="${style}"` : `` } />`;
+            const assetUidAttr = assetUid ? ` asset_uid="${assetUid}"` : '';
+            const classAttr = className ? ` class="${sanitizeHTML(className)}"` : '';
+            const srcAttr = src ? ` src="${sanitizeHTML(src)}"` : '';
+            const altAttr = alt ? ` alt="${alt}"` : '';
+            const targetAttr = target === "_blank" ? ` target="_blank"` : '';
+            const styleAttr = style ? ` style="${style}"` : '';
+            
+            const imageTag = `<img${assetUidAttr}${classAttr}${srcAttr}${altAttr}${targetAttr}${styleAttr} />`;
+            const styleAttrFig = style ? ` style="${style}"` : '';
 
-            return `<figure${style ? ` style="${style}"` : ''}>` +
+            return `<figure${styleAttrFig}>` +
                     (link ? `<a href="${link}" target="${target || ""}">` : "") +
                     imageTag +
                     (link ? `</a>` : "") +
