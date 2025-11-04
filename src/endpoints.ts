@@ -2,9 +2,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
-// Type declarations for CommonJS runtime (rollup outputs CommonJS format)
-declare const __dirname: string;
-
 export interface ContentstackEndpoints {
   [key: string]: string | ContentstackEndpoints;
 }
@@ -25,9 +22,8 @@ export interface RegionsResponse {
 
 // Load regions.json at runtime from the dist/lib directory
 function loadRegions(): RegionsResponse {
-  // The bundled file is at dist/index.es.js, regions.json is at dist/lib/regions.json
-  // So __dirname will be 'dist/' and we need to go to 'dist/lib/regions.json'
-  const regionsPath = path.join(__dirname, 'lib', 'regions.json');
+  // Only look for regions.json in dist/lib directory
+  const regionsPath = path.join(process.cwd(), 'dist', 'lib', 'regions.json');
   
   if (fs.existsSync(regionsPath)) {
     try {
