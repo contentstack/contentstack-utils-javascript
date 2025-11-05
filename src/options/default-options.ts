@@ -16,19 +16,22 @@ export const defaultOptions: RenderOption = {
     return `<span>${title}</span>`;
   },
   [StyleType.LINK]: (item: EmbeddedItem | EntryNode, metadata: Metadata) => {
-    const url = encodeURI(sanitizeHTML(item.url || 'undefined'));
+    const url = item.url ? encodeURI(sanitizeHTML(item.url)) : null;
     const text = sanitizeHTML(metadata.text || item.title || item.uid || (item.system ? item.system.uid : ''));
-    return `<a href="${url}">${text}</a>`;
+    const hrefAttr = url ? ` href="${url}"` : '';
+    return `<a${hrefAttr}>${text}</a>`;
   },
   [StyleType.DISPLAY]: (item: EmbeddedItem | EntryNode, metadata: Metadata) => {
-    const url = encodeURI(sanitizeHTML(item.url || 'undefined'));
+    const url = item.url ? encodeURI(sanitizeHTML(item.url)) : null;
     const alt = sanitizeHTML(metadata.attributes.alt || item.title || item.filename || item.uid
       || (item.system ? item.system.uid : ''));
-    return `<img src="${url}" alt="${alt}" />`;
+    const srcAttr = url ? ` src="${url}"` : '';
+    return `<img${srcAttr} alt="${alt}" />`;
   },
   [StyleType.DOWNLOAD]: (item: EmbeddedItem | EntryNode, metadata: Metadata) => {
-    const href = encodeURI(sanitizeHTML(item.url || 'undefined'));
+    const href = item.url ? encodeURI(sanitizeHTML(item.url)) : null;
     const text = sanitizeHTML(metadata.text || item.title || item.uid || (item.system ? item.system.content_type_uid : ''));
-    return `<a href="${href}">${text}</a>`;
+    const hrefAttr = href ? ` href="${href}"` : '';
+    return `<a${hrefAttr}>${text}</a>`;
   },
 };
