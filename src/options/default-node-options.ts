@@ -50,7 +50,7 @@ export const defaultNodeOption: RenderOption = {
         const sanitizedHref = sanitizeHTML(href);
         const target = getAttrString(node, 'target');
         const targetAttr = target ? ` target="${target}"` : '';
-        return `<a${buildCommonAttrs(node)} href="${sanitizedHref}"${targetAttr}>${sanitizeHTML(next(node.children))}</a>`
+        return `<a${buildCommonAttrs(node)}${sanitizedHref ? ` href="${sanitizedHref}"` : ''}${targetAttr}>${sanitizeHTML(next(node.children))}</a>`
     },
     [NodeType.IMAGE]:(node: Node, next: Next) => {
         const src = getAttrString(node, 'src') || getAttrString(node, 'url');
@@ -161,7 +161,7 @@ export const defaultNodeOption: RenderOption = {
             const assetUid = getAttrString(node, 'asset-uid');
             
             let aTagAttrs = buildCommonAttrs(node);
-            aTagAttrs += ` href="${href}"`;
+            if (href) aTagAttrs += ` href="${href}"`;
             if (target) {
                 aTagAttrs += ` target="${target}"`;
             }

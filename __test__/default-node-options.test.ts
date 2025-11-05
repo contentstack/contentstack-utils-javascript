@@ -267,7 +267,7 @@ describe('Default node render options - Missing attrs cases', () => {
             children: []
         } as unknown as Node
         const renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(linkNodeNoAttrs, next)
-        expect(renderString).toEqual('<a href="">text</a>')
+        expect(renderString).toEqual('<a>text</a>')
         done()
     })
 
@@ -278,7 +278,7 @@ describe('Default node render options - Missing attrs cases', () => {
             children: []
         } as Node
         const renderString = (defaultNodeOption[NodeType.LINK] as RenderNode)(linkNodePartialAttrs, next)
-        expect(renderString).toEqual('<a style="color: red;" href="">text</a>')
+        expect(renderString).toEqual('<a style="color: red;">text</a>')
         done()
     })
 
@@ -455,7 +455,7 @@ describe('Default node render options - Missing attrs cases', () => {
             children: []
         } as Node
         const renderString = (defaultNodeOption.reference as RenderNode)(referenceLinkNoHref, next)
-        expect(renderString).toEqual('<a href="">text</a>')
+        expect(renderString).toEqual('<a>text</a>')
         done()
     })
 
@@ -466,7 +466,7 @@ describe('Default node render options - Missing attrs cases', () => {
             children: []
         } as Node
         const renderString = (defaultNodeOption.reference as RenderNode)(referenceAssetLinkNoHref, next)
-        expect(renderString).toEqual('<a href="" type="asset" content-type-uid="sys_assets" sys-style-type="download">text</a>')
+        expect(renderString).toEqual('<a type="asset" content-type-uid="sys_assets" sys-style-type="download">text</a>')
         done()
     })
 
