@@ -21,7 +21,7 @@
     "clear:reports": "rm -rf reports",
     "clear:badges": "rm -rf badges",
     "pretest": "npm run build",
-    "test": "npm run clear:reports && jest --ci --json --coverage --testLocationInResults --outputFile=./reports/report.json",
+    "test": "npm run clear:reports && pwd && jest --ci --json --coverage --testLocationInResults --outputFile=./reports/report.json",
     "test:badges": "npm run clear:badges && npm run test && jest-coverage-badges --input ./reports/coverage/coverage-summary.json --output ./badges",
     "test:debug": "jest --watchAll --runInBand",
     "prebuild": "rimraf dist && mkdir -p dist/lib && npm run download-regions",
