@@ -15,18 +15,34 @@ jobs:
       checks: write
     steps:
         - uses: actions/checkout@v3
+        - name: Check working directory after checkout
+          run: pwd
         - uses: actions/setup-node@v4
           with:
             node-version: '22.x'
-        - run: npm ci
+        - name: Check working directory after setup-node
+          run: pwd
+        - name: Install dependencies
+          run: |
+            pwd
+            npm ci
         - name: Download regions.json
           run: |
+            pwd
+            ls -la
             mkdir -p dist/lib
+            pwd
             npm run download-regions
+            pwd
+            ls -la dist/lib/ || echo "dist/lib does not exist"
             if [ ! -f dist/lib/regions.json ]; then
               echo "Error: regions.json was not downloaded successfully"
               exit 1
             fi
+        - name: Check working directory before tests
+          run: |
+            pwd
+            ls -la
         - uses: ArtiomTr/jest-coverage-report-action@v2
           id: coverage-utils-js
           continue-on-error: true
