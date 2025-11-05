@@ -25,7 +25,7 @@
     "test:badges": "npm run clear:badges && npm run test && jest-coverage-badges --input ./reports/coverage/coverage-summary.json --output ./badges",
     "test:debug": "jest --watchAll --runInBand",
     "prebuild": "rimraf dist && mkdir -p dist/lib && npm run download-regions",
-    "download-regions": "curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json'",
+    "download-regions": "curl -v --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json'",
     "build": "tsc && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install && npm run build",
