@@ -12,11 +12,6 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      globals: {
-        console: 'readonly',
-        __dirname: 'readonly',
-        require: 'readonly',
-      },
     },
     plugins: {
       '@typescript-eslint': tseslint,
