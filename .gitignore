@@ -16,4 +16,3 @@ coverage/
 .dccache
 snyk_output.log
 talisman_output.log
-regions.json
