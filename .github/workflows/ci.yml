@@ -17,13 +17,15 @@ jobs:
         - uses: actions/checkout@v3
         - name: Install dependencies
           run: npm install
-        - uses: ArtiomTr/jest-coverage-report-action@v2
+        - name: Coverage Utils JS
+          uses: ArtiomTr/jest-coverage-report-action@v2
           id: coverage-utils-js
           with:
             output: comment, report-markdown
             test-script: npm test
             coverage-file: ./reports/report.json
-        - uses: marocchino/sticky-pull-request-comment@v2
+        - name: Sticky Pull Request Comment
+          uses: marocchino/sticky-pull-request-comment@v2
           if: steps.coverage-utils-js.outputs.report != ''
           with:
               header: Contentstack Utils JS Coverage
