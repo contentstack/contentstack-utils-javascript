@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.1)
+ - Fix: Improved error handling in getContentstackEndpoint
+ - Fix: Enhanced error messages for better debugging
+ - Refactor: Removed redundant try/catch wrapper and improved code structure
+ - Test: Updated and improved test coverage for error scenarios
+
 ## [1.6.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.0)
  - Feat: Adds Helper functions for Contentstack Endpoints
  
