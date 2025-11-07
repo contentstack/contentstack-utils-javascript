@@ -2,12 +2,7 @@ import { getContentstackEndpoint, ContentstackEndpoints } from '../src/endpoints
 import * as path from 'path';
 import * as fs from 'fs';
 
-// Mock console.warn to avoid noise in tests
-const originalConsoleWarn = console.warn;
-
 beforeAll(() => {
-  console.warn = jest.fn();
-  
   // Verify build completed - dist/lib/regions.json must exist
   // The pretest hook ensures build runs before tests
   const regionsPath = path.join(process.cwd(), 'dist', 'lib', 'regions.json');
@@ -15,10 +10,6 @@ beforeAll(() => {
   if (!fs.existsSync(regionsPath)) {
     throw new Error('dist/lib/regions.json not found. Please run "npm run build" first. The pretest hook should have handled this automatically.');
   }
-});
-
-afterAll(() => {
-  console.warn = originalConsoleWarn;
 });
 
 describe('getContentstackEndpoint', () => {
@@ -38,16 +29,16 @@ describe('getContentstackEndpoint', () => {
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should return EU endpoints for EU region', () => {
-      const result = getContentstackEndpoint('eu', 'contentDelivery');
-      
-      expect(result).toBe('https://eu-cdn.contentstack.com');
+    it('should throw error for invalid service', () => {
+      expect(() => {
+        getContentstackEndpoint('us', 'invalidService');
+      }).toThrow(/Service "invalidService" not found for region/);
     });
 
-    it('should return undefined for invalid service', () => {
-      const result = getContentstackEndpoint('us', 'invalidService');
-      
-      expect(result).toBeUndefined();
+    it('should throw error with exact error message format for invalid service', () => {
+      expect(() => {
+        getContentstackEndpoint('us', 'nonexistentService');
+      }).toThrow('Service "nonexistentService" not found for region "na"');
     });
   });
 
@@ -103,40 +94,50 @@ describe('getContentstackEndpoint', () => {
       
       expect(result).toBe('https://cdn.contentstack.io');
     });
+
+    it('should strip https from EU endpoint when omitHttps is true', () => {
+      const result = getContentstackEndpoint('eu', 'contentDelivery', true);
+      
+      expect(result).toBe('eu-cdn.contentstack.com');
+    });
+
+    it('should strip https from Azure endpoint when omitHttps is true', () => {
+      const result = getContentstackEndpoint('azure-na', 'contentDelivery', true);
+      
+      expect(result).toBe('azure-na-cdn.contentstack.com');
+    });
+
+    it('should strip https from GCP endpoint when omitHttps is true', () => {
+      const result = getContentstackEndpoint('gcp-na', 'contentDelivery', true);
+      
+      expect(result).toBe('gcp-na-cdn.contentstack.com');
+    });
+
+    it('should strip https from all endpoints for EU region when omitHttps is true', () => {
+      const result = getContentstackEndpoint('eu', '', true) as ContentstackEndpoints;
+      
+      expect(result.contentDelivery).toBe('eu-cdn.contentstack.com');
+      expect(result.contentManagement).toBe('eu-api.contentstack.com');
+    });
   });
 
   describe('Error handling and edge cases', () => {
     it('should throw error for empty region', () => {
       expect(() => {
         getContentstackEndpoint('');
-      }).toThrow('Unable to set the host. Please put valid host');
+      }).toThrow('Empty region provided. Please put valid region.');
     });
 
-    it('should return default endpoint for invalid region', () => {
-      const result = getContentstackEndpoint('invalid-region', 'contentDelivery');
-      
-      expect(result).toBe('https://cdn.contentstack.io');
+    it('should throw error for invalid region', () => {
+      expect(() => {
+        getContentstackEndpoint('invalid-region', 'contentDelivery');
+      }).toThrow('Invalid region: invalid-region');
     });
 
-    it('should return default endpoint for region with underscores/dashes', () => {
-      const result = getContentstackEndpoint('invalid_region_format', 'contentDelivery');
-      
-      expect(result).toBe('https://cdn.contentstack.io');
-    });
-
-    it('should handle malformed regions data gracefully', () => {
-      // Note: This test now verifies that invalid regions fallback to default endpoint
-      // The malformed data scenario is handled by getRegions() throwing an error
-      // which causes getContentstackEndpoint to fall back to getDefaultEndpoint
-      const result = getContentstackEndpoint('us', 'contentDelivery', false);
-      
-      expect(result).toBe('https://cdn.contentstack.io');
-    });
-
-    it('should fallback to default when region is not found', () => {
-      const result = getContentstackEndpoint('nonexistent', 'contentDelivery');
-      
-      expect(result).toBe('https://cdn.contentstack.io');
+    it('should throw error when region is not found', () => {
+      expect(() => {
+        getContentstackEndpoint('nonexistent', 'contentDelivery');
+      }).toThrow('Invalid region: nonexistent');
     });
   });
 
@@ -154,12 +155,22 @@ describe('getContentstackEndpoint', () => {
       
       expect(result).toBeDefined();
       expect(typeof result).toBe('object');
+      expect((result as ContentstackEndpoints).contentDelivery).toBe('https://cdn.contentstack.io');
     });
 
     it('should use default omitHttps false when not provided', () => {
       const result = getContentstackEndpoint('us', 'contentDelivery');
       
       expect(result).toBe('https://cdn.contentstack.io');
+    });
+
+    it('should return all endpoints when service is empty string', () => {
+      const result = getContentstackEndpoint('us', '');
+      
+      expect(result).toBeDefined();
+      expect(typeof result).toBe('object');
+      expect((result as ContentstackEndpoints).contentDelivery).toBe('https://cdn.contentstack.io');
+      expect((result as ContentstackEndpoints).contentManagement).toBe('https://api.contentstack.io');
     });
   });
 
@@ -243,27 +254,13 @@ describe('getContentstackEndpoint', () => {
     });
   });
 
-  describe('Different regions', () => {
+  describe('Additional regions and aliases', () => {
     it('should return correct EU endpoints', () => {
       const result = getContentstackEndpoint('eu', 'contentDelivery');
       
       expect(result).toBe('https://eu-cdn.contentstack.com');
     });
 
-    it('should return correct Azure NA endpoints', () => {
-      const result = getContentstackEndpoint('azure-na', 'contentDelivery');
-      
-      expect(result).toBe('https://azure-na-cdn.contentstack.com');
-    });
-
-    it('should return correct GCP NA endpoints', () => {
-      const result = getContentstackEndpoint('gcp-na', 'contentDelivery');
-      
-      expect(result).toBe('https://gcp-na-cdn.contentstack.com');
-    });
-  });
-
-  describe('Additional regions and aliases', () => {
     it('should return correct Australia endpoints', () => {
       const result = getContentstackEndpoint('au', 'contentDelivery');
       
@@ -276,10 +273,22 @@ describe('getContentstackEndpoint', () => {
       expect(result).toBe('https://au-cdn.contentstack.com');
     });
 
+    it('should return correct Azure NA endpoints', () => {
+      const result = getContentstackEndpoint('azure-na', 'contentDelivery');
+      
+      expect(result).toBe('https://azure-na-cdn.contentstack.com');
+    });
+
     it('should return correct Azure EU endpoints', () => {
       const result = getContentstackEndpoint('azure-eu', 'contentDelivery');
       
       expect(result).toBe('https://azure-eu-cdn.contentstack.com');
+    });
+
+    it('should return correct GCP NA endpoints', () => {
+      const result = getContentstackEndpoint('gcp-na', 'contentDelivery');
+      
+      expect(result).toBe('https://gcp-na-cdn.contentstack.com');
     });
 
     it('should return correct GCP EU endpoints', () => {
@@ -302,53 +311,37 @@ describe('getContentstackEndpoint', () => {
   });
 
   describe('Edge cases and error scenarios', () => {
-    it('should handle null region gracefully', () => {
-      const result = getContentstackEndpoint(null as any, 'contentDelivery');
-      
-      expect(result).toBe('https://cdn.contentstack.io');
+    it('should throw error for null region', () => {
+      expect(() => {
+        getContentstackEndpoint(null as any, 'contentDelivery');
+      }).toThrow();
     });
 
-    it('should handle undefined region gracefully', () => {
+    it('should use default region for undefined region', () => {
+      // undefined uses the default parameter 'us', so it doesn't throw
       const result = getContentstackEndpoint(undefined as any, 'contentDelivery');
-      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
     it('should handle region with only whitespace', () => {
+      // Whitespace gets trimmed, then normalized to 'us' if empty
+      // Since '   '.trim() is empty string, it normalizes to 'us'
       const result = getContentstackEndpoint('   ', 'contentDelivery');
-      
       expect(result).toBe('https://cdn.contentstack.io');
     });
 
-    it('should handle region with special characters', () => {
-      const result = getContentstackEndpoint('region@#$%', 'contentDelivery');
-      
-      expect(result).toBe('https://cdn.contentstack.io');
+    it('should throw error for region with special characters', () => {
+      expect(() => {
+        getContentstackEndpoint('region@#$%', 'contentDelivery');
+      }).toThrow('Invalid region: region@#$%');
     });
 
-    it('should handle very long region name', () => {
+    it('should throw error for very long region name', () => {
       const longRegion = 'a'.repeat(1000);
-      const result = getContentstackEndpoint(longRegion, 'contentDelivery');
-      
-      expect(result).toBe('https://cdn.contentstack.io');
+      expect(() => {
+        getContentstackEndpoint(longRegion, 'contentDelivery');
+      }).toThrow(`Invalid region: ${longRegion}`);
     });
   });
 
-  describe('Console warnings', () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it('should warn for invalid region', () => {
-      getContentstackEndpoint('invalid-region', 'contentDelivery');
-      
-      expect(console.warn).toHaveBeenCalledWith('Invalid region combination.');
-    });
-
-    it('should warn for failed endpoint fetch', () => {
-      getContentstackEndpoint('invalid-region', 'contentDelivery');
-      
-      expect(console.warn).toHaveBeenCalledWith('Failed to fetch endpoints:', expect.any(Error));
-    });
-  });
 });
