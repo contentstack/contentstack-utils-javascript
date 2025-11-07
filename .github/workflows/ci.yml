@@ -9,24 +9,13 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      checks: write
     steps:
         - uses: actions/checkout@v3
-        - name: Install dependencies
-          run: npm install
-        - name: Coverage Utils JS
-          uses: ArtiomTr/jest-coverage-report-action@v2
+        - uses: ArtiomTr/jest-coverage-report-action@v2
           id: coverage-utils-js
           with:
             output: comment, report-markdown
-            test-script: npm test
-            coverage-file: ./reports/report.json
-        - name: Sticky Pull Request Comment
-          uses: marocchino/sticky-pull-request-comment@v2
-          if: steps.coverage-utils-js.outputs.report != ''
+        - uses: marocchino/sticky-pull-request-comment@v2
           with:
               header: Contentstack Utils JS Coverage
               recreate: true
