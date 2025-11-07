@@ -20,6 +20,8 @@ jobs:
           continue-on-error: true
           with:
             output: comment, report-markdown
+            test-script: npm test
+            skip-step: install
         - uses: marocchino/sticky-pull-request-comment@v2
           continue-on-error: true
           if: steps.coverage-utils-js.outputs.report != ''
