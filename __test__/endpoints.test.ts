@@ -241,8 +241,8 @@ describe('getContentstackEndpoint', () => {
       expect(result).toBe('https://ai.contentstack.com');
     });
 
-    it('should return correct personalize endpoint', () => {
-      const result = getContentstackEndpoint('us', 'personalize');
+    it('should return correct personalizeManagement endpoint', () => {
+      const result = getContentstackEndpoint('us', 'personalizeManagement');
       
       expect(result).toBe('https://personalize-api.contentstack.com');
     });
