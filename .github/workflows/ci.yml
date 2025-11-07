@@ -9,22 +9,13 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      checks: write
     steps:
         - uses: actions/checkout@v3
         - uses: ArtiomTr/jest-coverage-report-action@v2
           id: coverage-utils-js
-          continue-on-error: true
           with:
             output: comment, report-markdown
-            test-script: npm test
-            skip-step: install
         - uses: marocchino/sticky-pull-request-comment@v2
-          continue-on-error: true
-          if: steps.coverage-utils-js.outputs.report != ''
           with:
               header: Contentstack Utils JS Coverage
               recreate: true
