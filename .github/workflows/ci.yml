@@ -15,10 +15,6 @@ jobs:
       checks: write
     steps:
         - uses: actions/checkout@v3
-        - uses: actions/setup-node@v4
-          with:
-            node-version: '22.x'
-        - run: npm ci
         - uses: ArtiomTr/jest-coverage-report-action@v2
           id: coverage-utils-js
           continue-on-error: true
