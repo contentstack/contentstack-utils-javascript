@@ -15,13 +15,15 @@ jobs:
       checks: write
     steps:
         - uses: actions/checkout@v3
+        - name: Install dependencies
+          run: npm install
         - uses: ArtiomTr/jest-coverage-report-action@v2
           id: coverage-utils-js
           continue-on-error: true
           with:
             output: comment, report-markdown
             test-script: npm test
-            skip-step: install
+            coverage-file: ./reports/report.json
         - uses: marocchino/sticky-pull-request-comment@v2
           continue-on-error: true
           if: steps.coverage-utils-js.outputs.report != ''
