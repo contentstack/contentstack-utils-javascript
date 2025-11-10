@@ -16,6 +16,7 @@ export default [
         console: 'readonly',
         __dirname: 'readonly',
         require: 'readonly',
+        process: 'readonly',
       },
     },
   },
