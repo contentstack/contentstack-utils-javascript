@@ -644,6 +644,6 @@ export const entrymultipleRTERenderOption = `<div>
             <MYCONTENT><div><p>entry_uid_21</p><p>Content type: <span>1234</span></p></div>
 <span>entry_uid_21</span>
 <p><br><br></p>
-<img src=\"undefined\" alt=\"asset_uid_12\" /></MYCONTENT>
+<img alt=\"asset_uid_12\" /></MYCONTENT>
             </div>
 <p></p>`
