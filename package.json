@@ -1,6 +1,6 @@
 {
   "name": "@contentstack/utils",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Contentstack utilities for Javascript",
   "main": "dist/index.es.js",
   "types": "dist/types/src/index.d.ts",

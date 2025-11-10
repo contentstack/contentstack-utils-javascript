@@ -20,22 +20,40 @@ export interface RegionsResponse {
   regions: RegionData[];
 }
 
+// Declare __dirname for TypeScript (available at runtime in CommonJS output)
+declare const __dirname: string;
+
 // Load regions.json at runtime from the dist/lib directory
 function loadRegions(): RegionsResponse {
-  // Only look for regions.json in dist/lib directory
-  const regionsPath = path.join(process.cwd(), 'dist', 'lib', 'regions.json');
-  
-  if (fs.existsSync(regionsPath)) {
-    try {
-      const regionsData = fs.readFileSync(regionsPath, 'utf-8');
-      return JSON.parse(regionsData);
-    } catch (error) {
-      throw new Error(`Failed to parse regions.json: ${error instanceof Error ? error.message : String(error)}`);
+  // Get the directory of the current module
+  // In CommonJS (compiled output), __dirname is available at runtime
+  // When packed, the file structure may be different, so we check multiple paths
+  // __dirname will be available at runtime in CommonJS output from rollup
+  // Use __dirname directly since it's available at runtime in CommonJS output
+  const moduleDir = __dirname;
+
+  // Try multiple possible paths:
+  // 1. lib/regions.json (relative to __dirname - for production/packed package)
+  //    Main entry point is dist/index.es.js, so __dirname is dist, file is at dist/lib/regions.json
+  // 2. dist/lib/regions.json (relative to process.cwd() - for development/tests)
+  const possiblePaths = [
+    path.join(moduleDir, 'lib', 'regions.json'),
+    path.join(process.cwd(), 'dist', 'lib', 'regions.json'),
+  ];
+
+  for (const regionsPath of possiblePaths) {
+    if (fs.existsSync(regionsPath)) {
+      try {
+        const regionsData = fs.readFileSync(regionsPath, 'utf-8');
+        return JSON.parse(regionsData);
+      } catch (error) {
+        throw new Error(`Failed to parse regions.json: ${error instanceof Error ? error.message : String(error)}`);
+      }
     }
   }
   
   // If not found, throw clear error
-  throw new Error('regions.json file not found at dist/lib/regions.json. Please ensure the package is properly installed and postinstall script has run.');
+  throw new Error('regions.json file not found. Please ensure the package is properly installed and postinstall script has run.');
 }
 
 // Cache the loaded regions data
@@ -51,69 +69,38 @@ function getRegions(): RegionsResponse {
 export function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false): string | ContentstackEndpoints {
   // Validate empty region before any processing
   if (region === '') {
-    console.warn('Invalid region: empty or invalid region provided');
-    throw new Error('Unable to set the host. Please put valid host');
+    throw new Error('Empty region provided. Please put valid region.');
   }
 
-  try {
-    const regionsData: RegionsResponse = getRegions();
+  const regionsData: RegionsResponse = getRegions();
 
-    // Normalize the region input
-    const normalizedRegion = region.toLowerCase().trim() || 'us';
+  // Normalize the region input
+  const normalizedRegion = region.toLowerCase().trim() || 'us';
 
-    // Check if regions data is malformed
-    if (!Array.isArray(regionsData.regions)) {
-      throw new Error('Invalid Regions file. Please install the SDK again to fix this issue.');
+  // Check if regions data is malformed
+  if (!Array.isArray(regionsData.regions)) {
+    throw new Error('Invalid Regions file. Please install the SDK again to fix this issue.');
+  }
+
+  // Find the region by ID or alias
+  const regionData = findRegionByIDOrAlias(regionsData.regions, normalizedRegion);
+
+  if (!regionData) {
+    throw new Error(`Invalid region: ${region}`);
+  }
+
+  // Get the endpoint(s)
+  if (service) {
+    // Return specific service endpoint
+    const endpoint = regionData.endpoints[service];
+
+    if (!endpoint) {
+      throw new Error(`Service "${service}" not found for region "${regionData.id}"`);
     }
-
-    // Find the region by ID or alias
-    const regionData = findRegionByIDOrAlias(regionsData.regions, normalizedRegion);
-
-    if (!regionData) {
-      // Check if this looks like a legacy format that should throw an error
-      if (region.includes('_') || region.includes('-')) {
-        const parts = region.split(/[-_]/);
-        if (parts.length >= 2) {
-          console.warn(`Invalid region combination.`);
-          throw new Error('Region Invalid. Please use a valid region identifier.');
-        }
-      }
-      
-      console.warn('Invalid region:', region, '(normalized:', normalizedRegion + ')');
-      console.warn('Failed to fetch endpoints:', new Error(`Invalid region: ${region}`));
-      return getDefaultEndpoint(service, omitHttps);
-    }
-
-    // Get the endpoint(s)
-    let endpoint: string | ContentstackEndpoints;
-
-    if (service) {
-      // Return specific service endpoint
-      endpoint = regionData.endpoints[service];
-
-      if (!endpoint) {
-        // For invalid services, return undefined (as expected by some tests)
-        return undefined as unknown as ContentstackEndpoints;
-      }
-    } else {
-      return omitHttps ? stripHttps(regionData.endpoints) : regionData.endpoints;
-    }
-
     return omitHttps ? stripHttps(endpoint) : endpoint;
-  } catch (error) {
-    console.warn('Failed to fetch endpoints:', error);
-    return getDefaultEndpoint(service, omitHttps);
+  } else {
+    return omitHttps ? stripHttps(regionData.endpoints) : regionData.endpoints;
   }
-}
-
-function getDefaultEndpoint(service: string, omitHttps: boolean): string {
-  const regions = getRegions();
-  const defaultEndpoints: ContentstackEndpoints = regions.regions.find((r: RegionData) => r.isDefault)?.endpoints || {};
-
-  const value = defaultEndpoints[service];
-  const endpoint = typeof value === 'string' ? value : 'https://cdn.contentstack.io';
-
-  return omitHttps ? endpoint.replace(/^https?:\/\//, '') : endpoint;
 }
 
 function findRegionByIDOrAlias(regions: RegionData[], regionInput: string): RegionData | null {
