@@ -27,7 +27,7 @@ describe('Default Option test', () => {
     it('Default options Entry with only uid test', done => {
         expect(entryBlockFunction(entryContentBlank, embedAttributes)).toEqual(`<div><p>${entryContentBlank.uid}</p><p>Content type: <span>${entryContentBlank._content_type_uid}</span></p></div>`)
         expect(entryInlineFunction(entryContentBlank, embedAttributes)).toEqual(`<span>${entryContentBlank.uid}</span>`)
-        expect(entryLinkFunction(entryContentBlank, embedAttributes)).toEqual(`<a href="undefined">${entryContentBlank.uid}</a>`)
+        expect(entryLinkFunction(entryContentBlank, embedAttributes)).toEqual(`<a>${entryContentBlank.uid}</a>`)
         done()
     })
 
@@ -41,7 +41,7 @@ describe('Default Option test', () => {
     it('Default options Entry with only uid, title test', done => {
         expect(entryBlockFunction(entryContentTitle, embedAttributes)).toEqual(`<div><p>${entryContentTitle.title}</p><p>Content type: <span>${entryContentTitle._content_type_uid}</span></p></div>`)
         expect(entryInlineFunction(entryContentTitle, embedAttributes)).toEqual(`<span>${entryContentTitle.title}</span>`)
-        expect(entryLinkFunction(entryContentTitle, embedAttributes)).toEqual(`<a href="undefined">${entryContentTitle.title}</a>`)
+        expect(entryLinkFunction(entryContentTitle, embedAttributes)).toEqual(`<a>${entryContentTitle.title}</a>`)
         done()
     })
 
@@ -58,8 +58,8 @@ describe('Default Option test', () => {
     })
 
     it('Default options Asset with only uid test', done => {
-        expect(assetDisplaableFunction(assetContentBlank, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentBlank.uid}" />`)
-        expect(assetDownloadFunction(assetContentBlank, embedAttributes)).toEqual(`<a href="undefined\">${assetContentBlank.uid}</a>`)
+        expect(assetDisplaableFunction(assetContentBlank, embedAttributes)).toEqual(`<img alt="${assetContentBlank.uid}" />`)
+        expect(assetDownloadFunction(assetContentBlank, embedAttributes)).toEqual(`<a>${assetContentBlank.uid}</a>`)
         done()
     })
 
@@ -71,8 +71,8 @@ describe('Default Option test', () => {
 
 
     it('Default options Asset with uid and filename test', done => {
-        expect(assetDisplaableFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentonlyFileName.filename}" />`)
-        expect(assetDownloadFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<a href="undefined">${assetContentonlyFileName.uid}</a>`)
+        expect(assetDisplaableFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<img alt="${assetContentonlyFileName.filename}" />`)
+        expect(assetDownloadFunction(assetContentonlyFileName, embedAttributes)).toEqual(`<a>${assetContentonlyFileName.uid}</a>`)
         done()
     })
 
@@ -83,8 +83,8 @@ describe('Default Option test', () => {
     })
 
     it('Default options Asset with uid and title test', done => {
-        expect(assetDisplaableFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<img src="undefined" alt="${assetContentonlyTitle.title}" />`)
-        expect(assetDownloadFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<a href="undefined">${assetContentonlyTitle.title || assetContentonlyTitle.uid}</a>`)
+        expect(assetDisplaableFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<img alt="${assetContentonlyTitle.title}" />`)
+        expect(assetDownloadFunction(assetContentonlyTitle, embedAttributes)).toEqual(`<a>${assetContentonlyTitle.title || assetContentonlyTitle.uid}</a>`)
         done()
     })
 
@@ -101,11 +101,11 @@ describe('Default Option test', () => {
 
     it('Default options Link text test', done => {
         expect(entryLinkFunction(entryContentURL, embedAttributesText)).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
-        expect(entryLinkFunction(entryContentTitle, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
-        expect(entryLinkFunction(entryContentBlank, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
+        expect(entryLinkFunction(entryContentTitle, embedAttributesText)).toEqual(`<a>${linkText}</a>`)
+        expect(entryLinkFunction(entryContentBlank, embedAttributesText)).toEqual(`<a>${linkText}</a>`)
         expect(entryLinkFunction(entryContentTitleURL, embedAttributesText)).toEqual(`<a href="${entryContentURL.url}">${linkText}</a>`)
-        expect(assetDisplaableFunction(assetContentBlank, embedAttributesText)).toEqual(`<img src="undefined" alt="${linkText}" />`)
-        expect(assetDownloadFunction(assetContentBlank, embedAttributesText)).toEqual(`<a href="undefined">${linkText}</a>`)
+        expect(assetDisplaableFunction(assetContentBlank, embedAttributesText)).toEqual(`<img alt="${linkText}" />`)
+        expect(assetDownloadFunction(assetContentBlank, embedAttributesText)).toEqual(`<a>${linkText}</a>`)
         done()
     })
 })

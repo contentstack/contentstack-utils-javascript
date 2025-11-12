@@ -110,7 +110,8 @@ export function referenceToHTML(
       return sendToRenderOption(node);
     }
 
-    let aTagAttrs = `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``} href="${node.attrs.href || node.attrs.url}"`;
+    const href = node.attrs.href || node.attrs.url;
+    let aTagAttrs = `${node.attrs.style ? ` style="${node.attrs.style}"` : ``}${node.attrs['class-name'] ? ` class="${node.attrs['class-name']}"` : ``}${node.attrs.id ? ` id="${node.attrs.id}"` : ``}${href ? ` href="${href}"` : ``}`;
     if (node.attrs.target) {
       aTagAttrs +=` target="${node.attrs.target}"`;
     }

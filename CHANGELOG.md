@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.6.2](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.2)
+ - Fix: Missing attr in node does not add empty attr
+
 ## [1.6.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.1)
  - Fix: Improved error handling in getContentstackEndpoint
  - Fix: Enhanced error messages for better debugging
