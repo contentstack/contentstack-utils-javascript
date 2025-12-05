@@ -3,7 +3,7 @@
   "version": "1.6.2",
   "description": "Contentstack utilities for Javascript",
   "main": "dist/index.es.js",
-  "types": "dist/types/src/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
@@ -44,6 +44,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/jest": "^26.0.24",
+    "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
     "commitizen": "^4.3.1",
