@@ -3,7 +3,7 @@ fileignoreconfig:
   ignore_detectors:
     - filecontent
 - filename: package-lock.json
-  checksum: 99e459b3a5af736dc4e251ffc5c60512d8d3407315e3f326cd8dbc54612e2cab
+  checksum: 3b95f4f64329f55ad5364b0468ca2d7d7337cfbb97b42db4929c894d7bd44a27
 - filename: src/entry-editable.ts
   checksum: 3ba7af9ed1c1adef2e2bd5610099716562bebb8ba750d4b41ddda99fc9eaf115
 - filename: .husky/pre-commit
