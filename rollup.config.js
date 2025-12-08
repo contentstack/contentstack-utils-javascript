@@ -18,8 +18,6 @@ module.exports = {
         // Node.js built-ins
         'fs',
         'path',
-        // Exclude regions.json from bundling - it's loaded at runtime
-        /regions\.json$/,
     ],
     plugins: [
         // Allow json resolution
