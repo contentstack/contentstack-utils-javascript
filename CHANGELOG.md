@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.3)
+ - Refactor: Simplified endpoints.ts to use compile-time JSON import instead of runtime file loading
+ - Build: Updated build process to download regions.json to src/assets directory
+ - Test: Added comprehensive test coverage for endpoints.ts
+ - Chore: Removed postinstall/postupdate scripts and simplified package.json scripts
+
 ## [1.6.2](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.2)
  - Fix: Missing attr in node does not add empty attr
 

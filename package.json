@@ -1,6 +1,6 @@
 {
   "name": "@contentstack/utils",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Contentstack utilities for Javascript",
   "main": "dist/index.es.js",
   "types": "dist/types/index.d.ts",
@@ -21,20 +21,15 @@
     "clear:reports": "rm -rf reports",
     "clear:badges": "rm -rf badges",
     "pretest": "npm run build",
-    "test": "npm run clear:reports && pwd && jest --ci --json --coverage --testLocationInResults --outputFile=./reports/report.json",
+    "test": "npm run clear:reports && jest --ci --json --coverage --testLocationInResults --outputFile=./reports/report.json",
     "test:badges": "npm run clear:badges && npm run test && jest-coverage-badges --input ./reports/coverage/coverage-summary.json --output ./badges",
     "test:debug": "jest --watchAll --runInBand",
     "prebuild": "rimraf dist && mkdir -p dist/lib && npm run download-regions",
-    "download-regions": "curl -v --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o dist/lib/regions.json || echo 'Warning: Failed to download regions.json'",
+    "download-regions": "mkdir -p src/assets && curl -s --max-time 30 --fail https://artifacts.contentstack.com/regions.json -o src/assets/regions.json || echo 'Warning: Failed to download regions.json'",
     "build": "tsc && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install && npm run build",
-    "prepublishOnly": "npm test",
-    "pre-commit": "husky install && husky && chmod +x .husky/pre-commit && ./.husky/pre-commit",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "postinstall": "npm run download-regions",
-    "postupdate": "npm run download-regions"
+    "prepublishOnly": "npm test"
   },
   "author": "Contentstack",
   "license": "MIT",
@@ -69,11 +64,6 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "$TALISMAN_HOME/talisman_hook_script pre-commit && other-scripts"
     }
   }
 }
