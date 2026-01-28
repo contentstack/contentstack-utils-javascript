@@ -6,11 +6,14 @@ interface AppliedVariants {
     metaKey: string
 }
 
-export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us'): void {
+export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us', options?: {
+    useLowerCaseLocale?: boolean
+}): void {
+    const { useLowerCaseLocale = true } = options || {};
     if (entry) {
         // handle case senstivity for contentTypeUid and locale
         contentTypeUid = contentTypeUid.toLowerCase();
-        locale = locale.toLowerCase();
+        locale = useLowerCaseLocale ? locale.toLowerCase() : locale;
         
         const appliedVariants = entry._applied_variants || entry?.system?.applied_variants || null;
         entry.$ = getTag(entry, `${contentTypeUid}.${entry.uid}.${locale}`, tagsAsObject, locale, { _applied_variants: appliedVariants, shouldApplyVariant: !!appliedVariants, metaKey: '' })
