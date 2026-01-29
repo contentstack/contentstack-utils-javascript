@@ -519,4 +519,45 @@ describe('Entry editable test', () => {
         })
     })
 
+    describe('useLowerCaseLocale option', () => {
+        it('should preserve locale casing when useLowerCaseLocale is false', done => {
+            const entry = {
+                "uid": "test_uid",
+                "locale": "en-US",
+                "title": "Test Entry"
+            }
+            
+            addTags(entry, 'test_content_type', false, 'en-US', { useLowerCaseLocale: false })
+            
+            expect((entry as any)['$']['title']).toEqual('data-cslp=test_content_type.test_uid.en-US.title')
+            done()
+        })
+
+        it('should lowercase locale when useLowerCaseLocale is explicitly true', done => {
+            const entry = {
+                "uid": "test_uid",
+                "locale": "en-US",
+                "title": "Test Entry"
+            }
+            
+            addTags(entry, 'test_content_type', false, 'en-US', { useLowerCaseLocale: true })
+            
+            expect((entry as any)['$']['title']).toEqual('data-cslp=test_content_type.test_uid.en-us.title')
+            done()
+        })
+
+        it('should lowercase locale by default when options is not provided', done => {
+            const entry = {
+                "uid": "test_uid",
+                "locale": "en-US",
+                "title": "Test Entry"
+            }
+            
+            addTags(entry, 'test_content_type', false, 'en-US')
+            
+            expect((entry as any)['$']['title']).toEqual('data-cslp=test_content_type.test_uid.en-us.title')
+            done()
+        })
+    })
+
 })
