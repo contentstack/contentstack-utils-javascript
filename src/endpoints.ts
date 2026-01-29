@@ -18,6 +18,17 @@ export interface RegionsResponse {
   regions: RegionData[];
 }
 
+/**
+ * Returns the Contentstack API endpoint(s) for a given region and optional service.
+ * Region can be an ID (e.g. `'us'`, `'eu'`) or an alias. Throws if the region is
+ * invalid or empty.
+ *
+ * @param region - Region ID or alias (e.g. `'us'`, `'eu'`). Default: `'us'`.
+ * @param service - Optional service name to return a single endpoint (e.g. `'delivery'`). If empty, returns all endpoints for the region.
+ * @param omitHttps - If true, strips the `https://` prefix from the returned URL(s). Default: false.
+ * @returns A single endpoint URL string if `service` is provided, otherwise the full endpoints object for the region.
+ * @throws Error if region is empty, invalid, or if the requested service is not found.
+ */
 export function getContentstackEndpoint(region: string = 'us', service: string = '', omitHttps: boolean = false): string | ContentstackEndpoints {
   // Validate empty region before any processing
   if (region === '') {
