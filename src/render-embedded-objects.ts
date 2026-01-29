@@ -5,10 +5,14 @@ import { findEmbeddedItems, findRenderString } from './helper/find-embeded-objec
 import { EntryEmbedable } from './Models/embedded-object';
 import { findRenderContent } from './helper/find-render-content';
 /**
- * 
- * @param {EntryEmbedable| EntryEmbedable[]} entry - Objects that contains RTE with embedded objects
- * @param {string[]} paths - Key paths for RTE contents in Entry object
- * @param {RenderOption?} renderOption -  Optional render options to render content
+ * Renders RTE (Rich Text Editor) content with embedded objects in-place.
+ * Mutates the entry/entries by replacing embedded item tags with HTML produced
+ * by the provided render options. Works with a single entry or an array of entries.
+ *
+ * @param option - Configuration for rendering.
+ * @param option.entry - Entry or array of entries containing RTE fields with embedded objects.
+ * @param option.renderOption - Optional render options (node/item handlers) to produce HTML for embedded content.
+ * @param option.paths - Optional key paths to specific RTE fields. If omitted, all RTE paths on the entry are rendered.
  */
 export function render(option: { 
     entry: EntryEmbedable| EntryEmbedable[],
@@ -46,10 +50,13 @@ export function render(option: {
 }
 
 /**
- * 
- * @param {string | string[]} content - RTE content to render 
- * @param {EntryEmbedable} options.entry - Entry object containing embedded objects
- * @param {RenderOption?} options.renderOption - Optional render options to render content
+ * Renders a single RTE content string or array of strings by replacing embedded
+ * item tags with HTML. Uses the entry and renderOption from the given option to
+ * resolve embedded references and produce output.
+ *
+ * @param content - RTE content string or array of strings containing embedded item tags.
+ * @param option - Must include the entry (for resolving embedded items) and optionally renderOption.
+ * @returns The same shape as content: a string or array of strings with embedded tags replaced by rendered HTML.
  */
 export function renderContent(content: (string | string[]), option: Option): (string| string[]) {
     // return blank if content not present

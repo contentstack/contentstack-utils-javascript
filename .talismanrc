@@ -14,3 +14,9 @@ fileignoreconfig:
   checksum: d455330cc4f9306889fb299171364a37ad2c3bafe1fbd334033edc94f21694a6
 - filename: package.json
   checksum: 033eb21070795be5b426183f52d784347110fcb724bc9f8d63f94898ac5f0086
+- filename: src/Models/metadata-model.ts
+  checksum: a101e109db1ec6ee0cb16a116f9b099e547c3104881e4fa1eaef2849e2d0aaf0
+- filename: src/json-to-html.ts
+  checksum: a843710fc9f54bf4c7996f39561dc66491d62a9d9eeca50fa2c7c37bd6141f53
+- filename: src/render-embedded-objects.ts
+  checksum: 35d56d4f7b625611fef18414fccdbff014c1d90d02e17eb0efa4d6166b73e23b

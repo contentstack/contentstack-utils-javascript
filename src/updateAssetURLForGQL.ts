@@ -1,3 +1,12 @@
+/**
+ * Updates asset URLs in a GraphQL response in-place. Walks the response data,
+ * finds RTE fields that have `embedded_itemsConnection`, and sets each
+ * embedded asset's `asset-link` attribute in the JSON to the asset's `url`
+ * from the response. Use after fetching content via GraphQL so RTE JSON
+ * contains correct asset URLs for rendering.
+ *
+ * @param gqlResponse - The raw GraphQL response object (e.g. `{ data: { ... } }`). Modified in place.
+ */
 export function updateAssetURLForGQL(gqlResponse:any) {
   try {
     const response = gqlResponse?.data;
