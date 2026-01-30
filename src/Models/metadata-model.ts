@@ -56,6 +56,15 @@ export function nodeToMetadata(attribute: Attributes, textNode: TextNode): Metad
   };
 }
 
+/**
+ * Serializes an Attributes object to a string of HTML attribute key-value pairs
+ * (e.g. ` key1="value1" key2="value2"`). Keys containing forbidden characters
+ * are skipped. Values are HTML-entity-encoded. Arrays are joined with `, `;
+ * nested objects are serialized as `key:value;` pairs.
+ *
+ * @param attributes - The attributes object to serialize (e.g. from a node or metadata).
+ * @returns A string starting with a space, followed by `key="value"` pairs suitable for inclusion in an HTML tag.
+ */
 export function attributeToString(attributes: Attributes): string {
   let result = '';
   for (const key in attributes) {
