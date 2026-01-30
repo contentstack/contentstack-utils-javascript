@@ -6,6 +6,18 @@ interface AppliedVariants {
     metaKey: string
 }
 
+/**
+ * Adds Contentstack Live Preview (CSLP) data tags to an entry for editable UIs.
+ * Mutates the entry by attaching a `$` property with tag strings or objects
+ * (e.g. `data-cslp` / `data-cslp-parent-field`) for each field, including nested
+ * objects and references. Supports variant-aware tagging when the entry has
+ * applied variants.
+ *
+ * @param entry - The entry (EmbeddedItem) to tag. Must have uid and optional system/applied variants.
+ * @param contentTypeUid - Content type UID (e.g. `blog_post`). Used as part of the tag path.
+ * @param tagsAsObject - If true, tags are stored as objects (e.g. `{ "data-cslp": "..." }`); if false, as strings (e.g. `data-cslp=...`).
+ * @param locale - Locale code for the tag path (default: `'en-us'`).
+ */
 export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject: boolean, locale: string = 'en-us'): void {
     if (entry) {
         // handle case senstivity for contentTypeUid and locale
