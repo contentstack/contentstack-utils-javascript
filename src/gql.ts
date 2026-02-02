@@ -48,6 +48,22 @@ function enumerateKeys(option: {
         }))
     }
 }
+
+/**
+ * GraphQL API utilities for Contentstack. Provides methods to work with
+ * content fetched via the GraphQL API, including rendering Supercharged RTE
+ * (JSON) with embedded items from the GQL response.
+ */
 export const GQL = {
+    /**
+     * Converts Supercharged RTE (JSON) content to HTML for entries from a GraphQL response.
+     * Uses `embedded_itemsConnection.edges` to resolve embedded items. Mutates the entry
+     * JSON in-place by replacing JSON RTE content with the generated HTML.
+     *
+     * @param option - Configuration for conversion.
+     * @param option.entry - Entry or array of entries (EmbeddedItem) from a GQL response with JSON RTE and embedded_itemsConnection.
+     * @param option.paths - Key paths to the JSON RTE fields on the entry.
+     * @param option.renderOption - Optional render options to customize how nodes and embedded items are rendered to HTML.
+     */
     jsonToHTML
 }
