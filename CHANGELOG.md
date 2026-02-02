@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.7.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.7.0)
+- Added option in addTags to disable lowercasing of locale
+
 ## [1.6.3](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.6.3)
  - Refactor: Simplified endpoints.ts to use compile-time JSON import instead of runtime file loading
  - Build: Updated build process to download regions.json to src/assets directory
