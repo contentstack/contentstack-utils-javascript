@@ -288,6 +288,35 @@ describe('GQL parse link in paragraph content', () => {
     })
 })
 
+describe('GQL jsonToHTML negative and corner cases', () => {
+    it('should not throw when entry is null and paths is empty', done => {
+        expect(() => GQL.jsonToHTML({ entry: null as any, paths: [] })).not.toThrow()
+        done()
+    })
+
+    it('should not throw when paths is empty', done => {
+        const entry = gqlEntry(paragraphJson as unknown as Document)
+        expect(() => GQL.jsonToHTML({ entry, paths: [] })).not.toThrow()
+        expect(entry.uid).toBe('EntryUID')
+        done()
+    })
+
+    it('should not throw when entry array contains entries (no null elements)', done => {
+        const entry = gqlEntry(paragraphJson as unknown as Document)
+        GQL.jsonToHTML({ entry: [entry], paths })
+        expect(entry.single_rte).toEqual(paragraphHtml)
+        done()
+    })
+
+    it('should handle content without embedded_itemsConnection', done => {
+        const entry = gqlEntry(paragraphJson as unknown as Document)
+        entry.single_rte.embedded_itemsConnection = undefined as any
+        expect(() => GQL.jsonToHTML({ entry, paths })).not.toThrow()
+        expect(entry.single_rte).toEqual(paragraphHtml)
+        done()
+    })
+})
+
 function gqlEntry (node: Document, items?: EmbeddedConnection): EmbeddedItem {
     return {
         uid: 'EntryUID',

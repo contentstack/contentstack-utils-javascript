@@ -33,16 +33,18 @@ export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject:
     }
 }
 
-function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string, appliedVariants: AppliedVariants): object {
+/** @internal Exported for testing the null/undefined guard (Issue #193). */
+export function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string, appliedVariants: AppliedVariants): object {
     if (content == null) {
         return {}
     }
     const tags: any = {}
-    const { metaKey, shouldApplyVariant, _applied_variants } = appliedVariants
+    const { shouldApplyVariant, _applied_variants } = appliedVariants
     Object.entries(content).forEach(([key, value]) => {
         if (key === '$') return
-        let metaUID = value && typeof value === 'object' && value !== null && value._metadata && value._metadata.uid ? value._metadata.uid : '';
-        let updatedMetakey = appliedVariants.shouldApplyVariant ? `${appliedVariants.metaKey ? appliedVariants.metaKey + '.' : ''}${key}` : '';
+        let metaUID = value?._metadata?.uid ?? '';
+        const metaKeyPrefix = appliedVariants.metaKey ? appliedVariants.metaKey + '.' : '';
+        let updatedMetakey = appliedVariants.shouldApplyVariant ? `${metaKeyPrefix}${key}` : '';
         if (metaUID && updatedMetakey) updatedMetakey = updatedMetakey + '.' + metaUID;
         switch (typeof value) {
             case "object":
@@ -53,8 +55,8 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                         }
                         const childKey = `${key}__${index}`
                         const parentKey = `${key}__parent`
-                        metaUID = value && typeof value === 'object' && obj !== null && obj._metadata && obj._metadata.uid ? obj._metadata.uid : '';
-                        updatedMetakey = appliedVariants.shouldApplyVariant ? `${appliedVariants.metaKey ? appliedVariants.metaKey + '.' : ''}${key}` : '';
+                        metaUID = obj?._metadata?.uid ?? '';
+                        updatedMetakey = appliedVariants.shouldApplyVariant ? `${metaKeyPrefix}${key}` : '';
                         if (metaUID && updatedMetakey) updatedMetakey = updatedMetakey + '.' + metaUID;
                         /**
                          * Indexes of array are handled here
@@ -67,9 +69,11 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                          *  }
                          * }
                          */
-                        tags[childKey] = getTagsValue(`${prefix}.${key}.${index}`, tagsAsObject, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
-                        tags[parentKey] = getParentTagsValue(`${prefix}.${key}`, tagsAsObject)
-                        if (typeof obj !== 'undefined' && obj !== null && obj._content_type_uid !== undefined && obj.uid !== undefined) {
+                        tags[childKey] = tagsAsObject
+                            ? getTagsValueAsObject(`${prefix}.${key}.${index}`, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                            : getTagsValueAsString(`${prefix}.${key}.${index}`, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                        tags[parentKey] = tagsAsObject ? getParentTagsValueAsObject(`${prefix}.${key}`) : getParentTagsValueAsString(`${prefix}.${key}`)
+                        if (obj?._content_type_uid !== undefined && obj?.uid !== undefined) {
                             /**
                              * References are handled here
                              * {
@@ -126,7 +130,9 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                  * }
                  */
 
-                tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                tags[key] = tagsAsObject
+                    ? getTagsValueAsObject(`${prefix}.${key}`, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                    : getTagsValueAsString(`${prefix}.${key}`, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
                 break;
             default:
                 /**
@@ -136,45 +142,52 @@ function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: 
                  *  "$": {title: {"data-cslp": "content_type_uid.entry_uid.locale.title"}}
                  * }
                  */
-                tags[key] = getTagsValue(`${prefix}.${key}`, tagsAsObject, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                tags[key] = tagsAsObject
+                ? getTagsValueAsObject(`${prefix}.${key}`, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
+                : getTagsValueAsString(`${prefix}.${key}`, { _applied_variants, shouldApplyVariant, metaKey: updatedMetakey })
         }
     })
     return tags
 }
 
-function getTagsValue(dataValue: string, tagsAsObject: boolean, appliedVariants: { _applied_variants: { [key: string]: any }, shouldApplyVariant: boolean, metaKey: string }): any {
-    if (appliedVariants.shouldApplyVariant && appliedVariants._applied_variants) {
-      const isFieldVariantised = appliedVariants._applied_variants[appliedVariants.metaKey];
-      if(isFieldVariantised) {
-        const variant = appliedVariants._applied_variants[appliedVariants.metaKey]
-        // Adding v2 prefix to the cslp tag. New cslp tags are in v2 format. ex: v2:content_type_uid.entry_uid.locale.title
-        const newDataValueArray = ('v2:' + dataValue).split('.');
-        newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
-        dataValue = newDataValueArray.join('.');
-      }
-      else {
-        const parentVariantisedPath = getParentVariantisedPath(appliedVariants);
-        if(parentVariantisedPath) {
-          const variant = appliedVariants._applied_variants[parentVariantisedPath];
-          const newDataValueArray = ('v2:' + dataValue).split('.');
-          newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
-          dataValue = newDataValueArray.join('.');
+type TagsAppliedVariants = { _applied_variants: { [key: string]: any }; shouldApplyVariant: boolean; metaKey: string };
+
+function applyVariantToDataValue(dataValue: string, appliedVariants: TagsAppliedVariants): string {
+    if (appliedVariants?.shouldApplyVariant && appliedVariants?._applied_variants) {
+        const isFieldVariantised = appliedVariants._applied_variants[appliedVariants.metaKey];
+        if (isFieldVariantised) {
+            const variant = appliedVariants._applied_variants[appliedVariants.metaKey];
+            const newDataValueArray = ('v2:' + dataValue).split('.');
+            newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
+            return newDataValueArray.join('.');
         }
-      }
+        const parentVariantisedPath = getParentVariantisedPath(appliedVariants as AppliedVariants);
+        if (parentVariantisedPath) {
+            const variant = appliedVariants._applied_variants[parentVariantisedPath];
+            const newDataValueArray = ('v2:' + dataValue).split('.');
+            newDataValueArray[1] = newDataValueArray[1] + '_' + variant;
+            return newDataValueArray.join('.');
+        }
     }
-    if (tagsAsObject) {
-        return { "data-cslp": dataValue };
-    } else {
-        return `data-cslp=${dataValue}`;
-    }
+    return dataValue;
 }
 
-function getParentTagsValue(dataValue: string, tagsAsObject: boolean): any {
-    if (tagsAsObject) {
-        return { "data-cslp-parent-field": dataValue };
-    } else {
-        return `data-cslp-parent-field=${dataValue}`;
-    }
+function getTagsValueAsObject(dataValue: string, appliedVariants: TagsAppliedVariants): { "data-cslp": string } {
+    const resolved = applyVariantToDataValue(dataValue, appliedVariants);
+    return { "data-cslp": resolved };
+}
+
+function getTagsValueAsString(dataValue: string, appliedVariants: TagsAppliedVariants): string {
+    const resolved = applyVariantToDataValue(dataValue, appliedVariants);
+    return `data-cslp=${resolved}`;
+}
+
+function getParentTagsValueAsObject(dataValue: string): { "data-cslp-parent-field": string } {
+    return { "data-cslp-parent-field": dataValue };
+}
+
+function getParentTagsValueAsString(dataValue: string): string {
+    return `data-cslp-parent-field=${dataValue}`;
 }
 
 function getParentVariantisedPath(appliedVariants: AppliedVariants) {

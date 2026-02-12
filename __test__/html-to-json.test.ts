@@ -48,4 +48,13 @@ describe('HTML To JSON test', () => {
         expect(elementToJson(getBody(''))).toEqual({})
         done()
     })
+
+    describe('Negative and corner cases', () => {
+        it('elementToJson with null element should throw', () => {
+            expect(() => elementToJson(null as any)).toThrow()
+        })
+        it('elementToJson with body from empty string returns empty object', () => {
+            expect(elementToJson(getBody(''))).toEqual({})
+        })
+    })
 })
