@@ -519,6 +519,77 @@ describe('Entry editable test', () => {
         })
     })
 
+    describe('Null and undefined content handling (Issue #193)', () => {
+        it('should not throw when entry has a null field value', done => {
+            const entryWithNullField: any = {
+                "uid": "entry_uid_null",
+                "locale": "en-us",
+                "title": "Valid title",
+                "description": null
+            }
+
+            expect(() => addTags(entryWithNullField, 'content_type', false)).not.toThrow()
+            expect((entryWithNullField as any)['$']['title']).toEqual('data-cslp=content_type.entry_uid_null.en-us.title')
+            done()
+        })
+
+        it('should not throw when entry has an undefined field value', done => {
+            const entryWithUndefinedField: any = {
+                "uid": "entry_uid_undef",
+                "locale": "en-us",
+                "title": "Valid title",
+                "description": undefined
+            }
+
+            expect(() => addTags(entryWithUndefinedField, 'content_type', false)).not.toThrow()
+            expect((entryWithUndefinedField as any)['$']['title']).toEqual('data-cslp=content_type.entry_uid_undef.en-us.title')
+            done()
+        })
+
+        it('should return empty tags for a null entry', done => {
+            const nullEntry: any = null
+
+            expect(() => addTags(nullEntry, 'content_type', false)).not.toThrow()
+            done()
+        })
+
+        it('should return empty tags for an undefined entry', done => {
+            const undefinedEntry: any = undefined
+
+            expect(() => addTags(undefinedEntry, 'content_type', false)).not.toThrow()
+            done()
+        })
+
+        it('should handle entry with multiple null field values', done => {
+            const entryWithMultipleNulls: any = {
+                "uid": "entry_uid_multi_null",
+                "locale": "en-us",
+                "title": "Valid title",
+                "field_a": null,
+                "field_b": null,
+                "field_c": "valid"
+            }
+
+            expect(() => addTags(entryWithMultipleNulls, 'content_type', true)).not.toThrow()
+            expect((entryWithMultipleNulls as any)['$']['title']).toEqual({'data-cslp': 'content_type.entry_uid_multi_null.en-us.title'})
+            expect((entryWithMultipleNulls as any)['$']['field_c']).toEqual({'data-cslp': 'content_type.entry_uid_multi_null.en-us.field_c'})
+            done()
+        })
+
+        it('should handle entry with nested null object', done => {
+            const entryWithNestedNull: any = {
+                "uid": "entry_uid_nested_null",
+                "locale": "en-us",
+                "title": "Valid title",
+                "group": null
+            }
+
+            expect(() => addTags(entryWithNestedNull, 'content_type', false)).not.toThrow()
+            expect((entryWithNestedNull as any)['$']['title']).toEqual('data-cslp=content_type.entry_uid_nested_null.en-us.title')
+            done()
+        })
+    })
+
     describe('useLowerCaseLocale option', () => {
         it('should preserve locale casing when useLowerCaseLocale is false', done => {
             const entry = {
