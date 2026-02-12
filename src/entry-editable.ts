@@ -34,6 +34,9 @@ export function addTags(entry: EntryModel, contentTypeUid: string, tagsAsObject:
 }
 
 function getTag(content: object, prefix: string, tagsAsObject: boolean, locale: string, appliedVariants: AppliedVariants): object {
+    if (content == null) {
+        return {}
+    }
     const tags: any = {}
     const { metaKey, shouldApplyVariant, _applied_variants } = appliedVariants
     Object.entries(content).forEach(([key, value]) => {
