@@ -37,7 +37,7 @@ function enumerateKeys(option: {
         findRenderContent(key, 
             option.entry, 
             ((content: JsonRTE) => {
-            if (content && content.json) {
+            if (content?.json) {
                 const edges = content.embedded_itemsConnection ? content.embedded_itemsConnection.edges : []
                 const items = Object.values(edges || []).reduce((accumulator, value) => accumulator.concat(value.node), [])
                 return enumerateContents(content.json, option.renderOption, (metadata: Metadata) => {
