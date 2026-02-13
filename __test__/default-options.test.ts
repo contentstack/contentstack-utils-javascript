@@ -109,3 +109,18 @@ describe('Default Option test', () => {
         done()
     })
 })
+
+describe('Default options negative and corner cases', () => {
+    it('should throw when item is null for entry block render', () => {
+        expect(() => entryBlockFunction(null as any, embedAttributes)).toThrow()
+    })
+
+    it('should throw when item is null for asset display render', () => {
+        expect(() => assetDisplaableFunction(null as any, embedAttributes)).toThrow()
+    })
+
+    it('should handle metadata with empty attributes', () => {
+        const emptyAttrs = { attributes: {} } as Metadata
+        expect(entryBlockFunction(entryContentBlank, emptyAttrs)).toContain(entryContentBlank.uid)
+    })
+})

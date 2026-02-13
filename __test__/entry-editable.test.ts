@@ -1,4 +1,4 @@
-import { addTags } from '../src/entry-editable'
+import { addTags, getTag } from '../src/entry-editable'
 import { entry_global_field, entry_global_field_multiple, entry_modular_block, entry_reference, entry_with_text, entry_with_applied_variants, entry_with_parent_path_variants } from './mock/entry-editable-mock'
 
 describe('Entry editable test', () => {
@@ -519,6 +519,91 @@ describe('Entry editable test', () => {
         })
     })
 
+    describe('Null and undefined content handling (Issue #193)', () => {
+        it('should not throw when entry has a null field value', done => {
+            const entryWithNullField: any = {
+                "uid": "entry_uid_null",
+                "locale": "en-us",
+                "title": "Valid title",
+                "description": null
+            }
+
+            expect(() => addTags(entryWithNullField, 'content_type', false)).not.toThrow()
+            expect((entryWithNullField as any)['$']['title']).toEqual('data-cslp=content_type.entry_uid_null.en-us.title')
+            done()
+        })
+
+        it('should not throw when entry has an undefined field value', done => {
+            const entryWithUndefinedField: any = {
+                "uid": "entry_uid_undef",
+                "locale": "en-us",
+                "title": "Valid title",
+                "description": undefined
+            }
+
+            expect(() => addTags(entryWithUndefinedField, 'content_type', false)).not.toThrow()
+            expect((entryWithUndefinedField as any)['$']['title']).toEqual('data-cslp=content_type.entry_uid_undef.en-us.title')
+            done()
+        })
+
+        it('should return empty tags for a null entry', done => {
+            const nullEntry: any = null
+
+            expect(() => addTags(nullEntry, 'content_type', false)).not.toThrow()
+            done()
+        })
+
+        it('should return empty tags for an undefined entry', done => {
+            const undefinedEntry: any = undefined
+
+            expect(() => addTags(undefinedEntry, 'content_type', false)).not.toThrow()
+            done()
+        })
+
+        it('should handle entry with multiple null field values', done => {
+            const entryWithMultipleNulls: any = {
+                "uid": "entry_uid_multi_null",
+                "locale": "en-us",
+                "title": "Valid title",
+                "field_a": null,
+                "field_b": null,
+                "field_c": "valid"
+            }
+
+            expect(() => addTags(entryWithMultipleNulls, 'content_type', true)).not.toThrow()
+            expect((entryWithMultipleNulls as any)['$']['title']).toEqual({'data-cslp': 'content_type.entry_uid_multi_null.en-us.title'})
+            expect((entryWithMultipleNulls as any)['$']['field_c']).toEqual({'data-cslp': 'content_type.entry_uid_multi_null.en-us.field_c'})
+            done()
+        })
+
+        it('should handle entry with nested null object', done => {
+            const entryWithNestedNull: any = {
+                "uid": "entry_uid_nested_null",
+                "locale": "en-us",
+                "title": "Valid title",
+                "group": null
+            }
+
+            expect(() => addTags(entryWithNestedNull, 'content_type', false)).not.toThrow()
+            expect((entryWithNestedNull as any)['$']['title']).toEqual('data-cslp=content_type.entry_uid_nested_null.en-us.title')
+            done()
+        })
+
+        it('getTag with null content returns empty object (covers null guard)', done => {
+            const appliedVariants = { _applied_variants: {}, shouldApplyVariant: false, metaKey: '' }
+            const result = getTag(null as any, 'some.prefix', false, 'en-us', appliedVariants)
+            expect(result).toEqual({})
+            done()
+        })
+
+        it('getTag with undefined content returns empty object (covers null guard)', done => {
+            const appliedVariants = { _applied_variants: {}, shouldApplyVariant: false, metaKey: '' }
+            const result = getTag(undefined as any, 'some.prefix', true, 'en-us', appliedVariants)
+            expect(result).toEqual({})
+            done()
+        })
+    })
+
     describe('useLowerCaseLocale option', () => {
         it('should preserve locale casing when useLowerCaseLocale is false', done => {
             const entry = {
@@ -560,4 +645,73 @@ describe('Entry editable test', () => {
         })
     })
 
+    describe('Negative and corner cases', () => {
+        it('addTags with empty entry object should not throw and should set $ with empty-like tags', done => {
+            const emptyEntry = { uid: 'e1', locale: 'en-us' }
+            expect(() => addTags(emptyEntry, 'ct', false)).not.toThrow()
+            expect((emptyEntry as any).$).toBeDefined()
+            expect(typeof (emptyEntry as any).$).toBe('object')
+            done()
+        })
+
+        it('addTags with empty string contentTypeUid should normalize to lowercase', done => {
+            const entry = { uid: 'u1', locale: 'en-us', title: 't' }
+            addTags(entry, '', false)
+            expect((entry as any)['$']['title']).toContain('.title')
+            done()
+        })
+
+        it('addTags with options as undefined should not throw', done => {
+            const entry = { uid: 'u1', locale: 'en-us', title: 't' }
+            expect(() => addTags(entry, 'ct', false, 'en-us', undefined)).not.toThrow()
+            expect((entry as any)['$']['title']).toBeDefined()
+            done()
+        })
+
+        it('getTag with empty object content should return empty tags object', done => {
+            const appliedVariants = { _applied_variants: {}, shouldApplyVariant: false, metaKey: '' }
+            const result = getTag({}, 'prefix', false, 'en-us', appliedVariants)
+            expect(result).toEqual({})
+            done()
+        })
+
+        it('getTag with content that has only $ key should skip $ and return empty', done => {
+            const appliedVariants = { _applied_variants: {}, shouldApplyVariant: false, metaKey: '' }
+            const result = getTag({ $: 'ignored' }, 'prefix', false, 'en-us', appliedVariants)
+            expect(result).toEqual({})
+            done()
+        })
+
+        it('getTag with appliedVariants._applied_variants null should not throw (getParentVariantisedPath safety)', done => {
+            const content = { field: 'value' }
+            const appliedVariants = { _applied_variants: null as any, shouldApplyVariant: true, metaKey: 'field' }
+            expect(() => getTag(content, 'prefix', false, 'en-us', appliedVariants)).not.toThrow()
+            const result = getTag(content, 'prefix', false, 'en-us', appliedVariants)
+            expect(result).toHaveProperty('field')
+            done()
+        })
+
+        it('getTag with appliedVariants.metaKey empty and shouldApplyVariant true should still produce tags', done => {
+            const content = { title: 'hello' }
+            const appliedVariants = { _applied_variants: {}, shouldApplyVariant: true, metaKey: '' }
+            const result = getTag(content, 'ct.uid.en-us', false, 'en-us', appliedVariants)
+            expect(result).toHaveProperty('title')
+            expect((result as any).title).toContain('title')
+            done()
+        })
+
+        it('addTags with entry that has empty array field should not throw', done => {
+            const entry: any = { uid: 'u1', locale: 'en-us', items: [] }
+            expect(() => addTags(entry, 'ct', false)).not.toThrow()
+            expect((entry as any)['$']['items']).toBeDefined()
+            done()
+        })
+
+        it('addTags with entry that has nested null object value should not throw', done => {
+            const entry: any = { uid: 'u1', locale: 'en-us', title: 't', nested: null }
+            expect(() => addTags(entry, 'ct', true)).not.toThrow()
+            expect((entry as any)['$']['title']).toEqual({ 'data-cslp': expect.stringContaining('title') })
+            done()
+        })
+    })
 })

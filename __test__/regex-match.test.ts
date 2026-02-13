@@ -58,4 +58,34 @@ describe('Regex Match Test', () => {
 
         done()
     })
+
+    describe('Negative and corner cases', () => {
+        it('containsFigureTag should return false for empty string', () => {
+            expect(containsFigureTag('')).toBe(false)
+        })
+
+        it('countFigureTags should return 0 for empty string', () => {
+            expect(countFigureTags('')).toBe(0)
+        })
+
+        it('matchFigureTag should return null for empty string', () => {
+            expect(matchFigureTag('')).toBeNull()
+        })
+
+        it('matchFigureTag should return null for string with no figure tag', () => {
+            expect(matchFigureTag('<p>Hello</p>')).toBeNull()
+        })
+
+        it('containsFigureTag should throw when given null (calls match on null)', () => {
+            expect(() => containsFigureTag(null as any)).toThrow()
+        })
+
+        it('matchFigureTag should throw when given null', () => {
+            expect(() => matchFigureTag(null as any)).toThrow()
+        })
+
+        it('countFigureTags should throw when given null', () => {
+            expect(() => countFigureTags(null as any)).toThrow()
+        })
+    })
 })

@@ -869,3 +869,45 @@ describe('Break and Newline handling tests', () => {
         done()
     })
 })
+
+describe('jsonToHTML negative and corner cases', () => {
+    it('should not throw when entry is null and paths is empty', done => {
+        expect(() => jsonToHTML({ entry: null as any, paths: [] })).not.toThrow()
+        done()
+    })
+
+    it('should throw when entry is null and paths has keys (getContent accesses null[key])', done => {
+        expect(() => jsonToHTML({ entry: null as any, paths: ['missing'] })).toThrow()
+        done()
+    })
+
+    it('should not throw when paths is empty array', done => {
+        const entry: any = { uid: 'u1', rich_text_editor: { type: 'doc', children: [] } }
+        expect(() => jsonToHTML({ entry, paths: [] })).not.toThrow()
+        expect(entry.uid).toBe('u1')
+        done()
+    })
+
+    it('should not throw when path points to non-object (string)', done => {
+        const entry = { uid: 'u1', plain: 'just a string' }
+        jsonToHTML({ entry, paths: ['plain'] })
+        expect(entry.plain).toBe('just a string')
+        done()
+    })
+
+    it('should not throw when path does not exist on entry', done => {
+        const entry = { uid: 'u1' }
+        expect(() => jsonToHTML({ entry, paths: ['nonexistent'] })).not.toThrow()
+        done()
+    })
+
+    it('should not throw when entry has rte field with json doc and empty children', done => {
+        const entry: any = {
+            uid: 'u1',
+            rte: { json: { type: 'doc', children: [] }, _embedded_items: {} }
+        }
+        expect(() => jsonToHTML({ entry, paths: ['rte'] })).not.toThrow()
+        expect(entry.rte).toBeDefined()
+        done()
+    })
+})
