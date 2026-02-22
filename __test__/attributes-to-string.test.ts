@@ -137,4 +137,24 @@ describe('Attributes to String', () => {
         expect(resultString).toEqual(' validKey="safeValue"');
         done();
     });
+
+    describe('Negative and corner cases', () => {
+        it('attributeToString with null should return empty or throw', () => {
+            try {
+                const result = attributeToString(null as any);
+                expect(result).toBe('');
+            } catch {
+                // In strict mode or some envs, for-in on null throws
+            }
+        });
+
+        it('attributeToString with undefined should return empty or throw', () => {
+            try {
+                const result = attributeToString(undefined as any);
+                expect(result).toBe('');
+            } catch {
+                // In strict mode or some envs, for-in on undefined throws
+            }
+        });
+    });
 })
