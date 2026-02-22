@@ -130,7 +130,7 @@ export function referenceToHTML(
   }
   const metadata = nodeToMetadata(
     node.attrs,
-    (node.children && node.children.length > 0 ? node.children[0] : {}) as unknown as TextNode,
+    (node.children?.length > 0 ? node.children[0] : {}) as unknown as TextNode,
   );
   const item = renderEmbed(metadata);
   if (!item && renderOption[node.type] !== undefined) {
