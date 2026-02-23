@@ -58,7 +58,7 @@ function findRTEFieldAndUpdateURL(fieldData:any) {
 }
 
 function findRTEField(fieldData: any): any {
-  if (fieldData && fieldData.embedded_itemsConnection) {
+  if (fieldData?.embedded_itemsConnection) {
     return fieldData;
   }
   for (const key in fieldData) {

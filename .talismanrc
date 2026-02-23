@@ -4,8 +4,14 @@ fileignoreconfig:
     - filecontent
 - filename: package-lock.json
   checksum: 29476e419f64cdf5cb6a41033148dae3eaacde840e0da8fdcf3690cf59b31899
+- filename: __test__/find-render-content.test.ts
+  checksum: c2508ae1fb2b20f6fe3d354558704076ecdcbe7e1ece46addaa5eb8354e60233
+- filename: __test__/json-to-html.test.ts
+  checksum: 8ef368136341314dc597a1e0a3a7b45ac9255897b376395db5e7e032b661682e
+- filename: __test__/entry-editable.test.ts
+  checksum: 32e5e047c56ef0e74456eb6275c6ea8d2ffbef38901bc3eb97ae0a62e431f5a2
 - filename: src/entry-editable.ts
-  checksum: 3ba7af9ed1c1adef2e2bd5610099716562bebb8ba750d4b41ddda99fc9eaf115
+  checksum: e130c19526679f220073ed9cc918fa28906ebf99c33c00cf8ee58f2178caddcf
 - filename: .husky/pre-commit
   checksum: 5baabd7d2c391648163f9371f0e5e9484f8fb90fa2284cfc378732ec3192c193
 - filename: src/endpoints.ts

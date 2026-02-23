@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.7.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.7.1)
+- Fix: Guard against null/undefined in getTag to prevent TypeError when addEditableTags/addTags processes entries with null content (Issue #193)
+
 ## [1.7.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.7.0)
 - Added option in addTags to disable lowercasing of locale
 

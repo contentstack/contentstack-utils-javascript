@@ -229,6 +229,44 @@ describe('Find Render content test', () => {
     })
 })
 
+describe('Find Render Content negative and corner cases', () => {
+    it('getContent with null object should throw when accessing object[key]', () => {
+        expect(() => getContent(['key'], null as any, () => '')).toThrow()
+    })
+
+    it('getContent with undefined object should throw when accessing object[key]', () => {
+        expect(() => getContent(['key'], undefined as any, () => '')).toThrow()
+    })
+
+    it('getContent with empty keys array should not call render', done => {
+        const entry = { rich_text_editor: 'content' }
+        const render = jest.fn(() => 'replaced')
+        getContent([], entry, render)
+        expect(render).not.toHaveBeenCalled()
+        done()
+    })
+
+    it('findRenderContent with path that does not exist on entry should not throw', done => {
+        const entry = { uid: 'e1', title: 'Only these' }
+        expect(() => findRenderContent('nonexistent.path', entry, (c: string | string[]) => c)).not.toThrow()
+        done()
+    })
+
+    it('findRenderContent with single key that does not exist should not call render', done => {
+        const entry = { uid: 'e1' }
+        const render = jest.fn((c: any) => c)
+        findRenderContent('missing_key', entry, render)
+        expect(render).not.toHaveBeenCalled()
+        done()
+    })
+
+    it('getContent when intermediate key is null should not throw', done => {
+        const entry: any = { level1: null }
+        expect(() => getContent(['level1', 'level2'], entry, () => 'x')).not.toThrow()
+        done()
+    })
+})
+
 function findContent(path: string, renders: (content: string| string[]) => string| string[]) {
     findRenderContent(path, entryMultipleContent, renders)
 }

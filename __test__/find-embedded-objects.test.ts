@@ -148,6 +148,43 @@ describe('findGQLEmbeddedItems edge cases', () => {
         const result = findGQLEmbeddedItems(null as any, null as any);
         expect(result).toEqual([]);
     });
+
+    it('should return empty array if items is undefined', () => {
+        const result = findGQLEmbeddedItems({ itemType: 'entry', itemUid: 'uid', contentTypeUid: 'ct', attributes: {} } as any, undefined as any);
+        expect(result).toEqual([]);
+    });
+});
+
+describe('findEmbeddedItems negative and corner cases', () => {
+    it('should return empty array when entry is null', () => {
+        const metadata = { itemType: 'entry' as const, itemUid: 'uid', contentTypeUid: 'ct', attributes: {} };
+        expect(findEmbeddedItems(metadata as any, null as any)).toEqual([]);
+    });
+
+    it('should return empty array when entry has no _embedded_items', () => {
+        const entry = { uid: 'e1', title: 'Entry' };
+        const metadata = { itemType: 'entry' as const, itemUid: 'uid', contentTypeUid: 'ct', attributes: {} };
+        expect(findEmbeddedItems(metadata as any, entry as any)).toEqual([]);
+    });
+
+    it('should return empty array when object (metadata) is null', () => {
+        expect(findEmbeddedItems(null as any, entryEmbeddedEntries)).toEqual([]);
+    });
+});
+
+describe('findRenderString negative and corner cases', () => {
+    it('should return empty string when metadata is undefined', () => {
+        expect(findRenderString(entryEmbeddedEntries._embedded_items.rich_text_editor[0], undefined as any)).toEqual('');
+    });
+
+    it('should throw when item is null and metadata is valid (default render accesses item)', () => {
+        const metadata = { styleType: 'block', attributes: {} } as any;
+        expect(() => findRenderString(null as any, metadata)).toThrow();
+    });
+
+    it('should throw when both item and metadata are null (accesses metadata.styleType)', () => {
+        expect(() => findRenderString(null as any, null as any)).toThrow();
+    });
 });
 
 function makeFindEntry(uid: string = '', contentTypeUid: string = '', embeddeditems?: EmbeddedItem[]) {

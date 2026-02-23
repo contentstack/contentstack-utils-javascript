@@ -44,4 +44,111 @@ describe('updateAssetURLForGQL test', () => {
     );
     done();
   });
+
+  describe('Negative and corner cases', () => {
+    it('should not throw when gqlResponse is null', done => {
+      expect(() => updateAssetURLForGQL(null as any)).not.toThrow();
+      done();
+    });
+
+    it('should not throw when gqlResponse is undefined', done => {
+      expect(() => updateAssetURLForGQL(undefined as any)).not.toThrow();
+      done();
+    });
+
+    it('should not throw when gqlResponse.data is null', done => {
+      expect(() => updateAssetURLForGQL({ data: null } as any)).not.toThrow();
+      done();
+    });
+
+    it('should not throw when gqlResponse.data is undefined', done => {
+      expect(() => updateAssetURLForGQL({} as any)).not.toThrow();
+      done();
+    });
+
+    it('should not throw when data is empty object', done => {
+      expect(() => updateAssetURLForGQL({ data: {} } as any)).not.toThrow();
+      done();
+    });
+
+    it('should not throw when entry has no RTE fields with embedded_itemsConnection', done => {
+      const response = {
+        data: {
+          page: {
+            title: 'Page',
+            uid: 'page_1',
+          },
+        },
+      };
+      expect(() => updateAssetURLForGQL(response as any)).not.toThrow();
+      expect(response.data.page.title).toBe('Page');
+      done();
+    });
+
+    it('should not throw when embedded_itemsConnection.edges is empty array', done => {
+      const response: any = {
+        data: {
+          page: {
+            rte_field: {
+              json: { children: [] },
+              embedded_itemsConnection: { edges: [] },
+            },
+          },
+        },
+      };
+      expect(() => updateAssetURLForGQL(response)).not.toThrow();
+      done();
+    });
+
+    it('should catch and log when embedded_itemsConnection.edges is null (forEach throws)', done => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const responseWithNullEdges: any = {
+        data: {
+          page: {
+            rte_field: {
+              json: { children: [] },
+              embedded_itemsConnection: { edges: null },
+            },
+          },
+        },
+      };
+      expect(() => updateAssetURLForGQL(responseWithNullEdges as any)).not.toThrow();
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+      done();
+    });
+
+    it('should not mutate when no child has matching asset-uid (logs error when correspondingAsset is missing)', done => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const originalUrl = 'https://original.url/file.pdf';
+      const response: any = {
+        data: {
+          page: {
+            rte_field: {
+              json: {
+                children: [
+                  { attrs: { 'asset-uid': 'other_uid', 'asset-link': originalUrl } },
+                ],
+              },
+              embedded_itemsConnection: {
+                edges: [
+                  {
+                    node: {
+                      url: 'https://new.url/file.pdf',
+                      filename: 'file.pdf',
+                      system: { uid: 'sys_asset_123' },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      };
+      updateAssetURLForGQL(response);
+      expect(response.data.page.rte_field.json.children[0].attrs['asset-link']).toBe(originalUrl);
+      consoleSpy.mockRestore();
+      done();
+    });
+  });
 });
