@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.8.0)
+- Fix: JSON-to-HTML now outputs valid HTML for nested lists when JSON RTE exports the nested list as a sibling of the preceding list item (`<li>`). The SDK folds such sibling `<ol>`/`<ul>` nodes into the previous `<li>` so the rendered HTML has the nested list inside the parent list item (PROD-2115).
+
 ## [1.7.1](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.7.1)
 - Fix: Guard against null/undefined in getTag to prevent TypeError when addEditableTags/addTags processes entries with null content (Issue #193)
 
