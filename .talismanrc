@@ -3,7 +3,7 @@ fileignoreconfig:
   ignore_detectors:
     - filecontent
 - filename: package-lock.json
-  checksum: 29476e419f64cdf5cb6a41033148dae3eaacde840e0da8fdcf3690cf59b31899
+  checksum: 85c2c0c45183180b6793501e09529c5396a66a73e876ade9a80f625b8d174102
 - filename: __test__/find-render-content.test.ts
   checksum: c2508ae1fb2b20f6fe3d354558704076ecdcbe7e1ece46addaa5eb8354e60233
 - filename: __test__/json-to-html.test.ts

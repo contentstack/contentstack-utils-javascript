@@ -38,6 +38,30 @@ function buildCommonAttrs(node: Node): string {
     return attrs.join('');
 }
 
+/**
+ * JSON RTE exports nested lists as siblings of the preceding <li> (not children).
+ * This folds any ol/ul that immediately follows an li into that li's children
+ * so the rendered HTML is valid (nested list inside the li).
+ */
+function foldNestedListSiblingsIntoPreviousLi(children: Node['children']): Node['children'] {
+    const result: Node['children'] = [];
+    for (let i = 0; i < children.length; i++) {
+        const node = children[i] as Node;
+        const isList = node && (node.type === NodeType.ORDER_LIST || node.type === NodeType.UNORDER_LIST);
+        const last = result[result.length - 1] as Node | undefined;
+        const lastIsLi = last && last.type === NodeType.LIST_ITEM;
+        if (isList && lastIsLi && last) {
+            result[result.length - 1] = {
+                ...last,
+                children: [...(last.children || []), node],
+            } as Node;
+        } else {
+            result.push(children[i]);
+        }
+    }
+    return result;
+}
+
 export const defaultNodeOption: RenderOption = {
     [NodeType.DOCUMENT]:() => {
         return ``
@@ -81,13 +105,15 @@ export const defaultNodeOption: RenderOption = {
         return `<h6${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</h6>`
     },
     [NodeType.ORDER_LIST]:(node: Node, next: Next) => {
-        return `<ol${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</ol>`
+        const children = foldNestedListSiblingsIntoPreviousLi(node.children);
+        return `<ol${buildCommonAttrs(node)}>${sanitizeHTML(next(children))}</ol>`
     },
     [NodeType.FRAGMENT]:(node: Node, next: Next) => {
         return `<fragment>${sanitizeHTML(next(node.children))}</fragment>`
     },
     [NodeType.UNORDER_LIST]:(node: Node, next: Next) => {
-        return `<ul${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</ul>`
+        const children = foldNestedListSiblingsIntoPreviousLi(node.children);
+        return `<ul${buildCommonAttrs(node)}>${sanitizeHTML(next(children))}</ul>`
     },
     [NodeType.LIST_ITEM]:(node: Node, next: Next) => {
         return `<li${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</li>`
