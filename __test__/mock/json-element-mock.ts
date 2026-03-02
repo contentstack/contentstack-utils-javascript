@@ -271,87 +271,270 @@ const unorderListJson1 = {
   uid: "rte1",
   _version: 1,
   attrs: {},
+  type: "doc",
   children: [
     {
-        "uid": "uid",
-        "type": "ul",
-        "children": [
-            {
-                "type": "li",
-                "attrs": {
-                    "style": {},
-                    "redactor-attributes": {},
-                    "dir": "ltr"
-                },
-                "uid": "uid",
-                "children": [
-                    {
-                        "text": "One"
-                    }
-                ]
-            },
-            {
-                "uid": "uid",
-                "type": "ul",
-                "attrs": {
-                    "style": {}
-                },
-                "children": [
-                    {
-                        "type": "li",
-                        "attrs": {
-                            "style": {},
-                            "redactor-attributes": {},
-                            "dir": "ltr"
-                        },
-                        "uid": "uid",
-                        "children": [
-                            {
-                                "text": "nested one"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "li",
-                        "attrs": {
-                            "style": {},
-                            "redactor-attributes": {},
-                            "dir": "ltr"
-                        },
-                        "uid": "uid",
-                        "children": [
-                            {
-                                "text": "nested two"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "type": "li",
-                "attrs": {
-                    "style": {},
-                    "redactor-attributes": {},
-                    "dir": "ltr"
-                },
-                "uid": "uid",
-                "children": [
-                    {
-                        "text": "Two"
-                    }
-                ]
-            }
-        ],
-        "id": "id",
-        "attrs": {
-            "style": {},
+      uid: "uid",
+      type: "ul",
+      attrs: {
+        style: {},
+        "redactor-attributes": {},
+        dir: "ltr"
+      },
+      children: [
+        {
+          type: "li",
+          uid: "uid",
+          attrs: {
+            style: {},
             "redactor-attributes": {},
-            "dir": "ltr"
+            dir: "ltr"
+          },
+          children: [
+            { text: "One" },
+            {
+              uid: "uid",
+              type: "ul",
+              attrs: { style: {} },
+              children: [
+                {
+                  type: "li",
+                  uid: "uid",
+                  attrs: {
+                    style: {},
+                    "redactor-attributes": {},
+                    dir: "ltr"
+                  },
+                  children: [{ text: "nested one" }]
+                },
+                {
+                  type: "li",
+                  uid: "uid",
+                  attrs: {
+                    style: {},
+                    "redactor-attributes": {},
+                    dir: "ltr"
+                  },
+                  children: [{ text: "nested two" }]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "li",
+          uid: "uid",
+          attrs: {
+            style: {},
+            "redactor-attributes": {},
+            dir: "ltr"
+          },
+          children: [{ text: "Two" }]
         }
+      ]
     }
-  ],
-  type: "doc"
+  ]
 }
+
+const nestedOrderedListJson = {
+  uid: "node_uid_1",
+  _version: 1,
+  attrs: {},
+  type: "doc",
+  children: [
+    {
+      uid: "ol_uid_1",
+      type: "ol",
+      attrs: {
+        style: {},
+        "redactor-attributes": {},
+        dir: "ltr"
+      },
+      children: [
+        {
+          type: "li",
+          uid: "li_1",
+          attrs: {
+            style: {},
+            "redactor-attributes": {},
+            dir: "ltr"
+          },
+          children: [
+            { text: "Item 1" }
+          ]
+        },
+        {
+          type: "li",
+          uid: "li_2",
+          attrs: {
+            style: {},
+            "redactor-attributes": {},
+            dir: "ltr"
+          },
+          children: [
+            { text: "Item 2" },
+            {
+              type: "ol",   // ✅ nested list inside li
+              uid: "nested_ol_1",
+              attrs: {
+                style: {},
+                "redactor-attributes": {},
+                dir: "ltr"
+              },
+              children: [
+                {
+                  type: "li",
+                  uid: "nested_li_1",
+                  attrs: {
+                    style: {},
+                    "redactor-attributes": {},
+                    dir: "ltr"
+                  },
+                  children: [
+                    { text: "Nested Item 1" }
+                  ]
+                },
+                {
+                  type: "li",
+                  uid: "nested_li_2",
+                  attrs: {
+                    style: {},
+                    "redactor-attributes": {},
+                    dir: "ltr"
+                  },
+                  children: [
+                    { text: "Nested Item 2" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// JSON RTE sibling structure: nested list is a SIBLING of the preceding <li> (not a child).
+// Same as exported from Contentstack when user creates nested list (PROD-2115).
+const nestedOrderedListSiblingStructureJson = {
+  uid: "node_uid_sibling",
+  _version: 1,
+  attrs: {},
+  type: "doc",
+  children: [
+    {
+      uid: "ol_uid_1",
+      type: "ol",
+      attrs: {
+        style: {},
+        "redactor-attributes": {},
+        dir: "ltr"
+      },
+      children: [
+        {
+          type: "li",
+          uid: "li_1",
+          attrs: {
+            style: {},
+            "redactor-attributes": {},
+            dir: "ltr"
+          },
+          children: [{ text: "Item 1" }]
+        },
+        {
+          type: "li",
+          uid: "li_2",
+          attrs: {
+            style: {},
+            "redactor-attributes": {},
+            dir: "ltr"
+          },
+          children: [{ text: "Item 2" }]
+        },
+        {
+          type: "ol",
+          uid: "nested_ol_1",
+          attrs: {
+            style: {},
+            "redactor-attributes": {},
+            dir: "ltr"
+          },
+          children: [
+            {
+              type: "li",
+              uid: "nested_li_1",
+              attrs: {
+                style: {},
+                "redactor-attributes": {},
+                dir: "ltr"
+              },
+              children: [{ text: "Nested Item 1" }]
+            },
+            {
+              type: "li",
+              uid: "nested_li_2",
+              attrs: {
+                style: {},
+                "redactor-attributes": {},
+                dir: "ltr"
+              },
+              children: [{ text: "Nested Item 2" }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// Unordered list with sibling structure: nested <ul> is SIBLING of preceding <li>.
+const nestedUnorderedListSiblingStructureJson = {
+  uid: "node_uid_ul_sibling",
+  _version: 1,
+  attrs: {},
+  type: "doc",
+  children: [
+    {
+      uid: "ul_uid_1",
+      type: "ul",
+      attrs: { style: {}, "redactor-attributes": {}, dir: "ltr" },
+      children: [
+        {
+          type: "li",
+          uid: "li_1",
+          attrs: { style: {}, "redactor-attributes": {}, dir: "ltr" },
+          children: [{ text: "Item A" }]
+        },
+        {
+          type: "li",
+          uid: "li_2",
+          attrs: { style: {}, "redactor-attributes": {}, dir: "ltr" },
+          children: [{ text: "Item B" }]
+        },
+        {
+          type: "ul",
+          uid: "nested_ul_1",
+          attrs: { style: {}, "redactor-attributes": {}, dir: "ltr" },
+          children: [
+            {
+              type: "li",
+              uid: "nested_li_1",
+              attrs: { style: {}, "redactor-attributes": {}, dir: "ltr" },
+              children: [{ text: "Nested A" }]
+            },
+            {
+              type: "li",
+              uid: "nested_li_2",
+              attrs: { style: {}, "redactor-attributes": {}, dir: "ltr" },
+              children: [{ text: "Nested B" }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
 
 const unorderListJson2 = {
   uid: "rte1",
@@ -2601,5 +2784,8 @@ export {
   breakTestEntry,
   newlineBreakTestEntry,
   multipleNewlinesBreakTestEntry,
-  plainNewlineTestEntry
+  plainNewlineTestEntry,
+  nestedOrderedListJson,
+  nestedOrderedListSiblingStructureJson,
+  nestedUnorderedListSiblingStructureJson
 }
