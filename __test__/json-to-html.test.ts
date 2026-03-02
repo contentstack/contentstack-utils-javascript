@@ -29,6 +29,9 @@ import {
     jsonRteClassAndIdAttrs, 
     styleObj,
     unorderListJson1,
+    nestedOrderedListJson,
+    nestedOrderedListSiblingStructureJson,
+    nestedUnorderedListSiblingStructureJson,
     unorderListJson2,
     orderListJson2,
     testJsonRte,
@@ -566,9 +569,63 @@ describe('Node parse list content', () => {
 
         jsonToHTML({ entry, paths})
 
-        expect(entry.supercharged_rte).toEqual('<ul><li>One</li><ul><li>nested one</li><li>nested two</li></ul><li>Two</li></ul>')
+        expect(entry.supercharged_rte).toEqual('<ul><li>One<ul><li>nested one</li><li>nested two</li></ul></li><li>Two</li></ul>')
         done()
     })
+    it('should return valid HTML5 nested list when JSON RTE has sibling-structure', done => {
+        const entry = {
+            uid: 'entry_uid_19',
+            supercharged_rte: {
+                ...nestedOrderedListJson
+            },
+            _embedded_items: {}
+        }
+        const paths = ['supercharged_rte']
+
+        jsonToHTML({ entry, paths})
+
+        expect(entry.supercharged_rte).toEqual(`<ol><li>Item 1</li><li>Item 2<ol><li>Nested Item 1</li><li>Nested Item 2</li></ol></li></ol>`) 
+        done()
+    })
+
+    it('should return valid HTML5 for ordered list when JSON RTE has nested ol as SIBLING of li', done => {
+        const entry = {
+            uid: 'entry_uid_19',
+            supercharged_rte: {
+                ...nestedOrderedListSiblingStructureJson
+            },
+            _embedded_items: {}
+        }
+        const paths = ['supercharged_rte']
+
+        jsonToHTML({ entry, paths })
+
+        // Valid HTML5: nested <ol> must be inside the preceding <li>, not a direct child of parent <ol>
+        expect(entry.supercharged_rte).toEqual(
+            '<ol><li>Item 1</li><li>Item 2<ol><li>Nested Item 1</li><li>Nested Item 2</li></ol></li></ol>'
+        )
+        done()
+    })
+
+    it('should return valid HTML5 for unordered list when JSON RTE has nested ul as SIBLING of li', done => {
+        const entry = {
+            uid: 'entry_uid_19',
+            supercharged_rte: {
+                ...nestedUnorderedListSiblingStructureJson
+            },
+            _embedded_items: {}
+        }
+        const paths = ['supercharged_rte']
+
+        jsonToHTML({ entry, paths })
+
+        // Valid HTML5: nested <ul> must be inside the preceding <li>, not a direct child of parent <ul>
+        expect(entry.supercharged_rte).toEqual(
+            '<ul><li>Item A</li><li>Item B<ul><li>Nested A</li><li>Nested B</li></ul></li></ul>'
+        )
+        done()
+    })
+    
     it('Should return unorder list html content for updated json rte', done => {
         const entry = {
             uid: 'entry_uid_19',
