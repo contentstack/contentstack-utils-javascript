@@ -65,9 +65,37 @@ describe('getVariantAliases', () => {
     expect(sortAliases(result.variants)).toEqual(sortAliases(['keep_me', 'also_keep']));
   });
 
+  it('skips variant entries that are null, non-objects, or arrays', () => {
+    const variants: Record<string, unknown> = {
+      skip_null: null,
+      skip_string: 'not-an-object',
+      skip_array: [1, 2],
+      keep: { alias: 'only_valid' },
+    };
+    const entry = {
+      uid: 'u1',
+      publish_details: {
+        variants,
+      },
+    };
+    const result = getVariantAliases(entry);
+    expect(result.variants).toEqual(['only_valid']);
+  });
+
   it('throws when entry is null or undefined', () => {
     expect(() => getVariantAliases(null as unknown as Record<string, unknown>)).toThrow();
     expect(() => getVariantAliases(undefined as unknown as Record<string, unknown>)).toThrow();
+  });
+
+  it('throws TypeError when single entry is a non-object (e.g. primitive)', () => {
+    expect(() => getVariantAliases(42 as unknown as Record<string, unknown>)).toThrow(TypeError);
+    expect(() => getVariantAliases('entry' as unknown as Record<string, unknown>)).toThrow(TypeError);
+  });
+
+  it('throws TypeError when an array item is not a plain object', () => {
+    expect(() =>
+      getVariantAliases([variantEntrySingle, [] as unknown as Record<string, unknown>])
+    ).toThrow(TypeError);
   });
 
   it('throws when entry uid is missing or empty', () => {
