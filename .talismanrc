@@ -26,3 +26,9 @@ fileignoreconfig:
   checksum: a843710fc9f54bf4c7996f39561dc66491d62a9d9eeca50fa2c7c37bd6141f53
 - filename: src/render-embedded-objects.ts
   checksum: 35d56d4f7b625611fef18414fccdbff014c1d90d02e17eb0efa4d6166b73e23b
+- filename: .cursor/rules/code-review.mdc
+  checksum: 43d4fddb706e5ad6c92fe0af30bd5f44eec9b83c31dc93d3d4cc5e6208d351cc
+- filename: .cursor/rules/dev-workflow.md
+  checksum: b9a4d68439ce9564730506ab6c4712f5034a645858bdb78ac57e43ba183cb981
+- filename: skills/code-review/SKILL.md
+  checksum: 4ec638a87a795e5cc0b0e66b569e04749cb27f9d3be29d4ea69f56b48225c943
