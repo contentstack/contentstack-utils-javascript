@@ -1,0 +1,34 @@
+---
+description: Contentstack utils package patterns — RTE, embedded items, GQL, endpoints (delivery-oriented companion, not CDA/CMA SDK)
+globs:
+  - src/**/*.ts
+alwaysApply: false
+---
+
+# `@contentstack/utils` — domain patterns
+
+This repository implements **companion utilities** for Contentstack **content consumption** scenarios (typically with the **Delivery SDK** and **CDA / GraphQL** responses). It does **not** implement stack configuration, delivery tokens, or HTTP clients—callers fetch entry JSON elsewhere and pass it into these helpers.
+
+## Mental model
+
+| Area | Source anchors | Notes |
+|------|----------------|-------|
+| Render options / callbacks | `src/options/`, `src/render-embedded-objects.ts` | `RenderOption`-style maps: node types, marks, `block` / `inline` embeds, `reference`, `display`, `default`. |
+| JSON RTE → HTML | `src/json-to-html.ts`, `src/nodes/*`, `src/helper/*` | Supercharged RTE path uses `paths` arrays for nested fields (see `README.md`). |
+| Embedded object types | `src/Models/embedded-object.ts`, `src/Models/json-rte-model.ts` | Align typings with shapes coming from **delivery** entry JSON, not management APIs. |
+| GraphQL | `src/gql.ts`, `src/updateAssetURLForGQL.ts` | Docs/comments describe use **after** GraphQL fetches; asset URL rewriting is response-shape specific. |
+| Live Preview / CSLP tags | `src/entry-editable.ts` | `addTags` / exported `addEditableTags` — preserve existing attribute and locale behavior when changing tag generation. |
+| Region endpoints | `src/endpoints.ts` | **`getContentstackEndpoint(region, service?, omitHttps?)`** reads **`src/assets/regions.json`**; throws plain `Error` with human-readable messages on bad region/service. |
+
+## Terminology
+
+- Prefer **CDA / Delivery / JSON RTE / GraphQL** vocabulary when describing behavior—**not** CMA unless you are explicitly discussing something management-only (rare here).
+- **“SDK”** in docs often means **this utils package** or the **Delivery SDK** together—disambiguate in user-facing text.
+
+## Concurrency / IO
+
+- Pure synchronous transforms dominate; no retry or rate-limit layer. Do not add HTTP clients without an explicit product requirement.
+
+## Official docs alignment
+
+- Behavior should stay consistent with current **Content Delivery** / **Live Preview** / **JSON RTE** documentation. When in doubt, cite the relevant Contentstack doc set in PR descriptions rather than guessing CMS semantics.

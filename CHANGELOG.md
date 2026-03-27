@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.9.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.9.0)
+- Feat: Variant utilities `getVariantAliases` and `getVariantMetadataTags` to read variant alias strings from CDA entry `publish_details.variants` (requires fetches with the `x-cs-variant-uid` header set to aliases per [CDA variants](https://www.contentstack.com/docs/developers/apis/content-delivery-api#get-all-entry-variants)).
+
 ## [1.8.0](https://github.com/contentstack/contentstack-utils-javascript/tree/v1.8.0)
 - Fix: JSON-to-HTML now outputs valid HTML for nested lists when JSON RTE exports the nested list as a sibling of the preceding list item (`<li>`). The SDK folds such sibling `<ol>`/`<ul>` nodes into the previous `<li>` so the rendered HTML has the nested list inside the parent list item (PROD-2115).
 
