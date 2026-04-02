@@ -6,6 +6,7 @@ enum MarkType {
 
     STRIKE_THROUGH = 'strikethrough',
     INLINE_CODE = 'inlineCode',
+    HIGHLIGHT = 'highlight',
 
 
     SUBSCRIPT = 'subscript',

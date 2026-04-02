@@ -251,6 +251,9 @@ export const defaultNodeOption: RenderOption = {
     [MarkType.INLINE_CODE]:(text: string) => {
         return `<span data-type='inlineCode'>${sanitizeHTML(text)}</span>`
     },
+    [MarkType.HIGHLIGHT]:(text: string) => {
+        return `<mark>${sanitizeHTML(text)}</mark>`
+    },
     [MarkType.SUBSCRIPT]:(text: string) => {
         return `<sub>${sanitizeHTML(text)}</sub>`
     },
