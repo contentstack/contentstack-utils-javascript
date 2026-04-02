@@ -15,7 +15,7 @@ describe('Text Node To HTML', () => {
             ...textNode,
             bold: true
         }
-
+        
         const resultHtml = textNodeToHTML(node, {
             ...defaultNodeOption
         })

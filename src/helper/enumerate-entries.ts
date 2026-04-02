@@ -44,11 +44,11 @@ export function enumerateContents(
 
 export function textNodeToHTML(node: TextNode, renderOption: RenderOption): string {
   let text = replaceHtmlEntities(node.text);
-
+  
   // Convert newlines to <br /> tags if there are no other marks
   // This ensures newlines are always handled consistently
   let hasMarks = false;
-
+  
   if (node.classname || node.id) {
     text = (renderOption[MarkType.CLASSNAME_OR_ID] as RenderMark)(text, node.classname, node.id);
     hasMarks = true;
@@ -89,12 +89,12 @@ export function textNodeToHTML(node: TextNode, renderOption: RenderOption): stri
     text = (renderOption[MarkType.HIGHLIGHT] as RenderMark)(text);
     hasMarks = true;
   }
-
+  
   // If no marks were applied, but text contains newlines, convert them to <br />
   if (!hasMarks && text.includes('\n')) {
     text = text.replace(/\n/g, '<br />');
   }
-
+  
   return text;
 }
 export function referenceToHTML(
@@ -125,7 +125,7 @@ export function referenceToHTML(
     const aTag = `<a${aTagAttrs}>${entryText}</a>`;
     return aTag;
   }
-
+ 
   if (!renderEmbed && renderOption[node.type] !== undefined) {
     return sendToRenderOption(node);
   }
@@ -140,7 +140,7 @@ export function referenceToHTML(
   if (!item && renderOption[node.type] !== undefined) {
     return sendToRenderOption(node);
   }
-
+  
   return findRenderString(item, metadata, renderOption);
 
 }

@@ -24,7 +24,7 @@ function getAttrString(node: Node, key: string): string | undefined {
  */
 function buildCommonAttrs(node: Node): string {
     if (!node.attrs) return '';
-
+    
     const attrs: string[] = [];
     if (node.attrs.style) {
         attrs.push(` style="${node.attrs.style}"`);
@@ -134,7 +134,7 @@ export const defaultNodeOption: RenderOption = {
             });
             colgroupHTML += `</${NodeType.COL_GROUP}>`;
         }
-
+    
         // Generate table with colgroup and other attributes
         return `<table${buildCommonAttrs(node)}>${colgroupHTML}${sanitizeHTML(next(node.children))}</table>`;
     },
@@ -157,7 +157,7 @@ export const defaultNodeOption: RenderOption = {
         const colSpan = getAttr(node, 'colSpan');
         const rowSpanAttr = rowSpan ? ` rowspan="${rowSpan}"` : '';
         const colSpanAttr = colSpan ? ` colspan="${colSpan}"` : '';
-
+        
         return `<th${rowSpanAttr}${colSpanAttr}${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</th>`
     },
     [NodeType.TABLE_DATA]:(node: Node, next: Next) => {
@@ -167,7 +167,7 @@ export const defaultNodeOption: RenderOption = {
         const colSpan = getAttr(node, 'colSpan');
         const rowSpanAttr = rowSpan ? ` rowspan="${rowSpan}"` : '';
         const colSpanAttr = colSpan ? ` colspan="${colSpan}"` : '';
-
+        
         return `<td${rowSpanAttr}${colSpanAttr}${buildCommonAttrs(node)}>${sanitizeHTML(next(node.children))}</td>`
     },
     [NodeType.BLOCK_QUOTE]:(node: Node, next: Next) => {
@@ -180,12 +180,12 @@ export const defaultNodeOption: RenderOption = {
     ['reference']:(node: Node, next: Next) => {
         const type = getAttr(node, 'type');
         const displayType = getAttr(node, 'display-type');
-
+        
         if ((type === 'entry' || type === 'asset') && displayType === 'link'){
             const href = getAttrString(node, 'href') || getAttrString(node, 'url') || '';
             const target = getAttrString(node, 'target');
             const assetUid = getAttrString(node, 'asset-uid');
-
+            
             let aTagAttrs = buildCommonAttrs(node);
             if (href) aTagAttrs += ` href="${href}"`;
             if (target) {
@@ -200,7 +200,7 @@ export const defaultNodeOption: RenderOption = {
             }
             return `<a${aTagAttrs}>${sanitizeHTML(next(node.children))}</a>`;
         }
-
+        
         if (type === 'asset') {
             const assetLink = getAttrString(node, 'asset-link');
             const src = assetLink ? encodeURI(assetLink) : '';
@@ -219,7 +219,7 @@ export const defaultNodeOption: RenderOption = {
             const altAttr = alt ? ` alt="${alt}"` : '';
             const targetAttr = target === "_blank" ? ` target="_blank"` : '';
             const styleAttr = style ? ` style="${style}"` : '';
-
+            
             const imageTag = `<img${assetUidAttr}${classAttr}${srcAttr}${altAttr}${targetAttr}${styleAttr} />`;
             const styleAttrFig = style ? ` style="${style}"` : '';
 
