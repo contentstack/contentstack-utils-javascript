@@ -1,34 +1,6 @@
 fileignoreconfig:
-- filename: .github/workflows/secrets-scan.yml
-  ignore_detectors:
-    - filecontent
-- filename: package-lock.json
-  checksum: 85c2c0c45183180b6793501e09529c5396a66a73e876ade9a80f625b8d174102
-- filename: __test__/find-render-content.test.ts
-  checksum: c2508ae1fb2b20f6fe3d354558704076ecdcbe7e1ece46addaa5eb8354e60233
-- filename: __test__/json-to-html.test.ts
-  checksum: 8ef368136341314dc597a1e0a3a7b45ac9255897b376395db5e7e032b661682e
-- filename: __test__/entry-editable.test.ts
-  checksum: 32e5e047c56ef0e74456eb6275c6ea8d2ffbef38901bc3eb97ae0a62e431f5a2
-- filename: src/entry-editable.ts
-  checksum: e130c19526679f220073ed9cc918fa28906ebf99c33c00cf8ee58f2178caddcf
-- filename: .husky/pre-commit
-  checksum: 5baabd7d2c391648163f9371f0e5e9484f8fb90fa2284cfc378732ec3192c193
-- filename: src/endpoints.ts
-  checksum: 721a1df93b02d04c1c19a76c171fe2748e4abb1fc3e43452e76fecfd8f384751
-- filename: src/options/default-node-options.ts
-  checksum: d455330cc4f9306889fb299171364a37ad2c3bafe1fbd334033edc94f21694a6
-- filename: package.json
-  checksum: 033eb21070795be5b426183f52d784347110fcb724bc9f8d63f94898ac5f0086
-- filename: src/Models/metadata-model.ts
-  checksum: a101e109db1ec6ee0cb16a116f9b099e547c3104881e4fa1eaef2849e2d0aaf0
-- filename: src/json-to-html.ts
-  checksum: a843710fc9f54bf4c7996f39561dc66491d62a9d9eeca50fa2c7c37bd6141f53
-- filename: src/render-embedded-objects.ts
-  checksum: 35d56d4f7b625611fef18414fccdbff014c1d90d02e17eb0efa4d6166b73e23b
-- filename: .cursor/rules/code-review.mdc
-  checksum: 43d4fddb706e5ad6c92fe0af30bd5f44eec9b83c31dc93d3d4cc5e6208d351cc
-- filename: .cursor/rules/dev-workflow.md
-  checksum: b9a4d68439ce9564730506ab6c4712f5034a645858bdb78ac57e43ba183cb981
-- filename: skills/code-review/SKILL.md
-  checksum: 4ec638a87a795e5cc0b0e66b569e04749cb27f9d3be29d4ea69f56b48225c943
+  - filename: .github/workflows/secrets-scan.yml
+    ignore_detectors:
+      - filecontent
+  - filename: package-lock.json
+    checksum: 8e62821551e64c0fbd23ce2951b44e41561196f0d38b6a2da7de1f6921b48865
