@@ -212,4 +212,18 @@ describe('Text Node To HTML', () => {
         expect(resultHtml).toEqual(`<strong><em><br />${node.text}</em></strong>`)
         done()
     })
+
+    it('Should return Highlighted string text', done => {
+        const node = {
+            ...textNode,
+            highlight: true
+        }
+
+        const resultHtml = textNodeToHTML(node, {
+            ...defaultNodeOption
+        })
+
+        expect(resultHtml).toEqual(`<mark>${textNode.text}</mark>`)
+        done()
+    })
 })
