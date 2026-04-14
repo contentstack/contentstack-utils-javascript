@@ -1,52 +1,52 @@
-# Agent guidance — `@contentstack/utils`
+# Contentstack Utils JavaScript – Agent guide
 
-## What this package is
+**Universal entry point** for anyone automating or assisting work in this repo—AI agents (Cursor, Copilot, CLI tools), reviewers, and contributors. Conventions and detailed guidance live in **`skills/*/SKILL.md`**, not in editor-specific config, so the same instructions apply whether or not you use Cursor.
 
-**[@contentstack/utils](https://www.npmjs.com/package/@contentstack/utils)** (`contentstack-utils-javascript`) is a **JavaScript/TypeScript utilities library** for Contentstack. It is **not** the Content Delivery API (CDA) SDK or the Content Management API (CMA) SDK. It focuses on **JSON RTE / Supercharged RTE** rendering (`jsonToHTML`), **embedded entry and asset** rendering (`render`, `renderContent`), **GraphQL-oriented helpers** (`GQL`, `updateAssetURLForGQL`), **Live Preview–style editable tags** (`addEditableTags` / `addTags`), and **region endpoint lookup** (`getContentstackEndpoint`). Typical usage is **alongside** the Delivery SDK (see repository `README.md` examples with `@contentstack/delivery-sdk`).
+## What this repo is
 
-- **Repository:** [github.com/contentstack/contentstack-utils-javascript](https://github.com/contentstack/contentstack-utils-javascript)
+- **Name:** [`@contentstack/utils`](https://www.npmjs.com/package/@contentstack/utils) — [contentstack/contentstack-utils-javascript](https://github.com/contentstack/contentstack-utils-javascript)
+- **Purpose:** TypeScript/JavaScript **utilities** for Contentstack: JSON RTE / Supercharged RTE to HTML (`jsonToHTML`), embedded entry and asset rendering (`render`, `renderContent`), GraphQL helpers (`GQL`, `updateAssetURLForGQL`), Live Preview–style editable tags (`addEditableTags`), region endpoint lookup (`getContentstackEndpoint`), and variant-related helpers (`getVariantAliases`, `getVariantMetadataTags`). Used **with** the [Content Delivery API](https://www.contentstack.com/docs/developers/apis/content-delivery-api/) and delivery-shaped JSON (see root `README.md` and [`@contentstack/delivery-sdk`](https://www.npmjs.com/package/@contentstack/delivery-sdk) usage patterns).
+- **Out of scope:** This package does **not** ship HTTP clients, stack credentials, or the full CDA/CMA SDK surface. Apps fetch content with the Delivery SDK or other clients, then pass entry JSON into these helpers. Runtime API calls are **not** part of the library; `regions.json` for endpoint lookup is a **build-time** asset.
 
-## Tech stack
+## Tech stack (at a glance)
 
 | Area | Details |
 |------|---------|
-| Language | TypeScript **4.9** (`tsconfig.json`, `strict: true`, `strictNullChecks: false`) |
-| Build | **TypeScript** (`tsc`) → `dist/lib`; **Rollup** (`rollup -c`) → `dist/index.es.js`; types in `dist/types/` |
-| Test | **Jest 29** + **ts-jest**, **jsdom** environment (`jest.config.ts`) |
-| Lint / format | **ESLint 9** flat config (`eslint.config.js`); **Prettier 3** (`npm run format`) — there is **no** `lint` npm script; use `npx eslint` as needed |
-| Runtime HTTP / JSON for API calls | **None** in library code; `regions.json` is a **build-time** asset (see below) |
+| Language | TypeScript **4.9** (`tsconfig.json`: `strict: true`, `strictNullChecks: false`) |
+| Build | `tsc` → `dist/lib` + declarations in `dist/types/`; **Rollup** → `dist/index.es.js` (`rollup.config.js`). `prebuild` runs `download-regions` for `src/assets/regions.json`. |
+| Tests | **Jest 29** + **ts-jest**, **jsdom** (`jest.config.ts`). Tests under **`__test__/**/*.test.ts`**, mocks in **`__test__/mock/`**. |
+| Lint / coverage | **ESLint 9** flat config (`eslint.config.js`); **Prettier 3** (`npm run format`). Coverage under `reports/coverage/` when running `npm test`. |
+| Runtime | No HTTP client dependency; pure transforms + bundled `regions.json` for endpoints. |
 
-## Source layout and public API
+## Commands (quick reference)
 
-| Role | Path |
-|------|------|
-| Public entry (sources) | `src/index.ts` |
-| Options / render types | `src/options/` |
-| RTE / node model | `src/Models/`, `src/nodes/` |
-| Helpers | `src/helper/` |
-| GQL + asset URL rewrite | `src/gql.ts`, `src/updateAssetURLForGQL.ts` |
-| Endpoints helper | `src/endpoints.ts` + `src/assets/regions.json` (generated; see build) |
-| Published bundle | `dist/` (per `package.json` `main` / `types`) |
+```bash
+npm run build && npm test
+npx eslint src __test__
+npm run format
+npm run download-regions   # regions.json only (also run as part of prebuild)
+```
 
-## Common commands
+`npm test` runs **`pretest` → `npm run build`**, then Jest with coverage; outputs under **`reports/`**. Use **`npm run test:debug`** for Jest watch mode (`--runInBand`).
 
-| Command | Purpose |
-|---------|---------|
-| `npm run build` | Cleans `dist`, ensures `src/assets/regions.json` (download or warning), runs `tsc` + Rollup |
-| `npm test` | Runs `pretest` → **build**, then Jest with coverage; outputs under `reports/` |
-| `npm run test:debug` | Jest watch, in-band |
-| `npm run format` | Prettier on `src/**/*.ts` |
-| `npm run download-regions` | Fetches `regions.json` only (used by `prebuild`) |
+**CI:** `.github/workflows/ci.yml` (unit tests / coverage on `development`, `staging`, `master`). Branch rules: `.github/workflows/check-branch.yml`. Publish: `.github/workflows/npm-publish.yml` (on GitHub release).
 
-**Tests:** Unit tests only, under `__test__/**/*.test.ts`, with mocks in `__test__/mock/`. There are **no** live/integration tests requiring stack credentials in this repository.
+Install: `npm i @contentstack/utils` — see root **`README.md`** and **`package.json`** for the current version.
 
-## Credentials / environment
+## Where the real documentation lives: skills
 
-- **Unit tests:** No API keys or `.env` required.
-- **Build:** `download-regions` calls a public URL (`artifacts.contentstack.com`); offline builds may warn and rely on an existing `src/assets/regions.json`. Note `regions.json` is listed in `.gitignore`; clones may need a successful `npm run build` (or manual file) before tests pass.
-- **Publish:** GitHub release workflow uses `NPM_TOKEN` / `GIT_TOKEN` secrets (maintainers only).
+Read these **`SKILL.md` files** for full conventions—**this is the source of truth** for implementation and review:
 
-## More detail for AI / IDE rules
+| Skill | Path | What it covers |
+|-------|------|----------------|
+| **Development workflow** | [`skills/dev-workflow/SKILL.md`](skills/dev-workflow/SKILL.md) | Branches, CI, build/test/lint, Husky (Snyk/Talisman, commitlint), PR expectations, releases |
+| **TypeScript (layout & tooling)** | [`skills/typescript/SKILL.md`](skills/typescript/SKILL.md) | Compiler settings, `src/` layout, ESLint/Prettier, `regions.json` / `.gitignore` |
+| **Contentstack Utils (package)** | [`skills/contentstack-utils/SKILL.md`](skills/contentstack-utils/SKILL.md) | Public API and domain: exports from `src/index.ts`, RTE/embed/GQL/endpoints/Live Preview/variants—not the full CDA/CMA SDK; no network layer |
+| **Testing** | [`skills/testing/SKILL.md`](skills/testing/SKILL.md) | Jest, mocks, coverage/report paths, `pretest` build, offline unit tests (no stack credentials) |
+| **Code review** | [`skills/code-review/SKILL.md`](skills/code-review/SKILL.md) | PR checklist (API docs, compatibility, errors, deps/SCA, tests), Blocker/Major/Minor, terminology |
 
-- [`.cursor/rules/README.md`](.cursor/rules/README.md) — Cursor rules index (`alwaysApply`, globs, when to use).
-- [`skills/README.md`](skills/README.md) — Topic skills (testing, code review, package mental model).
+There is **no** `skills/framework/` folder: this repo does not ship a shared HTTP client, retry layer, or native build system beyond npm/TypeScript/Rollup.
+
+## Using Cursor
+
+If you use **Cursor**, [`.cursor/rules/README.md`](.cursor/rules/README.md) only points to **`AGENTS.md`**—same source of truth as everyone else; no separate `.mdc` rule files.
