@@ -6,7 +6,7 @@ Thank you for your interest in contributing to Contentstack Utils JavaScript. Th
 
 **All pull requests must be raised against the `development` branch.**
 
-Do not open PRs against `master` or `staging`. Create your feature or fix branch from `development`, and open your PR to merge into `development`. Maintainers will handle promotion to other branches after review.
+Feature/fix PRs should merge into `development`. Release PRs are raised by maintainers directly from `development` to `master`.
 
 ## Getting Started
 
@@ -92,7 +92,7 @@ Husky is used for Git hooks. Before each commit, the pre-commit hook runs. Ensur
    git rebase upstream/development
    ```
 
-2. **Open a Pull Request** against the **`development`** branch (not `master` or `staging`).
+2. **Open a Pull Request** against the **`development`** branch for feature/fix work. Maintainers handle release PRs from `development` to `master`.
 
 3. **Fill out the PR template** (if one exists) and provide:
    - A clear title and description of the change
