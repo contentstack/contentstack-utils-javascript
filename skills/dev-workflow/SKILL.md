@@ -43,4 +43,4 @@ description: Branches, CI, build/test/lint commands, git hooks, PR expectations,
 
 - Version in **`package.json`** and **`CHANGELOG.md`**.
 - **`prepublishOnly`** runs **`npm test`**.
-- **npm / GitHub Packages:** `.github/workflows/npm-publish.yml` on **tag push (`v*`)**; secrets `NPM_TOKEN`, `GIT_TOKEN` (maintainers).
+- **npm / GitHub Packages:** `.github/workflows/npm-publish.yml` on **`release: types: [created]`** for tag **`v*`** (draft releases skipped); secrets `NPM_TOKEN`, `GIT_TOKEN` (maintainers).

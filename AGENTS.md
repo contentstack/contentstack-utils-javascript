@@ -29,7 +29,7 @@ npm run download-regions   # regions.json only (also run as part of prebuild)
 
 `npm test` runs **`pretest` → `npm run build`**, then Jest with coverage; outputs under **`reports/`**. Use **`npm run test:debug`** for Jest watch mode (`--runInBand`).
 
-**CI:** `.github/workflows/ci.yml` (unit tests / coverage on `development`, `master`). Publish: `.github/workflows/npm-publish.yml` (on tag push `v*`). Back-merge automation: `.github/workflows/back-merge-pr.yml`.
+**CI:** `.github/workflows/ci.yml` (unit tests / coverage on `development`, `master`). Publish: `.github/workflows/npm-publish.yml` (GitHub **Release** created for tag `v*`; draft releases are skipped). Back-merge automation: `.github/workflows/back-merge-pr.yml`.
 
 Install: `npm i @contentstack/utils` — see root **`README.md`** and **`package.json`** for the current version.
 
