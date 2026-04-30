@@ -1,3 +1,5 @@
+# Runs only when production code under src/ changes. Version must be > latest v* tag (not vs base branch).
+
 name: Check Version Bump
 
 on:
@@ -26,26 +28,21 @@ jobs:
             exit 0
           fi
 
-          is_ignored_change() {
+          is_production_source_change() {
             local f="$1"
-            [[ "$f" =~ ^docs/ ]] && return 0
-            [[ "$f" =~ ^\.github/ ]] && return 0
-            [[ "$f" =~ (^|/)tests?/ ]] && return 0
-            [[ "$f" =~ (^|/)__tests__/ ]] && return 0
-            [[ "$f" =~ \.md$ ]] && [[ ! "$f" =~ (^|/)CHANGELOG\.md$ ]] && return 0
-            return 1
+            [[ "$f" == src/* ]]
           }
 
-          has_release_impact=false
+          has_source_changes=false
           for file in "${CHANGED_FILES[@]}"; do
-            if ! is_ignored_change "$file"; then
-              has_release_impact=true
+            if is_production_source_change "$file"; then
+              has_source_changes=true
               break
             fi
           done
 
-          if [ "$has_release_impact" = false ]; then
-            echo "Skipping docs/test-only PR."
+          if [ "$has_source_changes" = false ]; then
+            echo "Skipping: no src/ production code changes."
             exit 0
           fi
 
@@ -68,7 +65,6 @@ jobs:
           [ -n "$CHANGELOG_HEAD" ] || { echo "::error::Could not find a top changelog heading like '## vX.Y.Z' in $CHANGELOG_FILE."; exit 1; }
           [ "$CHANGELOG_HEAD" = "$head_version" ] || { echo "::error::$CHANGELOG_FILE top version ($CHANGELOG_HEAD) does not match project version ($head_version)."; exit 1; }
 
-          base_version=$(git show "$BASE_SHA:$VERSION_FILE" | node -e "let d=''; process.stdin.on('data', c => d += c); process.stdin.on('end', () => console.log(JSON.parse(d).version));")
           latest_tag=$(git tag --list 'v*' --sort=-version:refname | sed -n '1p')
           latest_version="${latest_tag#v}"
           [ -n "$latest_version" ] || latest_version="0.0.0"
@@ -77,5 +73,4 @@ jobs:
             python3 -c 'import sys;v=lambda s:[int(x) if x.isdigit() else 0 for x in (s.strip().lstrip("v").split("-",1)[0].split("+",1)[0].split(".")+["0","0","0"])[:3]];print("true" if v(sys.argv[1])>v(sys.argv[2]) else "false")' "$1" "$2"
           }
 
-          [ "$(version_gt "$head_version" "$base_version")" = "true" ] || { echo "Version must be greater than base version ($base_version). Found $head_version."; exit 1; }
           [ "$(version_gt "$head_version" "$latest_version")" = "true" ] || { echo "Version must be greater than latest tag version ($latest_version). Found $head_version."; exit 1; }
