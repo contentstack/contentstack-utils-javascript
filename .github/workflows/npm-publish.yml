@@ -1,4 +1,4 @@
-# This workflow will publish a package to GitHub Packages when a release is created
+# This workflow publishes packages when a GitHub Release is created for a version tag.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
 name: Publish package to NPM repository
@@ -8,9 +8,12 @@ on:
 
 jobs:
   publish-npm:
+    if: ${{ startsWith(github.event.release.tag_name, 'v') && !github.event.release.draft }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
@@ -20,9 +23,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   publish-git:
+    if: ${{ startsWith(github.event.release.tag_name, 'v') && !github.event.release.draft }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'

@@ -15,8 +15,8 @@ description: Branches, CI, build/test/lint commands, git hooks, PR expectations,
 
 ### Branches and PRs
 
-- **CI** (`Unit-Test-CI`) runs on **push/PR** to `development`, `staging`, and `master` (`.github/workflows/ci.yml`).
-- **Branch check:** PRs **into `staging`** from a head branch other than **`development`** fail (`.github/workflows/check-branch.yml`). Prefer **`development`** as the integration branch when aligning with upstream.
+- **CI** (`Unit-Test-CI`) runs on **push/PR** to `development` and `master` (`.github/workflows/ci.yml`).
+- Feature/fix PRs should target **`development`**. Release PRs are raised directly from **`development`** to **`master`**.
 - Confirm target branch with maintainers if unsure.
 
 ### Commands
@@ -43,4 +43,4 @@ description: Branches, CI, build/test/lint commands, git hooks, PR expectations,
 
 - Version in **`package.json`** and **`CHANGELOG.md`**.
 - **`prepublishOnly`** runs **`npm test`**.
-- **npm / GitHub Packages:** `.github/workflows/npm-publish.yml` on **release `created`**; secrets `NPM_TOKEN`, `GIT_TOKEN` (maintainers).
+- **npm / GitHub Packages:** `.github/workflows/npm-publish.yml` on **`release: types: [created]`** for tag **`v*`** (draft releases skipped); secrets `NPM_TOKEN`, `GIT_TOKEN` (maintainers).
