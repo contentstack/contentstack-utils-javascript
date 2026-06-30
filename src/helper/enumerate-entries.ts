@@ -85,6 +85,10 @@ export function textNodeToHTML(node: TextNode, renderOption: RenderOption): stri
     text = (renderOption[MarkType.BOLD] as RenderMark)(text);
     hasMarks = true;
   }
+  if (node.highlight) {
+    text = (renderOption[MarkType.HIGHLIGHT] as RenderMark)(text);
+    hasMarks = true;
+  }
   
   // If no marks were applied, but text contains newlines, convert them to <br />
   if (!hasMarks && text.includes('\n')) {
