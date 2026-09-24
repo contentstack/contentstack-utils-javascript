@@ -1,0 +1,59 @@
+# Opens a PR from master → development after changes land on master (back-merge).
+#
+# Org/repo Settings → Actions → General → Workflow permissions: read and write
+# (so GITHUB_TOKEN can create pull requests). Or use a PAT in secret GH_TOKEN.
+
+name: Back-merge master to development
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-back-merge-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Open back-merge PR if needed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git fetch origin development master
+
+          MASTER_SHA=$(git rev-parse origin/master)
+          DEV_SHA=$(git rev-parse origin/development)
+
+          if [ "$MASTER_SHA" = "$DEV_SHA" ]; then
+            echo "master and development are at the same commit; nothing to back-merge."
+            exit 0
+          fi
+
+          EXISTING=$(gh pr list --repo "${{ github.repository }}" \
+            --base development \
+            --head master \
+            --state open \
+            --json number \
+            --jq 'length')
+
+          if [ "$EXISTING" -gt 0 ]; then
+            echo "An open PR from master to development already exists; skipping."
+            exit 0
+          fi
+
+          gh pr create --repo "${{ github.repository }}" \
+            --base development \
+            --head master \
+            --title "chore: back-merge master into development" \
+            --body "Automated back-merge after changes landed on \`master\`. Review and merge to keep \`development\` in sync."
+
+          echo "Created back-merge PR master → development."

@@ -1,0 +1,76 @@
+# Runs only when production code under src/ changes. Version must be > latest v* tag (not vs base branch).
+
+name: Check Version Bump
+
+on:
+  pull_request:
+
+jobs:
+  check-version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate version and changelog updates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          VERSION_FILE="package.json"
+          CHANGELOG_FILE="CHANGELOG.md"
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+
+          mapfile -t CHANGED_FILES < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          if [ "${#CHANGED_FILES[@]}" -eq 0 ]; then
+            echo "No changed files detected."
+            exit 0
+          fi
+
+          is_production_source_change() {
+            local f="$1"
+            [[ "$f" == src/* ]]
+          }
+
+          has_source_changes=false
+          for file in "${CHANGED_FILES[@]}"; do
+            if is_production_source_change "$file"; then
+              has_source_changes=true
+              break
+            fi
+          done
+
+          if [ "$has_source_changes" = false ]; then
+            echo "Skipping: no src/ production code changes."
+            exit 0
+          fi
+
+          changed_file() {
+            local target="$1"
+            for file in "${CHANGED_FILES[@]}"; do
+              if [ "$file" = "$target" ]; then
+                return 0
+              fi
+            done
+            return 1
+          }
+
+          changed_file "$VERSION_FILE" || { echo "Version bump required in $VERSION_FILE."; exit 1; }
+          changed_file "$CHANGELOG_FILE" || { echo "Matching changelog update required in $CHANGELOG_FILE."; exit 1; }
+
+          head_version=$(node -e "console.log(require('./package.json').version)")
+          CHANGELOG_HEAD=$(sed -nE 's/^## v?([^[:space:]]+).*/\1/p' "$CHANGELOG_FILE" | head -1)
+
+          [ -n "$CHANGELOG_HEAD" ] || { echo "::error::Could not find a top changelog heading like '## vX.Y.Z' in $CHANGELOG_FILE."; exit 1; }
+          [ "$CHANGELOG_HEAD" = "$head_version" ] || { echo "::error::$CHANGELOG_FILE top version ($CHANGELOG_HEAD) does not match project version ($head_version)."; exit 1; }
+
+          latest_tag=$(git tag --list 'v*' --sort=-version:refname | sed -n '1p')
+          latest_version="${latest_tag#v}"
+          [ -n "$latest_version" ] || latest_version="0.0.0"
+
+          version_gt() {
+            python3 -c 'import sys;v=lambda s:[int(x) if x.isdigit() else 0 for x in (s.strip().lstrip("v").split("-",1)[0].split("+",1)[0].split(".")+["0","0","0"])[:3]];print("true" if v(sys.argv[1])>v(sys.argv[2]) else "false")' "$1" "$2"
+          }
+
+          [ "$(version_gt "$head_version" "$latest_version")" = "true" ] || { echo "Version must be greater than latest tag version ($latest_version). Found $head_version."; exit 1; }
