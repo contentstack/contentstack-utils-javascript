@@ -4,3 +4,5 @@ fileignoreconfig:
       - filecontent
   - filename: package-lock.json
     checksum: 8e62821551e64c0fbd23ce2951b44e41561196f0d38b6a2da7de1f6921b48865
+  - filename: .github/workflows/ci.yml
+    checksum: 14991153c5531029f3ac14dbce6fab70aa4b654d445a3514083d446bfadc8813
