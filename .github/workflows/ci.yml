@@ -9,9 +9,13 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
     steps:
         - uses: actions/checkout@v3
-        - uses: ArtiomTr/jest-coverage-report-action@v2
+        - uses: ArtiomTr/jest-coverage-report-action@7f750dd50f5585533321eb7ebc482b936b49a5d4 # v2
           id: coverage-utils-js
           with:
             output: comment, report-markdown
