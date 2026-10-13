@@ -20,6 +20,15 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org/
           cache: 'npm'
+      - name: Check the release tag matches package.json
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          PKG_VERSION="v$(node -p "require('./package.json').version")"
+          if [ "$RELEASE_TAG" != "$PKG_VERSION" ]; then
+            echo "::error::release tag $RELEASE_TAG does not match package.json version $PKG_VERSION"
+            exit 1
+          fi
       - run: npm ci
       - name: Update npm
         run: npm install -g npm@latest
@@ -42,10 +51,19 @@ jobs:
           node-version: 24
           registry-url: https://npm.pkg.github.com/
           cache: 'npm'
+      - name: Check the release tag matches package.json
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          PKG_VERSION="v$(node -p "require('./package.json').version")"
+          if [ "$RELEASE_TAG" != "$PKG_VERSION" ]; then
+            echo "::error::release tag $RELEASE_TAG does not match package.json version $PKG_VERSION"
+            exit 1
+          fi
       - run: npm ci
       - name: Update npm
         run: npm install -g npm@latest
       - name: Release
-        run: npm publish
+        run: npm publish --tag ${{ github.event.release.prerelease && 'beta' || 'latest' }}
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
