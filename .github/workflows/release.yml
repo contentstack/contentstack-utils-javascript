@@ -64,6 +64,6 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
       - name: Release
-        run: npm publish --tag ${{ github.event.release.prerelease && 'beta' || 'latest' }}
+        run: npm publish --access public --tag ${{ github.event.release.prerelease && 'beta' || 'latest' }}
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
