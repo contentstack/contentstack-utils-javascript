@@ -14,13 +14,14 @@ jobs:
           fetch-depth: 0
       - name: Validate version and changelog updates
         shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
 
           VERSION_FILE="package.json"
           CHANGELOG_FILE="CHANGELOG.md"
-          BASE_SHA="${{ github.event.pull_request.base.sha }}"
-          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
 
           mapfile -t CHANGED_FILES < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
           if [ "${#CHANGED_FILES[@]}" -eq 0 ]; then

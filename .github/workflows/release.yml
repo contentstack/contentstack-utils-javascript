@@ -33,7 +33,9 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
       - name: Release
-        run: npm publish --access public --tag ${{ github.event.release.prerelease && 'beta' || 'latest' }}
+        env:
+          NPM_TAG: ${{ github.event.release.prerelease && 'beta' || 'latest' }}
+        run: npm publish --access public --tag "$NPM_TAG"
 
   publish-github:
     if: ${{ startsWith(github.event.release.tag_name, 'v') && !github.event.release.draft }}
@@ -64,6 +66,7 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
       - name: Release
-        run: npm publish --access public --tag ${{ github.event.release.prerelease && 'beta' || 'latest' }}
+        run: npm publish --access public --tag "$NPM_TAG"
         env:
+          NPM_TAG: ${{ github.event.release.prerelease && 'beta' || 'latest' }}
           NODE_AUTH_TOKEN: ${{ github.token }}
