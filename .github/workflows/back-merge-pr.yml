@@ -26,6 +26,7 @@ jobs:
       - name: Open back-merge PR if needed
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           git fetch origin development master
@@ -38,7 +39,7 @@ jobs:
             exit 0
           fi
 
-          EXISTING=$(gh pr list --repo "${{ github.repository }}" \
+          EXISTING=$(gh pr list --repo "$REPO" \
             --base development \
             --head master \
             --state open \
@@ -50,7 +51,7 @@ jobs:
             exit 0
           fi
 
-          gh pr create --repo "${{ github.repository }}" \
+          gh pr create --repo "$REPO" \
             --base development \
             --head master \
             --title "chore: back-merge master into development" \
